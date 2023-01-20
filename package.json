@@ -11,7 +11,7 @@
   "scripts": {
     "rollup": "rm -rf /dist && rollup -c",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -o docs-build"
+    "build-storybook": "build-storybook -o docs"
   },
   "author": "",
   "license": "ISC",
