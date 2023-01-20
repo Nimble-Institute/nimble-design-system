@@ -11,7 +11,7 @@
   "scripts": {
     "rollup": "rm -rf /dist && rollup -c",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o docs-build"
   },
   "author": "",
   "license": "ISC",
@@ -46,5 +46,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.5",
+    "polished": "^4.2.2"
+  }
 }
