@@ -56,7 +56,7 @@ export const Button: React.FC<ButtonProps> = ({
         },
       }}
     >
-      {label} Manoj
+      {label}
     </MaterialButtom>
   );
 };
