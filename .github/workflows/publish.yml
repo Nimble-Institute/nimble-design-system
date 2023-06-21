@@ -41,14 +41,3 @@ jobs:
         env:
           # We need this to our NPM account
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.build-publish.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - id: build-publish
-        uses: manoj201/github-actions-react-to-ghp@v1.2.0
-        with:
-          path: dist/storybook
-          build_command: npm run build-storybook
