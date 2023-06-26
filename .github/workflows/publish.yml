@@ -7,6 +7,8 @@ on:
     branches: [main]
   pull_request:
     branches: '*'
+permissions:
+  contents: write
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -44,6 +46,6 @@ jobs:
           yarn install
           yarn build-storybook
       - name: Deploy Storybook
-        uses: JamesIves/github-pages-deploy-action@3.6.2
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: storybook-static
