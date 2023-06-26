@@ -4,9 +4,10 @@ name: build
 on:
   # Triggers the workflow on published releases
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
     branches: '*'
+
 permissions:
   contents: read
   pages: write
