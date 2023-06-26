@@ -77,7 +77,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           },
         },
       },
-      //   MuiAutocomplete: {
+      //  MuiAutocomplete: {
       //     styleOverrides: {
       //       option: {
       //         '&[aria-selected="true"]': {
