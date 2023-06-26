@@ -10,8 +10,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 
 import closeSVG from './close.svg';
 import clearSVG from './clear.svg';
-
-import {top100Films} from './data';
+import errorSVG from './error.svg';
 
 interface NimbleAutocompleteDataType {
   label: string;
@@ -28,6 +27,9 @@ interface NimbleAutoCompleteProps {
   chipColor?: string;
   onChange: (value: NimbleAutocompleteDataType[]) => void;
   data: NimbleAutocompleteDataType[];
+  isRequired?: boolean;
+  isError?: boolean;
+  errorMessage?: string;
 }
 
 export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
@@ -40,6 +42,9 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   chipColor = '#820505',
   onChange,
   data,
+  isRequired,
+  isError,
+  errorMessage,
   ...props
 }) => {
   const [selectedValues, setSelectedValues] = useState<NimbleAutocompleteDataType[]>([]);
@@ -51,7 +56,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           root: {
             borderRadius: '5px',
             '.MuiOutlinedInput-notchedOutline': {
-              borderColor: borderColor,
+              borderColor: isError ? '#EC4C29' : borderColor,
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
               border: '0px',
@@ -109,12 +114,14 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
             fontFamily: fontFamily,
           }}>
           {label}
+          {isRequired && <span style={{marginLeft: '4px', color: '#EC4C29', fontSize: labelSize}}>*</span>}
         </Typography>
       )}
       <ThemeProvider theme={theme}>
         <Autocomplete
           onChange={handleOnChnage}
           multiple
+          disableCloseOnSelect
           disablePortal
           id="combo-box-demo"
           options={data}
@@ -159,6 +166,22 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           {...props}
         />
       </ThemeProvider>
+      {isError && (
+        <span style={{display: 'flex', marginTop: '4px'}}>
+          <img src={errorSVG} />
+          <Typography
+            sx={{
+              fontSize: '12px',
+              fontWeight: '500',
+              lineHeight: '16px',
+              fontFamily: fontFamily,
+              marginLeft: '4px',
+              color: '#EC4C29',
+            }}>
+            {errorMessage}
+          </Typography>
+        </span>
+      )}
     </span>
   );
 };
