@@ -11,6 +11,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "commit": "git-cz",
+    "acp": "git add . && npm run commit && git push",
     "rollup": "rm -rf /dist && rollup -c",
     "storybook": "storybook dev -p 6006",
     "predeploy": "npm run build-storybook",
