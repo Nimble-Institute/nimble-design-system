@@ -41,7 +41,6 @@ jobs:
 
       - name: Publish
         run: yarn semantic-release
-
         env:
-          # We need this to our NPM account
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
