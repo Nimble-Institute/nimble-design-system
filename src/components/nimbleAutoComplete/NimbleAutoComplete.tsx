@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import TextField from '@mui/material/TextField';
-import Autocomplete, {autocompleteClasses} from '@mui/material/Autocomplete';
+import Autocomplete, {autocompleteClasses, AutocompleteProps} from '@mui/material/Autocomplete';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import {InternalStandardProps as StandardProps} from '@mui/material';
 
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 
@@ -18,9 +19,10 @@ interface NimbleAutocompleteDataType {
   value: number;
 }
 
-interface NimbleAutoCompleteProps {
+interface NimbleAutoCompleteProps
+  extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> {
   label?: string;
-  labelSize: number;
+  labelSize?: number;
   labelWeight?: '400' | '500' | '600' | '700';
   fontFamily?: string;
   borderColor?: string;
@@ -41,8 +43,8 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   placeholder,
   fontFamily,
   borderColor = '#9A9FA5',
-  activeBoxShadow = 'rgb(219, 242, 251) 0px 0px 0px 2px, rgb(119, 203, 237) 0px 0px 0px 1px inset',
-  chipColor = '#820505',
+  activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
+  chipColor = '#9FC540',
   onChange,
   data,
   isRequired,
