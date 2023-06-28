@@ -22,6 +22,7 @@ interface NimbleAutocompleteDataType {
 interface NimbleAutoCompleteProps
   extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> {
   label?: string;
+  width?: string;
   labelSize?: number;
   labelWeight?: '400' | '500' | '600' | '700';
   fontFamily?: string;
@@ -50,6 +51,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   isRequired,
   isError,
   errorMessage,
+  width = '100%',
   ...props
 }) => {
   const [selectedValues, setSelectedValues] = useState<NimbleAutocompleteDataType[]>([]);
@@ -176,7 +178,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           id="combo-box-demo"
           options={data}
           sx={{
-            width: 600,
+            width: width,
             [`& .${autocompleteClasses.popupIndicator}`]: {
               transform: 'none',
             },

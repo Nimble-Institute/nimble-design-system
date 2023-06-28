@@ -30,5 +30,6 @@ export const Autocomplete = {
       {label: 'Option E', value: 5},
     ],
     placeholder: 'Input search',
+    width: '500px',
   },
 };
