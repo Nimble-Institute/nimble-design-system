@@ -1,18 +1,13 @@
 import React, {useState} from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete, {autocompleteClasses, AutocompleteProps} from '@mui/material/Autocomplete';
-import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
-import Paper from '@mui/material/Paper';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import {InternalStandardProps as StandardProps} from '@mui/material';
-
+import {TextField, Autocomplete, Chip, Paper, Typography, InternalStandardProps as StandardProps} from '@mui/material';
+import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 
-import closeSVG from './close.svg';
-import searchSVG from './search.svg';
-import clearSVG from './clear.svg';
-import errorSVG from './error.svg';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import closeSVG from '../../assets/images/close.svg';
+import searchSVG from '../../assets/images/search.svg';
+import clearSVG from '../../assets/images/clear.svg';
+import errorSVG from '../../assets/images/error.svg';
 
 interface NimbleAutocompleteDataType {
   label: string;
@@ -148,7 +143,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           lineHeight: '20px',
           padding: '6px 4px',
         }}>
-        {option.label}{' '}
+        {option.label}
       </Typography>
       {isValueSelected(option.value) && <CheckCircleOutlineIcon sx={{fontSize: 18, color: chipColor}} />}
     </li>
@@ -191,7 +186,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           )}
           ListboxProps={{
             style: {
-              maxHeight: '175px',
+              maxHeight: '172px',
             },
           }}
           clearIcon={<img src={clearSVG} />}
