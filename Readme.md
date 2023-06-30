@@ -27,9 +27,10 @@
 You can use this npm package on any React project (Js / Typescript)
 
 ```bash
-# Clone this repository
+# Install the library
 $ yarn add nimble-design-system
 
+# Usage
 import {NimbleAutoComplete} from 'nimble-design-system'
 
 ```
