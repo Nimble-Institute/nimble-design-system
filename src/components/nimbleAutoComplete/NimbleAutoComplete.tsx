@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextField, Autocomplete, Chip, Paper, Typography, InternalStandardProps as StandardProps} from '@mui/material';
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
@@ -24,12 +24,13 @@ interface NimbleAutoCompleteProps
   borderColor?: string;
   activeBoxShadow?: string;
   chipColor?: string;
-  onChange: (value: NimbleAutocompleteDataType[]) => void;
+  onChange: (value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null) => void;
   data: NimbleAutocompleteDataType[];
   isRequired?: boolean;
   isError?: boolean;
   errorMessage?: string;
   placeholder?: string;
+  multiple?: boolean;
 }
 
 export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
@@ -47,10 +48,9 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   isError,
   errorMessage,
   width = '100%',
+  multiple = true,
   ...props
 }) => {
-  const [selectedValues, setSelectedValues] = useState<NimbleAutocompleteDataType[]>([]);
-
   const theme = createTheme({
     components: {
       MuiOutlinedInput: {
@@ -82,13 +82,11 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     },
   });
 
-  const handleOnChnage = (event: React.SyntheticEvent, value: NimbleAutocompleteDataType[]) => {
-    setSelectedValues(value);
+  const handleOnChnage = (
+    event: React.SyntheticEvent,
+    value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null,
+  ) => {
     onChange(value);
-  };
-
-  const isValueSelected = (value: any) => {
-    return selectedValues.find(item => item.value === value);
   };
 
   const CustomPaper = (props: any) => {
@@ -106,48 +104,55 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   };
 
   const renderTags = (value: any, getTagProps: any) => {
-    return value.map((option: any, index: number) => (
-      <Chip
-        variant="filled"
-        label={option.label}
-        {...getTagProps({index})}
-        key={index}
-        sx={{
-          backgroundColor: chipColor,
-          color: '#fff',
-          borderRadius: '3px',
-          padding: '2px, 4px, 2px, 4px',
-          fontFamily: fontFamily,
-          fontSize: '12px',
-          maxHeight: '18px',
-        }}
-        deleteIcon={<img src={closeSVG} />}
-      />
-    ));
+    return (
+      <div style={{maxHeight: '100px', overflow: 'auto', minWidth: '105%'}}>
+        {value.map((option: any, index: number) => (
+          <Chip
+            variant="filled"
+            label={option.label}
+            {...getTagProps({index})}
+            key={index}
+            sx={{
+              backgroundColor: chipColor,
+              color: '#fff',
+              borderRadius: '3px',
+              padding: '2px, 4px, 2px, 4px',
+              fontFamily: fontFamily,
+              fontSize: '12px',
+              maxHeight: '18px',
+            }}
+            deleteIcon={<img src={closeSVG} />}
+          />
+        ))}
+      </div>
+    );
   };
 
-  const renderOption = (props: any, option: any) => (
-    <li
-      {...props}
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        borderBottom: '1px solid #E2E2E2',
-      }}>
-      <Typography
-        sx={{
-          fontSize: '16px',
-          fontFamily: fontFamily,
-          color: '#0C1B2A',
-          lineHeight: '20px',
-          padding: '6px 4px',
+  const renderOption = (props: any, option: any) => {
+    return (
+      <ul
+        {...props}
+        role="list-box"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid #E2E2E2',
         }}>
-        {option.label}
-      </Typography>
-      {isValueSelected(option.value) && <CheckCircleOutlineIcon sx={{fontSize: 18, color: chipColor}} />}
-    </li>
-  );
+        <Typography
+          sx={{
+            fontSize: '16px',
+            fontFamily: fontFamily,
+            color: '#0C1B2A',
+            lineHeight: '20px',
+            padding: '6px 4px',
+          }}>
+          {option.label}
+        </Typography>
+        {props['aria-selected'] && <CheckCircleOutlineIcon sx={{fontSize: 18, color: chipColor}} />}
+      </ul>
+    );
+  };
 
   return (
     <span>
@@ -167,9 +172,8 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
       <ThemeProvider theme={theme}>
         <Autocomplete
           onChange={handleOnChnage}
-          multiple
+          multiple={multiple}
           disableCloseOnSelect
-          disablePortal
           id="combo-box-demo"
           options={data}
           sx={{
@@ -181,9 +185,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           renderTags={renderTags}
           getOptionLabel={option => option.label}
           renderOption={renderOption}
-          renderInput={params => (
-            <TextField {...params} size="small" placeholder={!selectedValues.length ? placeholder : undefined} />
-          )}
+          renderInput={params => <TextField {...params} size="small" placeholder={placeholder} />}
           ListboxProps={{
             style: {
               maxHeight: '172px',
