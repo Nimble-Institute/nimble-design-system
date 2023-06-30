@@ -2,6 +2,7 @@ import React from 'react';
 import {TextField, Autocomplete, Chip, Paper, Typography, InternalStandardProps as StandardProps} from '@mui/material';
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {styled} from '@mui/system';
 
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import closeSVG from '../../assets/images/close.svg';
@@ -32,6 +33,13 @@ interface NimbleAutoCompleteProps
   placeholder?: string;
   multiple?: boolean;
 }
+
+const OptionPaper = styled(Paper)({
+  marginTop: '8px',
+  borderRadius: '5px',
+  backgroundColor: '#ffffffcc',
+  boxShadow: '0px 4px 16px 0px rgba(22, 22, 22, 0.11);',
+});
 
 export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   label,
@@ -82,6 +90,56 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     },
   });
 
+  const TagWrapper = styled('div')({maxHeight: '100px', overflow: 'auto', minWidth: '105%'});
+
+  const TagChip = styled(Chip)({
+    backgroundColor: chipColor,
+    color: '#fff',
+    borderRadius: '3px',
+    padding: '2px, 4px, 2px, 4px',
+    fontFamily: fontFamily,
+    fontSize: '12px',
+    maxHeight: '18px',
+  });
+
+  const OptionList = styled('li')({
+    display: 'flex ',
+    flexDirection: 'row',
+    justifyContent: 'space-between ',
+    borderBottom: '1px solid #E2E2E2',
+  });
+
+  const OptionLabel = styled(Typography)({
+    fontSize: '16px',
+    fontFamily: fontFamily,
+    color: '#0C1B2A',
+    lineHeight: '20px',
+    padding: '6px 4px',
+    width: '100%',
+  });
+
+  const SlectedIcon = styled(CheckCircleOutlineIcon)({
+    fontSize: 18,
+    color: chipColor,
+  });
+
+  const Label = styled(Typography)({
+    fontSize: labelSize,
+    fontWeight: labelWeight,
+    lineHeight: '20px',
+    marginBottom: '8px',
+    fontFamily: fontFamily,
+  });
+
+  const ErrorLable = styled(Typography)({
+    fontSize: '12px',
+    fontWeight: '500',
+    lineHeight: '16px',
+    fontFamily: fontFamily,
+    marginLeft: '4px',
+    color: '#EC4C29',
+  });
+
   const handleOnChnage = (
     event: React.SyntheticEvent,
     value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null,
@@ -89,85 +147,38 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     onChange(value);
   };
 
-  const CustomPaper = (props: any) => {
-    return (
-      <Paper
-        {...props}
-        sx={{
-          marginTop: '8px',
-          borderRadius: '5px',
-          backgroundColor: '#ffffffcc',
-          boxShadow: '0px 4px 16px 0px rgba(22, 22, 22, 0.11);',
-        }}
-      />
-    );
-  };
-
   const renderTags = (value: any, getTagProps: any) => {
     return (
-      <div style={{maxHeight: '100px', overflow: 'auto', minWidth: '105%'}}>
+      <TagWrapper>
         {value.map((option: any, index: number) => (
-          <Chip
+          <TagChip
             variant="filled"
             label={option.label}
             {...getTagProps({index})}
             key={index}
-            sx={{
-              backgroundColor: chipColor,
-              color: '#fff',
-              borderRadius: '3px',
-              padding: '2px, 4px, 2px, 4px',
-              fontFamily: fontFamily,
-              fontSize: '12px',
-              maxHeight: '18px',
-            }}
             deleteIcon={<img src={closeSVG} />}
           />
         ))}
-      </div>
+      </TagWrapper>
     );
   };
 
   const renderOption = (props: any, option: any) => {
     return (
-      <ul
-        {...props}
-        role="list-box"
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid #E2E2E2',
-        }}>
-        <Typography
-          sx={{
-            fontSize: '16px',
-            fontFamily: fontFamily,
-            color: '#0C1B2A',
-            lineHeight: '20px',
-            padding: '6px 4px',
-          }}>
-          {option.label}
-        </Typography>
-        {props['aria-selected'] && <CheckCircleOutlineIcon sx={{fontSize: 18, color: chipColor}} />}
-      </ul>
+      <OptionList {...props} role="list-box">
+        <OptionLabel>{option.label}</OptionLabel>
+        {props['aria-selected'] && <SlectedIcon />}
+      </OptionList>
     );
   };
 
   return (
     <span>
       {label && (
-        <Typography
-          sx={{
-            fontSize: labelSize,
-            fontWeight: labelWeight,
-            lineHeight: '20px',
-            marginBottom: '8px',
-            fontFamily: fontFamily,
-          }}>
+        <Label>
           {label}
           {isRequired && <span style={{marginLeft: '4px', color: '#EC4C29', fontSize: labelSize}}>*</span>}
-        </Typography>
+        </Label>
       )}
       <ThemeProvider theme={theme}>
         <Autocomplete
@@ -192,7 +203,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
             },
           }}
           clearIcon={<img src={clearSVG} />}
-          PaperComponent={CustomPaper}
+          PaperComponent={(props: any) => <OptionPaper {...props} />}
           popupIcon={<img src={searchSVG} />}
           {...props}
         />
@@ -200,17 +211,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
       {isError && (
         <span style={{display: 'flex', marginTop: '4px'}}>
           <img src={errorSVG} />
-          <Typography
-            sx={{
-              fontSize: '12px',
-              fontWeight: '500',
-              lineHeight: '16px',
-              fontFamily: fontFamily,
-              marginLeft: '4px',
-              color: '#EC4C29',
-            }}>
-            {errorMessage}
-          </Typography>
+          <ErrorLable>{errorMessage}</ErrorLable>
         </span>
       )}
     </span>
