@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {TextField, Autocomplete, Chip, Paper, Typography, InternalStandardProps as StandardProps} from '@mui/material';
+import {Autocomplete, Chip, Paper, Typography} from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface TagProps {
@@ -12,11 +12,7 @@ interface OptionLabelProps {
 interface SlectedIconProps {
   chipcolor: string;
 }
-interface LabelProps {
-  labelsize: number;
-  labelweight: '400' | '500' | '600' | '700';
-  fontFamily?: string;
-}
+
 interface ErrorLableProps {
   fontFamily?: string;
 }
@@ -65,14 +61,6 @@ const SlectedIcon = styled(CheckCircleOutlineIcon)(({chipcolor}: SlectedIconProp
   color: chipcolor,
 }));
 
-const Label = styled(Typography)(({labelsize, labelweight, fontFamily}: LabelProps) => ({
-  fontSize: labelsize,
-  fontWeight: labelweight,
-  lineHeight: '20px',
-  marginBottom: '8px',
-  fontFamily: fontFamily,
-}));
-
 const ErrorLable = styled(Typography)(({fontFamily}: ErrorLableProps) => ({
   fontSize: '12px',
   fontWeight: '500',
@@ -82,4 +70,4 @@ const ErrorLable = styled(Typography)(({fontFamily}: ErrorLableProps) => ({
   color: '#EC4C29',
 }));
 
-export {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, Label, ErrorLable};
+export {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, ErrorLable};
