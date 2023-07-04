@@ -12,9 +12,6 @@ interface OptionLabelProps {
 interface SlectedIconProps {
   chipcolor: string;
 }
-interface ErrorLableProps {
-  fontFamily?: string;
-}
 
 const OptionPaper = styled(Paper)({
   marginTop: '8px',
@@ -60,13 +57,4 @@ const SlectedIcon = styled(CheckCircleOutlineIcon)(({chipcolor}: SlectedIconProp
   color: chipcolor,
 }));
 
-const ErrorLable = styled(Typography)(({fontFamily}: ErrorLableProps) => ({
-  fontSize: '12px',
-  fontWeight: '500',
-  lineHeight: '16px',
-  fontFamily: fontFamily,
-  marginLeft: '4px',
-  color: '#EC4C29',
-}));
-
-export {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, ErrorLable};
+export {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon};

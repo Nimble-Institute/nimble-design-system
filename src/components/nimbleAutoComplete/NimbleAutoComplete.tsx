@@ -3,16 +3,13 @@ import {TextField, Autocomplete, InternalStandardProps as StandardProps} from '@
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {ThemeProvider} from '@mui/material/styles';
 
-import {InputLabel, InputLabelProps} from '../shared';
-
-import theme from './CustomTheme';
-
-import {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, ErrorLable} from './StyledWrappers';
+import {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon} from './StyledWrappers';
+import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
 
 import closeSVG from '../../assets/images/close.svg';
 import searchSVG from '../../assets/images/search.svg';
 import clearSVG from '../../assets/images/clear.svg';
-import errorSVG from '../../assets/images/error.svg';
+import theme from './CustomTheme';
 
 interface NimbleAutocompleteDataType {
   label: string;
@@ -21,11 +18,8 @@ interface NimbleAutocompleteDataType {
 
 interface NimbleAutoCompleteProps
   extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'>,
-    InputLabelProps {
-  width?: string;
-  borderColor?: string;
-  activeBoxShadow?: string;
-  hoverBoxShadow?: string;
+    InputLabelProps,
+    InputBoxProps {
   chipColor?: string;
   onChange: (value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null) => void;
   data: NimbleAutocompleteDataType[];
@@ -133,12 +127,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           {...props}
         />
       </ThemeProvider>
-      {isError && (
-        <span style={{display: 'flex', marginTop: '4px'}}>
-          <img src={errorSVG} />
-          <ErrorLable fontFamily={fontFamily}>{errorMessage}</ErrorLable>
-        </span>
-      )}
+      <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
     </span>
   );
 };
