@@ -21,7 +21,7 @@ export const Autocomplete = {
     labelWeight: '600',
     borderColor: '#9A9FA5',
     activeBoxShadow: '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
-    hoverBoxShadow: '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
+    hoverBoxShadow: '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #9A9FA5 inset',
     chipColor: '#9FC540',
     data: [
       {label: 'Option A', value: 1},
@@ -43,7 +43,7 @@ export const AutocompleteWithDefaultValue = {
     labelWeight: '600',
     borderColor: '#9A9FA5',
     activeBoxShadow: '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
-    hoverBoxShadow: '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
+    hoverBoxShadow: '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #9A9FA5 inset',
     chipColor: '#9FC540',
     data: [
       {label: 'Option A', value: 1},

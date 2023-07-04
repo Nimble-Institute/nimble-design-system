@@ -9,9 +9,10 @@ const theme = (isError: boolean | undefined, borderColor: string, hoverBoxShadow
             borderRadius: '5px',
             '.MuiOutlinedInput-notchedOutline': {
               borderColor: isError ? '#EC4C29' : borderColor,
+              boxShadow: isError ? '0px 0px 0px 2px #FAD4CC' : 'none',
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              border: '0px',
+              border: '1px solid ' + borderColor,
               boxShadow: hoverBoxShadow,
             },
             '&:focus-within .MuiOutlinedInput-notchedOutline': {
