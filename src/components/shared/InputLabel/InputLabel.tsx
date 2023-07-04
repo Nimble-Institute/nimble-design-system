@@ -1,6 +1,6 @@
 import React from 'react';
 import {styled} from '@mui/system';
-import {Autocomplete, Chip, Paper, Typography} from '@mui/material';
+import {Typography} from '@mui/material';
 
 import {InputLabelProps} from '../types';
 

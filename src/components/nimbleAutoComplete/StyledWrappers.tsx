@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {Autocomplete, Chip, Paper, Typography} from '@mui/material';
+import {Chip, Paper, Typography} from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface TagProps {
