@@ -17,7 +17,7 @@
     "predeploy": "npm run build-storybook",
     "deploy-storybook": "npm run predeploy && gh-pages -d storybook-static",
     "build-storybook": "storybook build",
-    "semantic-release": "semantic-release --branches main"
+    "semantic-release": "semantic-release --branches main --version 1.2.2"
   },
   "author": "",
   "license": "ISC",
