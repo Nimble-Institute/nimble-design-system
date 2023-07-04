@@ -134,7 +134,6 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         onCalendarChange={handleCalandarChange}
         defaultValue={[defaultValue[0] && dayjs(defaultValue[0]), defaultValue[1] && dayjs(defaultValue[1])]}
         disabledDate={disabledDate}
-        value={dates || value}
         onChange={(val: any) => {
           setValue(val);
         }}
