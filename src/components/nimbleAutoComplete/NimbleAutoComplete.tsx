@@ -1,20 +1,13 @@
 import React, {useMemo} from 'react';
 import {TextField, Autocomplete, InternalStandardProps as StandardProps} from '@mui/material';
 import {autocompleteClasses} from '@mui/material/Autocomplete';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {ThemeProvider} from '@mui/material/styles';
+
+import {InputLabel, InputLabelProps} from '../shared';
 
 import theme from './CustomTheme';
 
-import {
-  OptionPaper,
-  TagWrapper,
-  TagChip,
-  OptionList,
-  OptionLabel,
-  SlectedIcon,
-  Label,
-  ErrorLable,
-} from './StyledWrappers';
+import {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, ErrorLable} from './StyledWrappers';
 
 import closeSVG from '../../assets/images/close.svg';
 import searchSVG from '../../assets/images/search.svg';
@@ -27,19 +20,15 @@ interface NimbleAutocompleteDataType {
 }
 
 interface NimbleAutoCompleteProps
-  extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'> {
-  label?: string;
+  extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'>,
+    InputLabelProps {
   width?: string;
-  labelSize?: number;
-  labelWeight?: '400' | '500' | '600' | '700';
-  fontFamily?: string;
   borderColor?: string;
   activeBoxShadow?: string;
   hoverBoxShadow?: string;
   chipColor?: string;
   onChange: (value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null) => void;
   data: NimbleAutocompleteDataType[];
-  isRequired?: boolean;
   isError?: boolean;
   errorMessage?: string;
   placeholder?: string;
@@ -107,12 +96,13 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
 
   return (
     <span>
-      {label && (
-        <Label labelsize={labelSize} labelweight={labelWeight} fontFamily={fontFamily}>
-          {label}
-          {isRequired && <span style={{marginLeft: '4px', color: '#EC4C29', fontSize: labelSize}}>*</span>}
-        </Label>
-      )}
+      <InputLabel
+        labelSize={labelSize}
+        labelWeight={labelWeight}
+        fontFamily={fontFamily}
+        isRequired={isRequired}
+        label={label}
+      />
       <ThemeProvider theme={customTheme}>
         <Autocomplete
           onChange={handleOnChnage}
