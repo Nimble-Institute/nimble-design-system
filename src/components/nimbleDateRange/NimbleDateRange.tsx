@@ -2,6 +2,7 @@ import React from 'react';
 import {DatePicker} from 'antd';
 import {MinusOutlined} from '@ant-design/icons';
 import styled from 'styled-components/dist/styled-components.js';
+
 import {InputLabel, InputLabelProps, InputBoxProps} from '../shared';
 
 interface NimbleDateRangeProps extends InputLabelProps, InputBoxProps {}
