@@ -33,7 +33,7 @@ interface NimbleDateRangeProps
   defaultValue?: [string, string];
   disablePast?: boolean;
   maxDifferentDays?: number;
-  placeholderArray: [string, string];
+  placeholderArray?: [string, string];
 }
 
 const StyledRangePicker = styled(DatePicker.RangePicker)<{
