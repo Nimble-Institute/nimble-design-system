@@ -15,5 +15,12 @@ const NimbleDateRangeStory: Meta<typeof NimbleDateRange> = {
 export default NimbleDateRangeStory;
 
 export const Autocomplete = {
-  args: {},
+  args: {
+    label: 'Select Date Range',
+    labelSize: 14,
+    labelWeight: '600',
+    borderColor: '#9A9FA5',
+    activeBoxShadow: '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
+    hoverBoxShadow: '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
+  },
 };
