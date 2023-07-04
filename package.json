@@ -1,7 +1,7 @@
 {
   "name": "nimble-design-system",
   "homepage": "http://manoj201.github.io/nimble-design-system",
-  "version": "0.0.0-development",
+  "version": "1.2.1",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
