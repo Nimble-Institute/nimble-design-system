@@ -13,6 +13,7 @@ const StyledRangePicker = styled(DatePicker.RangePicker)<{
   hoverBoxShadow: string;
 }>`
   width: 575px;
+  max-height: 34px;
   border-color: ${(props: {borderColor: string}) => props.borderColor};
   box-shadow: none;
   &:hover {
