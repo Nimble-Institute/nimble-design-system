@@ -1,7 +1,7 @@
 {
   "name": "nimble-design-system",
   "homepage": "http://manoj201.github.io/nimble-design-system",
-  "version": "1.2.2",
+  "version": "0.0.0-development",
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -17,7 +17,7 @@
     "predeploy": "npm run build-storybook",
     "deploy-storybook": "npm run predeploy && gh-pages -d storybook-static",
     "build-storybook": "storybook build",
-    "semantic-release": "semantic-release --branches main --version 1.2.2"
+    "semantic-release": "semantic-release --branches main"
   },
   "author": "",
   "license": "ISC",
