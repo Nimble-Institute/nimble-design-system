@@ -9,7 +9,6 @@ interface LabelProps {
   labelweight: '400' | '500' | '600' | '700';
   fontFamily?: string;
 }
-
 interface RequiredStarProps {
   labelsize: number;
 }
