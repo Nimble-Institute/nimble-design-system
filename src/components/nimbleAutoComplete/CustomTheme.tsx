@@ -12,7 +12,7 @@ const theme = (isError: boolean | undefined, borderColor: string, hoverBoxShadow
               boxShadow: isError ? '0px 0px 0px 2px #FAD4CC' : 'none',
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              border: '1px solid ' + borderColor,
+              border: 'none',
               boxShadow: hoverBoxShadow,
             },
             '&:focus-within .MuiOutlinedInput-notchedOutline': {
