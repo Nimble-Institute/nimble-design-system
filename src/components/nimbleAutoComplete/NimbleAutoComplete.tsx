@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {TextField, Autocomplete, InternalStandardProps as StandardProps} from '@mui/material';
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {ThemeProvider} from '@mui/material/styles';
@@ -50,6 +50,8 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   defaultValue,
   ...props
 }) => {
+  const [value, setValue] = useState<NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null>(null);
+
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow);
   }, [isError, borderColor, hoverBoxShadow, activeBoxShadow]);
@@ -59,7 +61,15 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null,
   ) => {
     onChange(value);
+    setValue(value);
   };
+
+  const preSelectedvalue = useMemo(() => {
+    if (defaultValue && Array.isArray(defaultValue)) {
+      setValue(defaultValue);
+    }
+    return defaultValue && Array.isArray(defaultValue) ? [...defaultValue] : undefined;
+  }, [defaultValue]);
 
   const renderTags = (value: any, getTagProps: any) => {
     return (
@@ -122,8 +132,9 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           clearIcon={<img src={clearSVG} />}
           PaperComponent={(props: any) => <OptionPaper {...props} />}
           popupIcon={<img src={searchSVG} />}
-          defaultValue={defaultValue}
+          defaultValue={preSelectedvalue}
           isOptionEqualToValue={(option, value) => option.value === value.value}
+          value={value || []}
           {...props}
         />
       </ThemeProvider>
