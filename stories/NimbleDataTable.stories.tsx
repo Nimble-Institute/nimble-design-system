@@ -44,14 +44,57 @@ export const Datatable = {
         sort: true,
         filter: true,
         width: '20%',
+        component: (item: any) => (
+          <div
+            style={{
+              display: 'flex',
+              width: '50%',
+              flexDirection: 'row',
+              height: '20px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#0057A2',
+              borderRadius: '5px',
+              color: '#fff',
+            }}>
+            {item.autherization}
+          </div>
+        ),
       },
     ],
+    data: [
+      {
+        name: 'Manoj Gamachchige',
+        email: 'manoj@nimble.com',
+        roles: 'admin',
+        autherization: 'user',
+      },
+      {
+        name: 'Rylie Gamachchige',
+        email: 'rylie.amelia@gmail.com',
+        roles: 'admin',
+        autherization: 'user',
+      },
+      {
+        name: 'Anuja Ulpathakubura',
+        email: 'anuja@nimble.com',
+        roles: 'admin',
+        autherization: 'user',
+      },
+      {
+        name: 'Max.L',
+        email: 'max@nimble.com',
+        roles: 'super-admin',
+        autherization: 'super',
+      },
+    ],
+    paginationData: {
+      totalPage: 10,
+      page: 1,
+      onPageChnage: (event: any, value: number) => {},
+    },
+    dataViewEnable: true,
+    dataDeleteEnable: true,
+    dataEditEnable: true,
   },
 };
-
-// label: string;
-//   dataPoint?: string;
-//   sort?: boolean;
-//   filter?: boolean;
-//   component?: any;
-//   width?: string;
