@@ -1,3 +1,5 @@
+/* @license C3.js v0.7.20 | (c) C3 Team and other contributors | http://c3js.org/ */
+
 /*!
 	Copyright (c) 2018 Jed Watson.
 	Licensed under the MIT License (MIT), see
