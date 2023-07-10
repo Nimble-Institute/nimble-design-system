@@ -3,7 +3,7 @@ import {TextField, Autocomplete, InternalStandardProps as StandardProps} from '@
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {ThemeProvider} from '@mui/material/styles';
 
-import {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon} from './StyledWrappers';
+import {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput} from './StyledWrappers';
 import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
 
 import closeSVG from '../../assets/images/close.svg';
@@ -123,7 +123,9 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           renderTags={renderTags}
           getOptionLabel={option => option.label}
           renderOption={renderOption}
-          renderInput={params => <TextField {...params} size="small" placeholder={placeholder} />}
+          renderInput={params => (
+            <TextInput {...params} size="small" placeholder={placeholder} fontFamily={fontFamily} />
+          )}
           ListboxProps={{
             style: {
               maxHeight: '172px',

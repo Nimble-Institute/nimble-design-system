@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {Chip, Paper, Typography} from '@mui/material';
+import {Chip, Paper, Typography, TextField} from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 interface TagProps {
@@ -9,6 +9,11 @@ interface TagProps {
 interface OptionLabelProps {
   fontFamily?: string;
 }
+
+interface TextInputProps {
+  fontFamily?: string;
+}
+
 interface SlectedIconProps {
   chipcolor: string;
 }
@@ -57,4 +62,8 @@ const SlectedIcon = styled(CheckCircleOutlineIcon)(({chipcolor}: SlectedIconProp
   color: chipcolor,
 }));
 
-export {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon};
+const TextInput = styled(TextField)(({fontFamily}: TextInputProps) => ({
+  '& input::placeholder': {fontSize: '14px', fontFamily: fontFamily},
+}));
+
+export {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput};
