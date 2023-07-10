@@ -42,6 +42,7 @@ const StyledRangePicker = styled(DatePicker.RangePicker)<{
   hoverBoxShadow: string;
   isError?: boolean;
   width: string;
+  fontFamily?: string;
 }>`
   width: ${(props: {width: string}) => props.width};
   max-height: 34px;
@@ -60,6 +61,10 @@ const StyledRangePicker = styled(DatePicker.RangePicker)<{
   &:active {
     border: none !important;
     box-shadow: ${(props: {activeBoxShadow: string}) => props.activeBoxShadow}!important;
+  }
+  input:placeholder-shown {
+    font-size: 14px;
+    font-family: ${(props: {fontFamily: string}) => props.fontFamily}!important;
   }
 `;
 
@@ -140,6 +145,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         onOpenChange={onOpenChange}
         changeOnBlur
         placeholder={placeholderArray}
+        fontFamily={fontFamily}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
