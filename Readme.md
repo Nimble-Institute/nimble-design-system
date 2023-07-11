@@ -33,6 +33,25 @@ $ yarn add nimble-design-system
 # Usage
 import {NimbleAutoComplete} from 'nimble-design-system'
 
+# Nimble Dialog Component Usage
+import {NimbleDialog} from 'nimble-design-system'
+
+  <NimbleDialog
+    open={true}
+    title="Sample Title"
+    metaData={null}
+    parimaryActionLabel="Save"
+    onClickPrimaryAction={() => { alert(value)}}>
+        <div>
+          <br />
+          <TextField
+            label="Enter Name"
+            size="small"
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </div>
+  </NimbleDialog>
+
 ```
 
 ## Credits
