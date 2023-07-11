@@ -90,11 +90,21 @@ export const Datatable = {
     ],
     paginationData: {
       totalPage: 10,
-      page: 1,
-      onPageChnage: (event: any, value: number) => {},
+      page: 3,
+      onPageChnage: (event: any, value: number) => {
+        alert(value);
+      },
     },
-    dataViewEnable: true,
+    dataViewEnable: false,
     dataDeleteEnable: true,
     dataEditEnable: true,
+    onChangeSearchText: searchvalue => {
+      alert(searchvalue);
+    },
+    searchPlaceHolder: 'boom',
+    mainActionLabel: 'Add some Data',
+    onChangeColumnFilters: (value, dataPoint) => {
+      alert(value + '-' + dataPoint);
+    },
   },
 };
