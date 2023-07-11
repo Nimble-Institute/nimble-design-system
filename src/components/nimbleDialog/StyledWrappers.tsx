@@ -3,7 +3,7 @@ import {Button, Box, Typography} from '@mui/material';
 import {darken, lighten} from 'polished';
 
 interface ButtonProps {
-  buttonColor: string;
+  buttoncolor: string;
 }
 
 interface TitleProps {
@@ -25,34 +25,34 @@ const Title = styled(Typography)(({fontFamily}: TitleProps) => ({
   fontFamily: fontFamily,
 }));
 
-const PrimaryActionButton = styled(Button)(({buttonColor}: ButtonProps) => ({
+const PrimaryActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
   paddingLeft: '20px',
   paddingRight: '20px',
-  backgroundColor: buttonColor,
+  backgroundColor: buttoncolor,
   ':hover': {
-    backgroundColor: darken(0.05, buttonColor),
+    backgroundColor: darken(0.05, buttoncolor),
   },
   maxHeight: '30px',
   textTransform: 'none',
 }));
 
-const SecondaryActionButton = styled(Button)(({buttonColor}: ButtonProps) => ({
+const SecondaryActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
   paddingLeft: '20px',
   paddingRight: '20px',
   maxHeight: '30px',
-  border: `1px solid ${buttonColor}`,
-  color: buttonColor,
+  border: `1px solid ${buttoncolor}`,
+  color: buttoncolor,
   ':hover': {
-    border: `1px solid ${darken(0.05, buttonColor)}`,
-    color: darken(0.05, buttonColor),
-    backgroundColor: lighten(0.6, buttonColor),
+    border: `1px solid ${darken(0.05, buttoncolor)}`,
+    color: darken(0.05, buttoncolor),
+    backgroundColor: lighten(0.6, buttoncolor),
   },
   textTransform: 'none',
 }));
 
-const TextActionButton = styled(Button)(({buttonColor}: ButtonProps) => ({
+const TextActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
   maxHeight: '30px',
-  color: buttonColor,
+  color: buttoncolor,
   textTransform: 'none',
 }));
 
