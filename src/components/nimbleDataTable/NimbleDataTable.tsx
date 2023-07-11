@@ -212,9 +212,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 </th>
               ))}
               {(dataViewEnable || dataEditEnable || dataDeleteEnable) && (
-                <th style={{width: '90px'}}>
-                  <HeaderLabel>Actions</HeaderLabel>
-                </th>
+                <th style={{width: '90px'}}>{/* 3<HeaderLabel>Actions</HeaderLabel> */}</th>
               )}
             </tr>
             <tr>
