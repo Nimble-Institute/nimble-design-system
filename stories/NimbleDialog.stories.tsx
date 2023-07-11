@@ -2,7 +2,6 @@ import React from 'react';
 import type {Meta} from '@storybook/react';
 
 import {NimbleDialog} from '../src';
-import {TextField} from '@mui/material';
 
 const NimbleDialogStory: Meta<typeof NimbleDialog> = {
   title: 'Nimble Design/Nimble Dialog',
@@ -22,22 +21,15 @@ export const NimbleBasicDialog = {
     primaryColor: '#0057A2',
     parimaryActionLabel: 'Save',
     secondaryActionlabel: 'Back',
-    content: data => (
-      <div>
-        This is sample dailog content - {data.name}
-        <br /> <br />
-        <TextField label="sample field" size="small" />
-      </div>
-    ),
     metaData: {
       id: 1,
       name: 'Manoj',
     },
-    onClickSecondaryAction: metaData => {
-      alert('secondary action click -' + metaData.name);
+    onClickSecondaryAction: () => {
+      alert('secondary action click ');
     },
     onClickPrimaryAction: () => {
-      alert('Primary Action - ');
+      alert('Primary Action ');
     },
   },
 };

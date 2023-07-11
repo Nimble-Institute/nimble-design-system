@@ -19,16 +19,16 @@ import CloseSVG from '../../assets/images/dialog/close.svg';
 interface NimbleDialogProps {
   open: boolean;
   title: string;
-  content: any;
   fontFamily?: string;
   metaData: any;
   primaryColor?: string;
   parimaryActionLabel: string;
   isSecondaryActionAvailable?: boolean;
   secondaryActionlabel?: string;
-  onClickSecondaryAction?: (metaData: any) => void;
+  onClickSecondaryAction?: () => void;
   mainActionInProgress?: boolean;
   onClickPrimaryAction?: () => void;
+  children: any;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -43,7 +43,6 @@ const Transition = React.forwardRef(function Transition(
 export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   open,
   title,
-  content,
   metaData,
   fontFamily,
   primaryColor = '#0057A2',
@@ -53,6 +52,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   onClickSecondaryAction,
   mainActionInProgress,
   onClickPrimaryAction,
+  children,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -65,7 +65,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   };
 
   const handleSecondaryAction = () => {
-    onClickSecondaryAction && !mainActionInProgress && onClickSecondaryAction(metaData);
+    onClickSecondaryAction && !mainActionInProgress && onClickSecondaryAction();
   };
 
   const handlePrimaryAction = () => {
@@ -93,7 +93,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
         </TitleWrapper>
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>{content(metaData)}</DialogContentText>
+        <DialogContentText>{children}</DialogContentText>
       </DialogContent>
       <DialogActions sx={{padding: '30px'}}>
         <TextActionButton onClick={handleClose} variant="text" size="small" buttonColor={primaryColor}>
