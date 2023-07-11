@@ -92,11 +92,9 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
           </IconButton>
         </TitleWrapper>
       </DialogTitle>
-      <DialogContent>
-        <DialogContentText>{children}</DialogContentText>
-      </DialogContent>
+      <DialogContent>{children}</DialogContent>
       <DialogActions sx={{padding: '30px'}}>
-        <TextActionButton onClick={handleClose} variant="text" size="small" buttonColor={primaryColor}>
+        <TextActionButton onClick={handleClose} variant="text" size="small" buttoncolor={primaryColor}>
           Cancel
         </TextActionButton>
         {isSecondaryActionAvailable && (
@@ -104,7 +102,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
             onClick={handleSecondaryAction}
             variant="outlined"
             size="small"
-            buttonColor={primaryColor}>
+            buttoncolor={primaryColor}>
             {secondaryActionlabel}
           </SecondaryActionButton>
         )}
@@ -112,7 +110,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
           onClick={handlePrimaryAction}
           variant="contained"
           size="small"
-          buttonColor={primaryColor}
+          buttoncolor={primaryColor}
           startIcon={mainActionInProgress && <CircularProgress size={12} sx={{color: '#fff'}} />}>
           {parimaryActionLabel}
         </PrimaryActionButton>
