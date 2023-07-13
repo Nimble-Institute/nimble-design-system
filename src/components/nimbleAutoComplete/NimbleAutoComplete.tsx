@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {TextField, Autocomplete, InternalStandardProps as StandardProps} from '@mui/material';
+import {Autocomplete, InternalStandardProps as StandardProps} from '@mui/material';
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {ThemeProvider} from '@mui/material/styles';
 
