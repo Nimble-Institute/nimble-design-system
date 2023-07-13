@@ -63,6 +63,11 @@ interface NimbleDataTableProps {
   onChangeColumnFilters?: (value: string, dataPoint: string) => void;
   data: any[];
   paginationData: PaginationDataType;
+
+  onClickDeleteRow?: (item: any) => void;
+  onClickEditeRow?: (item: any) => void;
+  onClickVieweRow?: (item: any) => void;
+  onClickMainAction?: () => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -81,6 +86,11 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   dataViewEnable,
   dataEditEnable,
   dataDeleteEnable,
+
+  onClickDeleteRow,
+  onClickEditeRow,
+  onClickVieweRow,
+  onClickMainAction,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -111,6 +121,22 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
         [sortKey]: sortOrder,
       });
     }
+  };
+
+  const handleClickMainAction = () => {
+    onClickMainAction && onClickMainAction();
+  };
+
+  const handleDeleteRow = (item: any) => {
+    onClickDeleteRow && onClickDeleteRow(item);
+  };
+
+  const handleEditRow = (item: any) => {
+    onClickEditeRow && onClickEditeRow(item);
+  };
+
+  const handleViewRow = (item: any) => {
+    onClickVieweRow && onClickVieweRow(item);
   };
 
   const sanatizedData =
@@ -151,7 +177,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             <FilterImage color={primaryColor} />
           </FilterIcon>
           <MainActionButton
-            onClick={() => {}}
+            onClick={handleClickMainAction}
             variant="contained"
             size="small"
             startIcon={mainActionIcon ? <img src={mainActionIcon} /> : <ControlPoint />}
@@ -255,9 +281,15 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
                 {(dataViewEnable || dataEditEnable || dataDeleteEnable) && (
                   <ActionCell>
-                    {dataViewEnable && <img style={{cursor: 'pointer'}} src={workSpaceIcon} />}
-                    {dataEditEnable && <img style={{cursor: 'pointer'}} src={editIcon} onClick={() => {}} />}
-                    {dataDeleteEnable && <img style={{cursor: 'pointer'}} src={deleteIcon} onClick={() => {}} />}
+                    {dataViewEnable && (
+                      <img style={{cursor: 'pointer'}} src={workSpaceIcon} onClick={() => handleViewRow(item)} />
+                    )}
+                    {dataEditEnable && (
+                      <img style={{cursor: 'pointer'}} src={editIcon} onClick={() => handleEditRow(item)} />
+                    )}
+                    {dataDeleteEnable && (
+                      <img style={{cursor: 'pointer'}} src={deleteIcon} onClick={() => handleDeleteRow(item)} />
+                    )}
                   </ActionCell>
                 )}
               </StyledTableRow>

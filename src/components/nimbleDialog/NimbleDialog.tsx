@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {
   IconButton,
-  Box,
   CircularProgress,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Slide,
   Dialog,
+  Breakpoint,
 } from '@mui/material';
-import {DialogProps} from '@mui/material/Dialog';
 import {TransitionProps} from '@mui/material/transitions';
 
 import {PrimaryActionButton, SecondaryActionButton, TextActionButton, TitleWrapper, Title} from './StyledWrappers';
@@ -20,7 +18,6 @@ interface NimbleDialogProps {
   open: boolean;
   title: string;
   fontFamily?: string;
-  metaData: any;
   primaryColor?: string;
   parimaryActionLabel: string;
   isSecondaryActionAvailable?: boolean;
@@ -28,6 +25,8 @@ interface NimbleDialogProps {
   onClickSecondaryAction?: () => void;
   mainActionInProgress?: boolean;
   onClickPrimaryAction?: () => void;
+  onClickClose: () => void;
+  maxWidth: Breakpoint;
   children: any;
 }
 
@@ -43,7 +42,6 @@ const Transition = React.forwardRef(function Transition(
 export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   open,
   title,
-  metaData,
   fontFamily,
   primaryColor = '#0057A2',
   parimaryActionLabel,
@@ -52,6 +50,8 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   onClickSecondaryAction,
   mainActionInProgress,
   onClickPrimaryAction,
+  onClickClose,
+  maxWidth = 'sm',
   children,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -61,7 +61,10 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   }, [open]);
 
   const handleClose = () => {
-    !mainActionInProgress && setOpenDialog(false);
+    if (!mainActionInProgress) {
+      setOpenDialog(false);
+      onClickClose();
+    }
   };
 
   const handleSecondaryAction = () => {
@@ -75,7 +78,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   return (
     <Dialog
       fullWidth={true}
-      maxWidth={'xs'}
+      maxWidth={maxWidth}
       open={openDialog}
       TransitionComponent={Transition}
       transitionDuration={400}
@@ -87,7 +90,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       <DialogTitle>
         <TitleWrapper>
           <Title fontFamily={fontFamily}>{title}</Title>
-          <IconButton onClick={() => setOpenDialog(false)}>
+          <IconButton onClick={handleClose}>
             <img src={CloseSVG} />
           </IconButton>
         </TitleWrapper>

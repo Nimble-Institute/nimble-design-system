@@ -95,13 +95,13 @@ export const Datatable = {
         alert(value);
       },
     },
-    dataViewEnable: false,
+    dataViewEnable: true,
     dataDeleteEnable: true,
     dataEditEnable: true,
     onChangeSearchText: searchvalue => {
       alert(searchvalue);
     },
-    searchPlaceHolder: 'boom',
+    searchPlaceHolder: 'search user data',
     mainActionLabel: 'Add some Data',
     onChangeColumnFilters: (value, dataPoint) => {
       alert(value + '-' + dataPoint);

@@ -31,5 +31,6 @@ export const NimbleBasicDialog = {
     onClickPrimaryAction: () => {
       alert('Primary Action ');
     },
+    maxWidth: 'sm',
   },
 };
