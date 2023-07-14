@@ -1,6 +1,12 @@
 import {createTheme} from '@mui/material/styles';
 
-const theme = (isError: boolean | undefined, borderColor: string, hoverBoxShadow: string, activeBoxShadow: string) =>
+const theme = (
+  isError: boolean | undefined,
+  borderColor: string,
+  hoverBoxShadow: string,
+  activeBoxShadow: string,
+  disabled: boolean,
+) =>
   createTheme({
     components: {
       MuiOutlinedInput: {
@@ -12,8 +18,8 @@ const theme = (isError: boolean | undefined, borderColor: string, hoverBoxShadow
               boxShadow: isError ? '0px 0px 0px 2px #FAD4CC' : 'none',
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              border: 'none',
-              boxShadow: hoverBoxShadow,
+              border: !disabled ? 'none' : undefined,
+              boxShadow: !disabled ? hoverBoxShadow : 'none',
             },
             '&:focus-within .MuiOutlinedInput-notchedOutline': {
               border: '0px',

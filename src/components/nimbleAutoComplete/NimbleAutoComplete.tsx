@@ -28,6 +28,7 @@ interface NimbleAutoCompleteProps
   placeholder?: string;
   multiple?: boolean;
   defaultValue?: NimbleAutocompleteDataType[];
+  disabled?: boolean;
 }
 
 export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
@@ -48,13 +49,14 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   width = '100%',
   multiple = true,
   defaultValue,
+  disabled = false,
   ...props
 }) => {
   const [value, setValue] = useState<NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null>(null);
 
   const customTheme = useMemo(() => {
-    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow);
-  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow]);
+    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
+  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled]);
 
   const handleOnChnage = (
     event: React.SyntheticEvent,
@@ -106,6 +108,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
         fontFamily={fontFamily}
         isRequired={isRequired}
         label={label}
+        disabled={disabled}
       />
       <ThemeProvider theme={customTheme}>
         <Autocomplete
@@ -137,6 +140,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           defaultValue={preSelectedvalue}
           isOptionEqualToValue={(option, value) => option.value === value.value}
           value={value || []}
+          disabled={disabled}
           {...props}
         />
       </ThemeProvider>

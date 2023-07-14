@@ -78,3 +78,12 @@ export const NimbleBasicInputOnChange = {
     onChange: value => alert(value),
   },
 };
+
+export const NimbleBasicInputDisabled = {
+  args: {
+    label: 'Basic Diabled Input ',
+    placeholder: 'Enter Name',
+    width: '500px',
+    disabled: true,
+  },
+};

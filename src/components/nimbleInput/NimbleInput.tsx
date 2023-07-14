@@ -20,6 +20,7 @@ interface NimbleInputProps
   startIcon?: any;
   type: 'text' | 'password' | 'number';
   helperText?: string;
+  disabled?: boolean;
 }
 
 export const NimbleInput: React.FC<NimbleInputProps> = ({
@@ -41,6 +42,7 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
   type = 'text',
   ref,
   helperText,
+  disabled = false,
 }) => {
   const [internalValue, setInternalValue] = useState<string | undefined>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -50,8 +52,8 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
   }, [defaultValue]);
 
   const customTheme = useMemo(() => {
-    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow);
-  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow]);
+    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
+  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled]);
 
   const handleSearch = (value: any) => {
     onChange && onChange(value);
@@ -73,11 +75,15 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
         fontFamily={fontFamily}
         isRequired={isRequired}
         label={label}
+        disabled={disabled}
       />
       <ThemeProvider theme={customTheme}>
         <TextField
           size="small"
-          sx={{width, fontFamily}}
+          sx={{
+            width,
+            fontFamily,
+          }}
           placeholder={placeholder}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const temp = event.target.value;
@@ -101,6 +107,7 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
           }}
           type={showPassword ? 'text' : type}
           inputRef={ref}
+          disabled={disabled}
         />
       </ThemeProvider>
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />

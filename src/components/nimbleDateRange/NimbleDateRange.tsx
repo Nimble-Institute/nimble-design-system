@@ -34,6 +34,7 @@ interface NimbleDateRangeProps
   disablePast?: boolean;
   maxDifferentDays?: number;
   placeholderArray?: [string, string];
+  disabled?: boolean;
 }
 
 const StyledRangePicker = styled(DatePicker.RangePicker)<{
@@ -43,24 +44,29 @@ const StyledRangePicker = styled(DatePicker.RangePicker)<{
   isError?: boolean;
   width: string;
   fontFamily?: string;
+  disabled?: boolean;
 }>`
   width: ${(props: {width: string}) => props.width};
   max-height: 34px;
   border: 1px solid;
-  border-color: ${(props: {borderColor: string; isError?: boolean}) =>
-    props.isError ? '#EC4C29' : props.borderColor}!important;
+  border-color: ${(props: {borderColor: string; isError?: boolean; disabled: boolean}) =>
+    props.isError ? '#EC4C29' : !props.disabled ? props.borderColor : '#cbcfd4'}!important;
   box-shadow: ${(props: {isError?: boolean}) => (props.isError ? '0px 0px 0px 2px #FAD4CC' : 'none')};
   &:hover {
-    border-color: ${(props: {borderColor: string}) => props.borderColor} !important ;
-    box-shadow: ${(props: {hoverBoxShadow: string}) => props.hoverBoxShadow}!important;
+    border-color: ${(props: {borderColor: string; disabled: boolean}) =>
+      !props.disabled ? props.borderColor : 'none'} !important ;
+    box-shadow: ${(props: {hoverBoxShadow: string; disabled: boolean}) =>
+      !props.disabled ? props.hoverBoxShadow : 'none'}!important;
   }
   &:focus {
     border: none !important;
-    box-shadow: ${(props: {activeBoxShadow: string}) => props.activeBoxShadow}!important;
+    box-shadow: ${(props: {activeBoxShadow: string; disabled: boolean}) =>
+      !props.disabled ? props.activeBoxShadow : 'none'}!important;
   }
   &:active {
     border: none !important;
-    box-shadow: ${(props: {activeBoxShadow: string}) => props.activeBoxShadow}!important;
+    box-shadow: ${(props: {activeBoxShadow: string; disabled: boolean}) =>
+      !props.disabled ? props.activeBoxShadow : 'none '}!important;
   }
   input:placeholder-shown {
     font-size: 14px;
@@ -85,6 +91,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
   disablePast,
   maxDifferentDays,
   placeholderArray = ['Start Date', 'End Date'],
+  disabled = false,
   ...props
 }) => {
   const [dates, setDates] = useState<RangeValue>(null);
@@ -127,6 +134,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         fontFamily={fontFamily}
         isRequired={isRequired}
         label={label}
+        disabled={disabled}
       />
       <StyledRangePicker
         size="large"
@@ -146,6 +154,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         changeOnBlur
         placeholder={placeholderArray}
         fontFamily={fontFamily}
+        disabled={disabled}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
