@@ -7,17 +7,29 @@ const RADIAN = Math.PI / 180;
 const value = 20; // could be useful to mark red line
 
 const NimbleGaugeChart = ({
-  data,
-  chartHeight,
+  value,
+  gaugeColor,
+  chartHeight = 300,
   title,
+  titleFontSize,
   amount,
+  amountFont,
+  amountFontSize = '28px',
   variance,
-  description,
+  varianceFont,
+  varianceFontSize = '16px',
   variancePositiveColor,
   varianceNegativeColor,
+  description,
+  descriptionFont,
+  descriptionFontSize = '12px',
   minValue,
   maxValue,
 }) => {
+  const gaugeValue = [
+    {value: value, color: gaugeColor},
+    {value: maxValue - value, color: '#ffffff'},
+  ];
   const type = Math.sign(variance);
   const height = chartHeight;
   const width = height;
@@ -32,7 +44,7 @@ const NimbleGaugeChart = ({
         dataKey="value"
         startAngle={180}
         endAngle={0}
-        data={data}
+        data={gaugeValue}
         cx={cx}
         cy={cy}
         innerRadius={iR - 5}
@@ -43,13 +55,13 @@ const NimbleGaugeChart = ({
         dataKey="value"
         startAngle={180}
         endAngle={0}
-        data={data}
+        data={gaugeValue}
         cx={cx}
         cy={cy}
         innerRadius={iR}
         outerRadius={oR}
         stroke="none">
-        {data.map((entry: {name: string; value: number; color: string}, index: number) => (
+        {gaugeValue.map((entry, index: number) => (
           <Cell key={`cell-${index}`} fill={entry.color} />
         ))}
         <Label
@@ -58,16 +70,24 @@ const NimbleGaugeChart = ({
             <>
               <text
                 x={cx + 5}
+                y={cy - height / 2.5}
+                textAnchor="middle"
+                dominantBaseline="central"
+                style={{fontSize: titleFontSize, color: '#3c4859', fontFamily: ''}}>
+                {title}
+              </text>
+              <text
+                x={cx + 5}
                 y={cy - height / 10}
-                style={{fontSize: '28px'}}
+                style={{fontSize: amountFontSize}}
                 textAnchor="middle"
                 dominantBaseline="central">
                 {amount}
               </text>
               <text
-                x={cx - 5}
+                x={cx - 8}
                 y={height / 2}
-                style={{fontSize: '16px', color: type === -1 ? varianceNegativeColor : variancePositiveColor}}
+                style={{fontSize: varianceFontSize, color: type === -1 ? varianceNegativeColor : variancePositiveColor}}
                 fill={type !== -1 ? varianceNegativeColor : variancePositiveColor}>
                 {variance}
               </text>
@@ -76,7 +96,7 @@ const NimbleGaugeChart = ({
                 y={cy + 30}
                 textAnchor="middle"
                 dominantBaseline="central"
-                style={{fontSize: '16px', color: '#3c4859', fontFamily: ''}}>
+                style={{fontSize: descriptionFontSize, color: '#3c4859', fontFamily: ''}}>
                 {description}
               </text>
             </>
@@ -89,7 +109,7 @@ const NimbleGaugeChart = ({
           style={{fill: type !== -1 ? varianceNegativeColor : variancePositiveColor}}
         />
       </defs>
-      <use x={cx - 25} y={cy - 10} xlinkHref="#Triangle" />
+      <use x={cx - 30} y={cy - 10} xlinkHref="#Triangle" />
     </PieChart>
   );
 };

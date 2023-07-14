@@ -15,18 +15,22 @@ export default NimbleGaugeChartStory;
 
 export const GaugeChart = {
   args: {
-    data: [
-      {name: 'A', value: 30, color: '#1194a8'},
-      // {name: 'B', value: 15, color: '#ffffff'},// should calculate based on max and current
-    ],
+    value: 80,
+    gaugeColor: '#1194a8',
     chartHeight: 300,
     title: 'Fase 1',
+    titleFontSize: '14px',
     amount: '$320k',
-    variance: 5000,
-    description: 'Fase 1 - Grandexploitatie dfasdf asdfasdf',
+    amountFont: '',
+    amountFontSize: '28px',
+    variance: 50000,
+    varianceFont: '',
+    varianceFontSize: '16px',
     variancePositiveColor: 'green',
     varianceNegativeColor: 'red',
-    amountOffset: -40,
-    varianceOffset: -3,
+    description: 'Fase 1 - Grandexploitatie',
+    descriptionFont: '',
+    descriptionFontSize: '14px',
+    maxValue: 100,
   },
 };
