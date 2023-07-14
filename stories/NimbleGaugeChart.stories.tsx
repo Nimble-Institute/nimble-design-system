@@ -1,6 +1,6 @@
 import type {Meta} from '@storybook/react';
 
-import {NimbleGaugeChart} from '../src';
+import NimbleGaugeChart from '../src/components/nimbleGaugeChart/NimbleGaugeChart';
 
 const NimbleGaugeChartStory: Meta<typeof NimbleGaugeChart> = {
   title: 'Nimble Design/Nimble Gauge Chart',
@@ -15,16 +15,18 @@ export default NimbleGaugeChartStory;
 
 export const GaugeChart = {
   args: {
-    label: 'Gauge Chart',
-    labelSize: 14,
-    labelWeight: '600',
-  },
-};
-
-export const GaugeChartWithDefaultValue = {
-  args: {
-    label: 'Gauge Chart',
-    labelSize: 14,
-    labelWeight: '600',
+    data: [
+      {name: 'A', value: 30, color: '#1194a8'},
+      // {name: 'B', value: 15, color: '#ffffff'},// should calculate based on max and current
+    ],
+    chartHeight: 300,
+    title: 'Fase 1',
+    amount: '$320k',
+    variance: 5000,
+    description: 'Fase 1 - Grandexploitatie dfasdf asdfasdf',
+    variancePositiveColor: 'green',
+    varianceNegativeColor: 'red',
+    amountOffset: -40,
+    varianceOffset: -3,
   },
 };

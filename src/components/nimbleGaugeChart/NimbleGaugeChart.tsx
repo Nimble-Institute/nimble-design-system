@@ -1,77 +1,96 @@
-import React, {useEffect} from 'react';
-import {Typography} from '@mui/material';
-import c3 from 'c3'
-import 'c3/c3.css';
+/* eslint-disable no-shadow */
+import React from 'react';
+import {PieChart, Pie, Cell, Label} from 'recharts';
 
-interface NimbleGaugeChartProps {
-  label?: string,
-  labelSize?: number,
-  labelWeight?: string,
-}
+const RADIAN = Math.PI / 180;
 
-export function NimbleGaugeChart({
-                                   label = '',
-                                   labelSize = 14,
-                                   labelWeight = '600',
-                                   ...props
-                                 }: NimbleGaugeChartProps) {
-  const [data, setData] = React.useState(['data', 91.4]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setData(['data', 20.2]);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+const value = 20; // could be useful to mark red line
 
-  useEffect(() => {
-    c3.generate({
-      bindto: "#chart",
-      data: {
-        // @ts-ignore
-        columns: [data],
-        type: 'gauge',
-        onclick: function (d, i) {
-          console.log("onclick", d, i);
-        },
-        onmouseover: function (d, i) {
-          console.log("onmouseover", d, i);
-        },
-        onmouseout: function (d, i) {
-          console.log("onmouseout", d, i);
-        }
-      },
-      gauge: {
-//        label: {
-//            format: function(value, ratio) {
-//                return value;
-//            },
-//            show: false // to turn off the min/max labels.
-//        },
-//    min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-//    max: 100, // 100 is default
-//    units: ' %',
-//    width: 39 // for adjusting arc thickness
-      },
-      color: {
-        pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-        threshold: {
-//            unit: 'value', // percentage is default
-//            max: 200, // 100 is default
-          values: [30, 60, 90, 100]
-        }
-      },
-      size: {
-        height: 180
-      }
-    })
-  }, [])
+const NimbleGaugeChart = ({
+  data,
+  chartHeight,
+  title,
+  amount,
+  variance,
+  description,
+  variancePositiveColor,
+  varianceNegativeColor,
+  minValue,
+  maxValue,
+}) => {
+  const type = Math.sign(variance);
+  const height = chartHeight;
+  const width = height;
+  const cx = height / 2;
+  const cy = width / 2;
+  const oR = height / 3;
+  const iR = oR - 15;
 
   return (
-    <span>
-      <Typography variant={"h6"}>
-        Gauge Chart
-      </Typography>
-      <div id="chart" />
-    </span>
+    <PieChart width={width} height={height}>
+      <Pie
+        dataKey="value"
+        startAngle={180}
+        endAngle={0}
+        data={data}
+        cx={cx}
+        cy={cy}
+        innerRadius={iR - 5}
+        outerRadius={oR + 5}
+        fill="#FFFFFF"
+        stroke="#cbcbcb"></Pie>
+      <Pie
+        dataKey="value"
+        startAngle={180}
+        endAngle={0}
+        data={data}
+        cx={cx}
+        cy={cy}
+        innerRadius={iR}
+        outerRadius={oR}
+        stroke="none">
+        {data.map((entry: {name: string; value: number; color: string}, index: number) => (
+          <Cell key={`cell-${index}`} fill={entry.color} />
+        ))}
+        <Label
+          position="center"
+          content={
+            <>
+              <text
+                x={cx + 5}
+                y={cy - height / 10}
+                style={{fontSize: '28px'}}
+                textAnchor="middle"
+                dominantBaseline="central">
+                {amount}
+              </text>
+              <text
+                x={cx - 5}
+                y={height / 2}
+                style={{fontSize: '16px', color: type === -1 ? varianceNegativeColor : variancePositiveColor}}
+                fill={type !== -1 ? varianceNegativeColor : variancePositiveColor}>
+                {variance}
+              </text>
+              <text
+                x={cx + 5}
+                y={cy + 30}
+                textAnchor="middle"
+                dominantBaseline="central"
+                style={{fontSize: '16px', color: '#3c4859', fontFamily: ''}}>
+                {description}
+              </text>
+            </>
+          }></Label>
+      </Pie>
+      <defs>
+        <polygon
+          id="Triangle"
+          points={type !== -1 ? '10,0 5,10 15,10' : '5,0 10,10 15,0'}
+          style={{fill: type !== -1 ? varianceNegativeColor : variancePositiveColor}}
+        />
+      </defs>
+      <use x={cx - 25} y={cy - 10} xlinkHref="#Triangle" />
+    </PieChart>
   );
-}
+};
+export default NimbleGaugeChart;
