@@ -6,3 +6,4 @@ export * from './nimbleDialog/NimbleDialog';
 export * from './nimbleButton/NimbleButton';
 export * from './nimbleInput/NimbleInput';
 export * from './nimbleSelect/NimbleSelect';
+export * from './nimbleTab/NimbleTab';

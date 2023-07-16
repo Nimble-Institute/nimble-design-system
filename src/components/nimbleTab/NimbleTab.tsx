@@ -1,0 +1,68 @@
+import React, {useState, useMemo} from 'react';
+import {Tabs, Tab, Box} from '@mui/material';
+import {ThemeProvider} from '@mui/material/styles';
+
+import theme from './CustomTheme';
+
+interface TabData {
+  value: number;
+  label: string;
+  activeImage?: any;
+  inactiveImage?: any;
+  content?: any;
+}
+
+interface NimbleTabProps {
+  width?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  color?: string;
+  activeColor?: string;
+  tabs: TabData[];
+  onChangeTab?: (tabValue: number) => void;
+  showInlineContent?: boolean;
+}
+
+export const Nimbletab: React.FC<NimbleTabProps> = ({
+  width = '100%',
+  tabs,
+  fontFamily,
+  fontSize = '16px',
+  color = '#0C1B2A',
+  activeColor = '#9FC540',
+  onChangeTab,
+  showInlineContent,
+}) => {
+  const [value, setValue] = useState(1);
+
+  const customTheme = useMemo(() => {
+    return theme(activeColor, fontSize, color, fontFamily);
+  }, [activeColor, fontSize, color, fontFamily]);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+    onChangeTab && onChangeTab(newValue);
+  };
+
+  return (
+    <Box sx={{width}}>
+      <ThemeProvider theme={customTheme}>
+        <Tabs value={value} onChange={handleChange} textColor="primary" indicatorColor="primary" variant="fullWidth">
+          {tabs?.map((item, index) => (
+            <Tab
+              value={item.value}
+              label={item.label}
+              key={`tab-${index}`}
+              icon={
+                item.activeImage &&
+                item.inactiveImage && <Box>{item.value === value ? item.activeImage : item.inactiveImage}</Box>
+              }
+              iconPosition="start"
+            />
+          ))}
+        </Tabs>
+      </ThemeProvider>
+      {showInlineContent && <Box sx={{height: '100%'}}>{tabs.find(item => item.value === value)?.content}</Box>}
+    </Box>
+  );
+};
