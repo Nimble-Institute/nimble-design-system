@@ -15,12 +15,12 @@ export default NimbleGaugeChartStory;
 
 export const GaugeChart = {
   args: {
-    value: 80,
     gaugeColor: '#1194a8',
     chartHeight: 300,
     title: 'Fase 1',
     titleFontSize: '14px',
-    amount: '$320k',
+    amount: 320000,
+    amountLabel: '$320K',
     amountFont: '',
     amountFontSize: '28px',
     variance: 50000,
@@ -31,6 +31,7 @@ export const GaugeChart = {
     description: 'Fase 1 - Grandexploitatie',
     descriptionFont: '',
     descriptionFontSize: '14px',
-    maxValue: 100,
+    maxValue: 350000,
+    threshold: 300000,
   },
 };
