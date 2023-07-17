@@ -1,17 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {
-  IconButton,
-  CircularProgress,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Slide,
-  Dialog,
-  Breakpoint,
-} from '@mui/material';
+import {IconButton, DialogActions, DialogContent, DialogTitle, Slide, Dialog, Breakpoint, Box} from '@mui/material';
 import {TransitionProps} from '@mui/material/transitions';
 
-import {PrimaryActionButton, SecondaryActionButton, TextActionButton, TitleWrapper, Title} from './StyledWrappers';
+import {TitleWrapper, Title} from './StyledWrappers';
+import {NimbleButtonProps, NimbleButton} from '../nimbleButton/NimbleButton';
 import CloseSVG from '../../assets/images/dialog/close.svg';
 
 interface NimbleDialogProps {
@@ -27,6 +19,8 @@ interface NimbleDialogProps {
   onClickPrimaryAction?: () => void;
   onClickClose: () => void;
   maxWidth: Breakpoint;
+  topActionPanel?: boolean;
+  topActionPanalData: NimbleButtonProps[];
   children: any;
 }
 
@@ -42,7 +36,7 @@ const Transition = React.forwardRef(function Transition(
 export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   open,
   title,
-  fontFamily,
+  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   primaryColor = '#0057A2',
   parimaryActionLabel,
   isSecondaryActionAvailable,
@@ -52,6 +46,8 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   onClickPrimaryAction,
   onClickClose,
   maxWidth = 'sm',
+  topActionPanel,
+  topActionPanalData,
   children,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -75,6 +71,17 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
     onClickPrimaryAction && !mainActionInProgress && onClickPrimaryAction();
   };
 
+  const renderTopActionPanal = () => {
+    return (
+      topActionPanalData &&
+      topActionPanalData.map((item, index) => (
+        <Box sx={{marginLeft: '5px'}}>
+          <NimbleButton {...item} key={`action-panal-${index}-item`} />
+        </Box>
+      ))
+    );
+  };
+
   return (
     <Dialog
       fullWidth={true}
@@ -90,33 +97,34 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       <DialogTitle>
         <TitleWrapper>
           <Title fontFamily={fontFamily}>{title}</Title>
-          <IconButton onClick={handleClose}>
-            <img src={CloseSVG} />
-          </IconButton>
+          <Box sx={{display: 'flex', flexDirection: 'row'}}>
+            {!topActionPanel ? (
+              <IconButton onClick={handleClose}>
+                <img src={CloseSVG} />
+              </IconButton>
+            ) : (
+              renderTopActionPanal()
+            )}
+          </Box>
         </TitleWrapper>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions sx={{padding: '30px'}}>
-        <TextActionButton onClick={handleClose} variant="text" size="small" buttoncolor={primaryColor}>
-          Cancel
-        </TextActionButton>
+      <DialogActions sx={{padding: topActionPanel ? '25px' : '30px'}}>
+        <NimbleButton onClick={handleClose} label={'Cancel'} variant="text" color={primaryColor} />
         {isSecondaryActionAvailable && (
-          <SecondaryActionButton
+          <NimbleButton
             onClick={handleSecondaryAction}
+            label={secondaryActionlabel}
             variant="outlined"
-            size="small"
-            buttoncolor={primaryColor}>
-            {secondaryActionlabel}
-          </SecondaryActionButton>
+            color={primaryColor}
+          />
         )}
-        <PrimaryActionButton
+        <NimbleButton
           onClick={handlePrimaryAction}
-          variant="contained"
-          size="small"
-          buttoncolor={primaryColor}
-          startIcon={mainActionInProgress && <CircularProgress size={12} sx={{color: '#fff'}} />}>
-          {parimaryActionLabel}
-        </PrimaryActionButton>
+          label={parimaryActionLabel}
+          color={primaryColor}
+          loading={mainActionInProgress}
+        />
       </DialogActions>
     </Dialog>
   );

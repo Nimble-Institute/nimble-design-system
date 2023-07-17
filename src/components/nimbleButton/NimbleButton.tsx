@@ -4,10 +4,14 @@ import {Button, CircularProgress} from '@mui/material';
 import {styled} from '@mui/system';
 import {darken, lighten} from 'polished';
 
-interface NimbleButtonProps {
+interface ButtonProps {
+  buttoncolor: string;
+}
+
+export interface NimbleButtonProps {
   label: string;
-  variant: 'text' | 'outlined' | 'contained';
-  size: 'small' | 'medium' | 'large';
+  variant?: 'text' | 'outlined' | 'contained';
+  size?: 'small' | 'medium' | 'large';
   color?: string;
   disabled?: boolean;
   startIcon?: any;
@@ -15,13 +19,9 @@ interface NimbleButtonProps {
   onClick: () => void;
 }
 
-interface ButtonProps {
-  buttoncolor: string;
-}
-
 const ContainedActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
-  paddingLeft: '20px',
-  paddingRight: '20px',
+  paddingLeft: '10px',
+  paddingRight: '10px',
   backgroundColor: buttoncolor,
   ':hover': {
     backgroundColor: darken(0.1, buttoncolor),
@@ -34,8 +34,8 @@ const ContainedActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
 }));
 
 const OutlinedActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
-  paddingLeft: '20px',
-  paddingRight: '20px',
+  paddingLeft: '10px',
+  paddingRight: '10px',
   textTransform: 'none',
   border: `1px solid ${buttoncolor}`,
   color: buttoncolor,
