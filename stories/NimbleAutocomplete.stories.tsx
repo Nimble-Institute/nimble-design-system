@@ -60,3 +60,20 @@ export const AutocompleteWithDefaultValue = {
     ],
   },
 };
+
+export const AutocompleteDiabled = {
+  args: {
+    label: 'Select Users',
+    labelSize: 14,
+    data: [
+      {label: 'Option A', value: 1},
+      {label: 'Option B', value: 2},
+      {label: 'Option C', value: 3},
+      {label: 'Option D', value: 4},
+      {label: 'Option E', value: 5},
+    ],
+    placeholder: 'Input search',
+    width: '500px',
+    disabled: true,
+  },
+};

@@ -37,3 +37,12 @@ export const DateRangeWithDefaultValue = {
     defaultValue: ['2023-07-10', '2023-08-05'],
   },
 };
+
+export const DateRangeDiabled = {
+  args: {
+    label: 'Select Date Range',
+    labelSize: 14,
+    labelWeight: '600',
+    disabled: true,
+  },
+};

@@ -21,6 +21,11 @@ const theme = (
               border: !disabled ? 'none' : undefined,
               boxShadow: !disabled ? hoverBoxShadow : 'none',
             },
+
+            '.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: isError ? '#EC4C29' : borderColor,
+            },
+
             '&:focus-within .MuiOutlinedInput-notchedOutline': {
               border: '0px',
               boxShadow: activeBoxShadow,
@@ -29,7 +34,14 @@ const theme = (
               marginTop: '20px',
             },
             '.MuiInputBase-input': {
-              height: '17px',
+              height: '17px !important',
+            },
+            '& input::placeholder': {
+              fontSize: '14px',
+            },
+            '&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              border: '0px',
+              boxShadow: activeBoxShadow,
             },
           },
         },

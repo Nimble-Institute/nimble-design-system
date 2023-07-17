@@ -21,6 +21,7 @@ const theme = (
               border: !disabled ? 'none' : undefined,
               boxShadow: !disabled ? hoverBoxShadow : 'none',
             },
+
             '&:focus-within .MuiOutlinedInput-notchedOutline': {
               border: '0px',
               boxShadow: activeBoxShadow,
@@ -30,6 +31,9 @@ const theme = (
             },
             '.MuiInputBase-input': {
               height: '17px',
+            },
+            '& input::placeholder': {
+              fontSize: '14px',
             },
           },
         },

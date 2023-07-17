@@ -4,6 +4,7 @@ interface InputLabelProps {
   labelWeight?: '400' | '500' | '600' | '700';
   fontFamily?: string;
   isRequired?: boolean;
+  disabled?: boolean;
 }
 
 interface InputBoxProps {
