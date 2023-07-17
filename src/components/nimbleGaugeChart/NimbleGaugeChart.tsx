@@ -6,6 +6,7 @@ interface NimbleGaugeChartProps {
   gaugeColor?: string;
   chartHeight?: number;
   fontFamily?: string;
+  fontColor?: string;
   title?: string;
   titleFontSize?: string;
   chartValue: number;
@@ -19,12 +20,14 @@ interface NimbleGaugeChartProps {
   descriptionFontSize?: string;
   maxValue: number;
   threshold?: number;
+  thresholdColor?: string;
 }
 
-const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
-  gaugeColor,
+export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
+  gaugeColor = '#1194a8',
   chartHeight = 300,
-  fontFamily,
+  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontColor = '#263238',
   title,
   titleFontSize,
   chartValue,
@@ -32,12 +35,13 @@ const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
   amountFontSize = '28px',
   variance,
   varianceFontSize = '16px',
-  variancePositiveColor,
-  varianceNegativeColor,
+  variancePositiveColor = '#66bb6a',
+  varianceNegativeColor = '#f44336',
   description,
   descriptionFontSize = '12px',
   maxValue,
   threshold,
+  thresholdColor = '#f44336',
 }) => {
   const gaugeValue = [
     {value: chartValue, color: gaugeColor},
@@ -46,11 +50,11 @@ const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
 
   const thresholdValue = threshold
     ? [
-        {value: threshold - 1, color: '#FFFFFF'},
-        {value: 1, color: 'red'},
-        {value: maxValue - threshold - 1, color: '#FFFFFF'},
+        {value: threshold - 1, color: 'transparent'},
+        {value: 1, color: thresholdColor},
+        {value: maxValue - threshold - 1, color: 'transparent'},
       ]
-    : [{value: maxValue, color: '#FFFFFF'}];
+    : [{value: maxValue, color: 'transparent'}];
 
   const type = variance && Math.sign(variance);
   const height = chartHeight;
@@ -77,8 +81,8 @@ const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
           <Cell
             key={`cell-${index}`}
             fill={entry.color}
-            stroke={index === 1 ? entry.color : '#cbcbcb'}
             strokeWidth={index === 1 ? 2 : 1}
+            {...(index === 1 && {stroke: entry.color})}
           />
         ))}
       </Pie>
@@ -104,13 +108,13 @@ const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                 y={cy - height / 2.5}
                 textAnchor="middle"
                 dominantBaseline="central"
-                style={{fontSize: titleFontSize, color: '#3c4859', fontFamily: ''}}>
+                style={{fontSize: titleFontSize, fill: fontColor, fontFamily: fontFamily}}>
                 {title}
               </text>
               <text
                 x={cx + 5}
                 y={cy - height / 10}
-                style={{fontSize: amountFontSize}}
+                style={{fontSize: amountFontSize, fontFamily: fontFamily, fill: fontColor}}
                 textAnchor="middle"
                 dominantBaseline="central">
                 {amountLabel}
@@ -118,7 +122,11 @@ const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
               <text
                 x={cx - 8}
                 y={height / 2}
-                style={{fontSize: varianceFontSize, color: type === -1 ? varianceNegativeColor : variancePositiveColor}}
+                style={{
+                  fontSize: varianceFontSize,
+                  color: type === -1 ? varianceNegativeColor : variancePositiveColor,
+                  fontFamily: fontFamily,
+                }}
                 fill={type !== -1 ? varianceNegativeColor : variancePositiveColor}>
                 {variance}
               </text>
@@ -127,7 +135,11 @@ const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                 y={cy + 30}
                 textAnchor="middle"
                 dominantBaseline="central"
-                style={{fontSize: descriptionFontSize, color: '#3c4859', fontFamily: ''}}>
+                style={{
+                  fontSize: descriptionFontSize,
+                  fill: fontColor,
+                  fontFamily: fontFamily,
+                }}>
                 {description}
               </text>
             </>
@@ -144,4 +156,3 @@ const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
     </PieChart>
   );
 };
-export default NimbleGaugeChart;
