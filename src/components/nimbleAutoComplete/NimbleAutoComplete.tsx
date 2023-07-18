@@ -124,7 +124,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
             },
           }}
           renderTags={renderTags}
-          getOptionLabel={option => option.label}
+          getOptionLabel={option => option.label || ''}
           renderOption={renderOption}
           renderInput={params => (
             <TextInput {...params} size="small" placeholder={placeholder} fontFamily={fontFamily} />
