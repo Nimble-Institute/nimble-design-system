@@ -21,6 +21,9 @@ interface NimbleTabProps {
   tabs: TabData[];
   onChangeTab?: (tabValue: number) => void;
   showInlineContent?: boolean;
+  type?: 'default' | 'card';
+  activeCardColor?: string;
+  inActiveCardColor?: string;
 }
 
 export const Nimbletab: React.FC<NimbleTabProps> = ({
@@ -32,12 +35,15 @@ export const Nimbletab: React.FC<NimbleTabProps> = ({
   activeColor = '#9FC540',
   onChangeTab,
   showInlineContent,
+  type = 'default',
+  activeCardColor,
+  inActiveCardColor,
 }) => {
   const [value, setValue] = useState(1);
 
   const customTheme = useMemo(() => {
-    return theme(activeColor, fontSize, color, fontFamily);
-  }, [activeColor, fontSize, color, fontFamily]);
+    return theme(activeColor, fontSize, color, fontFamily, type, activeCardColor, inActiveCardColor);
+  }, [activeColor, fontSize, color, fontFamily, type, activeCardColor, inActiveCardColor]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

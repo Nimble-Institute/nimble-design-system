@@ -1,6 +1,14 @@
 import {createTheme} from '@mui/material/styles';
 
-const theme = (activeColor: string, fontSize: string, color: string, fontFamily?: string) =>
+const theme = (
+  activeColor: string,
+  fontSize: string,
+  color: string,
+  fontFamily?: string,
+  type?: string,
+  activeCardColor?: string,
+  inActiveCardColor?: string,
+) =>
   createTheme({
     palette: {
       primary: {
@@ -11,10 +19,17 @@ const theme = (activeColor: string, fontSize: string, color: string, fontFamily?
       MuiTabs: {
         styleOverrides: {
           indicator: {
-            height: '4px',
+            height: type === 'card' ? 0 : '4px',
           },
           root: {
             maxHeight: '60px',
+            ...(type === 'card'
+              ? {
+                  alignItems: 'center',
+                  borderTopLeftRadius: '10px',
+                  borderTopRightRadius: '10px',
+                }
+              : undefined),
           },
         },
       },
@@ -26,6 +41,14 @@ const theme = (activeColor: string, fontSize: string, color: string, fontFamily?
             fontFamily,
             color,
             textTransform: 'none',
+            ...(type === 'card'
+              ? {
+                  backgroundColor: inActiveCardColor,
+                  '&.Mui-selected': {
+                    backgroundColor: activeCardColor,
+                  },
+                }
+              : undefined),
           },
         },
       },
