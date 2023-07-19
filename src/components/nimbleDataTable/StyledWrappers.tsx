@@ -55,6 +55,7 @@ const MainActionButton = styled(Button)(({buttoncolor}: MainActionButtonProps) =
     backgroundColor: darken(0.05, buttoncolor),
   },
   maxHeight: '30px',
+  color: '#FFF',
 }));
 
 const MainTable = styled('table')({

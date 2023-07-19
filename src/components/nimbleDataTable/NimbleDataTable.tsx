@@ -20,14 +20,14 @@ import {
   FilterInput,
   StyledTableRow,
   TableValue,
-  ActionCell,
   PaginationWrapper,
+  ActionCell,
 } from './StyledWrappers';
 
+import FilterImage from '../shared/icons/FiltorIcon';
 import workSpaceIcon from '../../assets/images/table/workspaceIcon.svg';
 import deleteIcon from '../../assets/images/table/delete.svg';
 import editIcon from '../../assets/images/table/edit.svg';
-import FilterImage from '../shared/icons/FiltorIcon';
 
 import theme from './CustomTheme';
 
@@ -72,6 +72,8 @@ interface NimbleDataTableProps {
   onClickEditeRow?: (item: any) => void;
   onClickVieweRow?: (item: any) => void;
   onClickMainAction?: () => void;
+
+  isDesktopScreen?: boolean;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -98,9 +100,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onClickEditeRow,
   onClickVieweRow,
   onClickMainAction,
+
+  isDesktopScreen = true,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
+  const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
 
   const customTheme = useMemo(() => {
     return theme(InputFieldBorderColor, InputFieldHoverBoxShadow, InputFieldActiveBoxShadow, primaryColor);
@@ -272,7 +277,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
           </MainTableHead>
           <MainTableBody>
             {sanatizedData.map((item: any, index: number) => (
-              <StyledTableRow key={index}>
+              <StyledTableRow
+                key={index}
+                onMouseOver={() => setHoverRowIndex(index)}
+                onMouseLeave={() => setHoverRowIndex(null)}>
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
@@ -281,20 +289,17 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                     {cData.component && cData.component(item)}
                   </td>
                 ))}
-
-                {(dataViewEnable || dataEditEnable || dataDeleteEnable) && (
-                  <ActionCell>
-                    {dataViewEnable && (
-                      <img style={{cursor: 'pointer'}} src={workSpaceIcon} onClick={() => handleViewRow(item)} />
-                    )}
-                    {dataEditEnable && (
-                      <img style={{cursor: 'pointer'}} src={editIcon} onClick={() => handleEditRow(item)} />
-                    )}
-                    {dataDeleteEnable && (
-                      <img style={{cursor: 'pointer'}} src={deleteIcon} onClick={() => handleDeleteRow(item)} />
-                    )}
-                  </ActionCell>
-                )}
+                <ActionCell>
+                  {dataViewEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
+                    <img style={{cursor: 'pointer'}} src={workSpaceIcon} onClick={() => handleViewRow(item)} />
+                  )}
+                  {dataEditEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
+                    <img style={{cursor: 'pointer'}} src={editIcon} onClick={() => handleEditRow(item)} />
+                  )}
+                  {dataDeleteEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
+                    <img style={{cursor: 'pointer'}} src={deleteIcon} onClick={() => handleDeleteRow(item)} />
+                  )}
+                </ActionCell>
               </StyledTableRow>
             ))}
           </MainTableBody>

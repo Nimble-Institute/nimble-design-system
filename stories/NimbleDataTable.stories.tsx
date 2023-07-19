@@ -106,5 +106,8 @@ export const Datatable = {
     onChangeColumnFilters: (value, dataPoint) => {
       alert(value + '-' + dataPoint);
     },
+    onClickDeleteRow: () => alert('open row delete dialog'),
+    onClickEditeRow: () => alert('open row edit dialog'),
+    onClickVieweRow: () => alert('openrow view dialog'),
   },
 };
