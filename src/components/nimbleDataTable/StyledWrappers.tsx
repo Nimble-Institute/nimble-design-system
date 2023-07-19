@@ -3,7 +3,16 @@ import {OutlinedInput, Button, IconButton, Typography} from '@mui/material';
 import {darken} from 'polished';
 
 interface MainActionButtonProps {
-  mainActionButtonColor: string;
+  buttoncolor: string;
+}
+
+interface HeaderLabelProps {
+  fontFamily: string;
+  fontWeight: string;
+}
+
+interface TableValueProps {
+  fontFamily: string;
 }
 
 const Container = styled('div')({
@@ -38,12 +47,12 @@ const FilterIcon = styled(IconButton)({
   cursor: 'pointer',
 });
 
-const MainActionButton = styled(Button)(({mainActionButtonColor}: MainActionButtonProps) => ({
+const MainActionButton = styled(Button)(({buttoncolor}: MainActionButtonProps) => ({
   paddingLeft: '20px',
   paddingRight: '20px',
-  backgroundColor: mainActionButtonColor,
+  backgroundColor: buttoncolor,
   ':hover': {
-    backgroundColor: darken(0.05, mainActionButtonColor),
+    backgroundColor: darken(0.05, buttoncolor),
   },
   maxHeight: '30px',
 }));
@@ -77,14 +86,15 @@ const MainTableBody = styled('tbody')({
   width: '100%',
 });
 
-const HeaderLabel = styled(Typography)({
+const HeaderLabel = styled(Typography)(({fontFamily, fontWeight}: HeaderLabelProps) => ({
   display: 'flex',
-  fontWeight: '600',
+  fontFamily,
+  fontWeight,
   fontSize: '13px',
   lineHeight: '150.9%',
   textTransform: 'uppercase',
   color: '#9B9B9B',
-});
+}));
 
 const SortIconsWrapper = styled('div')({
   display: 'flex',
@@ -106,15 +116,16 @@ const StyledTableRow = styled('tr')({
   borderBottom: '1px solid #F6F7F9',
 });
 
-const TableValue = styled(Typography)({
+const TableValue = styled(Typography)(({fontFamily}: TableValueProps) => ({
   display: 'flex',
   fontWeight: '400',
+  fontFamily,
   fontSize: '13px',
   lineHeight: '140%',
   color: '#222222',
   minHeight: '44px',
   alignItems: 'center',
-});
+}));
 
 const ActionCell = styled('td')({
   display: 'flex',
@@ -123,7 +134,7 @@ const ActionCell = styled('td')({
   width: '120px',
 });
 
-const PaginationWrapper = styled('td')({
+const PaginationWrapper = styled('div')({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',

@@ -56,6 +56,10 @@ interface NimbleDataTableProps {
   InputFieldActiveBoxShadow?: string;
   InputFieldHoverBoxShadow?: string;
 
+  headerFontFamily?: string;
+  headerFontWeight?: '600' | '500' | '400';
+  dataFontFamily?: string;
+
   columnData: ColumnDataType[];
   dataViewEnable?: boolean;
   dataEditEnable?: boolean;
@@ -79,6 +83,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   InputFieldBorderColor = '#9A9FA5',
   InputFieldActiveBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
   InputFieldHoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
+  headerFontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  headerFontWeight = '600',
+  dataFontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   columnData,
   onChangeColumnFilters,
   data,
@@ -181,7 +188,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             variant="contained"
             size="small"
             startIcon={mainActionIcon ? <img src={mainActionIcon} /> : <ControlPoint />}
-            mainActionButtonColor={primaryColor}>
+            buttoncolor={primaryColor}>
             {mainActionLabel}
           </MainActionButton>
         </SearchBarContainer>
@@ -191,7 +198,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               {columnData.map((item, index) => (
                 <th key={index}>
                   <ColumnHeader>
-                    <HeaderLabel>{item.label}</HeaderLabel>
+                    <HeaderLabel fontFamily={headerFontFamily} fontWeight={headerFontWeight}>
+                      {item.label}
+                    </HeaderLabel>
                     {item.sort && (
                       <SortIconsWrapper>
                         <IconButton
@@ -265,18 +274,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             {sanatizedData.map((item: any, index: number) => (
               <StyledTableRow key={index}>
                 {columnData.map((cData, index) => (
-                  <>
+                  <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
-                      <td key={index} style={{width: cData.width}}>
-                        <TableValue>{item[cData.dataPoint]}</TableValue>
-                      </td>
+                      <TableValue fontFamily={dataFontFamily}>{item[cData.dataPoint]}</TableValue>
                     )}
-                    {cData.component && (
-                      <td key={index} style={{width: cData.width}}>
-                        {cData.component(item)}
-                      </td>
-                    )}
-                  </>
+                    {cData.component && cData.component(item)}
+                  </td>
                 ))}
 
                 {(dataViewEnable || dataEditEnable || dataDeleteEnable) && (
