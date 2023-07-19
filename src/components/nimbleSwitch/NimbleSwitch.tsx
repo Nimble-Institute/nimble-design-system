@@ -124,6 +124,7 @@ export const NimbleSwitch: React.FC<NimbleSwitchProps> = ({
                   setSwitchValues(newData);
                   onChange && onChange(newData);
                 }}
+                disabled={disabled}
               />
               {item.label && (
                 <Typography
