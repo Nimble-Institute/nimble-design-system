@@ -20,7 +20,7 @@ interface NimbleDialogProps {
   onClickClose: () => void;
   maxWidth: Breakpoint;
   topActionPanel?: boolean;
-  topActionPanalData: NimbleButtonProps[];
+  topActionPanalData?: NimbleButtonProps[];
   children: any;
 }
 
