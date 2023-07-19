@@ -210,7 +210,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                       <SortIconsWrapper>
                         <IconButton
                           size="small"
-                          sx={{height: '12px', width: '12px'}}
+                          sx={{height: '8px', width: '8px'}}
                           onClick={() => {
                             handleClicShort(item.dataPoint, 'desc');
                           }}>
@@ -229,7 +229,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                         </IconButton>
                         <IconButton
                           size="small"
-                          sx={{height: '12px', width: '12px'}}
+                          sx={{height: '8px', width: '8px'}}
                           onClick={() => {
                             handleClicShort(item.dataPoint, 'asc');
                           }}>
