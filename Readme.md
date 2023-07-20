@@ -2,7 +2,7 @@
   <br>
   <a href="http://nimble-institute.github.io/nimble-design-system"><img src="./logo.webp" alt="Markdownify" width="200"></a>
   <br>
-  Nimble Design System - Nimbe
+  Nimble Design System
   <br>
 </h1>
 
