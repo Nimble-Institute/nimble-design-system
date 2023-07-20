@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">This is the design system for Nimble front end react / typescript projects.</h4>
+<h4 align="center">This is the design system for Nimble front end react  projects.</h4>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
