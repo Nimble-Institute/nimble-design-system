@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://manoj201.github.io/nimble-design-system"><img src="./logo.webp" alt="Markdownify" width="200"></a>
+  <a href="http://nimble-institute.github.io/nimble-design-system"><img src="./logo.webp" alt="Markdownify" width="200"></a>
   <br>
   Nimble Design System - Nimbe
   <br>
