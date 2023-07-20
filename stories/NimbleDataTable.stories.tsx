@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react';
 import {NimbleDataTable} from '../src';
 
 const NimbleDataTableStory: Meta<typeof NimbleDataTable> = {
-  title: 'Nimble Design/Nimble Data Table',
+  title: 'Nimble Desktop Design/Nimble Data Table',
   component: NimbleDataTable,
   parameters: {
     // layout: 'fullscreen',

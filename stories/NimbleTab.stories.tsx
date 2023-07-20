@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react';
 import {Nimbletab} from '../src';
 
 const NimbletabStory: Meta<typeof Nimbletab> = {
-  title: 'Nimble Design/Nimble Tab',
+  title: 'Nimble Desktop Design/Nimble Tab',
   component: Nimbletab,
   parameters: {
     // layout: 'fullscreen',

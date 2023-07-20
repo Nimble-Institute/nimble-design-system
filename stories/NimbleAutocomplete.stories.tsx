@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react';
 import {NimbleAutoComplete} from '../src';
 
 const NimbleAutocompleteStory: Meta<typeof NimbleAutoComplete> = {
-  title: 'Nimble Design/Nimble Autocomplete',
+  title: 'Nimble Form Inputs/Nimble Autocomplete',
   component: NimbleAutoComplete,
   parameters: {
     // layout: 'fullscreen',

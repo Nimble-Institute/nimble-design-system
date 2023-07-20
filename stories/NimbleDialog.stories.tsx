@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react';
 import {NimbleDialog} from '../src';
 
 const NimbleDialogStory: Meta<typeof NimbleDialog> = {
-  title: 'Nimble Design/Nimble Dialog',
+  title: 'Nimble Desktop Design/Nimble Dialog',
   component: NimbleDialog,
   parameters: {
     // layout: 'fullscreen',

@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react';
 import {NimbleGaugeChart} from '../src';
 
 const NimbleGaugeChartStory: Meta<typeof NimbleGaugeChart> = {
-  title: 'Nimble Design/Nimble Gauge Chart',
+  title: 'Nimble Charts/Nimble Gauge Chart',
   component: NimbleGaugeChart,
   parameters: {
     docs: {iframeHeight: 600, previewSource: 'open'},
