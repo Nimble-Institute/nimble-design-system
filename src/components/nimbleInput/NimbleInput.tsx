@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {TextField, Box, InputAdornment, InternalStandardProps as StandardProps, IconButton} from '@mui/material';
 import {ThemeProvider} from '@mui/material/styles';
-import {Visibility, VisibilityOff} from '@mui/icons-material';
+import {Visibility, VisibilityOff, Search} from '@mui/icons-material';
 import {debounce} from 'lodash';
 
 import {InputLabel, InputError, InputLabelProps, InputBoxProps, InputHelperText} from '../shared';
@@ -18,7 +18,7 @@ interface NimbleInputProps
   defaultValue?: string;
   onChange?: (value: string) => void;
   startIcon?: any;
-  type: 'text' | 'password' | 'number';
+  type: 'text' | 'password' | 'number' | 'search';
   helperText?: string;
   disabled?: boolean;
 }
@@ -93,19 +93,21 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
           value={internalValue}
           InputProps={{
             startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,
-            endAdornment: type === 'password' && (
+            endAdornment: (type === 'password' || type === 'search') && (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
-                  edge="end">
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  edge="end"
+                  disabled={disabled}>
+                  {type === 'password' && (showPassword ? <VisibilityOff /> : <Visibility />)}
+                  {type === 'search' && <Search />}
                 </IconButton>
               </InputAdornment>
             ),
           }}
-          type={showPassword ? 'text' : type}
+          type={showPassword || type === 'search' ? 'text' : type}
           inputRef={ref}
           disabled={disabled}
         />

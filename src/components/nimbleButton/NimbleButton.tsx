@@ -9,13 +9,14 @@ interface ButtonProps {
 }
 
 export interface NimbleButtonProps {
-  label: string;
-  variant?: 'text' | 'outlined' | 'contained';
+  label?: string;
+  variant?: 'text' | 'outlined' | 'contained' | 'icon';
   size?: 'small' | 'medium' | 'large';
   color?: string;
   disabled?: boolean;
   startIcon?: any;
   loading?: boolean;
+  icon?: any;
   onClick: () => void;
 }
 
@@ -57,6 +58,18 @@ const TextActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
   },
 }));
 
+const IconButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
+  minWidth: '40px !important',
+  borderRadius: '5px',
+  backgroundColor: buttoncolor,
+  ':hover': {
+    backgroundColor: darken(0.1, buttoncolor),
+  },
+  ':disabled': {
+    backgroundColor: lighten(0.4, buttoncolor),
+  },
+}));
+
 export const NimbleButton: React.FC<NimbleButtonProps> = ({
   label,
   variant = 'contained',
@@ -66,6 +79,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   startIcon,
   loading,
   onClick,
+  icon,
 }) => {
   const handleClick = () => {
     !loading && onClick();
@@ -106,6 +120,12 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           onClick={handleClick}>
           {label}
         </TextActionButton>
+      );
+    case 'icon':
+      return (
+        <IconButton variant={'contained'} buttoncolor={color} size={size} disabled={disabled} onClick={handleClick}>
+          {icon}
+        </IconButton>
       );
     default:
       return null;

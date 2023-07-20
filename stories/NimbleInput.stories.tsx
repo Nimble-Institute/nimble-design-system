@@ -6,7 +6,7 @@ import {NimbleInput} from '../src';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const NimbleInputStory: Meta<typeof NimbleInput> = {
-  title: 'Nimble Design/Nimble Input',
+  title: 'Nimble Form Inputs/Nimble Input',
   component: NimbleInput,
   parameters: {
     // layout: 'fullscreen',
@@ -30,6 +30,15 @@ export const NimblePasswordInput = {
     placeholder: 'Enter your password',
     width: '500px',
     type: 'password',
+  },
+};
+
+export const NimbleSearchInput = {
+  args: {
+    label: 'Search Input',
+    placeholder: 'Enter username for search',
+    width: '500px',
+    type: 'search',
   },
 };
 

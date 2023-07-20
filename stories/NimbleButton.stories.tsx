@@ -5,7 +5,7 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import {NimbleButton} from '../src';
 
 const NimbleButtonStory: Meta<typeof NimbleButton> = {
-  title: 'Nimble Design/Nimble Button',
+  title: 'Nimble Form Inputs/Nimble Button',
   component: NimbleButton,
   parameters: {
     // layout: 'fullscreen',
@@ -54,5 +54,13 @@ export const NimbleTextButton = {
     label: 'Text Button',
     variant: 'text',
     size: 'small',
+  },
+};
+
+export const NimbleIconButton = {
+  args: {
+    variant: 'icon',
+    size: 'small',
+    icon: <VerifiedUserIcon />,
   },
 };

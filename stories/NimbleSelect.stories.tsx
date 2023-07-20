@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react';
 import {NimbleSelect} from '../src';
 
 const NimbleSelectStory: Meta<typeof NimbleSelect> = {
-  title: 'Nimble Design/Nimble Select',
+  title: 'Nimble Form Inputs/Nimble Select',
   component: NimbleSelect,
   parameters: {
     // layout: 'fullscreen',

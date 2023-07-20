@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react';
 import {NimbleSwitch} from '../src';
 
 const NimbleSwitchStory: Meta<typeof NimbleSwitch> = {
-  title: 'Nimble Design/Nimble Swicth',
+  title: 'Nimble Form Inputs/Nimble Swicth',
   component: NimbleSwitch,
   parameters: {
     // layout: 'fullscreen',
