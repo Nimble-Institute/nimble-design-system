@@ -21,7 +21,7 @@ interface SlectedIconProps {
 const OptionPaper = styled(Paper)({
   marginTop: '8px',
   borderRadius: '5px',
-  backgroundColor: '#ffffffcc',
+  backgroundColor: '#FFFFFF',
   boxShadow: '0px 4px 16px 0px rgba(22, 22, 22, 0.11);',
 });
 
