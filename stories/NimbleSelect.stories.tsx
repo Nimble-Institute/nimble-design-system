@@ -17,6 +17,7 @@ export default NimbleSelectStory;
 export const NimbleBasicSelect = {
   args: {
     label: 'Nimble Selection',
+    placeholder: 'Select user names..',
     width: '500px',
     data: [
       {label: 'Manoj Gamachchige', value: '1'},

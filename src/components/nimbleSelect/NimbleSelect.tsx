@@ -20,6 +20,7 @@ interface NimbleSelectProps
   disabled?: boolean;
   data: NimbleSelectData[];
   defaultValue?: string;
+  placeholder?: string;
   onChange?: (value: string) => void;
 }
 
@@ -39,12 +40,13 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   data,
   defaultValue,
   onChange,
+  placeholder,
   ref,
 }) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('-');
 
   useEffect(() => {
-    defaultValue ? setSelectedValue(defaultValue) : setSelectedValue('');
+    defaultValue ? setSelectedValue(defaultValue) : setSelectedValue('-');
   }, [defaultValue]);
 
   const customTheme = useMemo(() => {
@@ -77,6 +79,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             maxHeight: '34px',
             fontSize: '14px',
             fontFamily,
+            color: selectedValue === '-' ? '#AAAAAA' : undefined,
           }}
           disabled={disabled}
           IconComponent={props => <img {...props} src={dropdownSVG} style={{width: '17px'}} />}
@@ -95,7 +98,9 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             },
           }}
           ref={ref}>
-          <li value={''} hidden />
+          <li value="-" hidden>
+            {placeholder}
+          </li>
           {data &&
             data.map((item, index) => (
               <MenuItem
