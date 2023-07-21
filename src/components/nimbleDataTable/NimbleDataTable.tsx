@@ -28,6 +28,7 @@ import FilterImage from '../shared/icons/FiltorIcon';
 import workSpaceIcon from '../../assets/images/table/workspaceIcon.svg';
 import deleteIcon from '../../assets/images/table/delete.svg';
 import editIcon from '../../assets/images/table/edit.svg';
+import searchSVG from '../../assets/images/search.svg';
 
 import theme from './CustomTheme';
 
@@ -184,7 +185,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               placeholder={searchPlaceHolder}
               endAdornment={
                 <InputAdornment position="end">
-                  <Search sx={{fontSize: '20px'}} />
+                  <img src={searchSVG} />
                 </InputAdornment>
               }
               fontFamily={fontFamily}

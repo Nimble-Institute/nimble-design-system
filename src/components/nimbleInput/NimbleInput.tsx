@@ -1,12 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {TextField, Box, InputAdornment, InternalStandardProps as StandardProps, IconButton} from '@mui/material';
 import {ThemeProvider} from '@mui/material/styles';
-import {Visibility, VisibilityOff, Search} from '@mui/icons-material';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {debounce} from 'lodash';
 
 import {InputLabel, InputError, InputLabelProps, InputBoxProps, InputHelperText} from '../shared';
 
 import theme from './CustomTheme';
+import searchSVG from '../../assets/images/search.svg';
 
 interface NimbleInputProps
   extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'>,
@@ -102,7 +103,7 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
                   edge="end"
                   disabled={disabled}>
                   {type === 'password' && (showPassword ? <VisibilityOff /> : <Visibility />)}
-                  {type === 'search' && <Search />}
+                  {type === 'search' && <img src={searchSVG} />}
                 </IconButton>
               </InputAdornment>
             ),
