@@ -15,7 +15,7 @@ const SerahcInputWrapper = styled(Box)(({isprimaryactionavailable}: {isprimaryac
   marginRight: isprimaryactionavailable ? '8px' : '0px',
 }));
 
-interface NimbleMobileSearchProps {
+export interface NimbleMobileSearchProps {
   placeholder?: string;
   borderColor?: string;
   activeBoxShadow?: string;
@@ -24,6 +24,7 @@ interface NimbleMobileSearchProps {
   onSearch?: (searchValue: string) => void;
   primaryColor?: string;
   isPrimaryActionAvailable?: boolean;
+  primaryActionIcon?: any;
   onClickPrimaryAction?: () => void;
   searchDisabled?: boolean;
   primaryActionDisabled?: boolean;
@@ -41,6 +42,7 @@ export const NimbleMobileSearch: React.FC<NimbleMobileSearchProps> = ({
   onClickPrimaryAction = () => {},
   searchDisabled,
   primaryActionDisabled,
+  primaryActionIcon = <PersonAddAlt />,
 }) => {
   return (
     <Container>
@@ -59,7 +61,7 @@ export const NimbleMobileSearch: React.FC<NimbleMobileSearchProps> = ({
       {isPrimaryActionAvailable && (
         <NimbleButton
           variant="icon"
-          icon={<PersonAddAlt />}
+          icon={primaryActionIcon}
           onClick={onClickPrimaryAction}
           color={primaryColor}
           disabled={primaryActionDisabled}

@@ -10,3 +10,4 @@ export * from './nimbleTab/NimbleTab';
 export * from './nimbleSwitch/NimbleSwitch';
 
 export * from './nimbleMobileSearch/NimbleMobileSearch';
+export * from './nimbleMobleListView/NimbleMobileListView';
