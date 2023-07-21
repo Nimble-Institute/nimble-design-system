@@ -4,15 +4,19 @@ import {darken} from 'polished';
 
 interface MainActionButtonProps {
   buttoncolor: string;
+  fontFamily: string;
 }
 
 interface HeaderLabelProps {
   fontFamily: string;
   fontWeight: string;
+  fontSize: number;
 }
 
 interface TableValueProps {
   fontFamily: string;
+  fontWeight: string;
+  fontSize: number;
 }
 
 const Container = styled('div')({
@@ -35,11 +39,13 @@ const SearchBarWrapper = styled('div')({
   flex: 1,
 });
 
-const SearchBar = styled(OutlinedInput)({
+const SearchBar = styled(OutlinedInput)(({fontFamily, fontSize}: {fontFamily: string; fontSize: number}) => ({
   height: '30px',
   width: '100%',
   borderColor: '#9A9FA5',
-});
+  fontFamily,
+  fontSize,
+}));
 
 const FilterIcon = styled(IconButton)({
   marginLeft: '15px',
@@ -47,7 +53,7 @@ const FilterIcon = styled(IconButton)({
   cursor: 'pointer',
 });
 
-const MainActionButton = styled(Button)(({buttoncolor}: MainActionButtonProps) => ({
+const MainActionButton = styled(Button)(({buttoncolor, fontFamily}: MainActionButtonProps) => ({
   paddingLeft: '20px',
   paddingRight: '20px',
   backgroundColor: buttoncolor,
@@ -56,6 +62,7 @@ const MainActionButton = styled(Button)(({buttoncolor}: MainActionButtonProps) =
   },
   maxHeight: '30px',
   color: '#FFF',
+  fontFamily,
 }));
 
 const MainTable = styled('table')({
@@ -87,11 +94,11 @@ const MainTableBody = styled('tbody')({
   width: '100%',
 });
 
-const HeaderLabel = styled(Typography)(({fontFamily, fontWeight}: HeaderLabelProps) => ({
+const HeaderLabel = styled(Typography)(({fontFamily, fontWeight, fontSize}: HeaderLabelProps) => ({
   display: 'flex',
   fontFamily,
   fontWeight,
-  fontSize: '13px',
+  fontSize,
   lineHeight: '150.9%',
   textTransform: 'uppercase',
   color: '#9B9B9B',
@@ -117,11 +124,11 @@ const StyledTableRow = styled('tr')({
   borderBottom: '1px solid #F6F7F9',
 });
 
-const TableValue = styled(Typography)(({fontFamily}: TableValueProps) => ({
+const TableValue = styled(Typography)(({fontFamily, fontWeight, fontSize}: TableValueProps) => ({
   display: 'flex',
-  fontWeight: '400',
+  fontWeight,
   fontFamily,
-  fontSize: '13px',
+  fontSize,
   lineHeight: '140%',
   color: '#222222',
   minHeight: '44px',
