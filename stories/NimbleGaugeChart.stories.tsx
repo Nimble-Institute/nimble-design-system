@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react';
 import {NimbleGaugeChart} from '../src';
 
 const NimbleGaugeChartStory: Meta<typeof NimbleGaugeChart> = {
-  title: 'Nimble Charts/Nimble Gauge Chart',
+  title: 'Nimble Design/Nimble Gauge Chart',
   component: NimbleGaugeChart,
   parameters: {
     docs: {iframeHeight: 600, previewSource: 'open'},
@@ -27,6 +27,15 @@ export const GaugeChartThresholdGreaterthanChartValue = {
     descriptionFontSize: '14px',
     maxValue: 400000,
     threshold: 380000,
+    segments: [
+      {value: 50000, label: '50K'},
+      {value: 100000, label: '100K'},
+      {value: 150000, label: '150K'},
+      {value: 200000, label: '200K'},
+      {value: 250000, label: '250K'},
+      {value: 300000, label: '300K'},
+      {value: 350000, label: '350K'},
+    ],
   },
 };
 
@@ -45,6 +54,13 @@ export const GaugeChartThresholdLessthanChartValue = {
     descriptionFontSize: '14px',
     maxValue: 400000,
     threshold: 300000,
+    segments: [
+      {value: 0, label: '0'},
+      {value: 100000, label: '100K'},
+      {value: 200000, label: '200K'},
+      {value: 300000, label: '300K'},
+      {value: 400000, label: '400K'},
+    ],
   },
 };
 
