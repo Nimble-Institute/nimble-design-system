@@ -240,7 +240,8 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                 dataLength={dataLength}
                 next={loadNextPage}
                 loader={dataLoading && <h4>Loading...</h4>}
-                scrollableTarget={'scrollableDiv'}>
+                scrollableTarget={'scrollableDiv'}
+                style={{overflowX: 'hidden'}}>
                 {renderDataList()}
               </InfiniteScroll>
             ) : (
