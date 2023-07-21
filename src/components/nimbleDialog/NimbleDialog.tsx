@@ -12,6 +12,7 @@ interface NimbleDialogProps {
   fontFamily?: string;
   primaryColor?: string;
   parimaryActionLabel: string;
+  primaryActionIcon?: any;
   isSecondaryActionAvailable?: boolean;
   secondaryActionlabel?: string;
   onClickSecondaryAction?: () => void;
@@ -39,6 +40,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   primaryColor = '#0057A2',
   parimaryActionLabel,
+  primaryActionIcon,
   isSecondaryActionAvailable,
   secondaryActionlabel = 'Back',
   onClickSecondaryAction,
@@ -124,6 +126,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
           label={parimaryActionLabel}
           color={primaryColor}
           loading={mainActionInProgress}
+          startIcon={primaryActionIcon}
         />
       </DialogActions>
     </Dialog>

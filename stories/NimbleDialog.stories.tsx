@@ -1,4 +1,6 @@
+import React from 'react';
 import type {Meta} from '@storybook/react';
+import SaveIcon from '@mui/icons-material/Save';
 
 import {NimbleDialog} from '../src';
 
@@ -19,6 +21,7 @@ export const NimbleBasicDialog = {
     title: 'This Is Simple Dialog Title',
     primaryColor: '#0057A2',
     parimaryActionLabel: 'Save',
+    primaryActionIcon: <SaveIcon />,
     secondaryActionlabel: 'Back',
     metaData: {
       id: 1,
