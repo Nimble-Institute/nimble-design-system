@@ -56,9 +56,12 @@ interface NimbleDataTableProps {
   InputFieldActiveBoxShadow?: string;
   InputFieldHoverBoxShadow?: string;
 
-  headerFontFamily?: string;
-  headerFontWeight?: '600' | '500' | '400';
-  dataFontFamily?: string;
+  fontFamily?: string;
+  headerFontWeight?: '700' | '600' | '500' | '400';
+  dataFontWeight?: '700' | '600' | '500' | '400';
+  headerFontSize?: number;
+  dataFontSize?: number;
+  searchBarFontSize?: number;
 
   columnData: ColumnDataType[];
   dataViewEnable?: boolean;
@@ -85,9 +88,14 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   InputFieldBorderColor = '#9A9FA5',
   InputFieldActiveBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
   InputFieldHoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
-  headerFontFamily = 'Roboto,Helvetica,Arial,sans-serif',
-  headerFontWeight = '600',
-  dataFontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+
+  headerFontWeight = '700',
+  headerFontSize = 13,
+  dataFontWeight = '400',
+  dataFontSize = 12,
+  searchBarFontSize = 13,
+
   columnData,
   onChangeColumnFilters,
   data,
@@ -179,6 +187,8 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                   <Search sx={{fontSize: '20px'}} />
                 </InputAdornment>
               }
+              fontFamily={fontFamily}
+              fontSize={searchBarFontSize}
             />
           </SearchBarWrapper>
           <FilterIcon
@@ -193,7 +203,8 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             variant="contained"
             size="small"
             startIcon={mainActionIcon ? <img src={mainActionIcon} /> : <ControlPoint />}
-            buttoncolor={primaryColor}>
+            buttoncolor={primaryColor}
+            fontFamily={fontFamily}>
             {mainActionLabel}
           </MainActionButton>
         </SearchBarContainer>
@@ -203,7 +214,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               {columnData.map((item, index) => (
                 <th key={index}>
                   <ColumnHeader>
-                    <HeaderLabel fontFamily={headerFontFamily} fontWeight={headerFontWeight}>
+                    <HeaderLabel fontFamily={fontFamily} fontWeight={headerFontWeight} fontSize={headerFontSize}>
                       {item.label}
                     </HeaderLabel>
                     {item.sort && (
@@ -284,7 +295,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
-                      <TableValue fontFamily={dataFontFamily}>{item[cData.dataPoint]}</TableValue>
+                      <TableValue fontFamily={fontFamily} fontWeight={dataFontWeight} fontSize={dataFontSize}>
+                        {item[cData.dataPoint]}
+                      </TableValue>
                     )}
                     {cData.component && cData.component(item)}
                   </td>
