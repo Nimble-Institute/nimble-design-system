@@ -78,6 +78,7 @@ interface NimbleDataTableProps {
   onClickMainAction?: () => void;
 
   isDesktopScreen?: boolean;
+  isEnableMultipleSort?: boolean;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -111,6 +112,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onClickMainAction,
 
   isDesktopScreen = true,
+  isEnableMultipleSort = false,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -138,7 +140,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
     if (sortKey) {
       setSortData({
-        ...sortData,
+        ...(isEnableMultipleSort ? sortData : {}),
         [sortKey]: sortOrder,
       });
     }
