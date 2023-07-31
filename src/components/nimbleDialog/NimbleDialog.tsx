@@ -13,6 +13,8 @@ interface NimbleDialogProps {
   primaryColor?: string;
   parimaryActionLabel: string;
   primaryActionIcon?: any;
+  isCloseActionAvailable?: boolean;
+  isPrimaryActionAvailable?: boolean;
   isSecondaryActionAvailable?: boolean;
   secondaryActionlabel?: string;
   onClickSecondaryAction?: () => void;
@@ -41,7 +43,9 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   primaryColor = '#0057A2',
   parimaryActionLabel,
   primaryActionIcon,
-  isSecondaryActionAvailable,
+  isSecondaryActionAvailable = false,
+  isCloseActionAvailable = true,
+  isPrimaryActionAvailable = true,
   secondaryActionlabel = 'Back',
   onClickSecondaryAction,
   mainActionInProgress,
@@ -112,7 +116,9 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions sx={{padding: topActionPanel ? '25px' : '30px'}}>
-        <NimbleButton onClick={handleClose} label={'Cancel'} variant="text" color={primaryColor} />
+        {isCloseActionAvailable && (
+          <NimbleButton onClick={handleClose} label={'Cancel'} variant="text" color={primaryColor} />
+        )}
         {isSecondaryActionAvailable && (
           <NimbleButton
             onClick={handleSecondaryAction}
@@ -121,13 +127,15 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
             color={primaryColor}
           />
         )}
-        <NimbleButton
-          onClick={handlePrimaryAction}
-          label={parimaryActionLabel}
-          color={primaryColor}
-          loading={mainActionInProgress}
-          startIcon={primaryActionIcon}
-        />
+        {isPrimaryActionAvailable && (
+          <NimbleButton
+            onClick={handlePrimaryAction}
+            label={parimaryActionLabel}
+            color={primaryColor}
+            loading={mainActionInProgress}
+            startIcon={primaryActionIcon}
+          />
+        )}
       </DialogActions>
     </Dialog>
   );
