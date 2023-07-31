@@ -100,7 +100,7 @@ const HeaderLabel = styled(Typography)(({fontFamily, fontWeight, fontSize}: Head
   fontWeight,
   fontSize,
   lineHeight: '150.9%',
-  textTransform: 'uppercase',
+  textTransform: 'none',
   color: '#9B9B9B',
 }));
 
