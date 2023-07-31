@@ -29,6 +29,7 @@ interface NimbleAutoCompleteProps
   multiple?: boolean;
   defaultValue?: NimbleAutocompleteDataType[];
   disabled?: boolean;
+  name?: string;
 }
 
 export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
@@ -50,6 +51,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   multiple = true,
   defaultValue,
   disabled = false,
+  name = undefined,
   ...props
 }) => {
   const [value, setValue] = useState<NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null>(null);
@@ -127,7 +129,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           getOptionLabel={option => option.label || ''}
           renderOption={renderOption}
           renderInput={params => (
-            <TextInput {...params} size="small" placeholder={placeholder} fontFamily={fontFamily} />
+            <TextInput {...params} size="small" placeholder={placeholder} fontFamily={fontFamily} name={name} />
           )}
           ListboxProps={{
             style: {

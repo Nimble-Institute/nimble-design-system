@@ -25,6 +25,7 @@ interface NimbleSwitchProps
   values?: ValueType;
   onChange?: (values: ValueType) => void;
   size: 'small' | 'medium';
+  name?: string;
 }
 
 const IOSSwitch = styled((props: SwitchProps) => (
@@ -87,6 +88,7 @@ export const NimbleSwitch: React.FC<NimbleSwitchProps> = ({
   values,
   onChange,
   size = 'medium',
+  name = undefined,
 }) => {
   const [switchValus, setSwitchValues] = useState<ValueType | undefined>({});
 
@@ -125,6 +127,7 @@ export const NimbleSwitch: React.FC<NimbleSwitchProps> = ({
                   onChange && onChange(newData);
                 }}
                 disabled={disabled}
+                name={name}
               />
               {item.label && (
                 <Typography

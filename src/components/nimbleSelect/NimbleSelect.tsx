@@ -22,6 +22,7 @@ interface NimbleSelectProps
   defaultValue?: string;
   placeholder?: string;
   onChange?: (value: string) => void;
+  name?: string;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -42,6 +43,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   onChange,
   placeholder,
   ref,
+  name = undefined,
 }) => {
   const [selectedValue, setSelectedValue] = useState('-');
 
@@ -97,7 +99,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
               },
             },
           }}
-          ref={ref}>
+          ref={ref}
+          name={name}>
           <li value="-" hidden>
             {placeholder}
           </li>
