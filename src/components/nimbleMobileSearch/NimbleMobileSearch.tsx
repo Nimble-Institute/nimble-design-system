@@ -28,6 +28,7 @@ export interface NimbleMobileSearchProps {
   onClickPrimaryAction?: () => void;
   searchDisabled?: boolean;
   primaryActionDisabled?: boolean;
+  name?: string;
 }
 
 export const NimbleMobileSearch: React.FC<NimbleMobileSearchProps> = ({
@@ -43,6 +44,7 @@ export const NimbleMobileSearch: React.FC<NimbleMobileSearchProps> = ({
   searchDisabled,
   primaryActionDisabled,
   primaryActionIcon = <PersonAddAlt />,
+  name = undefined,
 }) => {
   return (
     <Container>
@@ -56,6 +58,7 @@ export const NimbleMobileSearch: React.FC<NimbleMobileSearchProps> = ({
           activeBoxShadow={activeBoxShadow}
           hoverBoxShadow={hoverBoxShadow}
           disabled={searchDisabled}
+          name={name}
         />
       </SerahcInputWrapper>
       {isPrimaryActionAvailable && (

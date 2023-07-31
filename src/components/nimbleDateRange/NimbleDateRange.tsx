@@ -35,6 +35,7 @@ interface NimbleDateRangeProps
   maxDifferentDays?: number;
   placeholderArray?: [string, string];
   disabled?: boolean;
+  name?: string;
 }
 
 const StyledRangePicker = styled(DatePicker.RangePicker)<{
@@ -92,6 +93,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
   maxDifferentDays,
   placeholderArray = ['Start Date', 'End Date'],
   disabled = false,
+  name = undefined,
   ...props
 }) => {
   const [dates, setDates] = useState<RangeValue>(null);
@@ -155,6 +157,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         placeholder={placeholderArray}
         fontFamily={fontFamily}
         disabled={disabled}
+        name={name}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />

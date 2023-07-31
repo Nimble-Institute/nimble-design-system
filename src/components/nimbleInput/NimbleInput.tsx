@@ -22,6 +22,7 @@ interface NimbleInputProps
   type: 'text' | 'password' | 'number' | 'search';
   helperText?: string;
   disabled?: boolean;
+  name?: string;
 }
 
 export const NimbleInput: React.FC<NimbleInputProps> = ({
@@ -44,6 +45,7 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
   ref,
   helperText,
   disabled = false,
+  name = undefined,
 }) => {
   const [internalValue, setInternalValue] = useState<string | undefined>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -111,6 +113,7 @@ export const NimbleInput: React.FC<NimbleInputProps> = ({
           type={showPassword || type === 'search' ? 'text' : type}
           inputRef={ref}
           disabled={disabled}
+          name={name}
         />
       </ThemeProvider>
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
