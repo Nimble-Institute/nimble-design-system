@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
 import {Pagination, IconButton, InputAdornment, Collapse} from '@mui/material';
-import {Search, ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
+import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
 import {
@@ -277,7 +277,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                         placeholder={`Filter ${item.label}`}
                         endAdornment={
                           <InputAdornment position="end">
-                            <Search sx={{fontSize: 18}} />
+                            <img src={searchSVG} alt="search" />
                           </InputAdornment>
                         }
                       />
