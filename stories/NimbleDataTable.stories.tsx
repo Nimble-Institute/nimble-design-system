@@ -103,8 +103,8 @@ export const Datatable = {
     },
     searchPlaceHolder: 'search user data',
     mainActionLabel: 'Add some Data',
-    onChangeColumnFilters: (value, dataPoint) => {
-      alert(value + '-' + dataPoint);
+    onChangeColumnFilters: (data: {[key: string]: string}) => {
+      console.log(data);
     },
     onClickDeleteRow: () => alert('open row delete dialog'),
     onClickEditeRow: () => alert('open row edit dialog'),
