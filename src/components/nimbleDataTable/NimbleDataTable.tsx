@@ -68,7 +68,7 @@ interface NimbleDataTableProps {
   dataViewEnable?: boolean;
   dataEditEnable?: boolean;
   dataDeleteEnable?: boolean;
-  onChangeColumnFilters?: (value: string, dataPoint: string) => void;
+  onChangeColumnFilters?: (filterData: {[key: string]: string}) => void;
   data: any[];
   paginationData: PaginationDataType;
 
@@ -116,6 +116,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
+  const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
 
   const customTheme = useMemo(() => {
@@ -130,12 +131,24 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   const handleFilterChange = (value: string, dataPoint: string | undefined): void => {
     if (onChangeColumnFilters && dataPoint) {
-      onChangeColumnFilters(value, dataPoint);
+      const newFilterData = value
+        ? {
+            ...filterData,
+            [dataPoint]: value,
+          }
+        : {...filterData};
+
+      if (!value) {
+        delete newFilterData[dataPoint];
+      }
+
+      setFilterData(newFilterData);
+      onChangeColumnFilters(newFilterData);
     }
   };
 
   const searchDebounceHandler = useMemo(() => debounce(handleSearch, 500), []);
-  const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), []);
+  const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
     if (sortKey) {
