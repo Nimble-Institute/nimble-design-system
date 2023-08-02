@@ -20,9 +20,11 @@ interface NimbleSelectProps
   disabled?: boolean;
   data: NimbleSelectData[];
   defaultValue?: string;
+  defaultValueForMultiple?: string[];
   placeholder?: string;
   onChange?: (value: string) => void;
   name?: string;
+  multiple?: boolean;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -40,16 +42,23 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   disabled = false,
   data,
   defaultValue,
+  defaultValueForMultiple,
   onChange,
   placeholder,
   ref,
   name = undefined,
+  multiple = false,
 }) => {
-  const [selectedValue, setSelectedValue] = useState('-');
+  const [selectedValue, setSelectedValue] = useState<string>('-');
+  const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
 
   useEffect(() => {
-    defaultValue ? setSelectedValue(defaultValue) : setSelectedValue('-');
+    setSelectedValue(defaultValue || '-');
   }, [defaultValue]);
+
+  useEffect(() => {
+    setSelectedValueForMultiple(defaultValueForMultiple || ['-']);
+  }, [defaultValueForMultiple]);
 
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
@@ -57,7 +66,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
 
   const handleChnage = (event: any) => {
     const val = event.target.value;
-    setSelectedValue(val);
+
+    multiple ? setSelectedValueForMultiple(val.filter((item: string) => item !== '-')) : setSelectedValue(val);
     onChange && onChange(val);
   };
 
@@ -73,15 +83,19 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
       />
       <ThemeProvider theme={customTheme}>
         <Select
-          value={selectedValue}
+          value={multiple ? selectedValueForMultiple : selectedValue}
           onChange={handleChnage}
           size="small"
+          multiple={multiple}
           sx={{
             width,
             maxHeight: '34px',
             fontSize: '14px',
             fontFamily,
             color: selectedValue === '-' ? '#AAAAAA' : undefined,
+            '.MuiSelect-multiple': {
+              color: selectedValueForMultiple[0] === '-' ? '#AAAAAA' : 'black',
+            },
           }}
           disabled={disabled}
           IconComponent={props => <img {...props} src={dropdownSVG} style={{width: '17px'}} />}
