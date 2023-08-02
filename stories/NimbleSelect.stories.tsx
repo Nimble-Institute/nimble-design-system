@@ -95,3 +95,38 @@ export const NimbleSelectDiabled = {
     onChange: value => alert(value),
   },
 };
+
+export const NimbleMultipleSelect = {
+  args: {
+    label: 'Nimble Selection',
+    width: '500px',
+    multiple: true,
+    data: [
+      {label: 'Manoj Gamachchige', value: '1'},
+      {label: 'Rylie Gamachchige', value: '2'},
+      {label: 'Madu Gamachchige', value: '3'},
+      {label: 'Anuja Ulpathakubura', value: '4'},
+      {label: 'Archan Udaranga', value: '5'},
+    ],
+    onChange: value => alert(value),
+    placeholder: 'Select user names..',
+  },
+};
+
+export const NimbleMultipleSelectWithDefaultValues = {
+  args: {
+    label: 'Nimble Selection',
+    width: '500px',
+    multiple: true,
+    defaultValueForMultiple: ['1', '2'],
+    data: [
+      {label: 'Manoj Gamachchige', value: '1'},
+      {label: 'Rylie Gamachchige', value: '2'},
+      {label: 'Madu Gamachchige', value: '3'},
+      {label: 'Anuja Ulpathakubura', value: '4'},
+      {label: 'Archan Udaranga', value: '5'},
+    ],
+    onChange: value => alert(value),
+    placeholder: 'Select user names..',
+  },
+};
