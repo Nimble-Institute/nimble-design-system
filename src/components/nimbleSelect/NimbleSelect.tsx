@@ -25,6 +25,8 @@ interface NimbleSelectProps
   onChange?: (value: string) => void;
   name?: string;
   multiple?: boolean;
+  height?: string;
+  fontSize?: number;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -48,6 +50,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   ref,
   name = undefined,
   multiple = false,
+  height = '34px',
+  fontSize = 14,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('-');
   const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
@@ -89,16 +93,17 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
           multiple={multiple}
           sx={{
             width,
-            maxHeight: '34px',
-            fontSize: '14px',
+            height,
+            fontSize,
             fontFamily,
             color: selectedValue === '-' ? '#AAAAAA' : undefined,
             '.MuiSelect-multiple': {
               color: selectedValueForMultiple[0] === '-' ? '#AAAAAA' : 'black',
             },
+            textTransform: 'none',
           }}
           disabled={disabled}
-          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: '17px'}} />}
+          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: fontSize > 13 ? '17px' : '14px'}} />}
           MenuProps={{
             sx: {
               '&& .Mui-selected': {
@@ -123,7 +128,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
               <MenuItem
                 value={item.value}
                 key={index}
-                sx={{borderBottom: '1px solid #E2E2E2', fontFamily, fontSize: '14px'}}>
+                sx={{borderBottom: '1px solid #E2E2E2', fontFamily, fontSize: '14px', textTransform: 'none'}}>
                 {item.label}
               </MenuItem>
             ))}

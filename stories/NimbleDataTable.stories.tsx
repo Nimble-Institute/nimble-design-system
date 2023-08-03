@@ -37,6 +37,17 @@ export const Datatable = {
         sort: true,
         filter: true,
         width: '20%',
+        filterType: 'select',
+        customFilterSelections: [
+          {
+            label: 'super-admin',
+            value: '1',
+          },
+          {
+            label: 'admin',
+            value: '2',
+          },
+        ],
       },
       {
         label: 'Autherization',
@@ -44,6 +55,7 @@ export const Datatable = {
         sort: true,
         filter: true,
         width: '20%',
+        filterType: 'select',
         component: (item: any) => (
           <div
             style={{
