@@ -63,6 +63,7 @@ const MainActionButton = styled(Button)(({buttoncolor, fontFamily}: MainActionBu
   maxHeight: '30px',
   color: '#FFF',
   fontFamily,
+  textTransform: 'none',
 }));
 
 const MainTable = styled('table')({

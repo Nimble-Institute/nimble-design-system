@@ -113,8 +113,8 @@ export const Datatable = {
     onChangeSearchText: searchvalue => {
       alert(searchvalue);
     },
-    searchPlaceHolder: 'search user data',
-    mainActionLabel: 'Add some Data',
+    searchPlaceHolder: 'Search user data',
+    mainActionLabel: 'Add Some Data',
     onChangeColumnFilters: (data: {[key: string]: string}) => {
       console.log(data);
     },
