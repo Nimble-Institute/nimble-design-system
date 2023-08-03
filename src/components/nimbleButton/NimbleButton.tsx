@@ -21,9 +21,10 @@ export interface NimbleButtonProps {
 }
 
 const ContainedActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
-  paddingLeft: '10px',
-  paddingRight: '10px',
+  paddingLeft: '12px !important',
+  paddingRight: '12px !important',
   backgroundColor: buttoncolor,
+  borderRadius: '5px',
   ':hover': {
     backgroundColor: darken(0.1, buttoncolor),
   },
@@ -35,8 +36,9 @@ const ContainedActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
 }));
 
 const OutlinedActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
-  paddingLeft: '10px',
-  paddingRight: '10px',
+  paddingLeft: '12px !important',
+  paddingRight: '12px !important',
+  borderRadius: '5px',
   textTransform: 'none',
   border: `1px solid ${buttoncolor}`,
   color: buttoncolor,
@@ -52,6 +54,9 @@ const OutlinedActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
 
 const TextActionButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
   textTransform: 'none',
+  paddingLeft: '12px !important',
+  paddingRight: '12px !important',
+  borderRadius: '5px',
   color: buttoncolor,
   ':disabled': {
     color: lighten(0.4, buttoncolor),
