@@ -34,7 +34,7 @@ const theme = (
               marginTop: '20px',
             },
             '.MuiInputBase-input': {
-              height: '17px !important',
+              // height: '17px !important',
             },
             '& input::placeholder': {
               fontSize: '14px',

@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {OutlinedInput, Button, IconButton, Typography} from '@mui/material';
+import {OutlinedInput, Button, IconButton, Typography, Select} from '@mui/material';
 import {darken} from 'polished';
 
 interface MainActionButtonProps {
@@ -149,6 +149,14 @@ const PaginationWrapper = styled('div')({
   marginTop: '9px',
 });
 
+const SelectFilterWrapper = styled('div')({
+  maxHeight: '30px',
+  width: '75%',
+  marginTop: '10px',
+  marginBottom: '10px',
+  textAlign: 'left',
+});
+
 export {
   Container,
   SearchBarContainer,
@@ -167,4 +175,5 @@ export {
   TableValue,
   ActionCell,
   PaginationWrapper,
+  SelectFilterWrapper,
 };

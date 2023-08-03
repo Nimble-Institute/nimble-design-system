@@ -17,12 +17,12 @@ import {
   ColumnHeader,
   HeaderLabel,
   SortIconsWrapper,
-  FilterInput,
   StyledTableRow,
   TableValue,
   PaginationWrapper,
   ActionCell,
 } from './StyledWrappers';
+import FilterInputItem from './FilterInputItem';
 
 import FilterImage from '../shared/icons/FiltorIcon';
 import workSpaceIcon from '../../assets/images/table/workspaceIcon.svg';
@@ -37,11 +37,19 @@ interface PaginationDataType {
   page: number;
   onPageChnage: (event: any, value: number) => void;
 }
-interface ColumnDataType {
+
+interface CustomFilterSelection {
+  label: string;
+  value: string;
+}
+
+export interface ColumnDataType {
   label: string;
   dataPoint?: string;
   sort?: boolean;
   filter?: boolean;
+  filterType?: 'text' | 'select';
+  customFilterSelections?: CustomFilterSelection[];
   component?: any;
   width?: string;
 }
@@ -286,17 +294,11 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               {columnData.map((item: ColumnDataType, index: number) => (
                 <th key={`filter-${index}`}>
                   <Collapse in={enableColumnFilter}>
-                    <div style={{display: 'flex'}}>
-                      <FilterInput
-                        onChange={e => filterChangeDebounceHandler(e.target.value, item.dataPoint)}
-                        placeholder={`Filter ${item.label}`}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <img src={searchSVG} alt="search" />
-                          </InputAdornment>
-                        }
-                      />
-                    </div>
+                    <FilterInputItem
+                      item={item}
+                      filterChangeDebounceHandler={filterChangeDebounceHandler}
+                      sanatizedData={sanatizedData}
+                    />
                   </Collapse>
                 </th>
               ))}
