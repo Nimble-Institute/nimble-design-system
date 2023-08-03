@@ -22,6 +22,7 @@ interface NimbleAutoCompleteProps
     InputBoxProps {
   chipColor?: string;
   onChange: (value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null) => void;
+  onBlur?: () => void;
   data: NimbleAutocompleteDataType[];
   isError?: boolean;
   errorMessage?: string;
@@ -43,6 +44,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   hoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
   chipColor = '#9FC540',
   onChange,
+  onBlur,
   data,
   isRequired,
   isError,
@@ -143,6 +145,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           isOptionEqualToValue={(option, value) => option.value === value.value}
           value={value || []}
           disabled={disabled}
+          onBlur={onBlur}
           {...props}
         />
       </ThemeProvider>

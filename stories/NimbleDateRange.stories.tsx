@@ -22,6 +22,7 @@ export const DateRange = {
     activeBoxShadow: '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
     hoverBoxShadow: '0px 0px 0px 2px #dae3f0',
     onDateChange: dates => console.log('selected dates', dates),
+    onBlur: () => console.log('Blur'),
   },
 };
 

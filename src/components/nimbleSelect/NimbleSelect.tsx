@@ -27,6 +27,7 @@ interface NimbleSelectProps
   multiple?: boolean;
   height?: string;
   fontSize?: number;
+  onBlur?: () => void;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -52,6 +53,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   multiple = false,
   height = '34px',
   fontSize = 14,
+  onBlur,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('-');
   const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
@@ -119,7 +121,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             },
           }}
           ref={ref}
-          name={name}>
+          name={name}
+          onBlur={onBlur}>
           <li value="-" hidden>
             {placeholder}
           </li>

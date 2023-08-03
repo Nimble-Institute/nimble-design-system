@@ -30,6 +30,7 @@ interface NimbleDateRangeProps
   isError?: boolean;
   errorMessage?: string;
   onDateChange?: (dates: [string, string]) => void;
+  onBlur?: () => void;
   defaultValue?: [string, string];
   disablePast?: boolean;
   maxDifferentDays?: number;
@@ -88,6 +89,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
   isError,
   errorMessage,
   onDateChange,
+  onBlur,
   defaultValue = [],
   disablePast,
   maxDifferentDays,
@@ -158,6 +160,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         fontFamily={fontFamily}
         disabled={disabled}
         name={name}
+        onBlur={onBlur}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />

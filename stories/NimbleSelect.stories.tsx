@@ -28,6 +28,7 @@ export const NimbleBasicSelect = {
     ],
     // defaultValue: '1',
     onChange: value => alert(value),
+    onBlur: () => console.log('blur'),
   },
 };
 

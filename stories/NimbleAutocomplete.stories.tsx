@@ -32,6 +32,7 @@ export const Autocomplete = {
     placeholder: 'Input search',
     width: '500px',
     multiple: true,
+    onBlur: () => console.log('Blue'),
   },
 };
 
