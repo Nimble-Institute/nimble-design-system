@@ -103,7 +103,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             textTransform: 'none',
           }}
           disabled={disabled}
-          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: fontSize > 13 ? '17px' : '14px'}} />}
+          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: fontSize > 13 ? '16px' : '14px'}} />}
           MenuProps={{
             sx: {
               '&& .Mui-selected': {
