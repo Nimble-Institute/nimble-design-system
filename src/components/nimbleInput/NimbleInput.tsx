@@ -18,6 +18,7 @@ interface NimbleInputProps
   errorMessage?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
+  onBlur?: () => void;
   startIcon?: any;
   type: 'text' | 'password' | 'number' | 'search';
   helperText?: string;
@@ -42,6 +43,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       width = '100%',
       defaultValue,
       onChange,
+      onBlur,
       startIcon,
       type = 'text',
       helperText,
@@ -102,6 +104,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
               setInternalValue(temp);
               inputChangeDebouncer(temp);
             }}
+            onBlur={onBlur}
             value={internalValue}
             InputProps={{
               startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,

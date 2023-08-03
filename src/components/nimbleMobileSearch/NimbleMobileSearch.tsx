@@ -10,9 +10,9 @@ const Container = styled(Box)({
   flex: 1,
 });
 
-const SerahcInputWrapper = styled(Box)(({isprimaryactionavailable}: {isprimaryactionavailable?: boolean}) => ({
+const SerahcInputWrapper = styled(Box)(({isprimaryactionavailable}: {isprimaryactionavailable: string}) => ({
   width: '100%',
-  marginRight: isprimaryactionavailable ? '8px' : '0px',
+  marginRight: isprimaryactionavailable === 'true' ? '8px' : '0px',
 }));
 
 export interface NimbleMobileSearchProps {
@@ -60,7 +60,7 @@ export const NimbleMobileSearch = forwardRef<any, NimbleMobileSearchProps>(
 
     return (
       <Container>
-        <SerahcInputWrapper isprimaryactionavailable={isPrimaryActionAvailable}>
+        <SerahcInputWrapper isprimaryactionavailable={isPrimaryActionAvailable ? 'true' : 'false'}>
           <NimbleInput
             type="search"
             onChange={onSearch}
