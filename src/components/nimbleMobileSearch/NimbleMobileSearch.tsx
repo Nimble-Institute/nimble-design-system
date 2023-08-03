@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef, useRef, useImperativeHandle} from 'react';
 import {Box} from '@mui/material';
 import {styled} from '@mui/system';
 import {PersonAddAlt} from '@mui/icons-material';
@@ -31,45 +31,59 @@ export interface NimbleMobileSearchProps {
   name?: string;
 }
 
-export const NimbleMobileSearch: React.FC<NimbleMobileSearchProps> = ({
-  placeholder,
-  fontFamily,
-  borderColor = '#9A9FA5',
-  activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
-  hoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
-  onSearch,
-  primaryColor,
-  isPrimaryActionAvailable,
-  onClickPrimaryAction = () => {},
-  searchDisabled,
-  primaryActionDisabled,
-  primaryActionIcon = <PersonAddAlt />,
-  name = undefined,
-}) => {
-  return (
-    <Container>
-      <SerahcInputWrapper isprimaryactionavailable={isPrimaryActionAvailable}>
-        <NimbleInput
-          type="search"
-          onChange={onSearch}
-          placeholder={placeholder}
-          fontFamily={fontFamily}
-          borderColor={borderColor}
-          activeBoxShadow={activeBoxShadow}
-          hoverBoxShadow={hoverBoxShadow}
-          disabled={searchDisabled}
-          name={name}
-        />
-      </SerahcInputWrapper>
-      {isPrimaryActionAvailable && (
-        <NimbleButton
-          variant="icon"
-          icon={primaryActionIcon}
-          onClick={onClickPrimaryAction}
-          color={primaryColor}
-          disabled={primaryActionDisabled}
-        />
-      )}
-    </Container>
-  );
-};
+export const NimbleMobileSearch = forwardRef<any, NimbleMobileSearchProps>(
+  (
+    {
+      placeholder,
+      fontFamily,
+      borderColor = '#9A9FA5',
+      activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
+      hoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
+      onSearch,
+      primaryColor,
+      isPrimaryActionAvailable,
+      onClickPrimaryAction = () => {},
+      searchDisabled,
+      primaryActionDisabled,
+      primaryActionIcon = <PersonAddAlt />,
+      name = undefined,
+    },
+    ref,
+  ) => {
+    const searchref = useRef<any>(null);
+
+    useImperativeHandle(ref, () => ({
+      clear() {
+        searchref?.current?.clear();
+      },
+    }));
+
+    return (
+      <Container>
+        <SerahcInputWrapper isprimaryactionavailable={isPrimaryActionAvailable}>
+          <NimbleInput
+            type="search"
+            onChange={onSearch}
+            placeholder={placeholder}
+            fontFamily={fontFamily}
+            borderColor={borderColor}
+            activeBoxShadow={activeBoxShadow}
+            hoverBoxShadow={hoverBoxShadow}
+            disabled={searchDisabled}
+            name={name}
+            ref={searchref}
+          />
+        </SerahcInputWrapper>
+        {isPrimaryActionAvailable && (
+          <NimbleButton
+            variant="icon"
+            icon={primaryActionIcon}
+            onClick={onClickPrimaryAction}
+            color={primaryColor}
+            disabled={primaryActionDisabled}
+          />
+        )}
+      </Container>
+    );
+  },
+);
