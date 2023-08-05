@@ -19,6 +19,10 @@ interface TableValueProps {
   fontSize: number;
 }
 
+interface StyledTableRowProps {
+  hoverColor: string;
+}
+
 const Container = styled('div')({
   boxShadow: '0px 10px 24px rgba(12, 27, 42, 0.06)',
   borderRadius: '8px',
@@ -121,9 +125,14 @@ const FilterInput = styled(OutlinedInput)({
   fontSize: '12px',
 });
 
-const StyledTableRow = styled('tr')({
+const StyledTableRow = styled('tr')(({hoverColor}: StyledTableRowProps) => ({
   borderBottom: '1px solid #F6F7F9',
-});
+  '&:hover': {
+    backgroundColor: hoverColor,
+  },
+  WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
+  transition: 'background 500ms', // For modern browsers
+}));
 
 const TableValue = styled(Typography)(({fontFamily, fontWeight, fontSize}: TableValueProps) => ({
   display: 'flex',
@@ -141,6 +150,7 @@ const ActionCell = styled('td')({
   minHeight: '44px',
   justifyContent: 'space-between',
   width: '120px',
+  paddingRight: '10px',
 });
 
 const PaginationWrapper = styled('div')({
