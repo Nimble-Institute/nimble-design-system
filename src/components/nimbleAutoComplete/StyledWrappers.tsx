@@ -46,6 +46,16 @@ const OptionList = styled('li')({
   flexDirection: 'row',
   justifyContent: 'space-between ',
   borderBottom: '1px solid #E2E2E2',
+  backgroundColor: '#FFFFFF !important',
+  '&:hover': {
+    backgroundColor: '#f0f0f0 !important',
+  },
+  '&[aria-selected="true"]': {
+    backgroundColor: '#e0e0e0 !important',
+    borderBottom: '1px solid #D8D8D8',
+  },
+  WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
+  transition: 'background 500ms', // For modern browsers
 });
 
 const OptionLabel = styled(Typography)(({fontFamily}: OptionLabelProps) => ({
