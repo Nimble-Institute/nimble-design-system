@@ -82,7 +82,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       topActionPanalData &&
       topActionPanalData.map((item, index) => (
         <Box sx={{marginLeft: '5px'}}>
-          <NimbleButton {...item} key={`action-panal-${index}-item`} />
+          <NimbleButton {...item} key={`action-panal-${index}-item`} fontFamily={fontFamily} />
         </Box>
       ))
     );
@@ -117,7 +117,13 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       <DialogContent>{children}</DialogContent>
       <DialogActions sx={{padding: topActionPanel ? '25px' : '30px'}}>
         {isCloseActionAvailable && (
-          <NimbleButton onClick={handleClose} label={'Cancel'} variant="text" color={primaryColor} />
+          <NimbleButton
+            onClick={handleClose}
+            label={'Cancel'}
+            variant="text"
+            color={primaryColor}
+            fontFamily={fontFamily}
+          />
         )}
         {isSecondaryActionAvailable && (
           <NimbleButton
@@ -125,6 +131,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
             label={secondaryActionlabel}
             variant="outlined"
             color={primaryColor}
+            fontFamily={fontFamily}
           />
         )}
         {isPrimaryActionAvailable && (
@@ -134,6 +141,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
             color={primaryColor}
             loading={mainActionInProgress}
             startIcon={primaryActionIcon}
+            fontFamily={fontFamily}
           />
         )}
       </DialogActions>
