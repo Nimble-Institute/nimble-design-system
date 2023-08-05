@@ -33,6 +33,7 @@ export const Autocomplete = {
     width: '500px',
     multiple: true,
     onBlur: () => console.log('Blue'),
+    onChange: value => console.log(value),
   },
 };
 
@@ -59,6 +60,7 @@ export const AutocompleteWithDefaultValue = {
       {label: 'Option A', value: 1},
       {label: 'Option B', value: 2},
     ],
+    onChange: value => console.log(value),
   },
 };
 

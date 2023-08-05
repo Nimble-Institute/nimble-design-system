@@ -56,7 +56,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   name = undefined,
   ...props
 }) => {
-  const [value, setValue] = useState<NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null>(null);
+  // const [value, setValue] = useState<NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null>(null);
 
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
@@ -67,13 +67,13 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null,
   ) => {
     onChange(value);
-    setValue(value);
+    // setValue(value);
   };
 
   const preSelectedvalue = useMemo(() => {
-    if (defaultValue && Array.isArray(defaultValue)) {
-      setValue(defaultValue);
-    }
+    // if (defaultValue && Array.isArray(defaultValue)) {
+    //   setValue(defaultValue);
+    // }
     return defaultValue && Array.isArray(defaultValue) ? [...defaultValue] : undefined;
   }, [defaultValue]);
 
@@ -95,11 +95,14 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     );
   };
 
-  const renderOption = (props: any, option: any) => {
+  const renderOption = (props: any, option: any, {selected}: any) => {
+    const islastOption = props['data-option-index'] + 1 == data?.length;
+    const isFirstOption = props['data-option-index'] === 0;
+
     return (
-      <OptionList {...props} role="list-box">
+      <OptionList {...props} role="list-box" islastOption={islastOption} isFirstOption={isFirstOption}>
         <OptionLabel fontFamily={fontFamily}>{option.label}</OptionLabel>
-        {props['aria-selected'] && <SlectedIcon chipcolor={chipColor} />}
+        {selected && <SlectedIcon chipcolor={chipColor} />}
       </OptionList>
     );
   };
@@ -143,7 +146,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           popupIcon={<img src={searchSVG} />}
           defaultValue={preSelectedvalue}
           isOptionEqualToValue={(option, value) => option.value === value.value}
-          value={value || []}
+          // value={value || []}
           disabled={disabled}
           onBlur={onBlur}
           {...props}

@@ -23,6 +23,7 @@ const OptionPaper = styled(Paper)({
   borderRadius: '5px',
   backgroundColor: '#FFFFFF',
   boxShadow: '0px 4px 16px 0px rgba(22, 22, 22, 0.11);',
+  padding: '0px !important',
 });
 
 const TagWrapper = styled('div')({
@@ -41,7 +42,7 @@ const TagChip = styled(Chip)(({chipcolor, fontFamily}: TagProps) => ({
   maxHeight: '18px',
 }));
 
-const OptionList = styled('li')({
+const OptionList = styled('li')(({islastOption, isFirstOption}: any) => ({
   display: 'flex ',
   flexDirection: 'row',
   justifyContent: 'space-between ',
@@ -56,7 +57,9 @@ const OptionList = styled('li')({
   },
   WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
   transition: 'background 500ms', // For modern browsers
-});
+  ...(islastOption ? {marginBottom: '-10px !important'} : undefined),
+  ...(isFirstOption ? {marginTop: '-8px!important'} : undefined),
+}));
 
 const OptionLabel = styled(Typography)(({fontFamily}: OptionLabelProps) => ({
   fontSize: '16px',
