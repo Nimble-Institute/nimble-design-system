@@ -87,6 +87,7 @@ interface NimbleDataTableProps {
 
   isDesktopScreen?: boolean;
   isEnableMultipleSort?: boolean;
+  rowHoverColor?: string;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -121,6 +122,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   isDesktopScreen = true,
   isEnableMultipleSort = false,
+  rowHoverColor = '#f0f0f0',
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -309,7 +311,8 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               <StyledTableRow
                 key={index}
                 onMouseOver={() => setHoverRowIndex(index)}
-                onMouseLeave={() => setHoverRowIndex(null)}>
+                onMouseLeave={() => setHoverRowIndex(null)}
+                hoverColor={rowHoverColor}>
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
