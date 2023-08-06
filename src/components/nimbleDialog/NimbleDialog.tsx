@@ -13,6 +13,7 @@ interface NimbleDialogProps {
   primaryColor?: string;
   parimaryActionLabel: string;
   primaryActionIcon?: any;
+  primaryActionIconPostion?: 'start' | 'end';
   isCloseActionAvailable?: boolean;
   isPrimaryActionAvailable?: boolean;
   isSecondaryActionAvailable?: boolean;
@@ -46,6 +47,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   isSecondaryActionAvailable = false,
   isCloseActionAvailable = true,
   isPrimaryActionAvailable = true,
+  primaryActionIconPostion = 'start',
   secondaryActionlabel = 'Back',
   onClickSecondaryAction,
   mainActionInProgress,
@@ -140,7 +142,8 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
             label={parimaryActionLabel}
             color={primaryColor}
             loading={mainActionInProgress}
-            startIcon={primaryActionIcon}
+            startIcon={primaryActionIconPostion === 'start' && primaryActionIcon}
+            endIcon={primaryActionIconPostion === 'end' && primaryActionIcon}
             fontFamily={fontFamily}
           />
         )}
