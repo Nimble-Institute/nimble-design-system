@@ -20,7 +20,14 @@ interface NimbleSelectProps
   disabled?: boolean;
   data: NimbleSelectData[];
   defaultValue?: string;
+  defaultValueForMultiple?: string[];
+  placeholder?: string;
   onChange?: (value: string) => void;
+  name?: string;
+  multiple?: boolean;
+  height?: string;
+  fontSize?: number;
+  onBlur?: () => void;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -38,14 +45,26 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   disabled = false,
   data,
   defaultValue,
+  defaultValueForMultiple,
   onChange,
+  placeholder,
   ref,
+  name = undefined,
+  multiple = false,
+  height = '34px',
+  fontSize = 14,
+  onBlur,
 }) => {
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState<string>('-');
+  const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
 
   useEffect(() => {
-    defaultValue ? setSelectedValue(defaultValue) : setSelectedValue('');
+    setSelectedValue(defaultValue || '-');
   }, [defaultValue]);
+
+  useEffect(() => {
+    setSelectedValueForMultiple(defaultValueForMultiple || ['-']);
+  }, [defaultValueForMultiple]);
 
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
@@ -53,7 +72,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
 
   const handleChnage = (event: any) => {
     const val = event.target.value;
-    setSelectedValue(val);
+
+    multiple ? setSelectedValueForMultiple(val.filter((item: string) => item !== '-')) : setSelectedValue(val);
     onChange && onChange(val);
   };
 
@@ -69,17 +89,23 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
       />
       <ThemeProvider theme={customTheme}>
         <Select
-          value={selectedValue}
+          value={multiple ? selectedValueForMultiple : selectedValue}
           onChange={handleChnage}
           size="small"
+          multiple={multiple}
           sx={{
             width,
-            maxHeight: '34px',
-            fontSize: '14px',
+            height,
+            fontSize,
             fontFamily,
+            color: selectedValue === '-' ? '#AAAAAA' : undefined,
+            '.MuiSelect-multiple': {
+              color: selectedValueForMultiple[0] === '-' ? '#AAAAAA' : 'black',
+            },
+            textTransform: 'none',
           }}
           disabled={disabled}
-          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: '17px'}} />}
+          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: fontSize > 13 ? '16px' : '14px'}} />}
           MenuProps={{
             sx: {
               '&& .Mui-selected': {
@@ -94,14 +120,18 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
               },
             },
           }}
-          ref={ref}>
-          <li value={''} hidden />
+          ref={ref}
+          name={name}
+          onBlur={onBlur}>
+          <li value="-" hidden>
+            {placeholder}
+          </li>
           {data &&
             data.map((item, index) => (
               <MenuItem
                 value={item.value}
                 key={index}
-                sx={{borderBottom: '1px solid #E2E2E2', fontFamily, fontSize: '14px'}}>
+                sx={{borderBottom: '1px solid #E2E2E2', fontFamily, fontSize: '14px', textTransform: 'none'}}>
                 {item.label}
               </MenuItem>
             ))}

@@ -30,11 +30,13 @@ interface NimbleDateRangeProps
   isError?: boolean;
   errorMessage?: string;
   onDateChange?: (dates: [string, string]) => void;
+  onBlur?: () => void;
   defaultValue?: [string, string];
   disablePast?: boolean;
   maxDifferentDays?: number;
   placeholderArray?: [string, string];
   disabled?: boolean;
+  name?: string;
 }
 
 const StyledRangePicker = styled(DatePicker.RangePicker)<{
@@ -87,11 +89,13 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
   isError,
   errorMessage,
   onDateChange,
+  onBlur,
   defaultValue = [],
   disablePast,
   maxDifferentDays,
   placeholderArray = ['Start Date', 'End Date'],
   disabled = false,
+  name = undefined,
   ...props
 }) => {
   const [dates, setDates] = useState<RangeValue>(null);
@@ -155,6 +159,8 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         placeholder={placeholderArray}
         fontFamily={fontFamily}
         disabled={disabled}
+        name={name}
+        onBlur={onBlur}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />

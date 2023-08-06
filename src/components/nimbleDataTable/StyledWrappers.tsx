@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {OutlinedInput, Button, IconButton, Typography} from '@mui/material';
+import {OutlinedInput, Button, IconButton, Typography, Select} from '@mui/material';
 import {darken} from 'polished';
 
 interface MainActionButtonProps {
@@ -17,6 +17,10 @@ interface TableValueProps {
   fontFamily: string;
   fontWeight: string;
   fontSize: number;
+}
+
+interface StyledTableRowProps {
+  hoverColor: string;
 }
 
 const Container = styled('div')({
@@ -63,6 +67,7 @@ const MainActionButton = styled(Button)(({buttoncolor, fontFamily}: MainActionBu
   maxHeight: '30px',
   color: '#FFF',
   fontFamily,
+  textTransform: 'none',
 }));
 
 const MainTable = styled('table')({
@@ -100,7 +105,7 @@ const HeaderLabel = styled(Typography)(({fontFamily, fontWeight, fontSize}: Head
   fontWeight,
   fontSize,
   lineHeight: '150.9%',
-  textTransform: 'uppercase',
+  textTransform: 'none',
   color: '#9B9B9B',
 }));
 
@@ -120,9 +125,14 @@ const FilterInput = styled(OutlinedInput)({
   fontSize: '12px',
 });
 
-const StyledTableRow = styled('tr')({
+const StyledTableRow = styled('tr')(({hoverColor}: StyledTableRowProps) => ({
   borderBottom: '1px solid #F6F7F9',
-});
+  '&:hover': {
+    backgroundColor: hoverColor,
+  },
+  WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
+  transition: 'background 500ms', // For modern browsers
+}));
 
 const TableValue = styled(Typography)(({fontFamily, fontWeight, fontSize}: TableValueProps) => ({
   display: 'flex',
@@ -140,6 +150,7 @@ const ActionCell = styled('td')({
   minHeight: '44px',
   justifyContent: 'space-between',
   width: '120px',
+  paddingRight: '10px',
 });
 
 const PaginationWrapper = styled('div')({
@@ -147,6 +158,14 @@ const PaginationWrapper = styled('div')({
   justifyContent: 'flex-end',
   alignItems: 'center',
   marginTop: '9px',
+});
+
+const SelectFilterWrapper = styled('div')({
+  maxHeight: '30px',
+  width: '75%',
+  marginTop: '10px',
+  marginBottom: '10px',
+  textAlign: 'left',
 });
 
 export {
@@ -167,4 +186,5 @@ export {
   TableValue,
   ActionCell,
   PaginationWrapper,
+  SelectFilterWrapper,
 };

@@ -37,6 +37,17 @@ export const Datatable = {
         sort: true,
         filter: true,
         width: '20%',
+        filterType: 'select',
+        customFilterSelections: [
+          {
+            label: 'super-admin',
+            value: '1',
+          },
+          {
+            label: 'admin',
+            value: '2',
+          },
+        ],
       },
       {
         label: 'Autherization',
@@ -44,6 +55,7 @@ export const Datatable = {
         sort: true,
         filter: true,
         width: '20%',
+        filterType: 'select',
         component: (item: any) => (
           <div
             style={{
@@ -101,10 +113,10 @@ export const Datatable = {
     onChangeSearchText: searchvalue => {
       alert(searchvalue);
     },
-    searchPlaceHolder: 'search user data',
-    mainActionLabel: 'Add some Data',
-    onChangeColumnFilters: (value, dataPoint) => {
-      alert(value + '-' + dataPoint);
+    searchPlaceHolder: 'Search user data',
+    mainActionLabel: 'Add Some Data',
+    onChangeColumnFilters: (data: {[key: string]: string}) => {
+      console.log(data);
     },
     onClickDeleteRow: () => alert('open row delete dialog'),
     onClickEditeRow: () => alert('open row edit dialog'),

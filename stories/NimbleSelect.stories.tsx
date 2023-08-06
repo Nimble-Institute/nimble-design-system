@@ -17,6 +17,7 @@ export default NimbleSelectStory;
 export const NimbleBasicSelect = {
   args: {
     label: 'Nimble Selection',
+    placeholder: 'Select user names..',
     width: '500px',
     data: [
       {label: 'Manoj Gamachchige', value: '1'},
@@ -27,6 +28,7 @@ export const NimbleBasicSelect = {
     ],
     // defaultValue: '1',
     onChange: value => alert(value),
+    onBlur: () => console.log('blur'),
   },
 };
 
@@ -92,5 +94,40 @@ export const NimbleSelectDiabled = {
     ],
     disabled: true,
     onChange: value => alert(value),
+  },
+};
+
+export const NimbleMultipleSelect = {
+  args: {
+    label: 'Nimble Selection',
+    width: '500px',
+    multiple: true,
+    data: [
+      {label: 'Manoj Gamachchige', value: '1'},
+      {label: 'Rylie Gamachchige', value: '2'},
+      {label: 'Madu Gamachchige', value: '3'},
+      {label: 'Anuja Ulpathakubura', value: '4'},
+      {label: 'Archan Udaranga', value: '5'},
+    ],
+    onChange: value => alert(value),
+    placeholder: 'Select user names..',
+  },
+};
+
+export const NimbleMultipleSelectWithDefaultValues = {
+  args: {
+    label: 'Nimble Selection',
+    width: '500px',
+    multiple: true,
+    defaultValueForMultiple: ['1', '2'],
+    data: [
+      {label: 'Manoj Gamachchige', value: '1'},
+      {label: 'Rylie Gamachchige', value: '2'},
+      {label: 'Madu Gamachchige', value: '3'},
+      {label: 'Anuja Ulpathakubura', value: '4'},
+      {label: 'Archan Udaranga', value: '5'},
+    ],
+    onChange: value => alert(value),
+    placeholder: 'Select user names..',
   },
 };

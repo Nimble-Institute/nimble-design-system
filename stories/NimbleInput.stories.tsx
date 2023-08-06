@@ -21,6 +21,7 @@ export const NimbleBasicInput = {
     label: 'Basic Input',
     placeholder: 'Enter your input here',
     width: '500px',
+    onBlur: () => console.log('On Blur call'),
   },
 };
 

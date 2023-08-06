@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
 import {Pagination, IconButton, InputAdornment, Collapse} from '@mui/material';
-import {Search, ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
+import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
 import {
@@ -17,17 +17,18 @@ import {
   ColumnHeader,
   HeaderLabel,
   SortIconsWrapper,
-  FilterInput,
   StyledTableRow,
   TableValue,
   PaginationWrapper,
   ActionCell,
 } from './StyledWrappers';
+import FilterInputItem from './FilterInputItem';
 
 import FilterImage from '../shared/icons/FiltorIcon';
 import workSpaceIcon from '../../assets/images/table/workspaceIcon.svg';
 import deleteIcon from '../../assets/images/table/delete.svg';
 import editIcon from '../../assets/images/table/edit.svg';
+import searchSVG from '../../assets/images/search.svg';
 
 import theme from './CustomTheme';
 
@@ -36,11 +37,19 @@ interface PaginationDataType {
   page: number;
   onPageChnage: (event: any, value: number) => void;
 }
-interface ColumnDataType {
+
+interface CustomFilterSelection {
+  label: string;
+  value: string;
+}
+
+export interface ColumnDataType {
   label: string;
   dataPoint?: string;
   sort?: boolean;
   filter?: boolean;
+  filterType?: 'text' | 'select';
+  customFilterSelections?: CustomFilterSelection[];
   component?: any;
   width?: string;
 }
@@ -67,7 +76,7 @@ interface NimbleDataTableProps {
   dataViewEnable?: boolean;
   dataEditEnable?: boolean;
   dataDeleteEnable?: boolean;
-  onChangeColumnFilters?: (value: string, dataPoint: string) => void;
+  onChangeColumnFilters?: (filterData: {[key: string]: string}) => void;
   data: any[];
   paginationData: PaginationDataType;
 
@@ -77,6 +86,8 @@ interface NimbleDataTableProps {
   onClickMainAction?: () => void;
 
   isDesktopScreen?: boolean;
+  isEnableMultipleSort?: boolean;
+  rowHoverColor?: string;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -110,9 +121,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onClickMainAction,
 
   isDesktopScreen = true,
+  isEnableMultipleSort = false,
+  rowHoverColor = '#f0f0f0',
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
+  const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
 
   const customTheme = useMemo(() => {
@@ -127,17 +141,29 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   const handleFilterChange = (value: string, dataPoint: string | undefined): void => {
     if (onChangeColumnFilters && dataPoint) {
-      onChangeColumnFilters(value, dataPoint);
+      const newFilterData = value
+        ? {
+            ...filterData,
+            [dataPoint]: value,
+          }
+        : {...filterData};
+
+      if (!value) {
+        delete newFilterData[dataPoint];
+      }
+
+      setFilterData(newFilterData);
+      onChangeColumnFilters(newFilterData);
     }
   };
 
   const searchDebounceHandler = useMemo(() => debounce(handleSearch, 500), []);
-  const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), []);
+  const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
     if (sortKey) {
       setSortData({
-        ...sortData,
+        ...(isEnableMultipleSort ? sortData : {}),
         [sortKey]: sortOrder,
       });
     }
@@ -184,7 +210,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               placeholder={searchPlaceHolder}
               endAdornment={
                 <InputAdornment position="end">
-                  <Search sx={{fontSize: '20px'}} />
+                  <img src={searchSVG} />
                 </InputAdornment>
               }
               fontFamily={fontFamily}
@@ -270,17 +296,11 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               {columnData.map((item: ColumnDataType, index: number) => (
                 <th key={`filter-${index}`}>
                   <Collapse in={enableColumnFilter}>
-                    <div style={{display: 'flex'}}>
-                      <FilterInput
-                        onChange={e => filterChangeDebounceHandler(e.target.value, item.dataPoint)}
-                        placeholder={`Filter ${item.label}`}
-                        endAdornment={
-                          <InputAdornment position="end">
-                            <Search sx={{fontSize: 18}} />
-                          </InputAdornment>
-                        }
-                      />
-                    </div>
+                    <FilterInputItem
+                      item={item}
+                      filterChangeDebounceHandler={filterChangeDebounceHandler}
+                      sanatizedData={sanatizedData}
+                    />
                   </Collapse>
                 </th>
               ))}
@@ -291,7 +311,8 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               <StyledTableRow
                 key={index}
                 onMouseOver={() => setHoverRowIndex(index)}
-                onMouseLeave={() => setHoverRowIndex(null)}>
+                onMouseLeave={() => setHoverRowIndex(null)}
+                hoverColor={rowHoverColor}>
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
