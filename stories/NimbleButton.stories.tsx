@@ -23,12 +23,33 @@ export const NimbleContainedButton = {
   },
 };
 
-export const NimbleContainedIconButton = {
+export const NimbleContainedStartIconButton = {
   args: {
     label: 'Contained Button',
     variant: 'contained',
     size: 'small',
     startIcon: <VerifiedUserIcon />,
+    onClick: () => alert(),
+  },
+};
+
+export const NimbleContainedEndIconButton = {
+  args: {
+    label: 'Contained Button',
+    variant: 'contained',
+    size: 'small',
+    endIcon: <VerifiedUserIcon />,
+    onClick: () => alert(),
+  },
+};
+
+export const NimbleContainedLoadingButton = {
+  args: {
+    label: 'Contained Button',
+    variant: 'contained',
+    size: 'small',
+    loading: true,
+    onClick: () => alert(),
   },
 };
 
