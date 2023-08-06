@@ -29,7 +29,6 @@ const OptionPaper = styled(Paper)({
 const TagWrapper = styled('div')({
   maxHeight: '100px',
   overflow: 'auto',
-  minWidth: '105%',
 });
 
 const TagChip = styled(Chip)(({chipcolor, fontFamily}: TagProps) => ({
