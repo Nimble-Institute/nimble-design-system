@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo, useState, ReactElement} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
 import {Pagination, IconButton, InputAdornment, Collapse} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
@@ -59,7 +59,7 @@ interface NimbleDataTableProps {
   searchPlaceHolder?: string;
   mainActionIcon?: any;
   mainActionLabel?: string;
-  primaryColor: string;
+  primaryColor?: string;
 
   InputFieldBorderColor?: string;
   InputFieldActiveBoxShadow?: string;
@@ -88,6 +88,10 @@ interface NimbleDataTableProps {
   isDesktopScreen?: boolean;
   isEnableMultipleSort?: boolean;
   rowHoverColor?: string;
+
+  viewActionicon?: ReactElement<any>;
+  editActionicon?: ReactElement<any>;
+  deleteActionicon?: ReactElement<any>;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -123,6 +127,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   isDesktopScreen = true,
   isEnableMultipleSort = false,
   rowHoverColor = '#f0f0f0',
+
+  viewActionicon = workSpaceIcon,
+  editActionicon = editIcon,
+  deleteActionicon = deleteIcon,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -325,13 +333,13 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 ))}
                 <ActionCell>
                   {dataViewEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={workSpaceIcon} onClick={() => handleViewRow(item)} />
+                    <img style={{cursor: 'pointer'}} src={viewActionicon} onClick={() => handleViewRow(item)} />
                   )}
                   {dataEditEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={editIcon} onClick={() => handleEditRow(item)} />
+                    <img style={{cursor: 'pointer'}} src={editActionicon} onClick={() => handleEditRow(item)} />
                   )}
                   {dataDeleteEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={deleteIcon} onClick={() => handleDeleteRow(item)} />
+                    <img style={{cursor: 'pointer'}} src={deleteActionicon} onClick={() => handleDeleteRow(item)} />
                   )}
                 </ActionCell>
               </StyledTableRow>
