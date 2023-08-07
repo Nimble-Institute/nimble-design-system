@@ -41,11 +41,11 @@ jobs:
       #   env:
       #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Build Storybook
-      #   run: |
-      #     yarn install
-      #     yarn build-storybook
-      # - name: Deploy Storybook
-      #   uses: JamesIves/github-pages-deploy-action@v4
-      #   with:
-      #     folder: storybook-static
+      - name: Build Storybook
+        run: |
+          yarn
+          yarn build-storybook
+      - name: Deploy Storybook
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: storybook-static
