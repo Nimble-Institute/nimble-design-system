@@ -89,9 +89,9 @@ interface NimbleDataTableProps {
   isEnableMultipleSort?: boolean;
   rowHoverColor?: string;
 
-  viewActionicon?: ReactElement<any>;
-  editActionicon?: ReactElement<any>;
-  deleteActionicon?: ReactElement<any>;
+  viewActionIcon?: ReactElement<any>;
+  editActionIcon?: ReactElement<any>;
+  deleteActionIcon?: ReactElement<any>;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -128,9 +128,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   isEnableMultipleSort = false,
   rowHoverColor = '#f0f0f0',
 
-  viewActionicon = workSpaceIcon,
-  editActionicon = editIcon,
-  deleteActionicon = deleteIcon,
+  viewActionIcon = workSpaceIcon,
+  editActionIcon = editIcon,
+  deleteActionIcon = deleteIcon,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -333,13 +333,13 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 ))}
                 <ActionCell>
                   {dataViewEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={viewActionicon} onClick={() => handleViewRow(item)} />
+                    <img style={{cursor: 'pointer'}} src={viewActionIcon} onClick={() => handleViewRow(item)} />
                   )}
                   {dataEditEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={editActionicon} onClick={() => handleEditRow(item)} />
+                    <img style={{cursor: 'pointer'}} src={editActionIcon} onClick={() => handleEditRow(item)} />
                   )}
                   {dataDeleteEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={deleteActionicon} onClick={() => handleDeleteRow(item)} />
+                    <img style={{cursor: 'pointer'}} src={deleteActionIcon} onClick={() => handleDeleteRow(item)} />
                   )}
                 </ActionCell>
               </StyledTableRow>
