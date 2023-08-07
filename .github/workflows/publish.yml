@@ -31,21 +31,21 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
-        run: yarn && yarn install
+        run: yarn
 
       - name: Build
         run: yarn rollup
 
-      - name: Publish
-        run: yarn semantic-release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build Storybook
-        run: |
-          yarn install
-          yarn build-storybook
-      - name: Deploy Storybook
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: storybook-static
+      # - name: Publish
+      #   run: yarn semantic-release
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Build Storybook
+      #   run: |
+      #     yarn install
+      #     yarn build-storybook
+      # - name: Deploy Storybook
+      #   uses: JamesIves/github-pages-deploy-action@v4
+      #   with:
+      #     folder: storybook-static
