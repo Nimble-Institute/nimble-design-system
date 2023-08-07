@@ -42,7 +42,11 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Storybook
-        run: npm run build-storybook
+        run: |
+          rm -rf node_modules
+          rm -rf yarn.lock
+          yarn
+          yarn build-storybook
       - name: Deploy Storybook
         uses: JamesIves/github-pages-deploy-action@v4
         with:
