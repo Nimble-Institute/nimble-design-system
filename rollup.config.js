@@ -1,48 +1,60 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import typescript from "@rollup/plugin-typescript";
-import dts from "rollup-plugin-dts";
+const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
+const typescript = require('@rollup/plugin-typescript');
+const {dts} = require('rollup-plugin-dts');
+const postcss = require('rollup-plugin-postcss');
+const {terser} = require('rollup-plugin-terser');
+const peerDepsExternal = require('rollup-plugin-peer-deps-external');
+const image = require('@rollup/plugin-image');
+const {default: preserveDirectives} = require('rollup-plugin-preserve-directives');
 
-// To handle css files
-import postcss from "rollup-plugin-postcss";
+const packageJson = require('./package.json');
 
-import { terser } from "rollup-plugin-terser";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import image from "@rollup/plugin-image";
+const production = !process.env.ROLLUP_WATCH; // Detect production mode
 
-const packageJson = require("./package.json");
-
-export default [
+module.exports = [
   {
-    input: "src/index.ts",
+    input: 'src/index.ts',
     output: [
       {
         file: packageJson.main,
-        format: "cjs",
-        sourcemap: false,
+        format: 'cjs',
+        sourcemap: true, // Enable sourcemaps for debugging
       },
       {
         file: packageJson.module,
-        format: "esm",
-        sourcemap: false,
+        format: 'esm',
+        sourcemap: true,
       },
     ],
     plugins: [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({tsconfig: './tsconfig.json'}),
       postcss(),
 
-      terser(),
+      production && terser(), // Only minify in production
       image(),
     ],
+    onwarn: function (warning, warn) {
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.indexOf('use client') !== -1) {
+        return;
+      }
+      warn(warning);
+    },
   },
   {
-    input: "dist/esm/types/index.d.ts",
-    output: [{ file: "dist/index.d.ts", format: "esm" }],
+    input: 'dist/esm/types/index.d.ts',
+    output: [{file: 'dist/index.d.ts', format: 'esm'}],
     plugins: [dts()],
 
-    external: [/\.css$/], // telling rollup anything that is .css aren't part of type exports
+    external: [/\.css$/], // Inform Rollup that .css files aren't part of type exports
+    onwarn: function (warning, warn) {
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.indexOf('use client') !== -1) {
+        return;
+      }
+      warn(warning);
+    },
   },
 ];
