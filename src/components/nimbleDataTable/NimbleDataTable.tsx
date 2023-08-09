@@ -1,6 +1,6 @@
 import React, {useMemo, useState, ReactElement} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse} from '@mui/material';
+import {Pagination, IconButton, InputAdornment, Collapse, Box} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
@@ -25,9 +25,6 @@ import {
 import FilterInputItem from './FilterInputItem';
 
 import FilterImage from '../shared/icons/FiltorIcon';
-import workSpaceIcon from '../../assets/images/table/workspaceIcon.svg';
-import deleteIcon from '../../assets/images/table/delete.svg';
-import editIcon from '../../assets/images/table/edit.svg';
 import searchSVG from '../../assets/images/search.svg';
 
 import theme from './CustomTheme';
@@ -54,44 +51,35 @@ export interface ColumnDataType {
   width?: string;
 }
 
+export interface RowActionType {
+  icon: ReactElement<any>;
+  onClick: (item: any) => void;
+}
+
 interface NimbleDataTableProps {
   onChangeSearchText?: (text: string) => void;
   searchPlaceHolder?: string;
   mainActionIcon?: any;
   mainActionLabel?: string;
   primaryColor?: string;
-
   InputFieldBorderColor?: string;
   InputFieldActiveBoxShadow?: string;
   InputFieldHoverBoxShadow?: string;
-
   fontFamily?: string;
   headerFontWeight?: '700' | '600' | '500' | '400';
   dataFontWeight?: '700' | '600' | '500' | '400';
   headerFontSize?: number;
   dataFontSize?: number;
   searchBarFontSize?: number;
-
   columnData: ColumnDataType[];
-  dataViewEnable?: boolean;
-  dataEditEnable?: boolean;
-  dataDeleteEnable?: boolean;
   onChangeColumnFilters?: (filterData: {[key: string]: string}) => void;
   data: any[];
   paginationData: PaginationDataType;
-
-  onClickDeleteRow?: (item: any) => void;
-  onClickEditeRow?: (item: any) => void;
-  onClickVieweRow?: (item: any) => void;
   onClickMainAction?: () => void;
-
   isDesktopScreen?: boolean;
   isEnableMultipleSort?: boolean;
   rowHoverColor?: string;
-
-  viewActionIcon?: ReactElement<any>;
-  editActionIcon?: ReactElement<any>;
-  deleteActionIcon?: ReactElement<any>;
+  rowActions?: RowActionType[];
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -115,22 +103,11 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onChangeColumnFilters,
   data,
   paginationData,
-  dataViewEnable,
-  dataEditEnable,
-  dataDeleteEnable,
-
-  onClickDeleteRow,
-  onClickEditeRow,
-  onClickVieweRow,
   onClickMainAction,
-
   isDesktopScreen = true,
   isEnableMultipleSort = false,
   rowHoverColor = '#f0f0f0',
-
-  viewActionIcon = workSpaceIcon,
-  editActionIcon = editIcon,
-  deleteActionIcon = deleteIcon,
+  rowActions,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -179,18 +156,6 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   const handleClickMainAction = () => {
     onClickMainAction && onClickMainAction();
-  };
-
-  const handleDeleteRow = (item: any) => {
-    onClickDeleteRow && onClickDeleteRow(item);
-  };
-
-  const handleEditRow = (item: any) => {
-    onClickEditeRow && onClickEditeRow(item);
-  };
-
-  const handleViewRow = (item: any) => {
-    onClickVieweRow && onClickVieweRow(item);
   };
 
   const sanatizedData =
@@ -296,7 +261,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                   </ColumnHeader>
                 </th>
               ))}
-              {(dataViewEnable || dataEditEnable || dataDeleteEnable) && (
+              {rowActions && rowActions.length > 0 && (
                 <th style={{width: '90px'}}>{/* 3<HeaderLabel>Actions</HeaderLabel> */}</th>
               )}
             </tr>
@@ -332,15 +297,18 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                   </td>
                 ))}
                 <ActionCell>
-                  {dataViewEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={viewActionIcon} onClick={() => handleViewRow(item)} />
-                  )}
-                  {dataEditEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={editActionIcon} onClick={() => handleEditRow(item)} />
-                  )}
-                  {dataDeleteEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={deleteActionIcon} onClick={() => handleDeleteRow(item)} />
-                  )}
+                  {rowActions?.map(rowActionsItem => {
+                    return (
+                      isDesktopScreen &&
+                      index === hoverRowIndex && (
+                        <Box
+                          sx={{cursor: 'pointer', display: 'flex', alignItems: 'center'}}
+                          onClick={() => rowActionsItem.onClick(item)}>
+                          {rowActionsItem.icon}
+                        </Box>
+                      )
+                    );
+                  })}
                 </ActionCell>
               </StyledTableRow>
             ))}
