@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {Autocomplete, InternalStandardProps as StandardProps} from '@mui/material';
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {ThemeProvider} from '@mui/material/styles';
@@ -56,7 +56,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   name = undefined,
   ...props
 }) => {
-  // const [value, setValue] = useState<NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null>(null);
+  const inputRef = useRef<any>(null);
 
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
@@ -67,13 +67,9 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null,
   ) => {
     onChange(value);
-    // setValue(value);
   };
 
   const preSelectedvalue = useMemo(() => {
-    // if (defaultValue && Array.isArray(defaultValue)) {
-    //   setValue(defaultValue);
-    // }
     return defaultValue && Array.isArray(defaultValue) ? [...defaultValue] : undefined;
   }, [defaultValue]);
 
@@ -95,8 +91,16 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     );
   };
 
-  const renderOption = (props: any, option: any, {selected}: any) => {
-    const islastOption = props['data-option-index'] + 1 == data?.length;
+  const renderOption = (props: any, option: any, {selected}: any, ownerState: any) => {
+    const inputValue = inputRef?.current.value;
+    let islastOption;
+
+    if (inputValue) {
+      const searchedData = data?.filter(item => item.label.toLowerCase().includes(inputValue.toLowerCase()));
+      islastOption = searchedData?.length ? props['data-option-index'] + 1 == searchedData?.length : true;
+    } else {
+      islastOption = props['data-option-index'] + 1 == data?.length;
+    }
     const isFirstOption = props['data-option-index'] === 0;
 
     return (
@@ -134,7 +138,14 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           getOptionLabel={option => option.label || ''}
           renderOption={renderOption}
           renderInput={params => (
-            <TextInput {...params} size="small" placeholder={placeholder} fontFamily={fontFamily} name={name} />
+            <TextInput
+              {...params}
+              size="small"
+              placeholder={placeholder}
+              fontFamily={fontFamily}
+              name={name}
+              inputRef={inputRef}
+            />
           )}
           ListboxProps={{
             style: {
