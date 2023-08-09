@@ -107,9 +107,6 @@ export const Datatable = {
         alert(value);
       },
     },
-    dataViewEnable: true,
-    dataDeleteEnable: true,
-    dataEditEnable: true,
     onChangeSearchText: searchvalue => {
       alert(searchvalue);
     },
