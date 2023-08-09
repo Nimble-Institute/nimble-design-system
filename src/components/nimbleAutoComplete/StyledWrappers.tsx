@@ -61,11 +61,11 @@ const OptionList = styled('li')(({islastOption, isFirstOption}: any) => ({
 }));
 
 const OptionLabel = styled(Typography)(({fontFamily}: OptionLabelProps) => ({
-  fontSize: '16px',
+  fontSize: '14px',
   fontFamily: fontFamily,
   color: '#0C1B2A',
   lineHeight: '20px',
-  padding: '6px 4px',
+  // padding: '6px 4px',
   width: '100%',
 }));
 
