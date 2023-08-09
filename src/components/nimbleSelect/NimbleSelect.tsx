@@ -131,7 +131,14 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
               <MenuItem
                 value={item.value}
                 key={index}
-                sx={{borderBottom: '1px solid #E2E2E2', fontFamily, fontSize: '14px', textTransform: 'none'}}>
+                sx={{
+                  borderBottom: '1px solid #E2E2E2',
+                  fontFamily,
+                  fontSize: '14px',
+                  textTransform: 'none',
+                  ...(index === data.length - 1 ? {marginBottom: '-8px !important'} : undefined),
+                  ...(index === 0 ? {marginTop: '-8px!important'} : undefined),
+                }}>
                 {item.label}
               </MenuItem>
             ))}

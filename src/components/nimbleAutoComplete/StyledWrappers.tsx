@@ -56,7 +56,7 @@ const OptionList = styled('li')(({islastOption, isFirstOption}: any) => ({
   },
   WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
   transition: 'background 500ms', // For modern browsers
-  ...(islastOption ? {marginBottom: '-10px !important'} : undefined),
+  ...(islastOption ? {marginBottom: '-8px !important'} : undefined),
   ...(isFirstOption ? {marginTop: '-8px!important'} : undefined),
 }));
 
