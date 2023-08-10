@@ -297,13 +297,14 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                   </td>
                 ))}
                 <ActionCell>
-                  {rowActions?.map(rowActionsItem => {
+                  {rowActions?.map((rowActionsItem, actionIndex) => {
                     return (
                       isDesktopScreen &&
                       index === hoverRowIndex && (
                         <Box
                           sx={{cursor: 'pointer', display: 'flex', alignItems: 'center'}}
-                          onClick={() => rowActionsItem.onClick(item)}>
+                          onClick={() => rowActionsItem.onClick(item)}
+                          key={`data-table-action-${actionIndex}`}>
                           {rowActionsItem.icon}
                         </Box>
                       )

@@ -19,12 +19,12 @@ module.exports = [
       {
         file: packageJson.main,
         format: 'cjs',
-        sourcemap: true, // Enable sourcemaps for debugging
+        sourcemap: false, // Enable sourcemaps for debugging
       },
       {
         file: packageJson.module,
         format: 'esm',
-        sourcemap: true,
+        sourcemap: false,
       },
     ],
     plugins: [
