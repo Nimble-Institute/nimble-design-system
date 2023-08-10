@@ -1,10 +1,11 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Box, InternalStandardProps as StandardProps, Select, MenuItem} from '@mui/material';
+import {Box, InternalStandardProps as StandardProps, Select, MenuItem, IconButton} from '@mui/material';
 import {ThemeProvider} from '@mui/material/styles';
 import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
 
 import theme from './CustomTheme';
 import dropdownSVG from '../../assets/images/select/dropdown.svg';
+import clearSVG from '../../assets/images/clear.svg';
 
 interface NimbleSelectData {
   label: string;
@@ -77,6 +78,20 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
     onChange && onChange(val);
   };
 
+  const handleClear = () => {
+    multiple ? setSelectedValueForMultiple(['-']) : setSelectedValue('-');
+    onChange && onChange('');
+  };
+
+  const shouldShowTheClearButton = useMemo(() => {
+    const hasSingleValue = !multiple && selectedValue !== '-';
+    const hasSingleNonDashValue =
+      multiple && selectedValueForMultiple.length === 1 && selectedValueForMultiple[0] !== '-';
+    const hasMultipleValues = multiple && selectedValueForMultiple.length > 1;
+
+    return hasSingleValue || hasSingleNonDashValue || hasMultipleValues;
+  }, [multiple, selectedValue, selectedValueForMultiple]);
+
   return (
     <Box>
       <InputLabel
@@ -105,7 +120,23 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             textTransform: 'none',
           }}
           disabled={disabled}
-          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: fontSize > 13 ? '16px' : '14px'}} />}
+          IconComponent={props => (
+            <img
+              {...props}
+              src={dropdownSVG}
+              style={{width: fontSize > 13 ? '16px' : '14px', pointerEvents: 'none !important'}}
+            />
+          )}
+          endAdornment={
+            shouldShowTheClearButton && (
+              <IconButton
+                size="small"
+                sx={{marginRight: '10px', position: 'absolute', right: 15}}
+                onClick={handleClear}>
+                <img src={clearSVG} style={{width: fontSize > 13 ? '16px' : '14px', marginTop: '1px'}} />
+              </IconButton>
+            )
+          }
           MenuProps={{
             sx: {
               '&& .Mui-selected': {
