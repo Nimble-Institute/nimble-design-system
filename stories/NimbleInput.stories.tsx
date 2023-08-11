@@ -97,3 +97,25 @@ export const NimbleBasicInputDisabled = {
     disabled: true,
   },
 };
+
+export const NimbleTextArea = {
+  args: {
+    label: 'Basic Textarea',
+    placeholder: 'Enter Details',
+    width: '500px',
+    multiline: true,
+    rowCount: 4,
+  },
+};
+
+export const NimbleTextAreaWithMaxLength = {
+  args: {
+    label: 'Basic Textarea',
+    placeholder: 'Enter Details',
+    width: '500px',
+    multiline: true,
+    rowCount: 4,
+    maxLength: 100,
+    showCharCount: true,
+  },
+};

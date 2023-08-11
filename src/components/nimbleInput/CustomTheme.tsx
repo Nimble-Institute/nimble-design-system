@@ -35,6 +35,17 @@ const theme = (
             '& input::placeholder': {
               fontSize: '14px',
             },
+            '*::-webkit-scrollbar': {
+              width: '0.3em',
+            },
+            '*::-webkit-scrollbar-track': {
+              WebkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+            },
+            '*::-webkit-scrollbar-thumb': {
+              outline: '1px solid #ababab',
+              backgroundColor: '#d6d6d6',
+              borderRadius: '4px',
+            },
           },
         },
       },
