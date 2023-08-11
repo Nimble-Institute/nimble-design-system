@@ -1,7 +1,14 @@
 import React, {useEffect, useMemo, useState, forwardRef, useImperativeHandle} from 'react';
-import {TextField, Box, InputAdornment, InternalStandardProps as StandardProps, IconButton} from '@mui/material';
+import {
+  TextField,
+  Box,
+  InputAdornment,
+  InternalStandardProps as StandardProps,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import {ThemeProvider} from '@mui/material/styles';
-import {Visibility, VisibilityOff, Mail} from '@mui/icons-material';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {debounce} from 'lodash';
 
 import {InputLabel, InputError, InputLabelProps, InputBoxProps, InputHelperText} from '../shared';
@@ -24,6 +31,10 @@ interface NimbleInputProps
   helperText?: string;
   disabled?: boolean;
   name?: string;
+  multiline?: boolean;
+  rowCount?: number;
+  maxLength?: number;
+  showCharCount?: boolean;
 }
 
 export const NimbleInput = forwardRef<any, NimbleInputProps>(
@@ -49,6 +60,10 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       helperText,
       disabled = false,
       name = undefined,
+      multiline = false,
+      rowCount,
+      maxLength,
+      showCharCount,
     },
     ref,
   ) => {
@@ -93,7 +108,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
     };
 
     return (
-      <Box>
+      <Box sx={{width}}>
         <InputLabel
           labelSize={labelSize}
           labelWeight={labelWeight}
@@ -133,9 +148,14 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
                 </InputAdornment>
               ),
             }}
+            inputProps={{
+              maxLength: maxLength || undefined,
+            }}
             type={showPassword || type === 'search' ? 'text' : type}
             disabled={disabled}
             name={name}
+            multiline={multiline}
+            rows={multiline ? rowCount : undefined}
           />
         </ThemeProvider>
         <InputError
@@ -144,6 +164,13 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
           fontFamily={fontFamily}
         />
         <InputHelperText helperText={helperText} isError={isError} fontFamily={fontFamily} />
+        {maxLength && showCharCount && (
+          <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Typography sx={{color: '#6F7175', fontWeight: '400', fontFamily, fontSize: '12px'}}>
+              {internalValue?.length || 0}/{maxLength}
+            </Typography>
+          </Box>
+        )}
       </Box>
     );
   },
