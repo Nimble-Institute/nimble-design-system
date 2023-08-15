@@ -1,6 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useMemo} from 'react';
 import {Editor, EditorState, RichUtils, convertToRaw, DraftHandleValue, DraftStyleMap, ContentBlock} from 'draft-js';
-import {Box, Paper} from '@mui/material';
+import {Box} from '@mui/material';
+import {debounce} from 'lodash';
+import {stateToHTML} from 'draft-js-export-html';
 
 import Toolbar from './Toolbar';
 import './NimbleRichTextEditor.css';
@@ -14,6 +16,7 @@ interface RichTextEditorProps {
   codeFontFamily?: string;
   codeBlockFontFamily?: string;
   codeBlockBackgroundColor?: string;
+  onChange?: (html: any, editorState: any) => void;
 }
 
 export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
@@ -25,6 +28,7 @@ export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
   codeFontFamily = '"Inconsolata", "Menlo", "Consolas", monospace',
   codeBlockFontFamily = '"fira-code", "monospace"',
   codeBlockBackgroundColor = '#ffeff0',
+  onChange,
 }) => {
   const [editorState, setEditorState] = useState<EditorState>(EditorState.createEmpty());
   const editor = useRef<any>(null);
@@ -38,6 +42,12 @@ export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
       editor.current.focus();
     }
   };
+
+  const handleChange = (html: any, editorState: any) => {
+    onChange && onChange(html, editorState);
+  };
+
+  const inputChangeDebouncer = useMemo(() => debounce(handleChange, 500), []);
 
   const styleMap: DraftStyleMap = {
     CODE: {
@@ -130,7 +140,7 @@ export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
           blockStyleFn={myBlockStyleFn}
           onChange={editorState => {
             const contentState = editorState.getCurrentContent();
-            console.log(convertToRaw(contentState));
+            inputChangeDebouncer(stateToHTML(editorState.getCurrentContent()), convertToRaw(contentState));
             setEditorState(editorState);
           }}
         />
