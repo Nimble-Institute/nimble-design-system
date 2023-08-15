@@ -8,6 +8,7 @@ export * from './nimbleInput/NimbleInput';
 export * from './nimbleSelect/NimbleSelect';
 export * from './nimbleTab/NimbleTab';
 export * from './nimbleSwitch/NimbleSwitch';
+export * from './nimbleRichTextEditor/NimbleRichTextEditor';
 
 export * from './nimbleMobileSearch/NimbleMobileSearch';
 export * from './nimbleMobleListView/NimbleMobileListView';
