@@ -1,5 +1,5 @@
 import React, {useState, useMemo, useRef, useEffect} from 'react';
-import {Paper, Box, Typography, AccordionSummary, AccordionDetails, IconButton, Slide} from '@mui/material';
+import {Box, Typography, AccordionSummary, AccordionDetails, IconButton, Slide} from '@mui/material';
 import {styled, ThemeProvider} from '@mui/material/styles';
 import MuiAccordion, {AccordionProps} from '@mui/material/Accordion';
 import InfiniteScroll from 'react-infinite-scroll-component';
