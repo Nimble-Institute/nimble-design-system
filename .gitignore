@@ -4,3 +4,4 @@ dist
 storybook-static
 /.idea/
 /package-lock.json
+.yarn
