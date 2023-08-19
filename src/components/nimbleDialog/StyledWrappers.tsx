@@ -7,6 +7,8 @@ interface ButtonProps {
 
 interface TitleProps {
   fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
 }
 
 const TitleWrapper = styled(Box)({
@@ -15,9 +17,9 @@ const TitleWrapper = styled(Box)({
   justifyContent: 'space-between',
 });
 
-const Title = styled(Typography)(({fontFamily}: TitleProps) => ({
-  fontSize: '25px',
-  fontWeight: '600',
+const Title = styled(Typography)(({fontFamily, fontSize, fontWeight}: TitleProps) => ({
+  fontSize,
+  fontWeight,
   color: '#2B3645',
   lineHeight: 'normal',
   letterSpacing: '0.52px',

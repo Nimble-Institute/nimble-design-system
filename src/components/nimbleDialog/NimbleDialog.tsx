@@ -6,9 +6,13 @@ import {TitleWrapper, Title} from './StyledWrappers';
 import {NimbleButtonProps, NimbleButton} from '../nimbleButton/NimbleButton';
 import CloseSVG from '../../assets/images/dialog/close.svg';
 
+import {fontWeight} from '../../components/shared';
+
 interface NimbleDialogProps {
   open: boolean;
   title: string;
+  titleSize?: string;
+  titleWeight?: fontWeight;
   fontFamily?: string;
   primaryColor?: string;
   parimaryActionLabel: string;
@@ -40,6 +44,8 @@ const Transition = React.forwardRef(function Transition(
 export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   open,
   title,
+  titleSize = '25px',
+  titleWeight = '600',
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   primaryColor = '#0057A2',
   parimaryActionLabel,
@@ -83,8 +89,8 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
     return (
       topActionPanalData &&
       topActionPanalData.map((item, index) => (
-        <Box sx={{marginLeft: '5px'}}>
-          <NimbleButton {...item} key={`action-panal-${index}-item`} fontFamily={fontFamily} />
+        <Box sx={{marginLeft: '5px'}} key={`action-panal-${index}-item`}>
+          <NimbleButton {...item} fontFamily={fontFamily} />
         </Box>
       ))
     );
@@ -104,7 +110,9 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       }}>
       <DialogTitle>
         <TitleWrapper>
-          <Title fontFamily={fontFamily}>{title}</Title>
+          <Title fontFamily={fontFamily} fontSize={titleSize} fontWeight={titleWeight}>
+            {title}
+          </Title>
           <Box sx={{display: 'flex', flexDirection: 'row'}}>
             {!topActionPanel ? (
               <IconButton onClick={handleClose}>
