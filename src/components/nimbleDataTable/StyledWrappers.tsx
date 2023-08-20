@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {OutlinedInput, Button, IconButton, Typography, Select} from '@mui/material';
+import {OutlinedInput, Button, IconButton, Typography, Box} from '@mui/material';
 import {darken} from 'polished';
 
 interface MainActionButtonProps {
@@ -169,6 +169,47 @@ const SelectFilterWrapper = styled('div')({
   textAlign: 'left',
 });
 
+const CustomPaginationWrapper = styled(Box)({
+  marginLeft: '10px',
+  marginRight: '20px',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
+
+const CustomPaginationText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+  fontFamily,
+  fontSize: '12px',
+  fontWeight: '400',
+  lineHeight: '140%',
+  color: '#B7B8BA',
+  marginRight: '5px',
+}));
+
+const PageNumberInput = styled(OutlinedInput)(({fontFamily}: {fontFamily: string}) => ({
+  height: '30px',
+  width: '48px',
+  borderColor: '#9A9FA5',
+  fontFamily,
+  fontSize: '11px',
+  marginRight: '5px',
+}));
+
+const PaginationGoButton = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  cursor: 'pointer',
+});
+
+const PaginationGoButtonText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+  fontFamily,
+  fontSize: '12px',
+  fontWeight: '400',
+  lineHeight: '140%',
+  color: '#383838',
+}));
+
 export {
   Container,
   SearchBarContainer,
@@ -188,4 +229,9 @@ export {
   ActionCell,
   PaginationWrapper,
   SelectFilterWrapper,
+  CustomPaginationWrapper,
+  CustomPaginationText,
+  PageNumberInput,
+  PaginationGoButton,
+  PaginationGoButtonText,
 };

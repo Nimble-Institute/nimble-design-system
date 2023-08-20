@@ -1,6 +1,6 @@
-import React, {useMemo, useState, ReactElement} from 'react';
+import React, {useMemo, useState, ReactElement, useRef} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse, Box} from '@mui/material';
+import {Pagination, IconButton, InputAdornment, Collapse, Box, Typography} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
@@ -21,11 +21,17 @@ import {
   TableValue,
   PaginationWrapper,
   ActionCell,
+  CustomPaginationWrapper,
+  CustomPaginationText,
+  PageNumberInput,
+  PaginationGoButton,
+  PaginationGoButtonText,
 } from './StyledWrappers';
 import FilterInputItem from './FilterInputItem';
 
 import FilterImage from '../shared/icons/FiltorIcon';
 import searchSVG from '../../assets/images/search.svg';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import theme from './CustomTheme';
 import {fontWeight} from '../shared';
@@ -82,6 +88,7 @@ interface NimbleDataTableProps {
   isEnableMultipleSort?: boolean;
   rowHoverColor?: string;
   rowActions?: RowActionType[];
+  clickCustomPagination?: (page: number) => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -110,12 +117,15 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   isDesktopScreen = true,
   isEnableMultipleSort = false,
   rowHoverColor = '#f0f0f0',
+  clickCustomPagination,
   rowActions,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
   const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
+
+  const customPaginationInputref = useRef<any>(null);
 
   const customTheme = useMemo(() => {
     return theme(InputFieldBorderColor, InputFieldHoverBoxShadow, InputFieldActiveBoxShadow, primaryColor);
@@ -159,6 +169,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   const handleClickMainAction = () => {
     onClickMainAction && onClickMainAction();
+  };
+
+  const handleClickCustomPagination = () => {
+    const val = customPaginationInputref?.current.value;
+
+    clickCustomPagination && clickCustomPagination(val || 1);
   };
 
   const sanatizedData =
@@ -333,6 +349,14 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               sx={{button: {color: '#383838'}}}
               color="primary"
             />
+            <CustomPaginationWrapper>
+              <CustomPaginationText fontFamily={fontFamily}>Go to page</CustomPaginationText>
+              <PageNumberInput placeholder="..." inputRef={customPaginationInputref} type="number" />
+              <PaginationGoButton onClick={handleClickCustomPagination}>
+                <PaginationGoButtonText fontFamily={fontFamily}>Go</PaginationGoButtonText>
+                <ArrowForwardIosIcon sx={{fontSize: '12px', color: '#383838'}} />
+              </PaginationGoButton>
+            </CustomPaginationWrapper>
           </PaginationWrapper>
         )}
       </ThemeProvider>

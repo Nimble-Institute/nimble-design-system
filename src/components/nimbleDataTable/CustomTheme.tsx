@@ -27,6 +27,17 @@ const theme = (borderColor: string, hoverBoxShadow: string, activeBoxShadow: str
             '.MuiInputBase-input': {
               height: '17px',
             },
+            '& input[type=number]': {
+              '-moz-appearance': 'textfield',
+            },
+            '& input[type=number]::-webkit-outer-spin-button': {
+              '-webkit-appearance': 'none',
+              margin: 0,
+            },
+            '& input[type=number]::-webkit-inner-spin-button': {
+              '-webkit-appearance': 'none',
+              margin: 0,
+            },
           },
         },
       },

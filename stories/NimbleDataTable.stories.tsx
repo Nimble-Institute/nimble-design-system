@@ -197,5 +197,6 @@ export const Datatable = {
         onClick: (item: any) => alert('Action 03 click'),
       },
     ],
+    clickCustomPagination: (page: number) => alert('page number - ' + page),
   },
 };
