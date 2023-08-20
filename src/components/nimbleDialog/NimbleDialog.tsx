@@ -29,6 +29,7 @@ interface NimbleDialogProps {
   maxWidth: Breakpoint;
   topActionPanel?: boolean;
   topActionPanalData?: NimbleButtonProps[];
+  bottomActionPosition?: 'flex-start' | 'center' | 'flex-end';
   children: any;
 }
 
@@ -62,6 +63,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   maxWidth = 'sm',
   topActionPanel,
   topActionPanalData,
+  bottomActionPosition = 'flex-end',
   children,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -125,7 +127,11 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
         </TitleWrapper>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions sx={{padding: topActionPanel ? '25px' : '30px'}}>
+      <DialogActions
+        sx={{
+          padding: topActionPanel ? '25px' : '30px',
+          justifyContent: bottomActionPosition,
+        }}>
         {isCloseActionAvailable && (
           <NimbleButton
             onClick={handleClose}
