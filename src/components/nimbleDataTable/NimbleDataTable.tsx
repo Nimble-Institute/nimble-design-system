@@ -28,6 +28,7 @@ import FilterImage from '../shared/icons/FiltorIcon';
 import searchSVG from '../../assets/images/search.svg';
 
 import theme from './CustomTheme';
+import {fontWeight} from '../shared';
 
 interface PaginationDataType {
   totalPage: number;
@@ -66,8 +67,9 @@ interface NimbleDataTableProps {
   InputFieldActiveBoxShadow?: string;
   InputFieldHoverBoxShadow?: string;
   fontFamily?: string;
-  headerFontWeight?: '700' | '600' | '500' | '400';
-  dataFontWeight?: '700' | '600' | '500' | '400';
+  headerFontWeight?: fontWeight;
+  headerColor?: string;
+  dataFontWeight?: fontWeight;
   headerFontSize?: number;
   dataFontSize?: number;
   searchBarFontSize?: number;
@@ -98,6 +100,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   dataFontWeight = '400',
   dataFontSize = 12,
   searchBarFontSize = 13,
+  headerColor = '#9B9B9B',
 
   columnData,
   onChangeColumnFilters,
@@ -213,7 +216,11 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               {columnData.map((item, index) => (
                 <th key={index}>
                   <ColumnHeader>
-                    <HeaderLabel fontFamily={fontFamily} fontWeight={headerFontWeight} fontSize={headerFontSize}>
+                    <HeaderLabel
+                      fontFamily={fontFamily}
+                      fontWeight={headerFontWeight}
+                      fontSize={headerFontSize}
+                      color={headerColor}>
                       {item.label}
                     </HeaderLabel>
                     {item.sort && (

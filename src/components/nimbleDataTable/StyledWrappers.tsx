@@ -11,6 +11,7 @@ interface HeaderLabelProps {
   fontFamily: string;
   fontWeight: string;
   fontSize: number;
+  color: string;
 }
 
 interface TableValueProps {
@@ -99,14 +100,14 @@ const MainTableBody = styled('tbody')({
   width: '100%',
 });
 
-const HeaderLabel = styled(Typography)(({fontFamily, fontWeight, fontSize}: HeaderLabelProps) => ({
+const HeaderLabel = styled(Typography)(({fontFamily, fontWeight, fontSize, color}: HeaderLabelProps) => ({
   display: 'flex',
   fontFamily,
   fontWeight,
   fontSize,
   lineHeight: '150.9%',
   textTransform: 'none',
-  color: '#9B9B9B',
+  color,
 }));
 
 const SortIconsWrapper = styled('div')({

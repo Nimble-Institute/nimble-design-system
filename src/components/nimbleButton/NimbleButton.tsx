@@ -4,7 +4,7 @@ import {Button, CircularProgress} from '@mui/material';
 import {styled} from '@mui/system';
 import {darken, lighten} from 'polished';
 
-import {fontWeight} from '../../components/shared';
+import {fontWeight} from '../shared';
 
 interface ButtonProps {
   buttoncolor: string;
