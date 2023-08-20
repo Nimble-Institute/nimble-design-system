@@ -51,7 +51,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
       default:
         return (
           <FilterInput
-            onChange={e => filterChangeDebounceHandler(e.target.value, item.dataPoint)}
+            onChange={(e: any) => filterChangeDebounceHandler(e.target.value, item.dataPoint)}
             placeholder={`Filter ${item.label}`}
             endAdornment={
               <InputAdornment position="end">
