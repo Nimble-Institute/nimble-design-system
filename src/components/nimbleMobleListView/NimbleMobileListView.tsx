@@ -4,6 +4,7 @@ import {styled, ThemeProvider} from '@mui/material/styles';
 import MuiAccordion, {AccordionProps} from '@mui/material/Accordion';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
+import {orderBy} from 'lodash';
 
 import {NimbleMobileSearch, NimbleMobileSearchProps} from '../nimbleMobileSearch/NimbleMobileSearch';
 import {
@@ -37,9 +38,12 @@ interface MobileListData {
 
 interface NimbleMobileListViewProps extends NimbleMobileSearchProps {
   isEnableSearch?: boolean;
+
   isEnableSort?: boolean;
   sortLabel?: string;
+  isAPISort?: boolean;
   onChangeSort?: (sort: string | null) => void;
+
   data: MobileListData[];
   isEnableInfiniteScroll?: boolean;
   scrollableParentHeight?: string;
@@ -69,11 +73,13 @@ const Accordian = styled((props: AccordionProps) => <MuiAccordion disableGutters
 
 export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
   data,
-  sortLabel,
-  isEnableSort,
-  onChangeSort,
-  isEnableSearch,
 
+  isEnableSort,
+  sortLabel,
+  isAPISort = false,
+  onChangeSort,
+
+  isEnableSearch,
   placeholder,
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   borderColor = '#9A9FA5',
@@ -105,8 +111,20 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
   const [sort, setSort] = useState<string | null>(null);
 
   useEffect(() => {
-    onChangeSort && onChangeSort(sort);
-  }, [sort]);
+    if (isAPISort) {
+      onChangeSort && onChangeSort(sort);
+    }
+  }, [sort, isAPISort]);
+
+  const sanitizedData = useMemo(() => {
+    if (isAPISort) {
+      return data;
+    }
+    if (sort === 'asc' || sort === 'desc') {
+      return orderBy(data, 'mainValue', sort);
+    }
+    return data;
+  }, [sort, isAPISort, data]);
 
   const searchBarProps = {
     placeholder,
@@ -131,8 +149,8 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
 
   const renderDataList = () => {
     return (
-      data &&
-      data.map((item, index) => (
+      sanitizedData &&
+      sanitizedData.map((item, index) => (
         <Accordian
           key={index}
           expanded={expandCard === item.id}

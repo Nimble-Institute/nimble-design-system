@@ -351,7 +351,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             />
             <CustomPaginationWrapper>
               <CustomPaginationText fontFamily={fontFamily}>Go to page</CustomPaginationText>
-              <PageNumberInput placeholder="..." inputRef={customPaginationInputref} type="number" />
+              <PageNumberInput
+                placeholder="..."
+                inputRef={customPaginationInputref}
+                type="number"
+                fontFamily={fontFamily}
+              />
               <PaginationGoButton onClick={handleClickCustomPagination}>
                 <PaginationGoButtonText fontFamily={fontFamily}>Go</PaginationGoButtonText>
                 <ArrowForwardIosIcon sx={{fontSize: '12px', color: '#383838'}} />
