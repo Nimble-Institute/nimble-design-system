@@ -161,7 +161,7 @@ const PaginationWrapper = styled('div')({
   marginTop: '9px',
 });
 
-const SelectFilterWrapper = styled('div')({
+const FilterWrapper = styled('div')({
   maxHeight: '30px',
   width: '75%',
   marginTop: '10px',
@@ -228,7 +228,7 @@ export {
   TableValue,
   ActionCell,
   PaginationWrapper,
-  SelectFilterWrapper,
+  FilterWrapper,
   CustomPaginationWrapper,
   CustomPaginationText,
   PageNumberInput,
