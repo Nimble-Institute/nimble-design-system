@@ -37,6 +37,8 @@ interface NimbleDateRangeProps
   placeholderArray?: [string, string];
   disabled?: boolean;
   name?: string;
+  height?: string;
+  fontSize?: string;
 }
 
 const StyledRangePicker = styled(DatePicker.RangePicker)<{
@@ -47,9 +49,11 @@ const StyledRangePicker = styled(DatePicker.RangePicker)<{
   width: string;
   fontFamily?: string;
   disabled?: boolean;
+  height: string;
+  fontSize: string;
 }>`
   width: ${(props: {width: string}) => props.width};
-  max-height: 34px;
+  max-height: ${(props: {height: string}) => props.height};
   border: 1px solid;
   border-color: ${(props: {borderColor: string; isError?: boolean; disabled: boolean}) =>
     props.isError ? '#EC4C29' : !props.disabled ? props.borderColor : '#cbcfd4'}!important;
@@ -70,8 +74,8 @@ const StyledRangePicker = styled(DatePicker.RangePicker)<{
     box-shadow: ${(props: {activeBoxShadow: string; disabled: boolean}) =>
       !props.disabled ? props.activeBoxShadow : 'none '}!important;
   }
-  input:placeholder-shown {
-    font-size: 14px;
+  .ant-picker-input > input {
+    font-size: ${(props: {fontSize: string}) => props.fontSize};
     font-family: ${(props: {fontFamily: string}) => props.fontFamily}!important;
   }
 `;
@@ -96,6 +100,8 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
   placeholderArray = ['Start Date', 'End Date'],
   disabled = false,
   name = undefined,
+  height = '34px',
+  fontSize = '14px',
   ...props
 }) => {
   const [dates, setDates] = useState<RangeValue>(null);
@@ -147,6 +153,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         activeBoxShadow={activeBoxShadow}
         hoverBoxShadow={hoverBoxShadow}
         width={width}
+        height={height}
         isError={isError}
         onCalendarChange={handleCalandarChange}
         defaultValue={[defaultValue[0] && dayjs(defaultValue[0]), defaultValue[1] && dayjs(defaultValue[1])]}
@@ -158,6 +165,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         changeOnBlur
         placeholder={placeholderArray}
         fontFamily={fontFamily}
+        fontSize={fontSize}
         disabled={disabled}
         name={name}
         onBlur={onBlur}

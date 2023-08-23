@@ -52,7 +52,7 @@ export interface ColumnDataType {
   dataPoint?: string;
   sort?: boolean;
   filter?: boolean;
-  filterType?: 'text' | 'select';
+  filterType?: 'text' | 'select' | 'date-range';
   customFilterSelections?: CustomFilterSelection[];
   component?: any;
   width?: string;
@@ -137,7 +137,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
     }
   };
 
-  const handleFilterChange = (value: string, dataPoint: string | undefined): void => {
+  const handleFilterChange = (value: string | string[], dataPoint: string | undefined): void => {
     if (onChangeColumnFilters && dataPoint) {
       const newFilterData = value
         ? {
