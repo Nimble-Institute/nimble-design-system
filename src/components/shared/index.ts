@@ -1,6 +1,17 @@
 import InputLabel from './components/InputLabel/InputLabel';
 import InputError from './components/inputError/InputError';
 import InputHelperText from './components/inputHelperText/InputHelperText';
-import {InputLabelProps, InputBoxProps, fontWeight} from './types';
+import PaginationBar from './components/paginationBar/PaginationBar';
 
-export {InputLabel, InputError, InputLabelProps, InputBoxProps, InputHelperText, fontWeight};
+import {InputLabelProps, InputBoxProps, fontWeight, PaginationDataType} from './types';
+
+export {
+  InputLabel,
+  InputError,
+  InputLabelProps,
+  InputBoxProps,
+  InputHelperText,
+  PaginationBar,
+  fontWeight,
+  PaginationDataType,
+};
