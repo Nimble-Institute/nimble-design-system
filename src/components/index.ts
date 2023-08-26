@@ -13,3 +13,5 @@ export * from './nimbleRichTextEditor/NimbleRichTextEditor';
 
 export * from './nimbleMobileSearch/NimbleMobileSearch';
 export * from './nimbleMobleListView/NimbleMobileListView';
+
+export * from './nimbleDataGrid/NimbleDataGrid';

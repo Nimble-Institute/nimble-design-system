@@ -1,6 +1,6 @@
 import React, {useMemo, useState, ReactElement, useRef} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse, Box, Typography} from '@mui/material';
+import {Pagination, IconButton, InputAdornment, Collapse, Box} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
@@ -34,13 +34,7 @@ import searchSVG from '../../assets/images/search.svg';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import theme from './CustomTheme';
-import {fontWeight} from '../shared';
-
-interface PaginationDataType {
-  totalPage: number;
-  page: number;
-  onPageChnage: (event: any, value: number) => void;
-}
+import {fontWeight, PaginationDataType} from '../shared';
 
 interface CustomFilterSelection {
   label: string;

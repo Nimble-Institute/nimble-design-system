@@ -15,4 +15,10 @@ interface InputBoxProps {
   hoverBoxShadow?: string;
 }
 
-export {InputLabelProps, InputBoxProps, fontWeight};
+interface PaginationDataType {
+  totalPage: number;
+  page: number;
+  onPageChnage: (event: any, value: number) => void;
+}
+
+export {InputLabelProps, InputBoxProps, fontWeight, PaginationDataType};

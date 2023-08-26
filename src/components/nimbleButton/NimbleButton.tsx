@@ -12,6 +12,10 @@ interface ButtonProps {
   fontWeight: string;
 }
 
+interface IconButtonProps {
+  buttoncolor: string;
+}
+
 export interface NimbleButtonProps {
   label?: string;
   variant?: 'text' | 'outlined' | 'contained' | 'icon';
@@ -76,7 +80,7 @@ const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight}: 
   },
 }));
 
-const IconButton = styled(Button)(({buttoncolor}: ButtonProps) => ({
+const IconButton = styled(Button)(({buttoncolor}: IconButtonProps) => ({
   minWidth: '40px !important',
   borderRadius: '5px',
   backgroundColor: buttoncolor,
@@ -154,13 +158,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
       );
     case 'icon':
       return (
-        <IconButton
-          variant={'contained'}
-          buttoncolor={color}
-          size={size}
-          disabled={disabled}
-          onClick={handleClick}
-          fontFamily={fontFamily}>
+        <IconButton variant={'contained'} buttoncolor={color} size={size} disabled={disabled} onClick={handleClick}>
           {icon}
         </IconButton>
       );
