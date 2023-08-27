@@ -11,12 +11,16 @@ import {
   FilterContainer,
   FilterWrapper,
   Item,
+  TopWrapper,
+  DataWrapper,
+  FooterWrapper,
 } from './StyleWrapper';
 import {NimbleButton, NimbleButtonProps, NimbleInput, NimbleSelect} from '../index';
 import {PaginationBar, fontWeight, PaginationDataType} from '../shared';
 import FilterImage from '../shared/icons/FiltorIcon';
 
 import theme from './CustomTheme';
+import './styles.css';
 
 interface CustomFilterDataType {
   label: 'string';
@@ -117,7 +121,7 @@ export const NimbleDataGrid: React.FC<NimbleDataGridProps> = ({
   return (
     <ThemeProvider theme={customTheme}>
       <Container width={width} height={height} color={containerColor}>
-        <Box>
+        <TopWrapper>
           <HeaderContainer>
             <HeaderText color={headerColor} fontWeight={headerFontWeight} fontFamily={fontFamily}>
               {header}
@@ -158,16 +162,16 @@ export const NimbleDataGrid: React.FC<NimbleDataGridProps> = ({
                 ))}
             </FilterContainer>
           </Collapse>
-          <Box>
-            {data.length &&
-              data.map((item, index) => (
-                <Item key={index} elevation={0} onClick={() => onClickDataCard && onClickDataCard(item)}>
-                  {renderCard(item)}
-                </Item>
-              ))}
-          </Box>
-        </Box>
-        <Box>
+        </TopWrapper>
+        <DataWrapper>
+          {data.length &&
+            data.map((item, index) => (
+              <Item key={index} elevation={0} onClick={() => onClickDataCard && onClickDataCard(item)}>
+                {renderCard(item)}
+              </Item>
+            ))}
+        </DataWrapper>
+        <FooterWrapper>
           <PaginationBar
             totalPage={paginationData.totalPage}
             page={paginationData.page}
@@ -175,7 +179,7 @@ export const NimbleDataGrid: React.FC<NimbleDataGridProps> = ({
             fontFamily={fontFamily}
             onClicksCustomPagination={clickCustomPagination}
           />
-        </Box>
+        </FooterWrapper>
       </Container>
     </ThemeProvider>
   );
