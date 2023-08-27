@@ -10,6 +10,7 @@ const Container = styled(Paper)(({width, height, color}: {width: string; height:
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  flex: 1,
 }));
 
 const HeaderContainer = styled(Box)({
@@ -56,4 +57,37 @@ const Item = styled(Paper)({
   },
 });
 
-export {Container, HeaderContainer, HeaderText, SearchContainer, FilterContainer, FilterWrapper, Item};
+const TopWrapper = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+const DataWrapper = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  maxHeight: '100%',
+  marginLeft: '-16px',
+  marginRight: '-16px',
+  paddingLeft: '16px',
+  paddingRight: '16px',
+  overflowY: 'scroll',
+});
+
+const FooterWrapper = styled(Box)({
+  display: 'flex',
+  paddingTop: '10px',
+});
+
+export {
+  Container,
+  HeaderContainer,
+  HeaderText,
+  SearchContainer,
+  FilterContainer,
+  FilterWrapper,
+  Item,
+  TopWrapper,
+  DataWrapper,
+  FooterWrapper,
+};
