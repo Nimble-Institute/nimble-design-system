@@ -29,6 +29,7 @@ interface NimbleSelectProps
   height?: string;
   fontSize?: number;
   onBlur?: () => void;
+  isEnableClear?: boolean;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -55,6 +56,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   height = '34px',
   fontSize = 14,
   onBlur,
+  isEnableClear = true,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('-');
   const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
@@ -89,7 +91,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
       multiple && selectedValueForMultiple.length === 1 && selectedValueForMultiple[0] !== '-';
     const hasMultipleValues = multiple && selectedValueForMultiple.length > 1;
 
-    return hasSingleValue || hasSingleNonDashValue || hasMultipleValues;
+    return (hasSingleValue || hasSingleNonDashValue || hasMultipleValues) && isEnableClear;
   }, [multiple, selectedValue, selectedValueForMultiple]);
 
   return (
