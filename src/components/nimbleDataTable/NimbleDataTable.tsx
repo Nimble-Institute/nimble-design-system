@@ -69,7 +69,6 @@ interface NimbleDataTableProps {
   fontFamily?: string;
   headerFontWeight?: fontWeight;
   headerColor?: string;
-  dataFontWeight?: fontWeight;
   headerFontSize?: number;
   dataFontSize?: number;
   searchBarFontSize?: number;
@@ -98,7 +97,6 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   headerFontWeight = '700',
   headerFontSize = 13,
-  dataFontWeight = '400',
   dataFontSize = 12,
   searchBarFontSize = 13,
   headerColor = '#9B9B9B',
@@ -306,7 +304,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
-                      <TableValue fontFamily={fontFamily} fontWeight={dataFontWeight} fontSize={dataFontSize}>
+                      <TableValue fontFamily={fontFamily} fontSize={dataFontSize}>
                         {item[cData.dataPoint]}
                       </TableValue>
                     )}
