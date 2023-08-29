@@ -16,7 +16,6 @@ interface HeaderLabelProps {
 
 interface TableValueProps {
   fontFamily: string;
-  fontWeight: string;
   fontSize: number;
 }
 
@@ -135,9 +134,9 @@ const StyledTableRow = styled('tr')(({hoverColor}: StyledTableRowProps) => ({
   transition: 'background 500ms', // For modern browsers
 }));
 
-const TableValue = styled(Typography)(({fontFamily, fontWeight, fontSize}: TableValueProps) => ({
+const TableValue = styled(Typography)(({fontFamily, fontSize}: TableValueProps) => ({
   display: 'flex',
-  fontWeight,
+  fontWeight: '300',
   fontFamily,
   fontSize,
   lineHeight: '140%',
