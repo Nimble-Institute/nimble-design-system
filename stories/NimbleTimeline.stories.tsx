@@ -18,7 +18,7 @@ export default NimbleTimelineStory;
 export const NimbleTimelineWithWeeks = {
   args: {
     showWeeks: true,
-    sidebarWidth: 300,
+    sidebarWidth: 400,
     showTimelineItemText: true,
     todayMarker: true,
     sidebarGroups: [

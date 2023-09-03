@@ -3,9 +3,7 @@ import moment from 'moment';
 import Chip from '@mui/material/Chip';
 import 'react-calendar-timeline/lib/Timeline.css';
 import Timeline, {
-  CustomMarkerChildrenProps,
   DateHeader,
-  GetItemsProps,
   ItemContext,
   SidebarHeader,
   TimelineHeaders,
@@ -60,13 +58,10 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   showTimelineItemText = false,
   todayMarker = false,
 }) => {
-  const timelineStyle = {
-    width: '100%', // You can adjust the value as needed
-  };
 
-  const [groups, setGroups] = useState(sidebarGroups);
+  const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
-  const [draggedItem, setDraggedItem] = useState(undefined);
+  const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
 
   const defaultTimeStart = moment().startOf('day').toDate();
   const defaultTimeEnd = moment().startOf('day').add(1, 'day').toDate();
@@ -115,8 +110,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
 
     console.log('Resized', itemId, time, edge);
   };
-  // TODO: check for types
-  const handleItemDrag = ({eventType, itemId, time, edge, newGroupOrder}) => {
+
+  const handleItemDrag = ({itemId, time, newGroupOrder}: {itemId: number; time: number; newGroupOrder: number}) => {
     let item = draggedItem ? draggedItem.item : undefined;
     if (!item) {
       item = items.find(i => i.id === itemId);
@@ -212,7 +207,6 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         groups={groups}
         items={items}
         keys={keys}
-        fullUpdate
         itemTouchSendsClick={false}
         stackItems
         itemHeightRatio={0.4}
@@ -224,12 +218,9 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         onItemMove={handleItemMove}
         onItemResize={handleItemResize}
         onItemDrag={handleItemDrag}
-        showCursorLine
-        sidebarContent={<div style={{width: '100px', height: '100px', background: 'yellow'}}>stest</div>}
         itemRenderer={itemRenderer}
         groupRenderer={groupRenderer}
-        lineHeight={60}
-        style={timelineStyle}>
+        lineHeight={60}>
         <TimelineHeaders>
           <SidebarHeader>
             {({getRootProps}) => {
@@ -263,10 +254,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           <DateHeader />
           {showWeeks && <DateHeader unit="week" />}
         </TimelineHeaders>
-        <TimelineMarkers>
-          {todayMarker && <TodayMarker date={new Date()} />}
-          {/* <SundaysMarker /> */}
-        </TimelineMarkers>
+        <TimelineMarkers>{todayMarker && <TodayMarker date={new Date()} />}</TimelineMarkers>
       </Timeline>
       {draggedItem && <InfoLabel item={draggedItem.item} group={draggedItem.group} time={draggedItem.time} />}
     </>
