@@ -12,3 +12,4 @@ export * from './nimbleTimeline/NimbleTimeline';
 
 export * from './nimbleMobileSearch/NimbleMobileSearch';
 export * from './nimbleMobleListView/NimbleMobileListView';
+export * from './nimbleTimeline/NimbleTimeline';

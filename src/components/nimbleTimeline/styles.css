@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+@import "./items.css";
+
+body {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 18px;
+    background: #FAFAFA;
+}
+
+.rct-item-content {
+    border: dotted 1px deepskyblue;
+}
+
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-even,
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
+    border-bottom: none;
+}
+
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-even {
+    background-color: #ffffff;
+}
+
+.react-calendar-timeline .rct-sidebar .rct-sidebar-row {
+    border-bottom: none;
+}
+
+.react-calendar-timeline .rct-header .rct-label {
+    border-bottom: none
+}
+
+.react-calendar-timeline .rct-vertical-lines .rct-vl.rct-vl-first {
+    border-color: #ccc;
+}
+
+.react-calendar-timeline .rct-vertical-lines .rct-vl {
+    border-left: 1px solid #eeeeee87;
+}
+
+.react-calendar-timeline .rct-header .rct-label-group {
+    font-family: 'Work Sans', sans-serif;
+    background: #eee;
+    color: #000;
+    font-size: 1rem;
+}
+
+.react-calendar-timeline .rct-sidebar-header {
+    background: #eee;
+    color: #000;
+    text-align: center;
+    padding-top: 1rem;
+    border: none;
+    border-right: solid 2px #ccc !important;
+}
+
+.react-calendar-timeline .rct-dateHeader {
+    color: black;
+    font-size: 12px;
+    background-color: white;
+}
+
+/* 
+.react-calendar-timeline .rct-sidebar {
+    width: 400px;
+} */
+
+.react-calendar-timeline .rct-dateHeader-primary {
+    font-size: large;
+}
