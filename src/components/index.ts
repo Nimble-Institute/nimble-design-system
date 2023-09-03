@@ -15,3 +15,4 @@ export * from './nimbleMobileSearch/NimbleMobileSearch';
 export * from './nimbleMobleListView/NimbleMobileListView';
 
 export * from './nimbleDataGrid/NimbleDataGrid';
+export * from './nimbleFileUploader/NimbleFileUploader';
