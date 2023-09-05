@@ -58,7 +58,6 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   showTimelineItemText = false,
   todayMarker = false,
 }) => {
-
   const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
   const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
@@ -124,12 +123,22 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     return (
       <>
         <div
-          {...getItemProps({...item.itemProps, style: {borderRadius: '25px', background: '#AE4949', border: 'none'}})}>
+          {...getItemProps({
+            ...item.itemProps,
+            style: {
+              borderRadius: '25px',
+              background: item.color,
+              border: itemContext.selected ? 'dashed 1px rgba(0,0,0,0.6)' : 'none',
+              opacity: itemContext.selected ? 0.8 : 1,
+            },
+          })}>
           {itemContext.useResizeHandle ? <div {...leftResizeProps} style={{borderRadius: '8px'}} /> : ''}
 
           <div
             className="rct-item-content"
             style={{
+              display: 'flex',
+              justifyContent: 'center',
               width: 'inherit',
               border: 'none',
               maxHeight: `${itemContext.dimensions.height}`,
@@ -153,7 +162,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           style={{
             display: 'flex',
             width: '50%',
-            borderRight: '1px solid gray',
+            borderRight: '1px solid #9A9FA5',
             fontSize: '14px',
             alignItems: 'center',
             overflow: 'scroll',
@@ -231,10 +240,12 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
                     width: getRootProps().style.width,
                     background: 'white',
                     color: 'black',
+                    borderRight: '1px solid #9A9FA5',
+                    marginRight: '-1px',
                     fontFamily:
                       '"Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif',
                   }}>
-                  <div style={{width: '50%', border: '1px solid gray'}} />
+                  <div style={{width: '50%', borderRight: '1px solid #9A9FA5'}} />
                   <div
                     style={{
                       display: 'flex',
@@ -242,7 +253,6 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
                       justifyContent: 'center',
                       width: '50%',
                       fontSize: '12px',
-                      border: '1px solid gray',
                     }}>
                     <Typography variant="body2">Actiehouder</Typography>
                   </div>
