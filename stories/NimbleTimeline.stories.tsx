@@ -21,6 +21,8 @@ export const NimbleTimelineWithWeeks = {
     sidebarWidth: 400,
     showTimelineItemText: true,
     todayMarker: true,
+    sideBarLeftHeaderText: 'Actiehouder',
+    sideBarRightHeaderText: 'Zwanenburg',
     sidebarGroups: [
       {
         id: 1,

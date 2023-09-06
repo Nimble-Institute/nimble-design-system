@@ -23,6 +23,8 @@ interface NimbleTimeline {
   timelineItems?: any[];
   showTimelineItemText?: boolean;
   todayMarker?: boolean;
+  sideBarLeftHeaderText?: string;
+  sideBarRightHeaderText?: string;
 }
 interface Group {
   id: number;
@@ -86,17 +88,24 @@ const GroupHeaderContainer = styled('div')<GroupHeaderProps>(props => ({
   background: 'white',
   color: 'black',
 }));
-const GroupHeaderRight = styled('div')({
-  width: '50%',
-  borderRight: '1px solid #9A9FA5',
-});
+
 const GroupHeaderLeft = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   width: '50%',
   fontSize: '12px',
+  borderRight: '1px solid #9A9FA5',
 });
+
+const GroupHeaderRight = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '50%',
+  fontSize: '12px',
+});
+
 export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   showWeeks = false,
   sidebarWidth = 400,
@@ -104,6 +113,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   timelineItems = [],
   showTimelineItemText = false,
   todayMarker = false,
+  sideBarLeftHeaderText,
+  sideBarRightHeaderText,
 }) => {
   const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
@@ -253,10 +264,12 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
             {({getRootProps}) => {
               return (
                 <GroupHeaderContainer headerWidth={getRootProps()?.style?.width}>
-                  <GroupHeaderRight />
                   <GroupHeaderLeft>
-                    <Typography variant="body2">Actiehouder</Typography>
+                    <Typography variant="body2">{sideBarLeftHeaderText}</Typography>
                   </GroupHeaderLeft>
+                  <GroupHeaderRight>
+                    <Typography variant="body2">{sideBarRightHeaderText}</Typography>
+                  </GroupHeaderRight>
                 </GroupHeaderContainer>
               );
             }}
