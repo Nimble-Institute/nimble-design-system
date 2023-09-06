@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {OutlinedInput, Button, IconButton, Typography, Select} from '@mui/material';
+import {OutlinedInput, Button, IconButton, Typography, Box} from '@mui/material';
 import {darken} from 'polished';
 
 interface MainActionButtonProps {
@@ -11,11 +11,11 @@ interface HeaderLabelProps {
   fontFamily: string;
   fontWeight: string;
   fontSize: number;
+  color: string;
 }
 
 interface TableValueProps {
   fontFamily: string;
-  fontWeight: string;
   fontSize: number;
 }
 
@@ -99,14 +99,14 @@ const MainTableBody = styled('tbody')({
   width: '100%',
 });
 
-const HeaderLabel = styled(Typography)(({fontFamily, fontWeight, fontSize}: HeaderLabelProps) => ({
+const HeaderLabel = styled(Typography)(({fontFamily, fontWeight, fontSize, color}: HeaderLabelProps) => ({
   display: 'flex',
   fontFamily,
   fontWeight,
   fontSize,
   lineHeight: '150.9%',
   textTransform: 'none',
-  color: '#9B9B9B',
+  color,
 }));
 
 const SortIconsWrapper = styled('div')({
@@ -134,9 +134,9 @@ const StyledTableRow = styled('tr')(({hoverColor}: StyledTableRowProps) => ({
   transition: 'background 500ms', // For modern browsers
 }));
 
-const TableValue = styled(Typography)(({fontFamily, fontWeight, fontSize}: TableValueProps) => ({
+const TableValue = styled(Typography)(({fontFamily, fontSize}: TableValueProps) => ({
   display: 'flex',
-  fontWeight,
+  fontWeight: '300',
   fontFamily,
   fontSize,
   lineHeight: '140%',
@@ -160,13 +160,54 @@ const PaginationWrapper = styled('div')({
   marginTop: '9px',
 });
 
-const SelectFilterWrapper = styled('div')({
+const FilterWrapper = styled('div')({
   maxHeight: '30px',
   width: '75%',
   marginTop: '10px',
   marginBottom: '10px',
   textAlign: 'left',
 });
+
+const CustomPaginationWrapper = styled(Box)({
+  marginLeft: '10px',
+  marginRight: '20px',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
+
+const CustomPaginationText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+  fontFamily,
+  fontSize: '12px',
+  fontWeight: '400',
+  lineHeight: '140%',
+  color: '#B7B8BA',
+  marginRight: '5px',
+}));
+
+const PageNumberInput = styled(OutlinedInput)(({fontFamily}: {fontFamily: string}) => ({
+  height: '30px',
+  width: '48px',
+  borderColor: '#9A9FA5',
+  fontFamily,
+  fontSize: '11px',
+  marginRight: '5px',
+}));
+
+const PaginationGoButton = styled(Box)({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  cursor: 'pointer',
+});
+
+const PaginationGoButtonText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+  fontFamily,
+  fontSize: '12px',
+  fontWeight: '400',
+  lineHeight: '140%',
+  color: '#383838',
+}));
 
 export {
   Container,
@@ -186,5 +227,10 @@ export {
   TableValue,
   ActionCell,
   PaginationWrapper,
-  SelectFilterWrapper,
+  FilterWrapper,
+  CustomPaginationWrapper,
+  CustomPaginationText,
+  PageNumberInput,
+  PaginationGoButton,
+  PaginationGoButtonText,
 };

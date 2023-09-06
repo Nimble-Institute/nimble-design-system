@@ -29,7 +29,6 @@ const OptionPaper = styled(Paper)({
 const TagWrapper = styled('div')({
   maxHeight: '100px',
   overflow: 'auto',
-  minWidth: '105%',
 });
 
 const TagChip = styled(Chip)(({chipcolor, fontFamily}: TagProps) => ({
@@ -57,16 +56,16 @@ const OptionList = styled('li')(({islastOption, isFirstOption}: any) => ({
   },
   WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
   transition: 'background 500ms', // For modern browsers
-  ...(islastOption ? {marginBottom: '-10px !important'} : undefined),
+  ...(islastOption ? {marginBottom: '-8px !important'} : undefined),
   ...(isFirstOption ? {marginTop: '-8px!important'} : undefined),
 }));
 
 const OptionLabel = styled(Typography)(({fontFamily}: OptionLabelProps) => ({
-  fontSize: '16px',
+  fontSize: '14px',
   fontFamily: fontFamily,
   color: '#0C1B2A',
   lineHeight: '20px',
-  padding: '6px 4px',
+  // padding: '6px 4px',
   width: '100%',
 }));
 

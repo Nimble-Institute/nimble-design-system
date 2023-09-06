@@ -6,13 +6,19 @@ import {TitleWrapper, Title} from './StyledWrappers';
 import {NimbleButtonProps, NimbleButton} from '../nimbleButton/NimbleButton';
 import CloseSVG from '../../assets/images/dialog/close.svg';
 
+import {fontWeight} from '../../components/shared';
+
 interface NimbleDialogProps {
   open: boolean;
   title: string;
+  titleSize?: string;
+  titleWeight?: fontWeight;
   fontFamily?: string;
   primaryColor?: string;
+  cancelButtonColor?: string;
   parimaryActionLabel: string;
   primaryActionIcon?: any;
+  primaryActionIconPostion?: 'start' | 'end';
   isCloseActionAvailable?: boolean;
   isPrimaryActionAvailable?: boolean;
   isSecondaryActionAvailable?: boolean;
@@ -24,6 +30,7 @@ interface NimbleDialogProps {
   maxWidth: Breakpoint;
   topActionPanel?: boolean;
   topActionPanalData?: NimbleButtonProps[];
+  bottomActionPosition?: 'flex-start' | 'center' | 'flex-end';
   children: any;
 }
 
@@ -39,13 +46,17 @@ const Transition = React.forwardRef(function Transition(
 export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   open,
   title,
+  titleSize = '25px',
+  titleWeight = '600',
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   primaryColor = '#0057A2',
+  cancelButtonColor,
   parimaryActionLabel,
   primaryActionIcon,
   isSecondaryActionAvailable = false,
   isCloseActionAvailable = true,
   isPrimaryActionAvailable = true,
+  primaryActionIconPostion = 'start',
   secondaryActionlabel = 'Back',
   onClickSecondaryAction,
   mainActionInProgress,
@@ -54,6 +65,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   maxWidth = 'sm',
   topActionPanel,
   topActionPanalData,
+  bottomActionPosition = 'flex-end',
   children,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -81,8 +93,8 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
     return (
       topActionPanalData &&
       topActionPanalData.map((item, index) => (
-        <Box sx={{marginLeft: '5px'}}>
-          <NimbleButton {...item} key={`action-panal-${index}-item`} fontFamily={fontFamily} />
+        <Box sx={{marginLeft: '5px'}} key={`action-panal-${index}-item`}>
+          <NimbleButton {...item} fontFamily={fontFamily} />
         </Box>
       ))
     );
@@ -102,7 +114,9 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       }}>
       <DialogTitle>
         <TitleWrapper>
-          <Title fontFamily={fontFamily}>{title}</Title>
+          <Title fontFamily={fontFamily} fontSize={titleSize} fontWeight={titleWeight}>
+            {title}
+          </Title>
           <Box sx={{display: 'flex', flexDirection: 'row'}}>
             {!topActionPanel ? (
               <IconButton onClick={handleClose}>
@@ -115,13 +129,17 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
         </TitleWrapper>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions sx={{padding: topActionPanel ? '25px' : '30px'}}>
+      <DialogActions
+        sx={{
+          padding: topActionPanel ? '25px' : '30px',
+          justifyContent: bottomActionPosition,
+        }}>
         {isCloseActionAvailable && (
           <NimbleButton
             onClick={handleClose}
             label={'Cancel'}
             variant="text"
-            color={primaryColor}
+            color={cancelButtonColor || primaryColor}
             fontFamily={fontFamily}
           />
         )}
@@ -140,7 +158,8 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
             label={parimaryActionLabel}
             color={primaryColor}
             loading={mainActionInProgress}
-            startIcon={primaryActionIcon}
+            startIcon={primaryActionIconPostion === 'start' && primaryActionIcon}
+            endIcon={primaryActionIconPostion === 'end' && primaryActionIcon}
             fontFamily={fontFamily}
           />
         )}

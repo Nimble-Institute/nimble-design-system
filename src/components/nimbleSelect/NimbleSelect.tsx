@@ -1,10 +1,11 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Box, InternalStandardProps as StandardProps, Select, MenuItem} from '@mui/material';
+import {Box, InternalStandardProps as StandardProps, Select, MenuItem, IconButton} from '@mui/material';
 import {ThemeProvider} from '@mui/material/styles';
 import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
 
 import theme from './CustomTheme';
 import dropdownSVG from '../../assets/images/select/dropdown.svg';
+import clearSVG from '../../assets/images/clear.svg';
 
 interface NimbleSelectData {
   label: string;
@@ -28,6 +29,7 @@ interface NimbleSelectProps
   height?: string;
   fontSize?: number;
   onBlur?: () => void;
+  isEnableClear?: boolean;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -54,6 +56,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   height = '34px',
   fontSize = 14,
   onBlur,
+  isEnableClear = true,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('-');
   const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
@@ -76,6 +79,20 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
     multiple ? setSelectedValueForMultiple(val.filter((item: string) => item !== '-')) : setSelectedValue(val);
     onChange && onChange(val);
   };
+
+  const handleClear = () => {
+    multiple ? setSelectedValueForMultiple(['-']) : setSelectedValue('-');
+    onChange && onChange('');
+  };
+
+  const shouldShowTheClearButton = useMemo(() => {
+    const hasSingleValue = !multiple && selectedValue !== '-';
+    const hasSingleNonDashValue =
+      multiple && selectedValueForMultiple.length === 1 && selectedValueForMultiple[0] !== '-';
+    const hasMultipleValues = multiple && selectedValueForMultiple.length > 1;
+
+    return (hasSingleValue || hasSingleNonDashValue || hasMultipleValues) && isEnableClear;
+  }, [multiple, selectedValue, selectedValueForMultiple]);
 
   return (
     <Box>
@@ -105,7 +122,23 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             textTransform: 'none',
           }}
           disabled={disabled}
-          IconComponent={props => <img {...props} src={dropdownSVG} style={{width: fontSize > 13 ? '16px' : '14px'}} />}
+          IconComponent={props => (
+            <img
+              {...props}
+              src={dropdownSVG}
+              style={{width: fontSize > 13 ? '16px' : '14px', pointerEvents: 'none !important'}}
+            />
+          )}
+          endAdornment={
+            shouldShowTheClearButton && (
+              <IconButton
+                size="small"
+                sx={{marginRight: '10px', position: 'absolute', right: 15}}
+                onClick={handleClear}>
+                <img src={clearSVG} style={{width: fontSize > 13 ? '16px' : '14px', marginTop: '1px'}} />
+              </IconButton>
+            )
+          }
           MenuProps={{
             sx: {
               '&& .Mui-selected': {
@@ -131,7 +164,14 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
               <MenuItem
                 value={item.value}
                 key={index}
-                sx={{borderBottom: '1px solid #E2E2E2', fontFamily, fontSize: '14px', textTransform: 'none'}}>
+                sx={{
+                  borderBottom: '1px solid #E2E2E2',
+                  fontFamily,
+                  fontSize: '14px',
+                  textTransform: 'none',
+                  ...(index === data.length - 1 ? {marginBottom: '-8px !important'} : undefined),
+                  ...(index === 0 ? {marginTop: '-8px!important'} : undefined),
+                }}>
                 {item.label}
               </MenuItem>
             ))}

@@ -1,7 +1,8 @@
+type fontWeight = '300' | '400' | '500' | '600' | '700';
 interface InputLabelProps {
   label?: string;
   labelSize?: number;
-  labelWeight?: '400' | '500' | '600' | '700';
+  labelWeight?: fontWeight;
   fontFamily?: string;
   isRequired?: boolean;
   disabled?: boolean;
@@ -14,4 +15,10 @@ interface InputBoxProps {
   hoverBoxShadow?: string;
 }
 
-export {InputLabelProps, InputBoxProps};
+interface PaginationDataType {
+  totalPage: number;
+  page: number;
+  onPageChnage: (event: any, value: number) => void;
+}
+
+export {InputLabelProps, InputBoxProps, fontWeight, PaginationDataType};

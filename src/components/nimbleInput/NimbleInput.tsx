@@ -1,5 +1,12 @@
 import React, {useEffect, useMemo, useState, forwardRef, useImperativeHandle} from 'react';
-import {TextField, Box, InputAdornment, InternalStandardProps as StandardProps, IconButton} from '@mui/material';
+import {
+  TextField,
+  Box,
+  InputAdornment,
+  InternalStandardProps as StandardProps,
+  IconButton,
+  Typography,
+} from '@mui/material';
 import {ThemeProvider} from '@mui/material/styles';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {debounce} from 'lodash';
@@ -20,10 +27,14 @@ interface NimbleInputProps
   onChange?: (value: string) => void;
   onBlur?: () => void;
   startIcon?: any;
-  type: 'text' | 'password' | 'number' | 'search';
+  type: 'text' | 'password' | 'number' | 'search' | 'email';
   helperText?: string;
   disabled?: boolean;
   name?: string;
+  multiline?: boolean;
+  rowCount?: number;
+  maxLength?: number;
+  showCharCount?: boolean;
 }
 
 export const NimbleInput = forwardRef<any, NimbleInputProps>(
@@ -49,11 +60,16 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       helperText,
       disabled = false,
       name = undefined,
+      multiline = false,
+      rowCount,
+      maxLength,
+      showCharCount,
     },
     ref,
   ) => {
     const [internalValue, setInternalValue] = useState<string | undefined>('');
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [emailInputError, setEmailInputError] = useState<boolean>(false);
 
     useImperativeHandle(ref, () => ({
       clear() {
@@ -66,11 +82,21 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
     }, [defaultValue]);
 
     const customTheme = useMemo(() => {
-      return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
-    }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled]);
+      return theme(isError || emailInputError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
+    }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, emailInputError]);
 
     const handleSearch = (value: any) => {
       onChange && onChange(value);
+    };
+
+    let regex = useMemo(() => new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'), []);
+
+    const handleOnBlur = (event: any) => {
+      if (type === 'email') {
+        const valid = regex.test(event.target.value);
+        setEmailInputError(event.target.value ? !valid : false);
+      }
+      onBlur && onBlur();
     };
 
     const inputChangeDebouncer = useMemo(() => debounce(handleSearch, 500), []);
@@ -82,7 +108,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
     };
 
     return (
-      <Box>
+      <Box sx={{width}}>
         <InputLabel
           labelSize={labelSize}
           labelWeight={labelWeight}
@@ -104,7 +130,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
               setInternalValue(temp);
               inputChangeDebouncer(temp);
             }}
-            onBlur={onBlur}
+            onBlur={handleOnBlur}
             value={internalValue}
             InputProps={{
               startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,
@@ -122,13 +148,29 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
                 </InputAdornment>
               ),
             }}
+            inputProps={{
+              maxLength: maxLength || undefined,
+            }}
             type={showPassword || type === 'search' ? 'text' : type}
             disabled={disabled}
             name={name}
+            multiline={multiline}
+            rows={multiline ? rowCount : undefined}
           />
         </ThemeProvider>
-        <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
+        <InputError
+          isError={isError || emailInputError}
+          errorMessage={emailInputError ? 'Please enter valid email' : errorMessage}
+          fontFamily={fontFamily}
+        />
         <InputHelperText helperText={helperText} isError={isError} fontFamily={fontFamily} />
+        {maxLength && showCharCount && (
+          <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Typography sx={{color: '#6F7175', fontWeight: '400', fontFamily, fontSize: '12px'}}>
+              {internalValue?.length || 0}/{maxLength}
+            </Typography>
+          </Box>
+        )}
       </Box>
     );
   },

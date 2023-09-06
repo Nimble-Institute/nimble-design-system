@@ -2,8 +2,8 @@ import React, {useMemo} from 'react';
 import {InputAdornment} from '@mui/material';
 import {uniqBy} from 'lodash';
 
-import {FilterInput, SelectFilterWrapper} from './StyledWrappers';
-import {NimbleSelect} from '../index';
+import {FilterInput, FilterWrapper} from './StyledWrappers';
+import {NimbleSelect, NimbleDateRange} from '../index';
 
 import searchSVG from '../../assets/images/search.svg';
 
@@ -36,7 +36,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
       case 'select':
         return (
           item.dataPoint && (
-            <SelectFilterWrapper>
+            <FilterWrapper>
               <NimbleSelect
                 data={generateFilterSelection(item.customFilterSelections, item.dataPoint)}
                 height="30px"
@@ -45,13 +45,24 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
                 width="100%"
                 onChange={(value: string) => filterChangeDebounceHandler(value, item.dataPoint)}
               />
-            </SelectFilterWrapper>
+            </FilterWrapper>
           )
+        );
+      case 'date-range':
+        return (
+          <FilterWrapper>
+            <NimbleDateRange
+              width="100%"
+              height="30px"
+              fontSize="12px"
+              onDateChange={(value: string | string[]) => filterChangeDebounceHandler(value, item.dataPoint)}
+            />
+          </FilterWrapper>
         );
       default:
         return (
           <FilterInput
-            onChange={e => filterChangeDebounceHandler(e.target.value, item.dataPoint)}
+            onChange={(e: any) => filterChangeDebounceHandler(e.target.value, item.dataPoint)}
             placeholder={`Filter ${item.label}`}
             endAdornment={
               <InputAdornment position="end">

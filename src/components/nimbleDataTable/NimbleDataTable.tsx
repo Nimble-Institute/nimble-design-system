@@ -1,6 +1,6 @@
-import React, {useMemo, useState} from 'react';
+import React, {useMemo, useState, ReactElement, useRef} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse} from '@mui/material';
+import {Pagination, IconButton, InputAdornment, Collapse, Box} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
@@ -21,22 +21,20 @@ import {
   TableValue,
   PaginationWrapper,
   ActionCell,
+  CustomPaginationWrapper,
+  CustomPaginationText,
+  PageNumberInput,
+  PaginationGoButton,
+  PaginationGoButtonText,
 } from './StyledWrappers';
 import FilterInputItem from './FilterInputItem';
 
 import FilterImage from '../shared/icons/FiltorIcon';
-import workSpaceIcon from '../../assets/images/table/workspaceIcon.svg';
-import deleteIcon from '../../assets/images/table/delete.svg';
-import editIcon from '../../assets/images/table/edit.svg';
 import searchSVG from '../../assets/images/search.svg';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import theme from './CustomTheme';
-
-interface PaginationDataType {
-  totalPage: number;
-  page: number;
-  onPageChnage: (event: any, value: number) => void;
-}
+import {fontWeight, PaginationDataType} from '../shared';
 
 interface CustomFilterSelection {
   label: string;
@@ -48,10 +46,15 @@ export interface ColumnDataType {
   dataPoint?: string;
   sort?: boolean;
   filter?: boolean;
-  filterType?: 'text' | 'select';
+  filterType?: 'text' | 'select' | 'date-range';
   customFilterSelections?: CustomFilterSelection[];
   component?: any;
   width?: string;
+}
+
+export interface RowActionType {
+  icon: ReactElement<any>;
+  onClick: (item: any) => void;
 }
 
 interface NimbleDataTableProps {
@@ -59,35 +62,26 @@ interface NimbleDataTableProps {
   searchPlaceHolder?: string;
   mainActionIcon?: any;
   mainActionLabel?: string;
-  primaryColor: string;
-
+  primaryColor?: string;
   InputFieldBorderColor?: string;
   InputFieldActiveBoxShadow?: string;
   InputFieldHoverBoxShadow?: string;
-
   fontFamily?: string;
-  headerFontWeight?: '700' | '600' | '500' | '400';
-  dataFontWeight?: '700' | '600' | '500' | '400';
+  headerFontWeight?: fontWeight;
+  headerColor?: string;
   headerFontSize?: number;
   dataFontSize?: number;
   searchBarFontSize?: number;
-
   columnData: ColumnDataType[];
-  dataViewEnable?: boolean;
-  dataEditEnable?: boolean;
-  dataDeleteEnable?: boolean;
   onChangeColumnFilters?: (filterData: {[key: string]: string}) => void;
   data: any[];
   paginationData: PaginationDataType;
-
-  onClickDeleteRow?: (item: any) => void;
-  onClickEditeRow?: (item: any) => void;
-  onClickVieweRow?: (item: any) => void;
   onClickMainAction?: () => void;
-
   isDesktopScreen?: boolean;
   isEnableMultipleSort?: boolean;
   rowHoverColor?: string;
+  rowActions?: RowActionType[];
+  clickCustomPagination?: (page: number) => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -103,31 +97,27 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   headerFontWeight = '700',
   headerFontSize = 13,
-  dataFontWeight = '400',
   dataFontSize = 12,
   searchBarFontSize = 13,
+  headerColor = '#9B9B9B',
 
   columnData,
   onChangeColumnFilters,
   data,
   paginationData,
-  dataViewEnable,
-  dataEditEnable,
-  dataDeleteEnable,
-
-  onClickDeleteRow,
-  onClickEditeRow,
-  onClickVieweRow,
   onClickMainAction,
-
   isDesktopScreen = true,
   isEnableMultipleSort = false,
   rowHoverColor = '#f0f0f0',
+  clickCustomPagination,
+  rowActions,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
   const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
+
+  const customPaginationInputref = useRef<any>(null);
 
   const customTheme = useMemo(() => {
     return theme(InputFieldBorderColor, InputFieldHoverBoxShadow, InputFieldActiveBoxShadow, primaryColor);
@@ -139,7 +129,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
     }
   };
 
-  const handleFilterChange = (value: string, dataPoint: string | undefined): void => {
+  const handleFilterChange = (value: string | string[], dataPoint: string | undefined): void => {
     if (onChangeColumnFilters && dataPoint) {
       const newFilterData = value
         ? {
@@ -173,16 +163,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
     onClickMainAction && onClickMainAction();
   };
 
-  const handleDeleteRow = (item: any) => {
-    onClickDeleteRow && onClickDeleteRow(item);
-  };
+  const handleClickCustomPagination = () => {
+    const val = customPaginationInputref?.current.value;
 
-  const handleEditRow = (item: any) => {
-    onClickEditeRow && onClickEditeRow(item);
-  };
-
-  const handleViewRow = (item: any) => {
-    onClickVieweRow && onClickVieweRow(item);
+    clickCustomPagination && clickCustomPagination(val || 1);
   };
 
   const sanatizedData =
@@ -240,7 +224,11 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               {columnData.map((item, index) => (
                 <th key={index}>
                   <ColumnHeader>
-                    <HeaderLabel fontFamily={fontFamily} fontWeight={headerFontWeight} fontSize={headerFontSize}>
+                    <HeaderLabel
+                      fontFamily={fontFamily}
+                      fontWeight={headerFontWeight}
+                      fontSize={headerFontSize}
+                      color={headerColor}>
                       {item.label}
                     </HeaderLabel>
                     {item.sort && (
@@ -288,7 +276,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                   </ColumnHeader>
                 </th>
               ))}
-              {(dataViewEnable || dataEditEnable || dataDeleteEnable) && (
+              {rowActions && rowActions.length > 0 && (
                 <th style={{width: '90px'}}>{/* 3<HeaderLabel>Actions</HeaderLabel> */}</th>
               )}
             </tr>
@@ -316,24 +304,30 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
-                      <TableValue fontFamily={fontFamily} fontWeight={dataFontWeight} fontSize={dataFontSize}>
+                      <TableValue fontFamily={fontFamily} fontSize={dataFontSize}>
                         {item[cData.dataPoint]}
                       </TableValue>
                     )}
                     {cData.component && cData.component(item)}
                   </td>
                 ))}
-                <ActionCell>
-                  {dataViewEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={workSpaceIcon} onClick={() => handleViewRow(item)} />
-                  )}
-                  {dataEditEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={editIcon} onClick={() => handleEditRow(item)} />
-                  )}
-                  {dataDeleteEnable && (isDesktopScreen ? index === hoverRowIndex : true) && (
-                    <img style={{cursor: 'pointer'}} src={deleteIcon} onClick={() => handleDeleteRow(item)} />
-                  )}
-                </ActionCell>
+                {rowActions && rowActions.length > 0 && (
+                  <ActionCell>
+                    {rowActions?.map((rowActionsItem, actionIndex) => {
+                      return (
+                        isDesktopScreen &&
+                        index === hoverRowIndex && (
+                          <Box
+                            sx={{cursor: 'pointer', display: 'flex', alignItems: 'center'}}
+                            onClick={() => rowActionsItem.onClick(item)}
+                            key={`data-table-action-${actionIndex}`}>
+                            {rowActionsItem.icon}
+                          </Box>
+                        )
+                      );
+                    })}
+                  </ActionCell>
+                )}
               </StyledTableRow>
             ))}
           </MainTableBody>
@@ -347,6 +341,19 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               sx={{button: {color: '#383838'}}}
               color="primary"
             />
+            <CustomPaginationWrapper>
+              <CustomPaginationText fontFamily={fontFamily}>Go to page</CustomPaginationText>
+              <PageNumberInput
+                placeholder="..."
+                inputRef={customPaginationInputref}
+                type="number"
+                fontFamily={fontFamily}
+              />
+              <PaginationGoButton onClick={handleClickCustomPagination}>
+                <PaginationGoButtonText fontFamily={fontFamily}>Go</PaginationGoButtonText>
+                <ArrowForwardIosIcon sx={{fontSize: '12px', color: '#383838'}} />
+              </PaginationGoButton>
+            </CustomPaginationWrapper>
           </PaginationWrapper>
         )}
       </ThemeProvider>
