@@ -82,6 +82,7 @@ interface NimbleDataTableProps {
   rowHoverColor?: string;
   rowActions?: RowActionType[];
   clickCustomPagination?: (page: number) => void;
+  hideSearch?: boolean;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -111,6 +112,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   rowHoverColor = '#f0f0f0',
   clickCustomPagination,
   rowActions,
+  hideSearch = false,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -189,17 +191,19 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
       <ThemeProvider theme={customTheme}>
         <SearchBarContainer>
           <SearchBarWrapper>
-            <SearchBar
-              onChange={searchDebounceHandler}
-              placeholder={searchPlaceHolder}
-              endAdornment={
-                <InputAdornment position="end">
-                  <img src={searchSVG} />
-                </InputAdornment>
-              }
-              fontFamily={fontFamily}
-              fontSize={searchBarFontSize}
-            />
+            {!hideSearch && (
+              <SearchBar
+                onChange={searchDebounceHandler}
+                placeholder={searchPlaceHolder}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <img src={searchSVG} />
+                  </InputAdornment>
+                }
+                fontFamily={fontFamily}
+                fontSize={searchBarFontSize}
+              />
+            )}
           </SearchBarWrapper>
           <FilterIcon
             size="small"
