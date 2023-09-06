@@ -10,10 +10,6 @@ body {
     border: 1px solid #9A9FA5;
 }
 
-.rct-item-content {
-    border: dotted 1px deepskyblue;
-}
-
 .react-calendar-timeline .rct-horizontal-lines .rct-hl-even,
 .react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
     border-bottom: 1px solid #9A9FA577;

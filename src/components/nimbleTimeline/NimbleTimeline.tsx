@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import moment from 'moment';
-import Chip from '@mui/material/Chip';
-import 'react-calendar-timeline/lib/Timeline.css';
+import {Chip, Typography} from '@mui/material';
+import {styled} from '@mui/system';
+
 import Timeline, {
   DateHeader,
   ItemContext,
@@ -12,28 +13,27 @@ import Timeline, {
 } from 'react-calendar-timeline';
 
 import InfoLabel from './InfoLabel';
-
+import 'react-calendar-timeline/lib/Timeline.css';
 import './styles.css';
-import {Typography} from '@mui/material';
 
 interface NimbleTimeline {
-  showWeeks: boolean;
-  sidebarWidth: number;
-  sidebarGroups: any[];
-  timelineItems: any[];
-  showTimelineItemText: boolean;
-  todayMarker: boolean;
+  showWeeks?: boolean;
+  sidebarWidth?: number;
+  sidebarGroups?: any[];
+  timelineItems?: any[];
+  showTimelineItemText?: boolean;
+  todayMarker?: boolean;
 }
 interface Group {
   id: number;
   title: string;
-  badge: string;
-  color: string;
-  labels: {text: string; color: string}[];
+  badge?: string;
+  color?: string;
+  labels?: {text: string; color: string}[];
 }
 
 interface GroupRendererProps {
-  group: Group;
+  group?: Group;
 }
 
 interface ItemRendererProps {
@@ -43,13 +43,39 @@ interface ItemRendererProps {
   getResizeProps: Function;
 }
 
-interface HandleItemDragProps {
-  eventType: string;
-  itemId: number;
-  time: number;
-  edge: any;
-  newGroupOrder: number;
-}
+const ItemContent = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  width: 'inherit',
+  border: 'none',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+});
+
+const GroupContainer = styled('div')({
+  display: 'flex',
+  height: 'inherit',
+});
+
+const GroupLeftSection = styled('div')({
+  display: 'flex',
+  width: '50%',
+  borderRight: '1px solid #9A9FA5',
+  fontSize: '14px',
+  alignItems: 'center',
+  overflow: 'scroll',
+});
+
+const GroupRightSection = styled('div')({
+  display: 'flex',
+  height: 'inherit',
+  padding: '4px 0px',
+  width: '50%',
+  overflow: 'scroll',
+  alignItems: 'center',
+});
+
 export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   showWeeks = false,
   sidebarWidth = 400,
@@ -134,20 +160,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           })}>
           {itemContext.useResizeHandle ? <div {...leftResizeProps} style={{borderRadius: '8px'}} /> : ''}
 
-          <div
-            className="rct-item-content"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: 'inherit',
-              border: 'none',
-              maxHeight: `${itemContext.dimensions.height}`,
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-            }}>
-            {showTimelineItemText && itemContext.title}
-          </div>
+          <ItemContent>{showTimelineItemText && itemContext.title}</ItemContent>
 
           {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''}
         </div>
@@ -157,40 +170,24 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
 
   const groupRenderer = ({group}: GroupRendererProps) => {
     return (
-      <div style={{display: 'flex', height: 'inherit'}}>
-        <div
-          style={{
-            display: 'flex',
-            width: '50%',
-            borderRight: '1px solid #9A9FA5',
-            fontSize: '14px',
-            alignItems: 'center',
-            overflow: 'scroll',
-          }}>
+      <GroupContainer>
+        <GroupLeftSection>
           {group?.badge && (
             <Chip
-              label={group.badge}
+              label={group?.badge}
               size={'small'}
               sx={{
                 fontWeight: 100,
                 borderRadius: '3px',
                 margin: '0px 8px',
-                backgroundColor: group.color,
+                backgroundColor: group?.color,
                 color: 'white',
               }}
             />
           )}
-          <Typography variant="body1">{group.title}</Typography>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            height: 'inherit',
-            padding: '4px 0px',
-            width: '50%',
-            overflow: 'scroll',
-            alignItems: 'center',
-          }}>
+          <Typography variant="body1">{group?.title}</Typography>
+        </GroupLeftSection>
+        <GroupRightSection>
           {group?.labels?.map((label, index) => (
             <Chip
               key={index}
@@ -205,8 +202,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               }}
             />
           ))}
-        </div>
-      </div>
+        </GroupRightSection>
+      </GroupContainer>
     );
   };
 
