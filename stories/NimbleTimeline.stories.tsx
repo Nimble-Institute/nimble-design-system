@@ -33,6 +33,68 @@ const itemDoubleClickCallback = item => {
   console.info('item doubleClick: ', item);
 };
 
+export const NimbleTimelineDefault = {
+  args: {
+    sideBarLeftHeaderText: 'Actiehouder',
+    sideBarRightHeaderText: 'Zwanenburg',
+    itemMoveHandler: moveCallback,
+    itemResizeHandler: resizeCallback,
+    itemDoubleClickHandler: itemDoubleClickCallback,
+    sidebarGroups: [
+      {
+        id: 1,
+        title: 'Bouwleges',
+        badge: '650150',
+        color: '#388e3c',
+        labels: [
+          {text: 'Zwanenburg Projecten', color: '#388e3c'},
+          {text: 'Gemeente', color: '#0C1B2A'},
+        ],
+      },
+      {
+        id: 2,
+        title: 'Exploitatiebijdrage',
+        badge: '650150',
+        color: '#42a5f5',
+        labels: [
+          {text: 'Planschade', color: '#e57373'},
+          {text: 'Exploitatiebijdrage', color: '#e57373'},
+          {text: 'Sloopkosten', color: '#e57373'},
+        ],
+      }
+
+    ],
+    timelineItems: [
+      {
+        id: 1,
+        group: 1,
+        title: 'item 1',
+        color: '#AE4949',
+        start: moment(),
+        end: moment().add(600, 'hour'),
+        canMove: false,
+        canResize: false,
+      },
+      {
+        id: 2,
+        group: 2,
+        title: 'item 2',
+        color: '#354968',
+        start: moment().add(-0.5, 'hour'),
+        end: moment().add(1024, 'hour'),
+      },
+      {
+        id: 3,
+        group: 3,
+        title: 'item 3',
+        color: '#AE4949',
+        start: moment().add(2, 'hour'),
+        end: moment().add(800, 'hour'),
+      },
+    ],
+  },
+};
+
 export const NimbleTimelineWithWeeks = {
   args: {
     showWeeks: true,
@@ -77,6 +139,8 @@ export const NimbleTimelineWithWeeks = {
         color: '#AE4949',
         start: moment(),
         end: moment().add(600, 'hour'),
+        canMove: false,
+        canResize: false,
       },
       {
         id: 2,
