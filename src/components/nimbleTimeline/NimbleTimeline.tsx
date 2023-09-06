@@ -43,6 +43,10 @@ interface ItemRendererProps {
   getResizeProps: Function;
 }
 
+interface GroupHeaderProps {
+  headerWidth: string | number | undefined;
+}
+
 const ItemContent = styled('div')({
   display: 'flex',
   justifyContent: 'center',
@@ -76,6 +80,23 @@ const GroupRightSection = styled('div')({
   alignItems: 'center',
 });
 
+const GroupHeaderContainer = styled('div')<GroupHeaderProps>(props => ({
+  display: 'flex',
+  width: props.headerWidth,
+  background: 'white',
+  color: 'black',
+}));
+const GroupHeaderRight = styled('div')({
+  width: '50%',
+  borderRight: '1px solid #9A9FA5',
+});
+const GroupHeaderLeft = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '50%',
+  fontSize: '12px',
+});
 export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   showWeeks = false,
   sidebarWidth = 400,
@@ -231,29 +252,12 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           <SidebarHeader>
             {({getRootProps}) => {
               return (
-                <div
-                  style={{
-                    display: 'flex',
-                    width: getRootProps().style.width,
-                    background: 'white',
-                    color: 'black',
-                    borderRight: '1px solid #9A9FA5',
-                    marginRight: '-1px',
-                    fontFamily:
-                      '"Nunito Sans",-apple-system,".SFNSText-Regular","San Francisco",BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif',
-                  }}>
-                  <div style={{width: '50%', borderRight: '1px solid #9A9FA5'}} />
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '50%',
-                      fontSize: '12px',
-                    }}>
+                <GroupHeaderContainer headerWidth={getRootProps()?.style?.width}>
+                  <GroupHeaderRight />
+                  <GroupHeaderLeft>
                     <Typography variant="body2">Actiehouder</Typography>
-                  </div>
-                </div>
+                  </GroupHeaderLeft>
+                </GroupHeaderContainer>
               );
             }}
           </SidebarHeader>

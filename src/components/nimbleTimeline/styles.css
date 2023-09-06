@@ -31,10 +31,6 @@ body {
     border-color: #ccc;
 }
 
-.react-calendar-timeline .rct-vertical-lines .rct-vl {
-    border-left: 1px solid #9A9FA577;
-}
-
 .react-calendar-timeline .rct-header .rct-label-group {
     font-family: 'Work Sans', sans-serif;
     background: #eee;
@@ -65,8 +61,4 @@ body {
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-even {
 
     border-bottom: 1px solid #9A9FA577;
-}
-
-.react-calendar-timeline .rct-calendar-header {
-    border-left: 1px solid #9A9FA577;
 }
