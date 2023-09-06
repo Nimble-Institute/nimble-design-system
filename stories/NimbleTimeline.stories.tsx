@@ -15,6 +15,24 @@ const NimbleTimelineStory: Meta<typeof NimbleTimeline> = {
 
 export default NimbleTimelineStory;
 
+const moveCallback = (itemId, dragTime, newGroupOrder) => {
+  console.info('move callback');
+  console.info('itemId: ', itemId);
+  console.info('dragTime: ', dragTime);
+  console.info('newGroupOrder: ', newGroupOrder);
+};
+
+const resizeCallback = (itemId, time, edge) => {
+  console.info('resize callback');
+  console.info('itemId: ', itemId);
+  console.info('time: ', time);
+  console.info('edge (left or right): ', edge);
+};
+
+const itemDoubleClickCallback = item => {
+  console.info('item doubleClick: ', item);
+};
+
 export const NimbleTimelineWithWeeks = {
   args: {
     showWeeks: true,
@@ -23,6 +41,9 @@ export const NimbleTimelineWithWeeks = {
     todayMarker: true,
     sideBarLeftHeaderText: 'Actiehouder',
     sideBarRightHeaderText: 'Zwanenburg',
+    itemMoveHandler: moveCallback,
+    itemResizeHandler: resizeCallback,
+    itemDoubleClickHandler: itemDoubleClickCallback,
     sidebarGroups: [
       {
         id: 1,

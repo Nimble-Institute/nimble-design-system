@@ -25,6 +25,9 @@ interface NimbleTimeline {
   todayMarker?: boolean;
   sideBarLeftHeaderText?: string;
   sideBarRightHeaderText?: string;
+  itemResizeHandler?: Function;
+  itemMoveHandler?: Function;
+  itemDoubleClickHandler?: Function;
 }
 interface Group {
   id: number;
@@ -115,6 +118,9 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   todayMarker = false,
   sideBarLeftHeaderText,
   sideBarRightHeaderText,
+  itemResizeHandler,
+  itemMoveHandler,
+  itemDoubleClickHandler,
 }) => {
   const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
@@ -136,6 +142,12 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     groupLabelKey: 'title',
   };
 
+  const handleItemDoubleClick = (e: React.MouseEvent<HTMLDivElement>, item: Object) => {
+    if (e.detail == 2) {
+      itemDoubleClickHandler && itemDoubleClickHandler(item);
+    }
+  };
+
   const handleItemMove = (itemId: number, dragTime: number, newGroupOrder: number) => {
     const group = groups[newGroupOrder];
     setItems(
@@ -150,7 +162,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
       ),
     );
     setDraggedItem(undefined);
-    console.log('Moved', itemId, dragTime, newGroupOrder);
+    itemMoveHandler && itemMoveHandler(itemId, dragTime, newGroupOrder);
   };
 
   const handleItemResize = (itemId: number, time: number, edge: string) => {
@@ -164,8 +176,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           : item,
       ),
     );
-
-    console.log('Resized', itemId, time, edge);
+    itemResizeHandler && itemResizeHandler(itemId, time, edge);
   };
 
   const handleItemDrag = ({itemId, time, newGroupOrder}: {itemId: number; time: number; newGroupOrder: number}) => {
@@ -179,7 +190,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const itemRenderer = ({item, itemContext, getItemProps, getResizeProps}: ItemRendererProps) => {
     const {left: leftResizeProps, right: rightResizeProps} = getResizeProps();
     return (
-      <>
+      <div onClick={e => handleItemDoubleClick(e, item)}>
         <div
           {...getItemProps({
             ...item.itemProps,
@@ -196,7 +207,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
 
           {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''}
         </div>
-      </>
+      </div>
     );
   };
 
