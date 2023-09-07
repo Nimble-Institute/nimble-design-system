@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import moment from 'moment';
 import {Chip, Typography} from '@mui/material';
-import {styled} from '@mui/system';
 
 import Timeline, {
   DateHeader,
@@ -13,8 +12,18 @@ import Timeline, {
 } from 'react-calendar-timeline';
 
 import InfoLabel from './InfoLabel';
+import {
+  GroupContainer,
+  GroupHeaderContainer,
+  GroupHeaderLeft,
+  GroupHeaderRight,
+  GroupLeftSection,
+  GroupRightSection,
+  ItemContent,
+} from './StyleWrappers';
+
 import 'react-calendar-timeline/lib/Timeline.css';
-import './styles.css';
+import './timelineStyles.css';
 
 interface NimbleTimeline {
   showWeeks?: boolean;
@@ -31,7 +40,7 @@ interface NimbleTimeline {
 }
 interface Group {
   id: number;
-  title: string;
+  title?: string;
   badge?: string;
   color?: string;
   labels?: {text: string; color: string}[];
@@ -47,67 +56,6 @@ interface ItemRendererProps {
   getItemProps: Function;
   getResizeProps: Function;
 }
-
-interface GroupHeaderProps {
-  headerWidth: string | number | undefined;
-}
-
-const ItemContent = styled('div')({
-  display: 'flex',
-  justifyContent: 'center',
-  width: 'inherit',
-  border: 'none',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-});
-
-const GroupContainer = styled('div')({
-  display: 'flex',
-  height: 'inherit',
-});
-
-const GroupLeftSection = styled('div')({
-  display: 'flex',
-  width: '50%',
-  borderRight: '1px solid #9A9FA5',
-  fontSize: '14px',
-  alignItems: 'center',
-  overflow: 'scroll',
-});
-
-const GroupRightSection = styled('div')({
-  display: 'flex',
-  height: 'inherit',
-  padding: '4px 0px',
-  width: '50%',
-  overflow: 'scroll',
-  alignItems: 'center',
-});
-
-const GroupHeaderContainer = styled('div')<GroupHeaderProps>(props => ({
-  display: 'flex',
-  width: props.headerWidth,
-  background: 'white',
-  color: 'black',
-}));
-
-const GroupHeaderLeft = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '50%',
-  fontSize: '12px',
-  borderRight: '1px solid #9A9FA5',
-});
-
-const GroupHeaderRight = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '50%',
-  fontSize: '12px',
-});
 
 export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   showWeeks = false,
@@ -129,7 +77,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const defaultTimeStart = moment().startOf('day').toDate();
   const defaultTimeEnd = moment().startOf('day').add(1, 'day').toDate();
 
-  var keys = {
+  const keys = {
     groupIdKey: 'id',
     groupTitleKey: 'title',
     groupRightTitleKey: 'rightTitle',
@@ -153,11 +101,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     setItems(
       items.map(item =>
         item.id === itemId
-          ? Object.assign({}, item, {
-              start: dragTime,
-              end: dragTime + (item.end - item.start),
-              group: group.id,
-            })
+          ? {...item, start: dragTime, end: dragTime + (item.end - item.start), group: group.id}
           : item,
       ),
     );
@@ -169,10 +113,11 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     setItems(
       items.map(item =>
         item.id === itemId
-          ? Object.assign({}, item, {
+          ? {
+              ...item,
               start: edge === 'left' ? time : item.start,
               end: edge === 'left' ? item.end : time,
-            })
+            }
           : item,
       ),
     );

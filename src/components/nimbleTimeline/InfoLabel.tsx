@@ -4,7 +4,7 @@ import {styled} from '@mui/system';
 
 interface Group {
   id: number;
-  title: string;
+  title?: string;
   badge?: string;
   color?: string;
   labels?: {text: string; color: string}[];
@@ -21,8 +21,8 @@ const LabelContainer = styled('div')({
   borderRadius: 5,
   zIndex: 85,
 });
-export default ({group, time}: {item: any, group: Group, time: number}) => {
+export default ({group, time}: {item: any; group: Group; time: number}) => {
   const date = moment(time, 'x');
   const label = group ? group.title : '';
-  return <LabelContainer style={{}}>{`${date.format('LLL')}, ${label} `}</LabelContainer>;
+  return <LabelContainer>{`${date.format('LLL')}, ${label} `}</LabelContainer>;
 };
