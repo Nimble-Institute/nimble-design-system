@@ -72,6 +72,17 @@ const DataWrapper = styled(Box)({
   paddingLeft: '16px',
   paddingRight: '16px',
   overflowY: 'scroll',
+  '::-webkit-scrollbar': {
+    width: ' 0.1em',
+  },
+  '::webkit-scrollbar-track': {
+    boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.00)',
+  },
+  '::-webkit-scrollbar-thumb': {
+    outline: '1px solid #ababab',
+    backgroundColor: '#d6d6d6',
+    borderRadius: '4px',
+  },
 });
 
 const FooterWrapper = styled(Box)({
