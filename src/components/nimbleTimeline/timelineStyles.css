@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Work+Sans');
 
 *::-webkit-scrollbar {
     width: 0.01em;
@@ -6,7 +5,7 @@
 }
 
 body {
-    font-family: 'Work Sans', sans-serif;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 18px;
     background: #FAFAFA;
 }
@@ -64,6 +63,5 @@ body {
 
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-odd,
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-even {
-
     border-bottom: 1px solid #9A9FA577;
 }
