@@ -4,6 +4,10 @@ interface GroupHeaderProps {
   headerWidth: string | number | undefined;
 }
 
+interface ChipProps {
+  bgColor?: string;
+}
+
 const ItemContent = styled('div')({
   display: 'flex',
   justifyContent: 'center',
@@ -61,6 +65,20 @@ const GroupHeaderRight = styled('div')({
   fontSize: '12px',
 });
 
+const Chip = styled('div')<ChipProps>(props => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontWeight: 100,
+  borderRadius: '3px',
+  margin: '0px 8px',
+  padding: '0px 8px',
+  backgroundColor: props?.bgColor,
+  color: 'white',
+  height: '24px',
+  fontSize: '14px',
+}));
+
 export {
   ItemContent,
   GroupContainer,
@@ -69,4 +87,5 @@ export {
   GroupHeaderContainer,
   GroupHeaderLeft,
   GroupHeaderRight,
+  Chip,
 };

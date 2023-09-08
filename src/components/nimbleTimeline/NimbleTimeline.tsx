@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import moment from 'moment';
-import {Chip, Typography} from '@mui/material';
+import {Typography} from '@mui/material';
 
 import Timeline, {
   DateHeader,
@@ -20,6 +20,7 @@ import {
   GroupLeftSection,
   GroupRightSection,
   ItemContent,
+  Chip,
 } from './StyleWrappers';
 
 import 'react-calendar-timeline/lib/Timeline.css';
@@ -160,35 +161,14 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     return (
       <GroupContainer>
         <GroupLeftSection>
-          {group?.badge && (
-            <Chip
-              label={group?.badge}
-              size={'small'}
-              sx={{
-                fontWeight: 100,
-                borderRadius: '3px',
-                margin: '0px 8px',
-                backgroundColor: group?.color,
-                color: 'white',
-              }}
-            />
-          )}
+          {group?.badge && <Chip bgColor={group?.color}>{group?.badge}</Chip>}
           <Typography variant="body1">{group?.title}</Typography>
         </GroupLeftSection>
         <GroupRightSection>
           {group?.labels?.map((label, index) => (
-            <Chip
-              key={index}
-              label={label.text}
-              size={'small'}
-              sx={{
-                fontWeight: 100,
-                borderRadius: '3px',
-                margin: '0px 4px',
-                backgroundColor: label.color,
-                color: 'white',
-              }}
-            />
+            <Chip key={index} bgColor={label.color}>
+              {label.text}
+            </Chip>
           ))}
         </GroupRightSection>
       </GroupContainer>
