@@ -20,7 +20,6 @@ import {PaginationBar, fontWeight, PaginationDataType} from '../shared';
 import FilterImage from '../shared/icons/FiltorIcon';
 
 import theme from './CustomTheme';
-import './styles.css';
 
 interface CustomFilterDataType {
   label: 'string';
