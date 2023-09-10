@@ -5,7 +5,7 @@ import moment from 'moment';
 import {NimbleTimeline} from '../src';
 
 const NimbleTimelineStory: Meta<typeof NimbleTimeline> = {
-  title: 'NimbleDesign/Nimble Timeline',
+  title: 'Nimble Charts/Nimble Timeline',
   component: NimbleTimeline,
   parameters: {
     // layout: 'fullscreen',
