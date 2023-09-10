@@ -1,9 +1,4 @@
 
-*::-webkit-scrollbar {
-    width: 0.01em;
-    height: 0.2em;
-}
-
 body {
     font-size: 18px;
     background: #FAFAFA;
