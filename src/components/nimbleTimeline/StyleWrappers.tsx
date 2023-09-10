@@ -20,7 +20,6 @@ const ItemContent = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   width: 'inherit',
-  border: 'none',
   overflow: 'hidden',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
@@ -34,7 +33,8 @@ const GroupContainer = styled('div')({
 const GroupLeftSection = styled('div')({
   display: 'flex',
   width: '50%',
-  borderRight: '1px solid #9A9FA5',
+  borderRight: '1px solid #bbb',
+  borderLeft: '1px solid #bbb',
   fontSize: '14px',
   alignItems: 'center',
   overflow: 'scroll',
@@ -43,7 +43,7 @@ const GroupLeftSection = styled('div')({
 const GroupRightSection = styled('div')({
   display: 'flex',
   height: 'inherit',
-  padding: '4px 0px',
+  // padding: '4px 0px',
   width: '50%',
   overflow: 'scroll',
   alignItems: 'center',
@@ -54,6 +54,7 @@ const GroupHeaderContainer = styled('div')<GroupHeaderProps>(props => ({
   width: props.headerWidth,
   background: 'white',
   color: 'black',
+  borderTop: '1px solid #bbb',
 }));
 
 const GroupHeaderLeft = styled('div')({
@@ -62,7 +63,8 @@ const GroupHeaderLeft = styled('div')({
   justifyContent: 'center',
   width: '50%',
   fontSize: '12px',
-  borderRight: '1px solid #9A9FA5',
+  borderRight: '1px solid #bbb',
+  borderLeft: '1px solid #bbb',
 });
 
 const GroupHeaderRight = styled('div')({
@@ -71,6 +73,7 @@ const GroupHeaderRight = styled('div')({
   justifyContent: 'center',
   width: '50%',
   fontSize: '12px',
+  borderRight: '1px solid #bbb',
 });
 
 const Chip = styled('div')<ChipProps>(props => ({

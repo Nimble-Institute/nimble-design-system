@@ -4,13 +4,9 @@ body {
     background: #FAFAFA;
 }
 
-.react-calendar-timeline {
-    border: 1px solid #9A9FA5;
-}
-
 .react-calendar-timeline .rct-horizontal-lines .rct-hl-even,
 .react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
-    border-bottom: 1px solid #9A9FA577;
+    border-bottom: 1px solid #bbb;
 }
 
 .react-calendar-timeline .rct-horizontal-lines .rct-hl-even {
@@ -30,7 +26,6 @@ body {
 }
 
 .react-calendar-timeline .rct-header .rct-label-group {
-    font-family: 'Work Sans', sans-serif;
     background: #eee;
     color: #000;
     font-size: 1rem;
@@ -41,8 +36,6 @@ body {
     color: #000;
     text-align: center;
     padding-top: 1rem;
-    border: none;
-    border-right: solid 2px #ccc !important;
 }
 
 .react-calendar-timeline .rct-dateHeader {
@@ -57,5 +50,10 @@ body {
 
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-odd,
 .react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-even {
-    border-bottom: 1px solid #9A9FA577;
+    border-bottom: 1px solid #bbb;
+    padding: 0;
+}
+
+.react-calendar-timeline .rct-calendar-header {
+    border-left: none;
 }
