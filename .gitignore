@@ -5,3 +5,4 @@ storybook-static
 /.idea/
 /package-lock.json
 .yarn
+.DS_Store
