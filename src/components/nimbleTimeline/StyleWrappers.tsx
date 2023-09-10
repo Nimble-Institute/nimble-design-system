@@ -8,6 +8,14 @@ interface ChipProps {
   bgColor?: string;
 }
 
+interface TimelineWrapperProps {
+  commonFontFamily?: string;
+}
+
+const TimelineWrapper = styled('div')<TimelineWrapperProps>(props => ({
+  fontFamily: props.commonFontFamily,
+}));
+
 const ItemContent = styled('div')({
   display: 'flex',
   justifyContent: 'center',
@@ -80,6 +88,7 @@ const Chip = styled('div')<ChipProps>(props => ({
 }));
 
 export {
+  TimelineWrapper,
   ItemContent,
   GroupContainer,
   GroupLeftSection,

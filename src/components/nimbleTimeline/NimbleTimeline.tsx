@@ -21,6 +21,7 @@ import {
   GroupRightSection,
   ItemContent,
   Chip,
+  TimelineWrapper,
 } from './StyleWrappers';
 
 import 'react-calendar-timeline/lib/Timeline.css';
@@ -38,6 +39,7 @@ interface NimbleTimeline {
   itemResizeHandler?: Function;
   itemMoveHandler?: Function;
   itemDoubleClickHandler?: Function;
+  fontFamily?: string;
 }
 interface Group {
   id: number;
@@ -70,6 +72,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   itemResizeHandler,
   itemMoveHandler,
   itemDoubleClickHandler,
+  fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
 }) => {
   const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
@@ -176,7 +179,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   };
 
   return (
-    <>
+    <TimelineWrapper commonFontFamily={fontFamily}>
       <Timeline
         groups={groups}
         items={items}
@@ -201,10 +204,10 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               return (
                 <GroupHeaderContainer headerWidth={getRootProps()?.style?.width}>
                   <GroupHeaderLeft>
-                    <Typography variant="body2">{sideBarLeftHeaderText}</Typography>
+                    <Typography variant="body1">{sideBarLeftHeaderText}</Typography>
                   </GroupHeaderLeft>
                   <GroupHeaderRight>
-                    <Typography variant="body2">{sideBarRightHeaderText}</Typography>
+                    <Typography variant="body1">{sideBarRightHeaderText}</Typography>
                   </GroupHeaderRight>
                 </GroupHeaderContainer>
               );
@@ -217,6 +220,6 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         <TimelineMarkers>{todayMarker && <TodayMarker date={new Date()} />}</TimelineMarkers>
       </Timeline>
       {draggedItem && <InfoLabel item={draggedItem.item} group={draggedItem.group} time={draggedItem.time} />}
-    </>
+    </TimelineWrapper>
   );
 };
