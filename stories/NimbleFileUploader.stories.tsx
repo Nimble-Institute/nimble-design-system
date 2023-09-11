@@ -65,5 +65,6 @@ export const NimbleFileUpload = {
         fileSize: '700KB',
       },
     ],
+    isUploadButtonRequired: true,
   },
 };
