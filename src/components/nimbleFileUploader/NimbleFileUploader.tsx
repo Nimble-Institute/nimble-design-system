@@ -44,6 +44,8 @@ interface NimbleFileUploaderProps {
   onClickPreview?: (fileName: string, id: string) => void;
   onClickDownload?: (fileName: string, id: string) => void;
   onClickDelete?: (fileName: string, id: string) => void;
+  isUploadButtonRequired?: boolean;
+  headerText?: string;
 }
 
 const toBase64 = (file: File): Promise<string> =>
@@ -65,6 +67,8 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   onClickPreview,
   onClickDownload,
   onClickDelete,
+  isUploadButtonRequired = true,
+  headerText = 'Uploaded Files'
 }) => {
   const hiddenFileInput = useRef<any>(null);
 
@@ -117,25 +121,28 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   return (
     <Container width={width} height={height}>
       <TopWrapper>
-        <NimbleButton
-          label={uploadButtonText}
-          variant="contained"
-          onClick={handleClick}
-          startIcon={<UploadFileIcon />}
-          fontFamily={fontFamily}
-        />
+        {isUploadButtonRequired && (
+          <NimbleButton
+            label={uploadButtonText}
+            variant="contained"
+            onClick={handleClick}
+            startIcon={<UploadFileIcon />}
+            fontFamily={fontFamily}
+          />
+        )}
+
         <input type="file" onChange={handleChange} ref={hiddenFileInput} style={{display: 'none'}} />
       </TopWrapper>
       <Box>
         <HeaderText color={headerFontColor} fontFamily={fontFamily}>
-          Uploaded Files
+          {headerText}
         </HeaderText>
         <ContentContainer>
           {uploadedFiles.map((item, index) => {
             const extension = item.fileName?.substring(item.fileName.lastIndexOf('.') + 1);
             return (
               <Box key={index}>
-                <FileCard onClick={() => setActivecardIndex(index)} elevation={0}>
+                <FileCard onClick={() => setActivecardIndex(activecardIndex === -1 ? index : -1)} elevation={0}>
                   <FileCardWrapper>
                     <Box>
                       {renderFileTypeIcon(extension)}
