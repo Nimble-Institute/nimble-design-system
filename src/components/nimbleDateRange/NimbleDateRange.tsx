@@ -15,6 +15,8 @@ import {InternalStandardProps as StandardProps} from '@mui/material';
 
 import {InputLabel, InputLabelProps, InputBoxProps, InputError} from '../shared';
 
+import './NimbleDateRangeStyles.css';
+
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
 dayjs.extend(weekday);
