@@ -13,7 +13,7 @@ import weekYear from 'dayjs/plugin/weekYear';
 
 import {InputLabel, InputLabelProps, InputBoxProps, InputError} from '../shared';
 
-import './styles.css'
+import './nimbleDatePickerStyles.css'
 
 dayjs.extend(customParseFormat);
 dayjs.extend(advancedFormat);
