@@ -165,7 +165,6 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   const handleClickCustomPagination = () => {
     const val = customPaginationInputref?.current.value;
-
     clickCustomPagination && clickCustomPagination(val || 1);
   };
 
@@ -337,7 +336,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             <Pagination
               count={paginationData.totalPage}
               page={paginationData.page}
-              onChange={paginationData.onPageChnage}
+              onChange={(event: any, page: number) => {
+                customPaginationInputref.current.value = '';
+                paginationData.onPageChnage(event, page);
+              }}
               sx={{button: {color: '#383838'}}}
               color="primary"
             />
