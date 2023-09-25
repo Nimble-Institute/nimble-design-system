@@ -7,7 +7,7 @@ import {NimbleDataGrid} from '../src';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const NimbleDataGridStory: Meta<typeof NimbleDataGrid> = {
-  title: 'Nimble Desktop Design/Nimble Data Grid',
+  title: 'Nimble Project Specific/Nimble Data Grid',
   component: NimbleDataGrid,
   parameters: {
     // layout: 'fullscreen',

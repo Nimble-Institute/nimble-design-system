@@ -24,6 +24,7 @@ interface NimbleTabProps {
   type?: 'default' | 'card';
   activeCardColor?: string;
   inActiveCardColor?: string;
+  variant?: 'fullWidth' | 'scrollable' | 'standard';
 }
 
 export const Nimbletab: React.FC<NimbleTabProps> = ({
@@ -38,6 +39,7 @@ export const Nimbletab: React.FC<NimbleTabProps> = ({
   type = 'default',
   activeCardColor,
   inActiveCardColor,
+  variant = 'fullWidth',
 }) => {
   const [value, setValue] = useState(1);
 
@@ -53,7 +55,7 @@ export const Nimbletab: React.FC<NimbleTabProps> = ({
   return (
     <Box sx={{width}}>
       <ThemeProvider theme={customTheme}>
-        <Tabs value={value} onChange={handleChange} textColor="primary" indicatorColor="primary" variant="fullWidth">
+        <Tabs value={value} onChange={handleChange} textColor="primary" indicatorColor="primary" variant={variant}>
           {tabs?.map((item, index) => (
             <Tab
               value={item.value}
