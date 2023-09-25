@@ -176,3 +176,28 @@ export const NimbleBasicCardTypeTab = {
     ],
   },
 };
+
+export const NimbleStandardCardTypeTab = {
+  args: {
+    width: '445px',
+    variant: 'standard',
+    type: 'card',
+    activeColor: '#FFF',
+    activeCardColor: '#4b9447',
+    inActiveCardColor: '#abbdaa',
+    tabs: [
+      {
+        value: 1,
+        label: 'Clients',
+      },
+      {
+        value: 2,
+        label: 'Users',
+      },
+      {
+        value: 3,
+        label: 'Production Orders and sales',
+      },
+    ],
+  },
+};

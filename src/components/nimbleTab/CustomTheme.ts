@@ -47,6 +47,7 @@ const theme = (
                   '&.Mui-selected': {
                     backgroundColor: activeCardColor,
                   },
+                  marginRight: '1px',
                 }
               : undefined),
           },
