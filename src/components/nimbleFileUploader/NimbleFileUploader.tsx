@@ -46,6 +46,7 @@ interface NimbleFileUploaderProps {
   onClickDelete?: (fileName: string, id: string) => void;
   isUploadButtonRequired?: boolean;
   headerText?: string;
+  enableActionOnHover?: boolean;
 }
 
 const toBase64 = (file: File): Promise<string> =>
@@ -68,7 +69,8 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   onClickDownload,
   onClickDelete,
   isUploadButtonRequired = true,
-  headerText = 'Uploaded Files'
+  headerText = 'Uploaded Files',
+  enableActionOnHover = false,
 }) => {
   const hiddenFileInput = useRef<any>(null);
 
@@ -142,7 +144,11 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
             const extension = item.fileName?.substring(item.fileName.lastIndexOf('.') + 1);
             return (
               <Box key={index}>
-                <FileCard onClick={() => setActivecardIndex(activecardIndex === -1 ? index : -1)} elevation={0}>
+                <FileCard
+                  onClick={() => setActivecardIndex(activecardIndex === -1 ? index : -1)}
+                  elevation={0}
+                  onMouseOver={enableActionOnHover ? () => setActivecardIndex(index) : undefined}
+                  onMouseLeave={enableActionOnHover ? () => setActivecardIndex(-1) : undefined}>
                   <FileCardWrapper>
                     <Box>
                       {renderFileTypeIcon(extension)}

@@ -43,6 +43,7 @@ const FileCard = styled(Paper)({
   '&:hover': {
     backgroundColor: '#fafafa',
   },
+  zIndex: 999,
 });
 
 const FileCardWrapper = styled(Box)({
