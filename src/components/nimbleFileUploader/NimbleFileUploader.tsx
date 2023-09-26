@@ -143,12 +143,11 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
           {uploadedFiles.map((item, index) => {
             const extension = item.fileName?.substring(item.fileName.lastIndexOf('.') + 1);
             return (
-              <Box key={index}>
+              <Box key={index} onMouseLeave={enableActionOnHover ? () => setActivecardIndex(-1) : undefined}>
                 <FileCard
                   onClick={() => setActivecardIndex(activecardIndex === -1 ? index : -1)}
                   elevation={0}
-                  onMouseOver={enableActionOnHover ? () => setActivecardIndex(index) : undefined}
-                  onMouseLeave={enableActionOnHover ? () => setActivecardIndex(-1) : undefined}>
+                  onMouseOver={enableActionOnHover ? () => setActivecardIndex(index) : undefined}>
                   <FileCardWrapper>
                     <Box>
                       {renderFileTypeIcon(extension)}
