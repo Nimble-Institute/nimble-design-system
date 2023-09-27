@@ -3,10 +3,11 @@ import {styled} from '@mui/system';
 import {Typography} from '@mui/material';
 
 import {InputLabelProps} from '../../types/index';
+import {fontWeight} from '../../types/index';
 
 interface LabelProps {
   labelsize: number;
-  labelweight: '400' | '500' | '600' | '700';
+  labelweight: fontWeight;
   fontFamily?: string;
   disabled?: boolean;
 }
