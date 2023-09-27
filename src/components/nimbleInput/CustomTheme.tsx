@@ -16,6 +16,7 @@ const theme = (
             '.MuiOutlinedInput-notchedOutline': {
               borderColor: isError ? '#EC4C29' : borderColor,
               boxShadow: isError ? '0px 0px 0px 2px #FAD4CC' : ' 0px 1px 4px 0px rgba(39, 47, 53, 0.08);',
+              background: disabled && 'rgba(12, 27, 42, 0.06)',
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
               border: !disabled ? 'none' : undefined,
