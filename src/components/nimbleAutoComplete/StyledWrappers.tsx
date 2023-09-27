@@ -18,14 +18,6 @@ interface SlectedIconProps {
   chipcolor: string;
 }
 
-const OptionPaper = styled(Paper)({
-  marginTop: '8px',
-  borderRadius: '5px',
-  backgroundColor: '#FFFFFF',
-  boxShadow: '0px 4px 16px 0px rgba(22, 22, 22, 0.11);',
-  padding: '0px !important',
-});
-
 const TagWrapper = styled('div')({
   maxHeight: '100px',
   overflow: 'auto',
@@ -78,4 +70,4 @@ const TextInput = styled(TextField)(({fontFamily}: TextInputProps) => ({
   '& input::placeholder': {fontSize: '14px', fontFamily: fontFamily},
 }));
 
-export {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput};
+export {TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput};

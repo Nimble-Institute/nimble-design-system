@@ -1,9 +1,9 @@
-import React, {useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Autocomplete, InternalStandardProps as StandardProps} from '@mui/material';
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {ThemeProvider} from '@mui/material/styles';
 
-import {OptionPaper, TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput} from './StyledWrappers';
+import {TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput} from './StyledWrappers';
 import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
 
 import closeSVG from '../../assets/images/close.svg';
@@ -57,6 +57,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   ...props
 }) => {
   const inputRef = useRef<any>(null);
+  const [value, setValue] = useState<any>(defaultValue || multiple ? [] : null);
 
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
@@ -67,10 +68,11 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null,
   ) => {
     onChange(value);
+    setValue(value);
   };
 
-  const preSelectedvalue = useMemo(() => {
-    return defaultValue && Array.isArray(defaultValue) ? [...defaultValue] : undefined;
+  useEffect(() => {
+    setValue(defaultValue || (multiple ? [] : {}));
   }, [defaultValue]);
 
   const renderTags = (value: any, getTagProps: any) => {
@@ -153,13 +155,23 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
             },
           }}
           clearIcon={<img src={clearSVG} />}
-          PaperComponent={(props: any) => <OptionPaper {...props} />}
           popupIcon={<img src={searchSVG} />}
-          defaultValue={preSelectedvalue}
-          isOptionEqualToValue={(option, value) => option.value === value.value}
-          // value={value || []}
+          isOptionEqualToValue={(option, newValue) => option.value === newValue.value}
+          value={value}
           disabled={disabled}
           onBlur={onBlur}
+          componentsProps={{
+            paper: {
+              elevation: 8,
+              sx: {
+                marginTop: '8px',
+                borderRadius: '5px',
+                backgroundColor: '#FFFFFF',
+                boxShadow: '0px 4px 16px 0px rgba(22, 22, 22, 0.11);',
+                padding: '0px !important',
+              },
+            },
+          }}
           {...props}
         />
       </ThemeProvider>
