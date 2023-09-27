@@ -21,12 +21,13 @@ export const NimbleFileUpload = {
     uploadedFiles: [
       {
         id: 1,
-        fileName: 'Netherlands Maritime Technology logo.jpeg',
+        fileName:
+          'Netherlands Maritime Technology logo zhgxchji dkfjhajsdhjahs djahsdjhasdjhqjd ajkhsdjklshdjshjkshdjl.jpeg',
         fileSize: '200KB',
       },
       {
         id: 2,
-        fileName: 'Nimble Institute Logo.png',
+        fileName: 'Nimble Institute Logo kzjghjka sdjkahjklsdhjaklsdjklajsdkljaskldakljsd.png',
         fileSize: '400KB',
       },
       {

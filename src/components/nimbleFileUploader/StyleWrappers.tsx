@@ -56,12 +56,16 @@ const FileCardWrapper = styled(Box)({
 
 const FileNameText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
   color: '#0C1B2A',
-  textOverflow: 'ellipsis',
   fontSize: '12px',
   fontWeight: '600',
   lineHeight: '140%',
   letterSpacing: '-0.12px',
   fontFamily,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitLineClamp: '2',
+  WebkitBoxOrient: 'vertical',
 }));
 
 const FileSizeText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
