@@ -52,7 +52,7 @@ interface NimbleDataGridProps {
   renderCard: (item: any) => ReactElement;
   paginationData: PaginationDataType;
   clickCustomPagination?: (page: number) => void;
-  onSearchHandler?: (searchText: string) => void;
+  onSearchHandler?: (value: string | React.ChangeEvent<HTMLInputElement>) => void;
   onChangeFilters?: (filterValues: {[key: string]: string} | {}) => void;
   onClickDataCard?: (item: any) => void;
 }
