@@ -24,7 +24,7 @@ interface NimbleInputProps
   isError?: boolean;
   errorMessage?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
   startIcon?: any;
   type: 'text' | 'password' | 'number' | 'search' | 'email';
@@ -131,8 +131,12 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
             placeholder={placeholder}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const temp = event.target.value;
-              setInternalValue(temp);
-              inputChangeDebouncer(temp);
+              if (isFormik) {
+                onChange && onChange(event);
+              } else {
+                setInternalValue(temp);
+                inputChangeDebouncer(temp);
+              }
             }}
             onBlur={handleOnBlur}
             value={isFormik ? value : internalValue}
