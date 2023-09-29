@@ -41,6 +41,8 @@ interface NimbleDateRangeProps
   name?: string;
   height?: string;
   fontSize?: string;
+  isFormik?: boolean;
+  value?: any;
 }
 
 const StyledRangePicker = styled(DatePicker.RangePicker)<{
@@ -104,10 +106,11 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
   name = undefined,
   height = '34px',
   fontSize = '14px',
+  isFormik = false,
+  value,
   ...props
 }) => {
   const [dates, setDates] = useState<RangeValue>(null);
-  const [value, setValue] = useState<RangeValue>(null);
 
   const handleCalandarChange = (dates: any, dateStrings: [string, string]) => {
     onDateChange && onDateChange(dateStrings);
@@ -160,9 +163,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         onCalendarChange={handleCalandarChange}
         defaultValue={[defaultValue[0] && dayjs(defaultValue[0]), defaultValue[1] && dayjs(defaultValue[1])]}
         disabledDate={disabledDate}
-        onChange={(val: any) => {
-          setValue(val);
-        }}
+        onChange={(val: any) => {}}
         onOpenChange={onOpenChange}
         changeOnBlur
         placeholder={placeholderArray}
@@ -170,6 +171,7 @@ export const NimbleDateRange: React.FC<NimbleDateRangeProps> = ({
         fontSize={fontSize}
         disabled={disabled}
         name={name}
+        value={isFormik && value?.length === 2 ? [dayjs(value[0]), dayjs(value[1])] : undefined}
         onBlur={onBlur}
         {...props}
       />

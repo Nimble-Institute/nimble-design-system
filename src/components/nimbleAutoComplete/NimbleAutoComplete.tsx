@@ -21,16 +21,18 @@ interface NimbleAutoCompleteProps
     InputLabelProps,
     InputBoxProps {
   chipColor?: string;
-  onChange: (value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null) => void;
+  onChange: (value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null | React.SyntheticEvent) => void;
   onBlur?: () => void;
   data: NimbleAutocompleteDataType[];
-  isError?: boolean;
-  errorMessage?: string;
+  isError?: boolean | never[];
+  errorMessage?: string | string[] | never[];
   placeholder?: string;
   multiple?: boolean;
   defaultValue?: NimbleAutocompleteDataType[];
   disabled?: boolean;
   name?: string;
+  isFormik?: boolean;
+  value?: any;
 }
 
 export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
@@ -54,10 +56,12 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   defaultValue,
   disabled = false,
   name = undefined,
+  isFormik = false,
+  value,
   ...props
 }) => {
   const inputRef = useRef<any>(null);
-  const [value, setValue] = useState<any>(defaultValue || multiple ? [] : null);
+  const [internalValue, setInternalValue] = useState<any>(defaultValue || multiple ? [] : null);
 
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
@@ -68,12 +72,16 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     value: NimbleAutocompleteDataType[] | NimbleAutocompleteDataType | null,
   ) => {
     onChange(value);
-    setValue(value);
+    setInternalValue(value);
   };
 
   useEffect(() => {
-    setValue(defaultValue || (multiple ? [] : {}));
+    setInternalValue(defaultValue || (multiple ? [] : {}));
   }, [defaultValue]);
+
+  useEffect(() => {
+    isFormik && setInternalValue(value);
+  }, [isFormik, value]);
 
   const renderTags = (value: any, getTagProps: any) => {
     return (
@@ -128,7 +136,6 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           onChange={handleOnChnage}
           multiple={multiple}
           disableCloseOnSelect
-          id="combo-box-demo"
           options={data}
           sx={{
             width: width,
@@ -157,7 +164,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           clearIcon={<img src={clearSVG} />}
           popupIcon={<img src={searchSVG} />}
           isOptionEqualToValue={(option, newValue) => option.value === newValue.value}
-          value={value}
+          value={internalValue}
           disabled={disabled}
           onBlur={onBlur}
           componentsProps={{
@@ -175,7 +182,11 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
           {...props}
         />
       </ThemeProvider>
-      <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
+      <InputError
+        isError={!!isError}
+        errorMessage={errorMessage ? errorMessage.toString() : undefined}
+        fontFamily={fontFamily}
+      />
     </span>
   );
 };

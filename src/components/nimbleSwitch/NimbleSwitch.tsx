@@ -10,7 +10,7 @@ import theme from './CustomTheme';
 
 interface SwitchData {
   id: number;
-  label: string;
+  label?: string;
 }
 
 interface ValueType {

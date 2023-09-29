@@ -17,19 +17,21 @@ interface NimbleSelectProps
     InputLabelProps,
     InputBoxProps {
   isError?: boolean;
-  errorMessage?: string;
+  errorMessage?: string | string[] | undefined;
   disabled?: boolean;
   data: NimbleSelectData[];
   defaultValue?: string;
   defaultValueForMultiple?: string[];
   placeholder?: string;
-  onChange?: (value: string) => void;
-  name?: string;
+  onChange?: (value: any) => void;
   multiple?: boolean;
   height?: string;
   fontSize?: number;
   onBlur?: () => void;
   isEnableClear?: boolean;
+  name?: string;
+  isFormik?: boolean;
+  value?: any;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -57,6 +59,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   fontSize = 14,
   onBlur,
   isEnableClear = true,
+  isFormik = false,
+  value,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('-');
   const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
@@ -69,13 +73,22 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
     setSelectedValueForMultiple(defaultValueForMultiple || ['-']);
   }, [defaultValueForMultiple]);
 
+  useEffect(() => {
+    if (!multiple && isFormik) {
+      setSelectedValue(value);
+    }
+    if (multiple && isFormik) {
+      const filterdeValue = value.length > 1 ? value?.filter((item: string) => item !== '-') : value;
+      setSelectedValueForMultiple(filterdeValue);
+    }
+  }, [value, isFormik, multiple]);
+
   const customTheme = useMemo(() => {
     return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
   }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled]);
 
   const handleChnage = (event: any) => {
     const val = event.target.value;
-
     multiple ? setSelectedValueForMultiple(val.filter((item: string) => item !== '-')) : setSelectedValue(val);
     onChange && onChange(val);
   };
@@ -126,7 +139,10 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             <img
               {...props}
               src={dropdownSVG}
-              style={{width: fontSize > 13 ? '16px' : '14px', pointerEvents: 'none !important'}}
+              style={{
+                width: fontSize > 13 ? '16px' : '14px',
+                pointerEvents: 'none !important',
+              }}
             />
           )}
           endAdornment={
@@ -135,7 +151,13 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
                 size="small"
                 sx={{marginRight: '10px', position: 'absolute', right: 15}}
                 onClick={handleClear}>
-                <img src={clearSVG} style={{width: fontSize > 13 ? '16px' : '14px', marginTop: '1px'}} />
+                <img
+                  src={clearSVG}
+                  style={{
+                    width: fontSize > 13 ? '16px' : '14px',
+                    marginTop: '1px',
+                  }}
+                />
               </IconButton>
             )
           }
@@ -177,7 +199,11 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             ))}
         </Select>
       </ThemeProvider>
-      <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
+      <InputError
+        isError={isError}
+        errorMessage={errorMessage ? errorMessage.toString() : undefined}
+        fontFamily={fontFamily}
+      />
     </Box>
   );
 };

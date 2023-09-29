@@ -1,7 +1,7 @@
 import {createTheme} from '@mui/material/styles';
 
 const theme = (
-  isError: boolean | undefined,
+  isError: boolean | undefined | never[],
   borderColor: string,
   hoverBoxShadow: string,
   activeBoxShadow: string,
