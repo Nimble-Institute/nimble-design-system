@@ -35,6 +35,8 @@ interface NimbleInputProps
   rowCount?: number;
   maxLength?: number;
   showCharCount?: boolean;
+  isFormik?: boolean;
+  value?: any;
 }
 
 export const NimbleInput = forwardRef<any, NimbleInputProps>(
@@ -64,6 +66,8 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       rowCount,
       maxLength,
       showCharCount,
+      isFormik = false,
+      value,
     },
     ref,
   ) => {
@@ -131,7 +135,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
               inputChangeDebouncer(temp);
             }}
             onBlur={handleOnBlur}
-            value={internalValue}
+            value={isFormik ? value : internalValue}
             InputProps={{
               startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,
               endAdornment: (type === 'password' || type === 'search') && (
