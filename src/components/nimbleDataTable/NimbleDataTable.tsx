@@ -205,7 +205,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             onClick={() => {
               setEnableColumnFilter(!enableColumnFilter);
             }}>
-            <FilterImage color={primaryColor} />
+            <FilterImage color={enableColumnFilter ? primaryColor : '#383838'} />
           </FilterIcon>
           <MainActionButton
             onClick={handleClickMainAction}
