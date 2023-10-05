@@ -1,5 +1,14 @@
 import React, {useEffect, useRef, useState, useMemo} from 'react';
-import {Editor, EditorState, RichUtils, convertToRaw, DraftHandleValue, DraftStyleMap, ContentBlock} from 'draft-js';
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  convertToRaw,
+  DraftHandleValue,
+  DraftStyleMap,
+  ContentBlock,
+  convertFromRaw,
+} from 'draft-js';
 import {Box} from '@mui/material';
 import {debounce} from 'lodash';
 import {stateToHTML} from 'draft-js-export-html';
@@ -16,6 +25,7 @@ interface RichTextEditorProps {
   codeFontFamily?: string;
   codeBlockFontFamily?: string;
   codeBlockBackgroundColor?: string;
+  savedEditorState?: string;
   onChange?: (html: any, editorState: any) => void;
 }
 
@@ -28,9 +38,14 @@ export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
   codeFontFamily = '"Inconsolata", "Menlo", "Consolas", monospace',
   codeBlockFontFamily = '"fira-code", "monospace"',
   codeBlockBackgroundColor = '#ffeff0',
+  savedEditorState,
   onChange,
 }) => {
-  const [editorState, setEditorState] = useState<EditorState>(EditorState.createEmpty());
+  const contentState = savedEditorState && convertFromRaw(JSON.parse(savedEditorState));
+
+  const [editorState, setEditorState] = useState<EditorState>(
+    contentState ? EditorState.createWithContent(contentState) : EditorState.createEmpty(),
+  );
   const editor = useRef<any>(null);
 
   useEffect(() => {
@@ -44,7 +59,7 @@ export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
   };
 
   const handleChange = (html: any, editorState: any) => {
-    onChange && onChange(html, editorState);
+    onChange && onChange(html, JSON.stringify(editorState));
   };
 
   const inputChangeDebouncer = useMemo(() => debounce(handleChange, 500), []);
@@ -87,7 +102,6 @@ export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
   // FOR BLOCK LEVEL STYLES(Returns CSS Class From DraftEditor.css)
   const myBlockStyleFn = (contentBlock: ContentBlock): any => {
     const type = contentBlock.getType();
-    console.log(type);
     switch (type) {
       case 'blockQuote':
         return 'superFancyBlockquote';
