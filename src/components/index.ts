@@ -18,3 +18,4 @@ export * from './nimbleMobleListView/NimbleMobileListView';
 export * from './nimbleDataGrid/NimbleDataGrid';
 export * from './nimbleFileUploader/NimbleFileUploader';
 export * from './nimbleRadioButton/NimbleRadioButton';
+export * from './nimbleChip/NimbleChip';
