@@ -93,7 +93,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       onChange && onChange(value);
     };
 
-    let regex = useMemo(() => new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'), []);
+    let regex = useMemo(() => new RegExp('^[\\w.-]+@([\\w-]+\\.)+[\\w-]{2,4}$'), []);
 
     const handleOnBlur = (event: any) => {
       if (type === 'email') {
