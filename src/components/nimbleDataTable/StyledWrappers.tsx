@@ -143,6 +143,7 @@ const TableValue = styled(Typography)(({fontFamily, fontSize}: TableValueProps) 
   color: '#222222',
   minHeight: '44px',
   alignItems: 'center',
+  wordBreak: 'break-all',
 }));
 
 const ActionCell = styled('td')({
