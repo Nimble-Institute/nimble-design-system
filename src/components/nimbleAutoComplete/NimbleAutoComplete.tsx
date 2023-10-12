@@ -85,7 +85,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
 
   const renderTags = (value: any, getTagProps: any) => {
     return (
-      <TagWrapper>
+      <>
         {value.map((option: any, index: number) => (
           <TagChip
             variant="filled"
@@ -97,7 +97,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
             fontFamily={fontFamily}
           />
         ))}
-      </TagWrapper>
+      </>
     );
   };
 
