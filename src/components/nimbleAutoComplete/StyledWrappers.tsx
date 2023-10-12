@@ -18,11 +18,6 @@ interface SlectedIconProps {
   chipcolor: string;
 }
 
-const TagWrapper = styled('div')({
-  maxHeight: '100px',
-  overflow: 'auto',
-});
-
 const TagChip = styled(Chip)(({chipcolor, fontFamily}: TagProps) => ({
   backgroundColor: chipcolor,
   color: '#fff',
@@ -57,7 +52,6 @@ const OptionLabel = styled(Typography)(({fontFamily}: OptionLabelProps) => ({
   fontFamily: fontFamily,
   color: '#0C1B2A',
   lineHeight: '20px',
-  // padding: '6px 4px',
   width: '100%',
 }));
 
@@ -67,7 +61,8 @@ const SlectedIcon = styled(CheckCircleOutlineIcon)(({chipcolor}: SlectedIconProp
 }));
 
 const TextInput = styled(TextField)(({fontFamily}: TextInputProps) => ({
+  '& input': {minWidth: '75px !important'},
   '& input::placeholder': {fontSize: '14px', fontFamily: fontFamily},
 }));
 
-export {TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput};
+export {TagChip, OptionList, OptionLabel, SlectedIcon, TextInput};
