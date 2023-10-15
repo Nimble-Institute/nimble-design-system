@@ -82,6 +82,7 @@ interface NimbleDataTableProps {
   rowHoverColor?: string;
   rowActions?: RowActionType[];
   clickCustomPagination?: (page: number) => void;
+  onClickSort?: (sortKey: string | undefined, sortOrder: string) => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -111,6 +112,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   rowHoverColor = '#f0f0f0',
   clickCustomPagination,
   rowActions,
+  onClickSort,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -151,11 +153,15 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
-    if (sortKey) {
-      setSortData({
-        ...(isEnableMultipleSort ? sortData : {}),
-        [sortKey]: sortOrder,
-      });
+    if (onClickSort && typeof onClickSort === 'function') {
+      onClickSort(sortKey, sortOrder);
+    } else {
+      if (sortKey) {
+        setSortData({
+          ...(isEnableMultipleSort ? sortData : {}),
+          [sortKey]: sortOrder,
+        });
+      }
     }
   };
 
@@ -287,6 +293,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                       item={item}
                       filterChangeDebounceHandler={filterChangeDebounceHandler}
                       sanatizedData={sanatizedData}
+                      fontFamily={fontFamily}
                     />
                   </Collapse>
                 </th>
