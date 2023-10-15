@@ -23,6 +23,9 @@ interface StyledTableRowProps {
   hoverColor: string;
 }
 
+interface FilterInputProps {
+  fontFamily: string;
+}
 const Container = styled('div')({
   boxShadow: '0px 10px 24px rgba(12, 27, 42, 0.06)',
   borderRadius: '8px',
@@ -117,13 +120,14 @@ const SortIconsWrapper = styled('div')({
   marginBottom: '5px',
 });
 
-const FilterInput = styled(OutlinedInput)({
+const FilterInput = styled(OutlinedInput)(({fontFamily}: FilterInputProps) => ({
   height: '30px',
   width: '75%',
   marginTop: '10px',
   marginBottom: '10px',
   fontSize: '12px',
-});
+  fontFamily,
+}));
 
 const StyledTableRow = styled('tr')(({hoverColor}: StyledTableRowProps) => ({
   borderBottom: '1px solid #F6F7F9',

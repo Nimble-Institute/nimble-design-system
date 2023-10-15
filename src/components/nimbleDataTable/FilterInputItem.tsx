@@ -13,9 +13,10 @@ interface FilterInputItemProps {
   item: ColumnDataType;
   filterChangeDebounceHandler: any;
   sanatizedData: any;
+  fontFamily: string;
 }
 
-const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebounceHandler, sanatizedData}) => {
+const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebounceHandler, sanatizedData, fontFamily}) => {
   const generateFilterSelection = (data: any, datapoint: string) => {
     if (data) {
       return data;
@@ -69,6 +70,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
                 <img src={searchSVG} alt="search" />
               </InputAdornment>
             }
+            fontFamily={fontFamily}
           />
         );
     }

@@ -3,6 +3,10 @@ import type {Meta} from '@storybook/react';
 
 import {NimbleDataTable} from '../src';
 
+const handleClickSort = (sortId: any, sortOrder: any) => {
+  console.log('sort id and sort order: ', sortId, sortOrder);
+};
+
 const NimbleDataTableStory: Meta<typeof NimbleDataTable> = {
   title: 'Nimble Desktop Design/Nimble Data Table',
   component: NimbleDataTable,
@@ -203,6 +207,7 @@ export const Datatable = {
 
 export const DatatableWithDateRangeFilter = {
   args: {
+    onClickSort: handleClickSort,
     columnData: [
       {
         label: 'Name',
