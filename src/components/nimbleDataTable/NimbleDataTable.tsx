@@ -118,9 +118,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const [sortData, setSortData] = useState<any>(null);
   const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
-
+const abc = undefined;
   const customPaginationInputref = useRef<any>(null);
-
+  console.log('sortdata: ', sortData)
   const customTheme = useMemo(() => {
     return theme(InputFieldBorderColor, InputFieldHoverBoxShadow, InputFieldActiveBoxShadow, primaryColor);
   }, [InputFieldBorderColor, InputFieldHoverBoxShadow, InputFieldActiveBoxShadow, primaryColor]);
@@ -153,15 +153,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
-    if (onClickSort && typeof onClickSort === 'function') {
-      onClickSort(sortKey, sortOrder);
-    } else {
       if (sortKey) {
+        onClickSort && onClickSort(sortKey, sortOrder);
         setSortData({
           ...(isEnableMultipleSort ? sortData : {}),
           [sortKey]: sortOrder,
         });
-      }
     }
   };
 
@@ -176,7 +173,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   const sanatizedData =
     useMemo(() => {
-      if (sortData) {
+      if (sortData && !onClickSort) {
         const sortKeys: string[] = [];
         const values: any[] = [];
         forOwn(sortData, (value, key) => {
