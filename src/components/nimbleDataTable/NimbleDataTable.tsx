@@ -118,9 +118,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const [sortData, setSortData] = useState<any>(null);
   const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
-const abc = undefined;
+
   const customPaginationInputref = useRef<any>(null);
-  console.log('sortdata: ', sortData)
+
   const customTheme = useMemo(() => {
     return theme(InputFieldBorderColor, InputFieldHoverBoxShadow, InputFieldActiveBoxShadow, primaryColor);
   }, [InputFieldBorderColor, InputFieldHoverBoxShadow, InputFieldActiveBoxShadow, primaryColor]);
