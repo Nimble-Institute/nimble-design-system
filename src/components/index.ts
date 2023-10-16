@@ -11,6 +11,7 @@ export * from './nimbleTab/NimbleTab';
 export * from './nimbleSwitch/NimbleSwitch';
 export * from './nimbleTimeline/NimbleTimeline';
 export * from './nimbleRichTextEditor/NimbleRichTextEditor';
+export * from './nimbleBasicDataTable/NimbleBasicDataTable';
 
 export * from './nimbleMobileSearch/NimbleMobileSearch';
 export * from './nimbleMobleListView/NimbleMobileListView';
