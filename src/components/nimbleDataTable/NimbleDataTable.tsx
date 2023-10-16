@@ -153,12 +153,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
-      if (sortKey) {
-        onClickSort && onClickSort(sortKey, sortOrder);
-        setSortData({
-          ...(isEnableMultipleSort ? sortData : {}),
-          [sortKey]: sortOrder,
-        });
+    if (sortKey) {
+      onClickSort && onClickSort(sortKey, sortOrder);
+      setSortData({
+        ...(isEnableMultipleSort ? sortData : {}),
+        [sortKey]: sortOrder,
+      });
     }
   };
 
@@ -210,15 +210,17 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             }}>
             <FilterImage color={enableColumnFilter ? primaryColor : '#383838'} />
           </FilterIcon>
-          <MainActionButton
-            onClick={handleClickMainAction}
-            variant="contained"
-            size="small"
-            startIcon={mainActionIcon ? <img src={mainActionIcon} /> : <ControlPoint />}
-            buttoncolor={primaryColor}
-            fontFamily={fontFamily}>
-            {mainActionLabel}
-          </MainActionButton>
+          {onClickMainAction && (
+            <MainActionButton
+              onClick={handleClickMainAction}
+              variant="contained"
+              size="small"
+              startIcon={mainActionIcon ? <img src={mainActionIcon} /> : <ControlPoint />}
+              buttoncolor={primaryColor}
+              fontFamily={fontFamily}>
+              {mainActionLabel}
+            </MainActionButton>
+          )}
         </SearchBarContainer>
         <MainTable>
           <MainTableHead>
