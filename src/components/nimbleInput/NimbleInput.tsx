@@ -25,7 +25,7 @@ interface NimbleInputProps
   errorMessage?: string;
   defaultValue?: string;
   onChange?: (value: string | React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: () => void;
+  onBlur?: (event: any | undefined) => void;
   startIcon?: any;
   type: 'text' | 'password' | 'number' | 'search' | 'email';
   helperText?: string;
@@ -100,7 +100,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
         const valid = regex.test(event.target.value);
         setEmailInputError(event.target.value ? !valid : false);
       }
-      onBlur && onBlur();
+      onBlur && onBlur(event);
     };
 
     const inputChangeDebouncer = useMemo(() => debounce(handleSearch, 500), []);
