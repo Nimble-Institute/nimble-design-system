@@ -3,7 +3,7 @@ import {Autocomplete, InternalStandardProps as StandardProps} from '@mui/materia
 import {autocompleteClasses} from '@mui/material/Autocomplete';
 import {ThemeProvider} from '@mui/material/styles';
 
-import {TagWrapper, TagChip, OptionList, OptionLabel, SlectedIcon, TextInput} from './StyledWrappers';
+import {TagChip, OptionList, OptionLabel, SlectedIcon, TextInput} from './StyledWrappers';
 import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
 
 import closeSVG from '../../assets/images/close.svg';
