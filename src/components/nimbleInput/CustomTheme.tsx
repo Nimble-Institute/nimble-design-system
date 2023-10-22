@@ -36,6 +36,9 @@ const theme = (
             '& input::placeholder': {
               fontSize: '14px',
             },
+            '& textarea::placeholder': {
+              fontSize: '14px',
+            },
             '*::-webkit-scrollbar': {
               width: '0.3em',
             },
