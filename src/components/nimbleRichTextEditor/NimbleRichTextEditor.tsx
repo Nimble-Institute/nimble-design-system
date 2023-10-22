@@ -50,10 +50,6 @@ export const NimbleRichTextEditor: React.FC<RichTextEditorProps> = ({
   const editor = useRef<any>(null);
 
   useEffect(() => {
-    contentState && setEditorState(EditorState.createWithContent(contentState))
-  }, [savedEditorState]);
-
-  useEffect(() => {
     focusEditor();
   }, []);
 
