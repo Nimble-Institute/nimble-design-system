@@ -21,7 +21,7 @@ export interface NimbleMobileSearchProps {
   activeBoxShadow?: string;
   hoverBoxShadow?: string;
   fontFamily?: string;
-  onSearch?: (searchValue: string) => void;
+  onSearch?: (searchValue: string | React.ChangeEvent<HTMLInputElement>) => void;
   primaryColor?: string;
   isPrimaryActionAvailable?: boolean;
   primaryActionIcon?: any;
