@@ -47,6 +47,8 @@ const SortIconButton = styled(IconButton)({
 
 const MainValueLabel = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
   color: '#000',
+  maxWidth: '65vw',
+  overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   fontSize: '16px',
