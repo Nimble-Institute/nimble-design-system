@@ -83,6 +83,7 @@ interface NimbleDataTableProps {
   rowActions?: RowActionType[];
   clickCustomPagination?: (page: number) => void;
   onClickSort?: (sortKey: string | undefined, sortOrder: string) => void;
+  onClickRow?: (item: any) => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -113,6 +114,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   clickCustomPagination,
   rowActions,
   onClickSort,
+  onClickRow,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -305,7 +307,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 key={index}
                 onMouseOver={() => setHoverRowIndex(index)}
                 onMouseLeave={() => setHoverRowIndex(null)}
-                hoverColor={rowHoverColor}>
+                hoverColor={rowHoverColor}
+                onClick={() => {
+                  onClickRow?.(item);
+                }}>
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (
@@ -324,7 +329,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                         index === hoverRowIndex && (
                           <Box
                             sx={{cursor: 'pointer', display: 'flex', alignItems: 'center'}}
-                            onClick={() => rowActionsItem.onClick(item)}
+                            onClick={e => {
+                              e.stopPropagation();
+                              rowActionsItem.onClick(item);
+                            }}
                             key={`data-table-action-${actionIndex}`}>
                             {rowActionsItem.icon}
                           </Box>

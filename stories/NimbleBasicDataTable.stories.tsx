@@ -84,10 +84,8 @@ export const NimbleBasicDataTableStoryWithPagination = {
         alert(value);
       },
     },
-    clickCustomPagination:(value) => {
+    clickCustomPagination: value => {
       alert(value);
-    }
+    },
   },
 };
-
-
