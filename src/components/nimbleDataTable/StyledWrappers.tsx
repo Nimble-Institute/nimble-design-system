@@ -214,6 +214,15 @@ const PaginationGoButtonText = styled(Typography)(({fontFamily}: {fontFamily: st
   color: '#383838',
 }));
 
+const LoaderWrapper = styled(Box)({
+  display: 'flex',
+  flex: 1,
+  width: '100%',
+  justifyContent: 'center',
+  marginTop: '50px',
+  marginBottom: '10px',
+});
+
 export {
   Container,
   SearchBarContainer,
@@ -238,4 +247,5 @@ export {
   PageNumberInput,
   PaginationGoButton,
   PaginationGoButtonText,
+  LoaderWrapper,
 };
