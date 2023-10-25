@@ -1,6 +1,6 @@
 import React, {useMemo, useState, ReactElement, useRef} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse, Box} from '@mui/material';
+import {Pagination, IconButton, InputAdornment, Collapse, Box, CircularProgress} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
@@ -26,6 +26,7 @@ import {
   PageNumberInput,
   PaginationGoButton,
   PaginationGoButtonText,
+  LoaderWrapper,
 } from './StyledWrappers';
 import FilterInputItem from './FilterInputItem';
 
@@ -84,6 +85,7 @@ interface NimbleDataTableProps {
   clickCustomPagination?: (page: number) => void;
   onClickSort?: (sortKey: string | undefined, sortOrder: string) => void;
   onClickRow?: (item: any) => void;
+  loading?: boolean;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -115,6 +117,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   rowActions,
   onClickSort,
   onClickRow,
+  loading = false,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -282,9 +285,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                   </ColumnHeader>
                 </th>
               ))}
-              {rowActions && rowActions.length > 0 && (
-                <th style={{width: '90px'}}>{/* 3<HeaderLabel>Actions</HeaderLabel> */}</th>
-              )}
+              {rowActions && rowActions.length > 0 && <th style={{width: '90px'}} />}
             </tr>
             <tr>
               {columnData.map((item: ColumnDataType, index: number) => (
@@ -301,6 +302,15 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               ))}
             </tr>
           </MainTableHead>
+          {sanatizedData.length === 0 && loading && (
+            <tr>
+              <td colSpan={columnData.length + 1}>
+                <LoaderWrapper>
+                  <CircularProgress sx={{fontSize: '20px', color: primaryColor}} />
+                </LoaderWrapper>
+              </td>
+            </tr>
+          )}
           <MainTableBody>
             {sanatizedData.map((item: any, index: number) => (
               <StyledTableRow
