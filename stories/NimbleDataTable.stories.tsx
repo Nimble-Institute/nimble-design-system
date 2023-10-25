@@ -202,6 +202,7 @@ export const Datatable = {
       },
     ],
     clickCustomPagination: (page: number) => alert('page number - ' + page),
+    onClickRow: item => alert('enrire row click-' + item.name),
   },
 };
 
