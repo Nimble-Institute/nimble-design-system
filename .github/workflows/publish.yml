@@ -27,11 +27,11 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install Yarn 3
-        run: |
-          npm install -g yarn@3
-          yarn --version  # Verify Yarn 3 is installed
-          yarn policies set-version berry  # Set Yarn 3 as the default
+      - name: Install Yarn Classic
+        run: npm install -g yarn
+
+      - name: Set Yarn 3 Version
+        run: yarn policies set-version berry
 
       - name: Install dependencies
         run: yarn install
