@@ -34,7 +34,7 @@ interface MobileDataCardDetail {
 interface MobileListData {
   id: number;
   mainValue?: string;
-  mainComponent?: ReactElement;
+  mainComponent?: any;
   details: MobileDataCardDetail[];
 }
 

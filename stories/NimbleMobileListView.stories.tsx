@@ -52,6 +52,7 @@ export const MobileListViewStory = {
     onEditItem: item => {
       alert(`Item edit- ${item.id}`);
     },
+    isMainValueComponent: false,
     data: [
       {
         id: 1,
