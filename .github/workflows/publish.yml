@@ -23,24 +23,15 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        # Setup node environment
+        uses: actions/setup-node@v3
         with:
+          # Node version. Run "node -v" to check the latest version
           node-version: 18.x
-
-      - name: Cache Yarn dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.yarn
-          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-${{ runner.os }}-
-            yarn-
-
-      - name: Setup Yarn Berry (Yarn 3)
-        run: npm install -g yarn@berry
+          registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn
 
       - name: Build
         run: yarn rollup
@@ -52,9 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Storybook
         run: |
-          rm -rf node_modules
-          yarn
-          yarn build-storybook
+          npm run build-storybook
       - name: Deploy Storybook
         uses: JamesIves/github-pages-deploy-action@v4
         with:
