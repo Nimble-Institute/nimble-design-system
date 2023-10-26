@@ -44,7 +44,6 @@ jobs:
       - name: Build Storybook
         run: |
           rm -rf node_modules
-          rm -rf yarn.lock
           yarn
           yarn build-storybook
       - name: Deploy Storybook
