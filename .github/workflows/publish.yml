@@ -27,6 +27,15 @@ jobs:
         with:
           node-version: 18.x
 
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.yarn
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.os }}-
+            yarn-
+
       - name: Setup Yarn Berry (Yarn 3)
         run: npm install -g yarn@berry
 
