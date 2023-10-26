@@ -22,16 +22,16 @@ jobs:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v3
 
-      - name: Setup Node
+      - name: Setup Node and Yarn 3
         # Setup node environment
-        uses: actions/setup-node@v3
+        uses: borales/actions-yarn@v2
         with:
           # Node version. Run "node -v" to check the latest version
           node-version: 18.x
-          registry-url: https://registry.npmjs.org/
+          yarn-version: 3.x
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install
 
       - name: Build
         run: yarn rollup
