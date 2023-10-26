@@ -57,4 +57,18 @@ const MainValueLabel = styled(Typography)(({fontFamily}: {fontFamily: string}) =
   fontFamily,
 }));
 
-export {Container, DataContainer, HeaderSection, HeaderLabel, SortIconWrapper, SortIconButton, MainValueLabel};
+const MainValueComponent = styled(Box)(({fontFamily}: {fontFamily: string}) => ({
+  maxWidth: '65vw',
+  fontFamily,
+}));
+
+export {
+  Container,
+  DataContainer,
+  HeaderSection,
+  HeaderLabel,
+  SortIconWrapper,
+  SortIconButton,
+  MainValueLabel,
+  MainValueComponent,
+};

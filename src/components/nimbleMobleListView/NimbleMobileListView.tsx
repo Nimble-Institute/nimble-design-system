@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useRef, useEffect} from 'react';
+import React, {useState, useMemo, useRef, useEffect, ReactElement} from 'react';
 import {Box, Typography, AccordionSummary, AccordionDetails, IconButton, Slide} from '@mui/material';
 import {styled, ThemeProvider} from '@mui/material/styles';
 import MuiAccordion, {AccordionProps} from '@mui/material/Accordion';
@@ -15,6 +15,7 @@ import {
   SortIconWrapper,
   SortIconButton,
   MainValueLabel,
+  MainValueComponent,
 } from './StyleWrappers';
 
 import ExpandIcon from '../../assets/icons/ExpandIcon';
@@ -32,7 +33,8 @@ interface MobileDataCardDetail {
 
 interface MobileListData {
   id: number;
-  mainValue: string;
+  mainValue?: string;
+  mainComponent?: ReactElement;
   details: MobileDataCardDetail[];
 }
 
@@ -59,6 +61,7 @@ interface NimbleMobileListViewProps extends NimbleMobileSearchProps {
   detailLabelWidth?: string;
   detailValueWidth?: string;
   fontFamily?: string;
+  isMainValueComponent?: boolean;
 }
 
 const Accordian = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
@@ -106,6 +109,7 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
 
   detailLabelWidth = '35%',
   detailValueWidth = '65%',
+  isMainValueComponent = false,
 }) => {
   const [expandCard, setExpandCard] = useState<number | null>(null);
   const [sort, setSort] = useState<string | null>(null);
@@ -182,7 +186,11 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                 </Slide>
               )
             }>
-            <MainValueLabel fontFamily={fontFamily}>{item.mainValue}</MainValueLabel>
+            {isMainValueComponent ? (
+              <MainValueComponent fontFamily={fontFamily}>{item.mainComponent}</MainValueComponent>
+            ) : (
+              <MainValueLabel fontFamily={fontFamily}>{item.mainValue}</MainValueLabel>
+            )}
           </AccordionSummary>
           <AccordionDetails sx={{backgroundColor: '#E9EBEA'}}>
             {item.details &&
