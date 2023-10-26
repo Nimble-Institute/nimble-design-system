@@ -27,11 +27,8 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install Yarn Classic
-        run: npm install -g yarn
-
-      - name: Set Yarn 3 Version
-        run: yarn policies set-version berry
+      - name: Setup Yarn Berry (Yarn 3)
+        run: npm install -g yarn@berry
 
       - name: Install dependencies
         run: yarn install
