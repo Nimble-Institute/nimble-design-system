@@ -41,6 +41,7 @@ interface NimbleFileUploaderProps {
   uploadedFiles: UploadedFileData[];
   headerFontColor?: string;
   fontFamily?: string;
+  uploadButtonFontFamily?: string;
   onClickPreview?: (fileName: string, id: string) => void;
   onClickDownload?: (fileName: string, id: string) => void;
   onClickDelete?: (fileName: string, id: string) => void;
@@ -65,6 +66,7 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   headerFontColor = '#A4C2DB',
   uploadedFiles,
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  uploadButtonFontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   onClickPreview,
   onClickDownload,
   onClickDelete,
@@ -80,7 +82,6 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   const handleChange = async (event: any) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      console.log(selectedFile);
       const fileName = selectedFile.name;
       const fileSize = Math.round(selectedFile.size / 1024);
       // const extension = fileName.substring(fileName.lastIndexOf('.') + 1);
@@ -88,6 +89,7 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
       const data = await toBase64(selectedFile);
       onFileSelect(fileName, data, fileSize + 'KB', fileIdForEdit);
     }
+    hiddenFileInput.current.value = '';
   };
 
   const handleClick = () => {
@@ -123,22 +125,22 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   return (
     <Container width={width} height={height}>
       <TopWrapper>
+        <HeaderText color={headerFontColor} fontFamily={fontFamily}>
+          {headerText}
+        </HeaderText>
         {isUploadButtonRequired && (
           <NimbleButton
             label={uploadButtonText}
             variant="contained"
             onClick={handleClick}
             startIcon={<UploadFileIcon />}
-            fontFamily={fontFamily}
+            fontFamily={uploadButtonFontFamily}
           />
         )}
 
         <input type="file" onChange={handleChange} ref={hiddenFileInput} style={{display: 'none'}} />
       </TopWrapper>
       <Box>
-        <HeaderText color={headerFontColor} fontFamily={fontFamily}>
-          {headerText}
-        </HeaderText>
         <ContentContainer>
           {uploadedFiles.map((item, index) => {
             const extension = item.fileName?.substring(item.fileName.lastIndexOf('.') + 1);

@@ -11,7 +11,7 @@ const Container = styled(Box)(({width, height}: {width: string; height: string})
 const TopWrapper = styled(Box)({
   display: 'flex',
   flex: 1,
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
 });
 
 const HeaderText = styled(Typography)(({color, fontFamily}: {color: string; fontFamily: string}) => ({
