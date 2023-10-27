@@ -21,6 +21,7 @@ import {
 import ExpandIcon from '../../assets/icons/ExpandIcon';
 import DeleteIcon from '../../assets/icons/DeleteIcon';
 import EditIcon from '../../assets/icons/EditIcon';
+import ViewIcon from '../../assets/icons/ViewIcon';
 
 import theme from './CustomTheme';
 
@@ -53,10 +54,15 @@ interface NimbleMobileListViewProps extends NimbleMobileSearchProps {
   loadNextPage?: () => void;
   dataLoading?: boolean;
 
+  isEnableDelete?: boolean;
+  isEnableEdit?: boolean;
+  isEnableDetail?: boolean;
   onDeleteItem: (item: any) => void;
   onEditItem: (item: any) => void;
+  onDetailItem: (item: any) => void;
   editIconColor?: string;
   deleteIconColor?: string;
+  detailIconColor?: string;
 
   detailLabelWidth?: string;
   detailValueWidth?: string;
@@ -102,10 +108,15 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
   loadNextPage,
   dataLoading,
 
+  isEnableDelete = false,
+  isEnableEdit = false,
+  isEnableDetail = false,
   onDeleteItem,
   onEditItem,
+  onDetailItem,
   editIconColor = '#5989C0',
   deleteIconColor = '#EC4C29',
+  detailIconColor = '#EE7000',
 
   detailLabelWidth = '35%',
   detailValueWidth = '65%',
@@ -166,24 +177,39 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
               expandCard !== item.id ? (
                 <ExpandIcon color={primaryColor} />
               ) : (
-                <Slide in={expandCard === item.id} direction="left" container={containerRef.current} timeout={500}>
-                  <Box>
-                    <IconButton
-                      onClick={event => {
-                        event.stopPropagation();
-                        onDeleteItem && onDeleteItem(item);
-                      }}>
-                      <DeleteIcon color={deleteIconColor} />
-                    </IconButton>
-                    <IconButton
-                      onClick={event => {
-                        event.stopPropagation();
-                        onEditItem && onEditItem(item);
-                      }}>
-                      <EditIcon color={editIconColor} />
-                    </IconButton>
-                  </Box>
-                </Slide>
+                (isEnableDelete || isEnableEdit || isEnableDetail) && (
+                  <Slide in={expandCard === item.id} direction="left" container={containerRef.current} timeout={500}>
+                    <Box>
+                      {isEnableDelete && (
+                        <IconButton
+                          onClick={event => {
+                            event.stopPropagation();
+                            onDeleteItem && onDeleteItem(item);
+                          }}>
+                          <DeleteIcon color={deleteIconColor} />
+                        </IconButton>
+                      )}
+                      {isEnableEdit && (
+                        <IconButton
+                          onClick={event => {
+                            event.stopPropagation();
+                            onEditItem && onEditItem(item);
+                          }}>
+                          <EditIcon color={editIconColor} />
+                        </IconButton>
+                      )}
+                      {isEnableDetail && (
+                        <IconButton
+                          onClick={event => {
+                            event.stopPropagation();
+                            onDetailItem && onDetailItem(item);
+                          }}>
+                          <ViewIcon color={detailIconColor} />
+                        </IconButton>
+                      )}
+                    </Box>
+                  </Slide>
+                )
               )
             }>
             {isMainValueComponent ? (

@@ -53,6 +53,9 @@ export const MobileListViewStory = {
       alert(`Item edit- ${item.id}`);
     },
     isMainValueComponent: false,
+    isEnableDelete: true,
+    isEnableEdit: true,
+    isEnableDetail: true,
     data: [
       {
         id: 1,
@@ -145,6 +148,9 @@ export const MobileListViewWithMainComponentStory = {
       alert(`Item edit- ${item.id}`);
     },
     isMainValueComponent: true,
+    isEnableDelete: true,
+    isEnableEdit: true,
+    isEnableDetail: true,
     data: [
       {
         id: 1,
