@@ -4,7 +4,7 @@ name: build
 on:
   # Triggers the workflow on published releases
   push:
-    branches: [test]
+    branches: [main]
   pull_request:
     branches: '*'
 permissions:
@@ -41,8 +41,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Storybook
         run: yarn build-storybook
+
       - name: Deploy Storybook
         uses: JamesIves/github-pages-deploy-action@v4
         with:
