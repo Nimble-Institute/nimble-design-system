@@ -10,10 +10,12 @@ interface ButtonProps {
   buttoncolor: string;
   fontFamily: string;
   fontWeight: string;
+  labelColor: string;
 }
 
 interface IconButtonProps {
   buttoncolor: string;
+  labelColor: string;
 }
 
 export interface NimbleButtonProps {
@@ -29,12 +31,14 @@ export interface NimbleButtonProps {
   onClick: () => void;
   fontFamily?: string;
   fontWeight?: fontWeight;
+  labelColor?: string;
 }
 
-const ContainedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight}: ButtonProps) => ({
+const ContainedActionButton = styled(Button)(({buttoncolor, labelColor, fontFamily, fontWeight}: ButtonProps) => ({
   paddingLeft: '12px !important',
   paddingRight: '12px !important',
   backgroundColor: buttoncolor,
+  color: labelColor,
   borderRadius: '5px',
   ':hover': {
     backgroundColor: darken(0.1, buttoncolor),
@@ -80,10 +84,11 @@ const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight}: 
   },
 }));
 
-const IconButton = styled(Button)(({buttoncolor}: IconButtonProps) => ({
+const IconButton = styled(Button)(({buttoncolor, labelColor}: IconButtonProps) => ({
   minWidth: '40px !important',
   borderRadius: '5px',
   backgroundColor: buttoncolor,
+  color: labelColor,
   ':hover': {
     backgroundColor: darken(0.1, buttoncolor),
   },
@@ -105,6 +110,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   icon,
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   fontWeight = '500',
+  labelColor = '#FFFFFF',
 }) => {
   const handleClick = () => {
     !loading && onClick();
@@ -116,6 +122,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
         <ContainedActionButton
           variant={variant}
           buttoncolor={color}
+          labelColor={labelColor}
           size={size}
           disabled={disabled}
           startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
@@ -131,6 +138,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
         <OutlinedActionButton
           variant={variant}
           buttoncolor={color}
+          labelColor={color}
           size={size}
           disabled={disabled}
           startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
@@ -146,6 +154,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
         <TextActionButton
           variant={variant}
           buttoncolor={color}
+          labelColor={color}
           size={size}
           disabled={disabled}
           startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
@@ -158,7 +167,13 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
       );
     case 'icon':
       return (
-        <IconButton variant={'contained'} buttoncolor={color} size={size} disabled={disabled} onClick={handleClick}>
+        <IconButton
+          variant={'contained'}
+          buttoncolor={color}
+          labelColor={labelColor}
+          size={size}
+          disabled={disabled}
+          onClick={handleClick}>
           {icon}
         </IconButton>
       );
