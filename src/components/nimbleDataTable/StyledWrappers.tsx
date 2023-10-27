@@ -30,7 +30,7 @@ const Container = styled('div')({
   boxShadow: '0px 10px 24px rgba(12, 27, 42, 0.06)',
   borderRadius: '8px',
   padding: '5px',
-  width: '98%',
+  width: '100%',
   minHeight: '40vh',
   background: '#FFFFFE',
 });
