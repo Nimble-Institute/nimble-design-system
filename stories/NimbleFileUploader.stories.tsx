@@ -67,5 +67,6 @@ export const NimbleFileUpload = {
       },
     ],
     isUploadButtonRequired: true,
+    uploadButtonFontFamily: 'monospace',
   },
 };
