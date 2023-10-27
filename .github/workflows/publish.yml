@@ -1,40 +1,47 @@
-# This is a name of the workflow
 name: build
-# Controls when the workflow will run
+
 on:
-  # Triggers the workflow on published releases
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: '*'
-permissions:
-  contents: write
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    branches:
+      - '*'
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    if: ${{github.ref == 'refs/heads/main'}}
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
+    if: ${{ github.ref == 'refs/heads/main' }}
+
+    timeout-minutes: 60
+
     steps:
       - name: Checkout
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Setup Node
-        # Setup node environment
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          # Node version. Run "node -v" to check the latest version
           node-version: 18.x
-          registry-url: https://registry.npmjs.org/
 
-      - name: Install dependencies
-        run: yarn
+      - name: Cache Yarn Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.yarn
+          key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.os }}-
+            yarn-
+
+      - name: Install Yarn 3 (Yarn Berry)
+        run: npm install -g yarn@berry
+
+      - name: Install Dependencies
+        run: yarn install
 
       - name: Build
-        run: yarn rollup
+        run: yarn build
 
       - name: Publish
         run: yarn semantic-release
