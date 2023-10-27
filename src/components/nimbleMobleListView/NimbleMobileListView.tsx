@@ -57,9 +57,9 @@ interface NimbleMobileListViewProps extends NimbleMobileSearchProps {
   isEnableDelete?: boolean;
   isEnableEdit?: boolean;
   isEnableDetail?: boolean;
-  onDeleteItem: (item: any) => void;
-  onEditItem: (item: any) => void;
-  onDetailItem: (item: any) => void;
+  onDeleteItem?: (item: any) => void;
+  onEditItem?: (item: any) => void;
+  onDetailItem?: (item: any) => void;
   editIconColor?: string;
   deleteIconColor?: string;
   detailIconColor?: string;
