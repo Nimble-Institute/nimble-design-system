@@ -23,15 +23,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Node
+        # Setup node environment
         uses: actions/setup-node@v3
         with:
-          node-version: 18.16.0
-
-      - name: Install Yarn 3.6.2
-        run: npm install -g yarn@3.6.2
-
-      - name: Verify Yarn version
-        run: yarn --version
+          # Node version. Run "node -v" to check the latest version
+          node-version: 18.x
+          registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
         run: yarn
