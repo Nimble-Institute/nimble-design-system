@@ -104,8 +104,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
       multiple && selectedValueForMultiple.length === 1 && selectedValueForMultiple[0] !== '-';
     const hasMultipleValues = multiple && selectedValueForMultiple.length > 1;
 
-    return (hasSingleValue || hasSingleNonDashValue || hasMultipleValues) && isEnableClear;
-  }, [multiple, selectedValue, selectedValueForMultiple]);
+    return (hasSingleValue || hasSingleNonDashValue || hasMultipleValues) && isEnableClear && !disabled;
+  }, [multiple, selectedValue, selectedValueForMultiple, disabled]);
 
   return (
     <Box>
