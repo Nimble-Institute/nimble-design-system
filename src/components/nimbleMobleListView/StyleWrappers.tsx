@@ -45,9 +45,9 @@ const SortIconButton = styled(IconButton)({
   height: '5px',
 });
 
-const MainValueLabel = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+const MainValueLabel = styled(Typography)(({fontFamily, width}: {fontFamily: string; width: string}) => ({
   color: '#000',
-  maxWidth: '65vw',
+  maxWidth: width,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
@@ -57,8 +57,8 @@ const MainValueLabel = styled(Typography)(({fontFamily}: {fontFamily: string}) =
   fontFamily,
 }));
 
-const MainValueComponent = styled(Box)(({fontFamily}: {fontFamily: string}) => ({
-  maxWidth: '65vw',
+const MainValueComponent = styled(Box)(({fontFamily, width}: {fontFamily: string; width: string}) => ({
+  maxWidth: width,
   fontFamily,
 }));
 
