@@ -125,7 +125,7 @@ const FilterInput = styled(OutlinedInput)(({fontFamily}: FilterInputProps) => ({
   width: '75%',
   marginTop: '10px',
   marginBottom: '10px',
-  fontSize: '12px',
+  fontSize: '16px',
   fontFamily,
 }));
 
