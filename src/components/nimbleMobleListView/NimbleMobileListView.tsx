@@ -1,5 +1,5 @@
 import React, {useState, useMemo, useRef, useEffect, ReactElement} from 'react';
-import {Box, Typography, AccordionSummary, AccordionDetails, IconButton, Slide} from '@mui/material';
+import {Box, Typography, AccordionSummary, AccordionDetails, IconButton, Slide, CircularProgress} from '@mui/material';
 import {styled, ThemeProvider} from '@mui/material/styles';
 import MuiAccordion, {AccordionProps} from '@mui/material/Accordion';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -162,98 +162,131 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
     return theme();
   }, []);
 
+  const mainValueWidth = useMemo(() => {
+    let actionButtonCount = 0;
+
+    if (isEnableDelete) {
+      actionButtonCount++;
+    }
+    if (isEnableEdit) {
+      actionButtonCount++;
+    }
+    if (isEnableDetail) {
+      actionButtonCount++;
+    }
+    switch (actionButtonCount) {
+      case 0:
+        return '68vw';
+      case 1:
+        return '65vw';
+      case 2:
+        return '55vw';
+      case 3:
+        return '45vw';
+      default:
+        return '68vw';
+    }
+  }, [isEnableDelete, isEnableEdit, isEnableDetail]);
+
   const renderDataList = () => {
     return (
       sanitizedData &&
-      sanitizedData.map((item, index) => (
-        <Accordian
-          key={index}
-          expanded={expandCard === item.id}
-          onChange={() => {
-            setExpandCard(expandCard !== item.id ? item.id : null);
-          }}>
-          <AccordionSummary
-            expandIcon={
-              expandCard !== item.id ? (
-                <ExpandIcon color={primaryColor} />
-              ) : (
-                (isEnableDelete || isEnableEdit || isEnableDetail) && (
-                  <Slide in={expandCard === item.id} direction="left" container={containerRef.current} timeout={500}>
-                    <Box>
-                      {isEnableDelete && (
-                        <IconButton
-                          onClick={event => {
-                            event.stopPropagation();
-                            onDeleteItem && onDeleteItem(item);
-                          }}>
-                          <DeleteIcon color={deleteIconColor} />
-                        </IconButton>
-                      )}
-                      {isEnableEdit && (
-                        <IconButton
-                          onClick={event => {
-                            event.stopPropagation();
-                            onEditItem && onEditItem(item);
-                          }}>
-                          <EditIcon color={editIconColor} />
-                        </IconButton>
-                      )}
-                      {isEnableDetail && (
-                        <IconButton
-                          onClick={event => {
-                            event.stopPropagation();
-                            onDetailItem && onDetailItem(item);
-                          }}>
-                          <ViewIcon color={detailIconColor} />
-                        </IconButton>
-                      )}
-                    </Box>
-                  </Slide>
+      sanitizedData.map((item, index) => {
+        const expanded = expandCard === item.id;
+        return (
+          <Accordian
+            key={index}
+            expanded={expanded}
+            onChange={() => {
+              setExpandCard(expanded ? null : item.id);
+            }}>
+            <AccordionSummary
+              expandIcon={
+                expanded ? (
+                  (isEnableDelete || isEnableEdit || isEnableDetail) && (
+                    <Slide in={expandCard === item.id} direction="left" container={containerRef.current} timeout={500}>
+                      <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                        {isEnableDelete && (
+                          <IconButton
+                            onClick={event => {
+                              event.stopPropagation();
+                              onDeleteItem && onDeleteItem(item);
+                            }}>
+                            <DeleteIcon color={deleteIconColor} />
+                          </IconButton>
+                        )}
+                        {isEnableEdit && (
+                          <IconButton
+                            onClick={event => {
+                              event.stopPropagation();
+                              onEditItem && onEditItem(item);
+                            }}>
+                            <EditIcon color={editIconColor} />
+                          </IconButton>
+                        )}
+                        {isEnableDetail && (
+                          <IconButton
+                            onClick={event => {
+                              event.stopPropagation();
+                              onDetailItem && onDetailItem(item);
+                            }}>
+                            <ViewIcon color={detailIconColor} />
+                          </IconButton>
+                        )}
+                      </Box>
+                    </Slide>
+                  )
+                ) : (
+                  <ExpandIcon color={primaryColor} />
                 )
-              )
-            }>
-            {isMainValueComponent ? (
-              <MainValueComponent fontFamily={fontFamily}>{item.mainComponent}</MainValueComponent>
-            ) : (
-              <MainValueLabel fontFamily={fontFamily}>{item.mainValue}</MainValueLabel>
-            )}
-          </AccordionSummary>
-          <AccordionDetails sx={{backgroundColor: '#E9EBEA'}}>
-            {item.details &&
-              item.details.map((item, i) => (
-                <Box key={`list-view-${index}-${i}`} sx={{display: 'flex', flexDirection: 'row'}}>
-                  <Typography
-                    sx={{
-                      minWidth: detailLabelWidth,
-                      fontSize: '14px',
-                      fontWeight: '300',
-                      lineHeight: '140%',
-                      fontFamily,
-                    }}>
-                    {item.label}
-                  </Typography>
-                  {item.component ? (
-                    item.component
-                  ) : (
-                    <Box sx={{maxWidth: detailValueWidth}}>
-                      <Typography
-                        sx={{
-                          color: item.valueColor,
-                          wordWrap: 'break-word',
-                          fontSize: '14px',
-                          fontWeight: '300',
-                          lineHeight: '140%',
-                          fontFamily,
-                        }}>
-                        {item.value}
-                      </Typography>
-                    </Box>
-                  )}
-                </Box>
-              ))}
-          </AccordionDetails>
-        </Accordian>
-      ))
+              }>
+              {isMainValueComponent ? (
+                <MainValueComponent fontFamily={fontFamily} width={expanded ? mainValueWidth : '68vw'}>
+                  {item.mainComponent}
+                </MainValueComponent>
+              ) : (
+                <MainValueLabel fontFamily={fontFamily} width={expanded ? mainValueWidth : '68vw'}>
+                  {item.mainValue}
+                </MainValueLabel>
+              )}
+            </AccordionSummary>
+            <AccordionDetails sx={{backgroundColor: '#E9EBEA'}}>
+              {item.details &&
+                item.details.map((item, i) => (
+                  <Box key={`list-view-${index}-${i}`} sx={{display: 'flex', flexDirection: 'row'}}>
+                    <Typography
+                      sx={{
+                        minWidth: detailLabelWidth,
+                        fontSize: '14px',
+                        fontWeight: '300',
+                        lineHeight: '140%',
+                        fontFamily,
+                      }}>
+                      {item.label}
+                    </Typography>
+                    {item.component ? (
+                      item.component
+                    ) : (
+                      <Box sx={{maxWidth: detailValueWidth}}>
+                        <Typography
+                          sx={{
+                            color: item.valueColor,
+                            wordWrap: 'break-word',
+                            fontSize: '14px',
+                            fontWeight: '300',
+                            lineHeight: '140%',
+                            fontFamily,
+                          }}>
+                          {item.value}
+                        </Typography>
+                      </Box>
+                    )}
+                  </Box>
+                ))}
+            </AccordionDetails>
+          </Accordian>
+        );
+      })
     );
   };
 
@@ -291,7 +324,13 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                 hasMore={true}
                 dataLength={dataLength}
                 next={loadNextPage}
-                loader={dataLoading && <h4>Loading...</h4>}
+                loader={
+                  dataLoading && (
+                    <Box sx={{display: 'flex', justifyContent: 'center', padding: '20px'}}>
+                      <CircularProgress size={25} sx={{color: primaryColor}} />
+                    </Box>
+                  )
+                }
                 scrollableTarget={'scrollableDiv'}
                 style={{overflowX: 'hidden'}}>
                 {renderDataList()}
