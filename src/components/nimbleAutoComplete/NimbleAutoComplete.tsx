@@ -40,7 +40,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   labelSize = 14,
   labelWeight = '600',
   placeholder,
-  fontFamily,
+  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   borderColor = '#9A9FA5',
   activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
   hoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
@@ -64,8 +64,8 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   const [internalValue, setInternalValue] = useState<any>(defaultValue || multiple ? [] : null);
 
   const customTheme = useMemo(() => {
-    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
-  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled]);
+    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily);
+  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily]);
 
   const handleOnChnage = (
     event: React.SyntheticEvent,

@@ -6,6 +6,7 @@ const theme = (
   hoverBoxShadow: string,
   activeBoxShadow: string,
   disabled: boolean,
+  fontFamily: string,
 ) =>
   createTheme({
     components: {
@@ -30,6 +31,14 @@ const theme = (
             },
             '.MuiInputBase-input': {
               height: '17px',
+              fontSize: '14px',
+              fontWeight: '400',
+              fontFamily,
+            },
+            '& input::placeholder': {
+              fontSize: '14px',
+              fontWeight: '400',
+              fontFamily,
             },
           },
         },
