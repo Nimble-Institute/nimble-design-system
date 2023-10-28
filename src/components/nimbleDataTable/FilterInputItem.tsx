@@ -29,7 +29,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
       }));
     }, [sanatizedData, datapoint]);
 
-    return result;
+    return result;    
   };
 
   const renderInput = () => {
@@ -41,10 +41,11 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
               <NimbleSelect
                 data={generateFilterSelection(item.customFilterSelections, item.dataPoint)}
                 height="30px"
-                fontSize={11}
+                fontSize={16}
                 placeholder={`Filter ${item.label}`}
                 width="100%"
                 onChange={(value: string) => filterChangeDebounceHandler(value, item.dataPoint)}
+                fontFamily={fontFamily}
               />
             </FilterWrapper>
           )
