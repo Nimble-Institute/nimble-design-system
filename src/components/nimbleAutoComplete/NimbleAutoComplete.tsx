@@ -135,7 +135,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
         <Autocomplete
           onChange={handleOnChnage}
           multiple={multiple}
-          disableCloseOnSelect
+          disableCloseOnSelect={multiple}
           options={data}
           sx={{
             width: width,
