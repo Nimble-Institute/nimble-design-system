@@ -73,8 +73,8 @@ const StyledDatePicker = styled(DatePicker)<{
     box-shadow: ${(props: {activeBoxShadow: string; disabled: boolean}) =>
       !props.disabled ? props.activeBoxShadow : 'none '}!important;
   }
-  input:placeholder-shown {
-    font-size: 14px;
+  input {
+    font-size: 14px !important;
     font-family: ${(props: {fontFamily: string}) => props.fontFamily}!important;
   }
 `;
@@ -83,7 +83,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
   label,
   labelSize = 14,
   labelWeight = '600',
-  fontFamily,
+  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   isRequired,
   borderColor = '#9A9FA5',
   activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',

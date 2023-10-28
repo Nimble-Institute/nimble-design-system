@@ -38,7 +38,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   label,
   labelSize = 14,
   labelWeight = '600',
-  fontFamily,
+  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   isRequired,
   isError,
   errorMessage,

@@ -6,6 +6,7 @@ const theme = (
   hoverBoxShadow: string,
   activeBoxShadow: string,
   disabled: boolean,
+  fontFamily: string,
 ) =>
   createTheme({
     components: {
@@ -33,11 +34,15 @@ const theme = (
             '.MuiInputBase-input': {
               height: '17px',
             },
-            '& input::placeholder': {
+            '& input': {
               fontSize: '14px',
+              fontFamily,
+              fontWeight: '400',
             },
-            '& textarea::placeholder': {
+            '& textarea': {
               fontSize: '14px',
+              fontFamily,
+              fontWeight: '400',
             },
             '*::-webkit-scrollbar': {
               width: '0.3em',
