@@ -208,13 +208,15 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               fontSize={searchBarFontSize}
             />
           </SearchBarWrapper>
-          <FilterIcon
-            size="small"
-            onClick={() => {
-              setEnableColumnFilter(!enableColumnFilter);
-            }}>
-            <FilterImage color={enableColumnFilter ? primaryColor : '#383838'} />
-          </FilterIcon>
+          {onChangeColumnFilters && (
+            <FilterIcon
+              size="small"
+              onClick={() => {
+                setEnableColumnFilter(!enableColumnFilter);
+              }}>
+              <FilterImage color={enableColumnFilter ? primaryColor : '#383838'} />
+            </FilterIcon>
+          )}
           {onClickMainAction && (
             <MainActionButton
               onClick={handleClickMainAction}
@@ -287,20 +289,22 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               ))}
               {rowActions && rowActions.length > 0 && <th style={{width: '90px'}} />}
             </tr>
-            <tr>
-              {columnData.map((item: ColumnDataType, index: number) => (
-                <th key={`filter-${index}`}>
-                  <Collapse in={enableColumnFilter}>
-                    <FilterInputItem
-                      item={item}
-                      filterChangeDebounceHandler={filterChangeDebounceHandler}
-                      sanatizedData={sanatizedData}
-                      fontFamily={fontFamily}
-                    />
-                  </Collapse>
-                </th>
-              ))}
-            </tr>
+            {onChangeColumnFilters && (
+              <tr>
+                {columnData.map((item: ColumnDataType, index: number) => (
+                  <th key={`filter-${index}`}>
+                    <Collapse in={enableColumnFilter}>
+                      <FilterInputItem
+                        item={item}
+                        filterChangeDebounceHandler={filterChangeDebounceHandler}
+                        sanatizedData={sanatizedData}
+                        fontFamily={fontFamily}
+                      />
+                    </Collapse>
+                  </th>
+                ))}
+              </tr>
+            )}
           </MainTableHead>
           {sanatizedData.length === 0 && loading && (
             <tr>
