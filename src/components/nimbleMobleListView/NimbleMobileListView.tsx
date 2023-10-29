@@ -176,15 +176,15 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
     }
     switch (actionButtonCount) {
       case 0:
-        return '68vw';
+        return '60vw';
       case 1:
-        return '65vw';
+        return '60vw';
       case 2:
-        return '55vw';
+        return '50vw';
       case 3:
-        return '45vw';
+        return '40vw';
       default:
-        return '68vw';
+        return '60vw';
     }
   }, [isEnableDelete, isEnableEdit, isEnableDetail]);
 
@@ -241,11 +241,11 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                 )
               }>
               {isMainValueComponent ? (
-                <MainValueComponent fontFamily={fontFamily} width={expanded ? mainValueWidth : '68vw'}>
+                <MainValueComponent fontFamily={fontFamily} width={expanded ? mainValueWidth : '60vw'}>
                   {item.mainComponent}
                 </MainValueComponent>
               ) : (
-                <MainValueLabel fontFamily={fontFamily} width={expanded ? mainValueWidth : '68vw'}>
+                <MainValueLabel fontFamily={fontFamily} width={expanded ? mainValueWidth : '60vw'}>
                   {item.mainValue}
                 </MainValueLabel>
               )}
