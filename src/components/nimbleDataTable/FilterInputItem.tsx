@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {InputAdornment} from '@mui/material';
-import {uniqBy} from 'lodash';
+import {uniqBy, capitalize} from 'lodash';
 
 import {FilterInput, FilterWrapper} from './StyledWrappers';
 import {NimbleSelect, NimbleDateRange} from '../index';
@@ -42,7 +42,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
                 data={generateFilterSelection(item.customFilterSelections, item.dataPoint)}
                 height="30px"
                 fontSize={16}
-                placeholder={`Filter ${item.label}`}
+                placeholder={`Filter ${capitalize(item.label)}`}
                 width="100%"
                 onChange={(value: string) => filterChangeDebounceHandler(value, item.dataPoint)}
                 fontFamily={fontFamily}
@@ -65,7 +65,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
         return (
           <FilterInput
             onChange={(e: any) => filterChangeDebounceHandler(e.target.value, item.dataPoint)}
-            placeholder={`Filter ${item.label}`}
+            placeholder={`Filter ${capitalize(item.label)}`}
             endAdornment={
               <InputAdornment position="end">
                 <img src={searchSVG} alt="search" />
