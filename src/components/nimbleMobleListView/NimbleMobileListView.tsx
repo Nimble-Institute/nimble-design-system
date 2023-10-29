@@ -83,7 +83,7 @@ const Accordian = styled((props: AccordionProps) => <MuiAccordion disableGutters
 export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
   data,
 
-  isEnableSort,
+  isEnableSort = false,
   sortLabel,
   isAPISort = false,
   onChangeSort,
@@ -297,7 +297,7 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
         <DataContainer ref={containerRef}>
           <HeaderSection>
             <HeaderLabel
-              sortenable={isEnableSort}
+              sortenable={+isEnableSort}
               fontFamily={fontFamily}
               onClick={() => isEnableSort && setSort(sort === 'asc' ? 'desc' : 'asc')}>
               {sortLabel}

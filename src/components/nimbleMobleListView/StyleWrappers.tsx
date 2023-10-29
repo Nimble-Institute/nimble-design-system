@@ -25,12 +25,12 @@ const HeaderSection = styled(Box)({
   alignItems: 'center',
 });
 
-const HeaderLabel = styled(Typography)(({sortenable, fontFamily}: {sortenable?: boolean; fontFamily: string}) => ({
+const HeaderLabel = styled(Typography)(({sortenable, fontFamily}: {sortenable: number; fontFamily: string}) => ({
   color: '#000',
   fontSize: '14px',
   fontWeight: '600',
   lineHeight: 'normal',
-  cursor: sortenable ? 'pointer' : 'default',
+  cursor: sortenable === 1 ? 'pointer' : 'default',
   fontFamily,
 }));
 
