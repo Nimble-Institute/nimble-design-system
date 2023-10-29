@@ -1,5 +1,6 @@
 import React from 'react';
 import type {Meta} from '@storybook/react';
+import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport';
 
 import {NimbleMobileListView} from '../src';
 
@@ -17,6 +18,12 @@ const NimbleMobileListViewStory: Meta<typeof NimbleMobileListView> = {
           value: '#FAFAFA',
         },
       ],
+    },
+    viewport: {
+      //👇 The viewports you want to use
+      viewports: INITIAL_VIEWPORTS,
+      //👇 Your own default viewport
+      defaultViewport: 'iphone12',
     },
   },
 };
