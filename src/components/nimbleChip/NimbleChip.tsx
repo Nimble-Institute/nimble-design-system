@@ -8,24 +8,24 @@ interface NimbleChipProps {
   size: 'small' | 'medium';
   icon?: any;
   background?: string;
-  labelColor?: string;
+  labelcolor?: string;
   fontWeight?: fontWeight;
   fontSize?: string;
   fontFamily?: string;
 }
 interface StyledChipProps {
   background?: string;
-  labelColor?: string;
+  labelcolor?: string;
   fontWeight?: fontWeight;
   fontSize?: string;
   fontFamily?: string;
 }
 
-const StyledChip = styled(Chip)(({background, labelColor, fontWeight, fontSize, fontFamily}: StyledChipProps) => ({
+const StyledChip = styled(Chip)(({background, labelcolor, fontWeight, fontSize, fontFamily}: StyledChipProps) => ({
   borderRadius: '3px',
   padding: '2px, 4px',
   backgroundColor: background,
-  color: labelColor,
+  color: labelcolor,
   fontWeight: fontWeight,
   fontSize: fontSize,
   fontFamily: fontFamily,
@@ -36,7 +36,7 @@ export const NimbleChip: React.FC<NimbleChipProps> = ({
   size = 'small',
   icon,
   background = '#90CAF9',
-  labelColor = '#FFFFFE',
+  labelcolor = '#FFFFFE',
   fontWeight = '400',
   fontSize = '14px',
   fontFamily = 'Arial',
@@ -47,7 +47,7 @@ export const NimbleChip: React.FC<NimbleChipProps> = ({
       size={size}
       icon={icon}
       background={background}
-      labelColor={labelColor}
+      labelcolor={labelcolor}
       fontWeight={fontWeight}
       fontSize={fontSize}
       fontFamily={fontFamily}
