@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {IconButton, DialogActions, DialogContent, DialogTitle, Slide, Dialog, Breakpoint, Box} from '@mui/material';
 import {TransitionProps} from '@mui/material/transitions';
 
-import {TitleWrapper, Title} from './StyledWrappers';
+import {TitleWrapper, Title, Content} from './StyledWrappers';
 import {NimbleButtonProps, NimbleButton} from '../nimbleButton/NimbleButton';
 import CloseSVG from '../../assets/images/dialog/close.svg';
 
@@ -34,6 +34,7 @@ interface NimbleDialogProps {
   topActionPanalData?: NimbleButtonProps[];
   bottomActionPosition?: 'flex-start' | 'center' | 'flex-end';
   children: any;
+  height?: string;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -71,6 +72,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   topActionPanalData,
   bottomActionPosition = 'flex-end',
   children,
+  height,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -132,7 +134,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
           </Box>
         </TitleWrapper>
       </DialogTitle>
-      <DialogContent>{children}</DialogContent>
+      <Content height={height}>{children}</Content>
       {isCloseActionAvailable ||
         isSecondaryActionAvailable ||
         (isPrimaryActionAvailable && (

@@ -156,5 +156,7 @@ export const NimbleBasicDialogWithoutAnyAction = {
     open: false,
     title: 'This Is Simple Dialog Title',
     maxWidth: 'sm',
+    height: '200px',
+    children: <div style={{height: '500px'}}>Content</div>,
   },
 };
