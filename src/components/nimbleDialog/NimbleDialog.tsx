@@ -18,7 +18,7 @@ interface NimbleDialogProps {
   primaryColor?: string;
   cancelButtonColor?: string;
   cancelButtonLabel?: string;
-  parimaryActionLabel: string;
+  parimaryActionLabel?: string;
   primaryActionIcon?: any;
   primaryActionIconPostion?: 'start' | 'end';
   isCloseActionAvailable?: boolean;
@@ -133,41 +133,45 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
         </TitleWrapper>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions
-        sx={{
-          padding: topActionPanel ? '25px' : '30px',
-          justifyContent: bottomActionPosition,
-        }}>
-        {isCloseActionAvailable && (
-          <NimbleButton
-            onClick={handleClose}
-            label={cancelButtonLabel}
-            variant="text"
-            color={cancelButtonColor || primaryColor}
-            fontFamily={fontFamily}
-          />
-        )}
-        {isSecondaryActionAvailable && (
-          <NimbleButton
-            onClick={handleSecondaryAction}
-            label={secondaryActionlabel}
-            variant="outlined"
-            color={primaryColor}
-            fontFamily={fontFamily}
-          />
-        )}
-        {isPrimaryActionAvailable && (
-          <NimbleButton
-            onClick={handlePrimaryAction}
-            label={parimaryActionLabel}
-            color={primaryColor}
-            loading={mainActionInProgress}
-            startIcon={primaryActionIconPostion === 'start' && primaryActionIcon}
-            endIcon={primaryActionIconPostion === 'end' && primaryActionIcon}
-            fontFamily={fontFamily}
-          />
-        )}
-      </DialogActions>
+      {isCloseActionAvailable ||
+        isSecondaryActionAvailable ||
+        (isPrimaryActionAvailable && (
+          <DialogActions
+            sx={{
+              padding: topActionPanel ? '25px' : '30px',
+              justifyContent: bottomActionPosition,
+            }}>
+            {isCloseActionAvailable && (
+              <NimbleButton
+                onClick={handleClose}
+                label={cancelButtonLabel}
+                variant="text"
+                color={cancelButtonColor || primaryColor}
+                fontFamily={fontFamily}
+              />
+            )}
+            {isSecondaryActionAvailable && (
+              <NimbleButton
+                onClick={handleSecondaryAction}
+                label={secondaryActionlabel}
+                variant="outlined"
+                color={primaryColor}
+                fontFamily={fontFamily}
+              />
+            )}
+            {isPrimaryActionAvailable && (
+              <NimbleButton
+                onClick={handlePrimaryAction}
+                label={parimaryActionLabel}
+                color={primaryColor}
+                loading={mainActionInProgress}
+                startIcon={primaryActionIconPostion === 'start' && primaryActionIcon}
+                endIcon={primaryActionIconPostion === 'end' && primaryActionIcon}
+                fontFamily={fontFamily}
+              />
+            )}
+          </DialogActions>
+        ))}
     </Dialog>
   );
 };

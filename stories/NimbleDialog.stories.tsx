@@ -150,3 +150,11 @@ export const NimbleBasicDialogSecondaryAction = {
     maxWidth: 'sm',
   },
 };
+
+export const NimbleBasicDialogWithoutAnyAction = {
+  args: {
+    open: false,
+    title: 'This Is Simple Dialog Title',
+    maxWidth: 'sm',
+  },
+};
