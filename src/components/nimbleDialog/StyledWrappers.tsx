@@ -1,5 +1,5 @@
 import {styled} from '@mui/system';
-import {Box, Typography} from '@mui/material';
+import {Box, Typography, DialogContent} from '@mui/material';
 
 interface ButtonProps {
   buttoncolor: string;
@@ -26,4 +26,19 @@ const Title = styled(Typography)(({fontFamily, fontSize, fontWeight}: TitleProps
   fontFamily: fontFamily,
 }));
 
-export {TitleWrapper, Title};
+const Content = styled(DialogContent)(({height}: {height: string | undefined}) => ({
+  height,
+  '::-webkit-scrollbar': {
+    width: ' 2px',
+  },
+  '::webkit-scrollbar-track': {
+    boxShadow: '#FFF',
+  },
+  '::-webkit-scrollbar-thumb': {
+    outline: '1px solid #ababab',
+    backgroundColor: '#d6d6d6',
+    borderRadius: '4px',
+  },
+}));
+
+export {TitleWrapper, Title, Content};
