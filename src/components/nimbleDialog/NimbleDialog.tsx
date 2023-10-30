@@ -17,6 +17,7 @@ interface NimbleDialogProps {
   headerFontFamily?: string;
   primaryColor?: string;
   cancelButtonColor?: string;
+  cancelButtonLabel?: string;
   parimaryActionLabel: string;
   primaryActionIcon?: any;
   primaryActionIconPostion?: 'start' | 'end';
@@ -53,6 +54,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   headerFontFamily,
   primaryColor = '#0057A2',
   cancelButtonColor,
+  cancelButtonLabel = 'Cancel',
   parimaryActionLabel,
   primaryActionIcon,
   isSecondaryActionAvailable = false,
@@ -139,7 +141,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
         {isCloseActionAvailable && (
           <NimbleButton
             onClick={handleClose}
-            label={'Cancel'}
+            label={cancelButtonLabel}
             variant="text"
             color={cancelButtonColor || primaryColor}
             fontFamily={fontFamily}
