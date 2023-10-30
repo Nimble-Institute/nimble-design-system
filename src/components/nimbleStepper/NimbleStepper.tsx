@@ -7,7 +7,7 @@ interface NimbleStepperProps {
   activeStep: number;
   fontFamily?: string;
   primaryColor?: string;
-  inactiveColor: string;
+  inactiveColor?: string;
   completedColor?: string;
   alternativeLabel?: boolean;
 }
