@@ -142,6 +142,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
               style={{
                 width: fontSize > 13 ? '16px' : '14px',
                 pointerEvents: 'none !important',
+                opacity: disabled ? 0.4 : 0.8,
               }}
             />
           )}
