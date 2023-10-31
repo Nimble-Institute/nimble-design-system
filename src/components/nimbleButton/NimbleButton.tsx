@@ -44,7 +44,8 @@ const ContainedActionButton = styled(Button)(({buttoncolor, labelColor, fontFami
     backgroundColor: darken(0.1, buttoncolor),
   },
   ':disabled': {
-    backgroundColor: lighten(0.4, buttoncolor),
+    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+    color: 'rgba(0, 0, 0, 0.26)',
   },
 
   textTransform: 'none',
@@ -66,8 +67,8 @@ const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeigh
     color: darken(0.1, buttoncolor),
   },
   ':disabled': {
-    border: `1px solid ${lighten(0.4, buttoncolor)}`,
-    color: lighten(0.5, buttoncolor),
+    border: `1px solid rgba(0, 0, 0, 0.12)`,
+    color: 'rgba(0, 0, 0, 0.26)',
   },
 }));
 
@@ -80,7 +81,7 @@ const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight}: 
   fontFamily,
   fontWeight,
   ':disabled': {
-    color: lighten(0.4, buttoncolor),
+    color: 'rgba(0, 0, 0, 0.26)',
   },
 }));
 
@@ -93,7 +94,7 @@ const IconButton = styled(Button)(({buttoncolor, labelColor}: IconButtonProps) =
     backgroundColor: darken(0.1, buttoncolor),
   },
   ':disabled': {
-    backgroundColor: lighten(0.4, buttoncolor),
+    backgroundColor: 'rgba(0, 0, 0, 0.26)',
   },
 }));
 
