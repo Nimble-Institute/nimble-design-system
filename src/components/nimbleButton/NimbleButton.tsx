@@ -10,12 +10,12 @@ interface ButtonProps {
   buttoncolor: string;
   fontFamily: string;
   fontWeight: string;
-  labelColor: string;
+  labelColor?: string;
 }
 
 interface IconButtonProps {
   buttoncolor: string;
-  labelColor: string;
+  labelColor?: string;
 }
 
 export interface NimbleButtonProps {
@@ -110,7 +110,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   icon,
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   fontWeight = '500',
-  labelColor = '#FFFFFF',
+  labelColor,
 }) => {
   const handleClick = () => {
     !loading && onClick();
