@@ -19,6 +19,7 @@ interface NimbleTabProps {
   color?: string;
   activeColor?: string;
   tabs: TabData[];
+  activeTabValue?: number
   onChangeTab?: (tabValue: number) => void;
   showInlineContent?: boolean;
   type?: 'default' | 'card';
@@ -30,6 +31,7 @@ interface NimbleTabProps {
 export const Nimbletab: React.FC<NimbleTabProps> = ({
   width = '100%',
   tabs,
+  activeTabValue = 1,
   fontFamily,
   fontSize = '16px',
   color = '#0C1B2A',
@@ -41,7 +43,7 @@ export const Nimbletab: React.FC<NimbleTabProps> = ({
   inActiveCardColor,
   variant = 'fullWidth',
 }) => {
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(activeTabValue);
 
   const customTheme = useMemo(() => {
     return theme(activeColor, fontSize, color, fontFamily, type, activeCardColor, inActiveCardColor);
