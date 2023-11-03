@@ -83,6 +83,7 @@ const UsersActive = () => (
 export const NimbleBasicTabWithIcons = {
   args: {
     width: '500px',
+    activeTabValue: 2,
     tabs: [
       {
         value: 1,
@@ -183,6 +184,7 @@ export const NimbleStandardCardTypeTab = {
     variant: 'standard',
     type: 'card',
     activeColor: '#FFF',
+    activeTabValue: 3,
     activeCardColor: '#4b9447',
     inActiveCardColor: '#abbdaa',
     tabs: [
