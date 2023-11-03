@@ -86,6 +86,7 @@ interface NimbleDataTableProps {
   onClickSort?: (sortKey: string | undefined, sortOrder: string) => void;
   onClickRow?: (item: any) => void;
   loading?: boolean;
+  isEnableRowHoverPointer?: boolean;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -118,6 +119,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onClickSort,
   onClickRow,
   loading = false,
+  isEnableRowHoverPointer = false,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -324,7 +326,8 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 hoverColor={rowHoverColor}
                 onClick={() => {
                   onClickRow?.(item);
-                }}>
+                }}
+                enablecursor={+isEnableRowHoverPointer}>
                 {columnData.map((cData, index) => (
                   <td key={index} style={{width: cData.width}}>
                     {!cData.component && cData.dataPoint && (

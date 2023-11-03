@@ -21,6 +21,7 @@ interface TableValueProps {
 
 interface StyledTableRowProps {
   hoverColor: string;
+  enablecursor: number;
 }
 
 interface FilterInputProps {
@@ -129,10 +130,11 @@ const FilterInput = styled(OutlinedInput)(({fontFamily}: FilterInputProps) => ({
   fontFamily,
 }));
 
-const StyledTableRow = styled('tr')(({hoverColor}: StyledTableRowProps) => ({
+const StyledTableRow = styled('tr')(({hoverColor, enablecursor}: StyledTableRowProps) => ({
   borderBottom: '1px solid #F6F7F9',
   '&:hover': {
     backgroundColor: hoverColor,
+    cursor: enablecursor === 1 ? 'pointer' : 'default',
   },
   WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
   transition: 'background 500ms', // For modern browsers
