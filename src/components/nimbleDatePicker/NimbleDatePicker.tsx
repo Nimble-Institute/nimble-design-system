@@ -34,6 +34,7 @@ interface NimbleDatePickerProps
   onBlur?: () => void;
   defaultValue?: string;
   disablePast?: boolean;
+  minDate?: Date,
   maxDifferentDays?: number;
   placeholder?: string;
   disabled?: boolean;
@@ -95,6 +96,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
   onBlur,
   defaultValue = '',
   disablePast,
+  minDate,
   maxDifferentDays,
   placeholder = 'Select date',
   disabled = false,
@@ -111,7 +113,10 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
     if (disablePast) {
       const tooLate = current && current.valueOf() < Date.now();
       return !!tooLate;
-    }
+    } else if(minDate){
+      const minSelectableDate = current && current.valueOf() < minDate.valueOf();
+      return !!minSelectableDate;
+    } 
   };
 
   return (

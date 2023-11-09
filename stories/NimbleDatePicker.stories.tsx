@@ -54,3 +54,17 @@ export const DatePickerDiablePast = {
     width: '288px',
   },
 };
+
+export const DatePickerMinimumSelectableDate = {
+  args: {
+    label: 'Select Date',
+    labelSize: 14,
+    labelWeight: '600',
+    borderColor: '#9A9FA5',
+    activeBoxShadow: '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
+    hoverBoxShadow: '0px 0px 0px 2px #dae3f0',
+    onDateChange: dates => console.log('selected dates', dates),
+    minDate: new Date().setDate(new Date().getDate() + 3),
+    width: '288px',
+  },
+};
