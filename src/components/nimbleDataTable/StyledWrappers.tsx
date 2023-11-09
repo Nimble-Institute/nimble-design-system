@@ -45,6 +45,7 @@ const SearchBarContainer = styled('div')({
 const SearchBarWrapper = styled('div')({
   display: 'flex',
   flex: 1,
+  marginRight: '15px',
 });
 
 const SearchBar = styled(OutlinedInput)(({fontFamily, fontSize}: {fontFamily: string; fontSize: number}) => ({
@@ -56,7 +57,6 @@ const SearchBar = styled(OutlinedInput)(({fontFamily, fontSize}: {fontFamily: st
 }));
 
 const FilterIcon = styled(IconButton)({
-  marginLeft: '15px',
   marginRight: '15px',
   cursor: 'pointer',
 });
