@@ -135,7 +135,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
         </TitleWrapper>
       </DialogTitle>
       <Content height={height}>{children}</Content>
-      {(isCloseActionAvailable || isSecondaryActionAvailable || isPrimaryActionAvailable) && (
+      {isCloseActionAvailable || isSecondaryActionAvailable || isPrimaryActionAvailable ? (
         <DialogActions
           sx={{
             padding: topActionPanel ? '25px' : '30px',
@@ -171,6 +171,8 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
             />
           )}
         </DialogActions>
+      ) : (
+        <Box sx={{width: '100%', height: '2px', backgroundColor: '#FFF'}}></Box>
       )}
     </Dialog>
   );
