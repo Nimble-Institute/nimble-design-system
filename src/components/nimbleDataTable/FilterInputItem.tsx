@@ -41,7 +41,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
               <NimbleSelect
                 data={generateFilterSelection(item.customFilterSelections, item.dataPoint)}
                 height="30px"
-                fontSize={16}
+                fontSize={14}
                 placeholder={`Filter ${capitalize(item.label)}`}
                 width="100%"
                 onChange={(value: string) => filterChangeDebounceHandler(value, item.dataPoint)}
@@ -56,7 +56,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
             <NimbleDateRange
               width="100%"
               height="30px"
-              fontSize="12px"
+              fontSize="14px"
               onDateChange={(value: string | string[]) => filterChangeDebounceHandler(value, item.dataPoint)}
             />
           </FilterWrapper>
