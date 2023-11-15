@@ -66,5 +66,6 @@ export const DatePickerMinimumSelectableDate = {
     onDateChange: dates => console.log('selected dates', dates),
     minDate: new Date().setDate(new Date().getDate() + 3),
     width: '288px',
+    format: 'MM-DD-YYYY'
   },
 };
