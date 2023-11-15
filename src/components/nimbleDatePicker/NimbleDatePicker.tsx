@@ -41,6 +41,7 @@ interface NimbleDatePickerProps
   name?: string;
   isFormik?: boolean;
   value?: any;
+  format?: string;
 }
 
 const StyledDatePicker = styled(DatePicker)<{
@@ -103,6 +104,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
   name = undefined,
   isFormik = false,
   value,
+  format = 'YYYY-MM-DD',
   ...props
 }) => {
   const handleCalandarChange = (date: any, dateString: string) => {
@@ -146,6 +148,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
         name={name}
         onBlur={onBlur}
         value={isFormik ? value && dayjs(value) : undefined}
+        format={format}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
