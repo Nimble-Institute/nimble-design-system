@@ -163,12 +163,13 @@ export const NimbleDataGrid: React.FC<NimbleDataGridProps> = ({
           </Collapse>
         </TopWrapper>
         <DataWrapper>
-          {data.length &&
-            data.map((item, index) => (
-              <Item key={index} elevation={0} onClick={() => onClickDataCard && onClickDataCard(item)}>
-                {renderCard(item)}
-              </Item>
-            ))}
+          {data.length
+            ? data.map((item, index) => (
+                <Item key={index} elevation={0} onClick={() => onClickDataCard && onClickDataCard(item)}>
+                  {renderCard(item)}
+                </Item>
+              ))
+            : null}
         </DataWrapper>
         <FooterWrapper>
           <PaginationBar
