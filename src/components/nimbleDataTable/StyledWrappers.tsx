@@ -155,6 +155,7 @@ const TableValue = styled(Typography)(({fontFamily, fontSize}: TableValueProps) 
 const ActionCell = styled('td')({
   display: 'flex',
   minHeight: '44px',
+  width: '120px',
 });
 
 const PaginationWrapper = styled('div')({
