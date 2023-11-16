@@ -155,9 +155,6 @@ const TableValue = styled(Typography)(({fontFamily, fontSize}: TableValueProps) 
 const ActionCell = styled('td')({
   display: 'flex',
   minHeight: '44px',
-  justifyContent: 'space-between',
-  width: '120px',
-  paddingRight: '10px',
 });
 
 const PaginationWrapper = styled('div')({
@@ -225,6 +222,16 @@ const LoaderWrapper = styled(Box)({
   marginBottom: '10px',
 });
 
+const IconWrapper = styled(Box)({
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  width: '44px',
+  height: '44px',
+  justifyContent: 'center',
+  marginRight: '8px',
+});
+
 export {
   Container,
   SearchBarContainer,
@@ -250,4 +257,5 @@ export {
   PaginationGoButton,
   PaginationGoButtonText,
   LoaderWrapper,
+  IconWrapper
 };
