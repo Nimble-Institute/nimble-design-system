@@ -27,6 +27,7 @@ import {
   PaginationGoButton,
   PaginationGoButtonText,
   LoaderWrapper,
+  IconWrapper,
 } from './StyledWrappers';
 import FilterInputItem from './FilterInputItem';
 
@@ -344,15 +345,14 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                       return (
                         isDesktopScreen &&
                         index === hoverRowIndex && (
-                          <Box
-                            sx={{cursor: 'pointer', display: 'flex', alignItems: 'center'}}
+                          <IconWrapper
                             onClick={e => {
                               e.stopPropagation();
                               rowActionsItem.onClick(item);
                             }}
                             key={`data-table-action-${actionIndex}`}>
                             {rowActionsItem.icon}
-                          </Box>
+                          </IconWrapper>
                         )
                       );
                     })}
