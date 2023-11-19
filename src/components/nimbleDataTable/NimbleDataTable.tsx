@@ -57,6 +57,9 @@ export interface ColumnDataType {
 export interface RowActionType {
   icon: ReactElement<any>;
   onClick: (item: any) => void;
+  secondaryActions: string;
+  secondaryIcon: ReactElement<any>;
+  checkStatus: (status: string) => boolean;
 }
 
 interface NimbleDataTableProps {
@@ -345,14 +348,35 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                       return (
                         isDesktopScreen &&
                         index === hoverRowIndex && (
-                          <IconWrapper
-                            onClick={e => {
-                              e.stopPropagation();
-                              rowActionsItem.onClick(item);
-                            }}
-                            key={`data-table-action-${actionIndex}`}>
-                            {rowActionsItem.icon}
-                          </IconWrapper>
+                          <>
+                            {rowActionsItem.secondaryActions ? (
+                              <>
+                                {rowActionsItem.checkStatus(item[rowActionsItem.secondaryActions]) ? (
+                                  <IconWrapper key={`data-table-action-${actionIndex}`}>
+                                    {rowActionsItem.icon}
+                                  </IconWrapper>
+                                ) : (
+                                  <IconWrapper
+                                    onClick={e => {
+                                      e.stopPropagation();
+                                      rowActionsItem.onClick(item);
+                                    }}
+                                    key={`data-table-action-${actionIndex}`}>
+                                    {rowActionsItem.secondaryIcon}
+                                  </IconWrapper>
+                                )}
+                              </>
+                            ) : (
+                              <IconWrapper
+                                onClick={e => {
+                                  e.stopPropagation();
+                                  rowActionsItem.onClick(item);
+                                }}
+                                key={`data-table-action-${actionIndex}`}>
+                                {rowActionsItem.icon}
+                              </IconWrapper>
+                            )}
+                          </>
                         )
                       );
                     })}
