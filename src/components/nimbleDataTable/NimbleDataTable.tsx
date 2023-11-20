@@ -57,6 +57,8 @@ export interface ColumnDataType {
 export interface RowActionType {
   icon: ReactElement<any>;
   onClick: (item: any) => void;
+  swapAction?: (value: any) => boolean;
+  swapActionColumn?: string;
 }
 
 interface NimbleDataTableProps {
@@ -345,14 +347,29 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                       return (
                         isDesktopScreen &&
                         index === hoverRowIndex && (
-                          <IconWrapper
-                            onClick={e => {
-                              e.stopPropagation();
-                              rowActionsItem.onClick(item);
-                            }}
-                            key={`data-table-action-${actionIndex}`}>
-                            {rowActionsItem.icon}
-                          </IconWrapper>
+                          <>
+                            {rowActionsItem.swapAction && rowActionsItem.swapActionColumn ? (
+                              rowActionsItem.swapAction(item[rowActionsItem.swapActionColumn]) && (
+                                <IconWrapper
+                                  onClick={e => {
+                                    e.stopPropagation();
+                                    rowActionsItem.onClick(item);
+                                  }}
+                                  key={`data-table-action-${actionIndex}`}>
+                                  {rowActionsItem.icon}
+                                </IconWrapper>
+                              )
+                            ) : (
+                              <IconWrapper
+                                onClick={e => {
+                                  e.stopPropagation();
+                                  rowActionsItem.onClick(item);
+                                }}
+                                key={`data-table-action-${actionIndex}`}>
+                                {rowActionsItem.icon}
+                              </IconWrapper>
+                            )}
+                          </>
                         )
                       );
                     })}
