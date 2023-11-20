@@ -147,7 +147,7 @@ export const Datatable = {
           </svg>
         ),
         onClick: (item: any) => alert('Action 01 click'),
-        secondaryActions: 'roles',
+        secondaryActionColumn: 'roles',
         secondaryIcon: (
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_14_3499)">
@@ -182,7 +182,7 @@ export const Datatable = {
             </defs>
           </svg>
         ),
-        checkStatus: status => {
+        checkSecondaryActionColumn: status => {
           return status === 'admin';
         },
       },

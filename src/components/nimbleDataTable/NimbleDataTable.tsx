@@ -57,9 +57,9 @@ export interface ColumnDataType {
 export interface RowActionType {
   icon: ReactElement<any>;
   onClick: (item: any) => void;
-  secondaryActions: string;
-  secondaryIcon: ReactElement<any>;
-  checkStatus: (status: string) => boolean;
+  secondaryActionColumn?: string;
+  secondaryIcon?: ReactElement<any>;
+  checkSecondaryActionColumn?: (value: string | number) => boolean;
 }
 
 interface NimbleDataTableProps {
@@ -349,9 +349,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                         isDesktopScreen &&
                         index === hoverRowIndex && (
                           <>
-                            {rowActionsItem.secondaryActions ? (
+                            {rowActionsItem?.secondaryActionColumn ? (
                               <>
-                                {rowActionsItem.checkStatus(item[rowActionsItem.secondaryActions]) ? (
+                                {rowActionsItem?.checkSecondaryActionColumn &&
+                                rowActionsItem?.checkSecondaryActionColumn(
+                                  item[rowActionsItem.secondaryActionColumn],
+                                ) ? (
                                   <IconWrapper key={`data-table-action-${actionIndex}`}>
                                     {rowActionsItem.icon}
                                   </IconWrapper>
