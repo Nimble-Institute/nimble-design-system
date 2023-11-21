@@ -22,8 +22,8 @@ import FilterImage from '../shared/icons/FiltorIcon';
 import theme from './CustomTheme';
 
 interface CustomFilterDataType {
-  label: 'string';
-  value: 'string';
+  label: string;
+  value: string;
 }
 
 interface FilterPanelProps {
