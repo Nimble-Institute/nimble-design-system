@@ -68,6 +68,9 @@ interface NimbleMobileListViewProps extends NimbleMobileSearchProps {
   detailValueWidth?: string;
   fontFamily?: string;
   isMainValueComponent?: boolean;
+
+  mainValueWidth?: string;
+  mainValueExpandedWidth?: string;
 }
 
 const Accordian = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
@@ -121,6 +124,9 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
   detailLabelWidth = '35%',
   detailValueWidth = '65%',
   isMainValueComponent = false,
+
+  mainValueWidth,
+  mainValueExpandedWidth,
 }) => {
   const [expandCard, setExpandCard] = useState<number | null>(null);
   const [sort, setSort] = useState<string | null>(null);
@@ -162,7 +168,7 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
     return theme();
   }, []);
 
-  const mainValueWidth = useMemo(() => {
+  const calculatedMainValueWidth = useMemo(() => {
     let actionButtonCount = 0;
 
     if (isEnableDelete) {
@@ -187,6 +193,10 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
         return '60vw';
     }
   }, [isEnableDelete, isEnableEdit, isEnableDetail]);
+
+  const getFinalValueWidth = (expanded: boolean) => {
+    return expanded ? mainValueExpandedWidth ?? calculatedMainValueWidth : mainValueWidth ?? '60vw';
+  };
 
   const renderDataList = () => {
     return (
@@ -241,11 +251,11 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                 )
               }>
               {isMainValueComponent ? (
-                <MainValueComponent fontFamily={fontFamily} width={expanded ? mainValueWidth : '60vw'}>
+                <MainValueComponent fontFamily={fontFamily} width={getFinalValueWidth(expanded)}>
                   {item.mainComponent}
                 </MainValueComponent>
               ) : (
-                <MainValueLabel fontFamily={fontFamily} width={expanded ? mainValueWidth : '60vw'}>
+                <MainValueLabel fontFamily={fontFamily} width={getFinalValueWidth(expanded)}>
                   {item.mainValue}
                 </MainValueLabel>
               )}
@@ -253,7 +263,9 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
             <AccordionDetails sx={{backgroundColor: '#E9EBEA'}}>
               {item.details &&
                 item.details.map((item, i) => (
-                  <Box key={`list-view-${index}-${i}`} sx={{display: 'flex', flexDirection: 'row'}}>
+                  <Box
+                    key={`list-view-${index}-${i}`}
+                    sx={{display: 'flex', flexDirection: 'row', marginBottom: '8px', alignItems: 'flex-start'}}>
                     <Typography
                       sx={{
                         minWidth: detailLabelWidth,
