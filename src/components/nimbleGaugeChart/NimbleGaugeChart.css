@@ -1,8 +1,27 @@
-.fade-in { animation: fadeIn 2s; }
+.fade-in {
+  animation: fadeIn 2s;
+}
 
 @keyframes fadeIn {
-    0% { opacity: 0.0; }
-    50% { opacity: 0.0; }
-    80% { opacity: 0.8; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 0.0;
   }
+
+  50% {
+    opacity: 0.0;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+svg {
+  :focus {
+    outline: none;
+  }
+}
