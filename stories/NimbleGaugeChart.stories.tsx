@@ -35,6 +35,7 @@ export const GaugeChartThresholdGreaterthanChartValue = {
       {value: 250000, label: '250K'},
       {value: 300000, label: '300K'},
       {value: 350000, label: '350K'},
+      {value: 380000, label: '380K'},
     ],
   },
 };

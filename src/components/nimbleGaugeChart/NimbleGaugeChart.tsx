@@ -48,10 +48,25 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
   segments,
 }) => {
   const RADIAN = Math.PI / 180;
-  const gaugeValue = [
+
+  let gaugeValue: {value: number; color: string}[] = [
     {value: chartValue, color: gaugeColor},
     {value: maxValue - chartValue, color: 'transparent'},
   ];
+
+  if (threshold && threshold > chartValue) {
+    gaugeValue = [
+      {value: chartValue, color: gaugeColor},
+      {value: maxValue - chartValue, color: 'transparent'},
+    ];
+  } else if (threshold) {
+    gaugeValue = [
+      {value: threshold, color: gaugeColor},
+      {value: chartValue - threshold, color: 'red'},
+      {value: maxValue - chartValue, color: 'transparent'},
+    ];
+  }
+
   const outerPie = [{value: maxValue, color: 'transparent'}];
 
   const type = variance && Math.sign(variance);
@@ -138,7 +153,7 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
 
   return (
     <div>
-      <PieChart width={width} height={height}>
+      <PieChart width={width} height={height / 1.5}>
         <Pie
           dataKey="value"
           startAngle={180}
@@ -174,7 +189,7 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                   y={cy - height / 2.2}
                   textAnchor="middle"
                   dominantBaseline="central"
-                  style={{fontSize: titleFontSize, fill: fontColor, fontFamily: fontFamily}}>
+                  style={{fontSize: titleFontSize, fontFamily: fontFamily}}>
                   {title}
                 </text>
                 <text
@@ -203,7 +218,6 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                   dominantBaseline="central"
                   style={{
                     fontSize: descriptionFontSize,
-                    fill: fontColor,
                     fontFamily: fontFamily,
                   }}>
                   {description}
