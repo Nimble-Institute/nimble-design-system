@@ -28,25 +28,11 @@ const ItemContent = styled('div')({
 const GroupContainer = styled('div')({
   display: 'flex',
   height: 'inherit',
-});
-
-const GroupLeftSection = styled('div')({
-  display: 'flex',
-  width: '50%',
-  borderRight: '1px solid #bbb',
   borderLeft: '1px solid #bbb',
-  fontSize: '14px',
   alignItems: 'center',
+  justifyContent: 'flex-start',
+  paddingLeft: '10%',
   overflow: 'scroll',
-});
-
-const GroupRightSection = styled('div')({
-  display: 'flex',
-  height: 'inherit',
-  // padding: '4px 0px',
-  width: '50%',
-  overflow: 'scroll',
-  alignItems: 'center',
 });
 
 const GroupHeaderContainer = styled('div')<GroupHeaderProps>(props => ({
@@ -54,27 +40,11 @@ const GroupHeaderContainer = styled('div')<GroupHeaderProps>(props => ({
   width: props.headerWidth,
   background: 'white',
   color: 'black',
-  borderTop: '1px solid #bbb',
+  border: '1px solid #bbb',
+  borderBottom: 0,
+  alignItems: 'center',
+  justifyContent: 'center',
 }));
-
-const GroupHeaderLeft = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '50%',
-  fontSize: '12px',
-  borderRight: '1px solid #bbb',
-  borderLeft: '1px solid #bbb',
-});
-
-const GroupHeaderRight = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '50%',
-  fontSize: '12px',
-  borderRight: '1px solid #bbb',
-});
 
 const Chip = styled('div')<ChipProps>(props => ({
   display: 'flex',
@@ -94,10 +64,6 @@ export {
   TimelineWrapper,
   ItemContent,
   GroupContainer,
-  GroupLeftSection,
-  GroupRightSection,
   GroupHeaderContainer,
-  GroupHeaderLeft,
-  GroupHeaderRight,
   Chip,
 };

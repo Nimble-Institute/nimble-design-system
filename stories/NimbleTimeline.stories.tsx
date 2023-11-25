@@ -14,7 +14,9 @@ const NimbleTimelineStory: Meta<typeof NimbleTimeline> = {
 };
 
 export default NimbleTimelineStory;
-
+const hoverCallback = (e, item) => {
+  console.log('item hover: ', item);
+};
 const moveCallback = (itemId, dragTime, newGroupOrder) => {
   console.info('move callback');
   console.info('itemId: ', itemId);
@@ -35,34 +37,25 @@ const itemDoubleClickCallback = item => {
 
 export const NimbleTimelineDefault = {
   args: {
-    sideBarLeftHeaderText: 'Actiehouder',
-    sideBarRightHeaderText: 'Zwanenburg',
+    sidebarWidth: 300,
+    sideBarHeaderText: 'Actiehouder',
     itemMoveHandler: moveCallback,
     itemResizeHandler: resizeCallback,
     itemDoubleClickHandler: itemDoubleClickCallback,
+    itemHoverHandler: hoverCallback,
     sidebarGroups: [
       {
         id: 1,
         title: 'Bouwleges',
         badge: '650150',
         color: '#388e3c',
-        labels: [
-          {text: 'Zwanenburg Projecten', color: '#388e3c'},
-          {text: 'Gemeente', color: '#0C1B2A'},
-        ],
       },
       {
         id: 2,
         title: 'Exploitatiebijdrage',
         badge: '650150',
         color: '#42a5f5',
-        labels: [
-          {text: 'Planschade', color: '#e57373'},
-          {text: 'Exploitatiebijdrage', color: '#e57373'},
-          {text: 'Sloopkosten', color: '#e57373'},
-        ],
-      }
-
+      },
     ],
     timelineItems: [
       {
@@ -77,6 +70,16 @@ export const NimbleTimelineDefault = {
       },
       {
         id: 2,
+        group: 1,
+        title: 'item 1-1',
+        color: '#354968',
+        start: moment().add(600, 'hour'),
+        end: moment().add(1000, 'hour'),
+        canMove: false,
+        canResize: false,
+      },
+      {
+        id: 3,
         group: 2,
         title: 'item 2',
         color: '#354968',
@@ -84,7 +87,7 @@ export const NimbleTimelineDefault = {
         end: moment().add(1024, 'hour'),
       },
       {
-        id: 3,
+        id: 4,
         group: 3,
         title: 'item 3',
         color: '#AE4949',
@@ -101,8 +104,7 @@ export const NimbleTimelineWithWeeks = {
     sidebarWidth: 400,
     showTimelineItemText: true,
     todayMarker: true,
-    sideBarLeftHeaderText: 'Actiehouder',
-    sideBarRightHeaderText: 'Zwanenburg',
+    sideBarHeaderText: 'Actiehouder',
     itemMoveHandler: moveCallback,
     itemResizeHandler: resizeCallback,
     itemDoubleClickHandler: itemDoubleClickCallback,
