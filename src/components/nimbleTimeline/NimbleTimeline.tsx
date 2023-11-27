@@ -12,17 +12,7 @@ import Timeline, {
 } from 'react-calendar-timeline';
 
 import InfoLabel from './InfoLabel';
-import {
-  GroupContainer,
-  GroupHeaderContainer,
-  GroupHeaderLeft,
-  GroupHeaderRight,
-  GroupLeftSection,
-  GroupRightSection,
-  ItemContent,
-  Chip,
-  TimelineWrapper,
-} from './StyleWrappers';
+import {GroupContainer, GroupHeaderContainer, ItemContent, Chip, TimelineWrapper} from './StyleWrappers';
 
 import 'react-calendar-timeline/lib/Timeline.css';
 import './timelineStyles.css';
@@ -34,11 +24,11 @@ interface NimbleTimeline {
   timelineItems?: any[];
   showTimelineItemText?: boolean;
   todayMarker?: boolean;
-  sideBarLeftHeaderText?: string;
-  sideBarRightHeaderText?: string;
+  sideBarHeaderText?: string;
   itemResizeHandler?: Function;
   itemMoveHandler?: Function;
   itemDoubleClickHandler?: Function;
+  itemHoverHandler?: Function;
   fontFamily?: string;
 }
 interface Group {
@@ -62,16 +52,16 @@ interface ItemRendererProps {
 
 export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   showWeeks = false,
-  sidebarWidth = 400,
+  sidebarWidth = 300,
   sidebarGroups = [],
   timelineItems = [],
   showTimelineItemText = false,
   todayMarker = false,
-  sideBarLeftHeaderText,
-  sideBarRightHeaderText,
+  sideBarHeaderText,
   itemResizeHandler,
   itemMoveHandler,
   itemDoubleClickHandler,
+  itemHoverHandler,
   fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
 }) => {
   const [groups] = useState(sidebarGroups);
@@ -92,6 +82,10 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     itemTimeStartKey: 'start',
     itemTimeEndKey: 'end',
     groupLabelKey: 'title',
+  };
+
+  const handleItemHover = (e: React.MouseEvent<HTMLDivElement>, item: Object) => {
+    itemHoverHandler && itemHoverHandler(e, item);
   };
 
   const handleItemDoubleClick = (e: React.MouseEvent<HTMLDivElement>, item: Object) => {
@@ -139,7 +133,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const itemRenderer = ({item, itemContext, getItemProps, getResizeProps}: ItemRendererProps) => {
     const {left: leftResizeProps, right: rightResizeProps} = getResizeProps();
     return (
-      <div onClick={e => handleItemDoubleClick(e, item)}>
+      <div onClick={e => handleItemDoubleClick(e, item)} onMouseOver={e => handleItemHover(e, item)}>
         <div
           {...getItemProps({
             ...item.itemProps,
@@ -163,17 +157,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const groupRenderer = ({group}: GroupRendererProps) => {
     return (
       <GroupContainer>
-        <GroupLeftSection>
-          {group?.badge && <Chip bgColor={group?.color}>{group?.badge}</Chip>}
-          <Typography variant="body1">{group?.title}</Typography>
-        </GroupLeftSection>
-        <GroupRightSection>
-          {group?.labels?.map((label, index) => (
-            <Chip key={index} bgColor={label.color}>
-              {label.text}
-            </Chip>
-          ))}
-        </GroupRightSection>
+        {group?.badge && <Chip bgColor={group?.color}>{group?.badge}</Chip>}
+        <Typography variant="body1">{group?.title}</Typography>
       </GroupContainer>
     );
   };
@@ -203,12 +188,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
             {({getRootProps}) => {
               return (
                 <GroupHeaderContainer headerWidth={getRootProps()?.style?.width}>
-                  <GroupHeaderLeft>
-                    <Typography variant="body1">{sideBarLeftHeaderText}</Typography>
-                  </GroupHeaderLeft>
-                  <GroupHeaderRight>
-                    <Typography variant="body1">{sideBarRightHeaderText}</Typography>
-                  </GroupHeaderRight>
+                  <Typography variant="body1">{sideBarHeaderText}</Typography>
                 </GroupHeaderContainer>
               );
             }}
