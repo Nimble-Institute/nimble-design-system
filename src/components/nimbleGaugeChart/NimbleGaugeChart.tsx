@@ -211,7 +211,7 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                 </text>
                 <text
                   x={cx + 5}
-                  y={cy + 25}
+                  y={cy + height / 12}
                   textAnchor="middle"
                   dominantBaseline="central"
                   style={{
