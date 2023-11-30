@@ -8,16 +8,15 @@ interface NimbleGaugeChartProps {
   gaugeColor?: string;
   chartHeight?: number;
   fontFamily?: string;
-  fontColor?: string;
+  amountColor?: string;
   title?: string;
   titleFontSize?: string;
-  chartValue: number;
+  amount: number;
   amountLabel?: string;
   amountFontSize?: string;
-  variance?: number;
+  variance?: string;
   varianceFontSize?: string;
-  variancePositiveColor?: string;
-  varianceNegativeColor?: string;
+  varianceColor?: string;
   description?: string;
   descriptionFontSize?: string;
   maxValue: number;
@@ -30,16 +29,15 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
   gaugeColor = '#1194a8',
   chartHeight = 300,
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
-  fontColor = '#263238',
+  amountColor = '#263238',
   title,
   titleFontSize,
-  chartValue,
+  amount,
   amountLabel,
   amountFontSize = '28px',
   variance,
   varianceFontSize = '16px',
-  variancePositiveColor = '#66bb6a',
-  varianceNegativeColor = '#f44336',
+  varianceColor = '#66bb6a',
   description,
   descriptionFontSize = '12px',
   maxValue,
@@ -50,26 +48,25 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
   const RADIAN = Math.PI / 180;
 
   let gaugeValue: {value: number; color: string}[] = [
-    {value: chartValue, color: gaugeColor},
-    {value: maxValue - chartValue, color: 'transparent'},
+    {value: amount, color: gaugeColor},
+    {value: maxValue - amount, color: 'transparent'},
   ];
 
-  if (threshold && threshold > chartValue) {
+  if (threshold && threshold > amount) {
     gaugeValue = [
-      {value: chartValue, color: gaugeColor},
-      {value: maxValue - chartValue, color: 'transparent'},
+      {value: amount, color: gaugeColor},
+      {value: maxValue - amount, color: 'transparent'},
     ];
   } else if (threshold) {
     gaugeValue = [
       {value: threshold, color: gaugeColor},
-      {value: chartValue - threshold, color: 'red'},
-      {value: maxValue - chartValue, color: 'transparent'},
+      {value: amount - threshold, color: 'red'},
+      {value: maxValue - amount, color: 'transparent'},
     ];
   }
 
   const outerPie = [{value: maxValue, color: 'transparent'}];
 
-  const type = variance && Math.sign(variance);
   const height = chartHeight;
   const width = height;
   const cx = height / 2;
@@ -195,20 +192,20 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                 <text
                   x={cx + 5}
                   y={cy - height / 10}
-                  style={{fontSize: amountFontSize, fontFamily: fontFamily, fill: fontColor}}
+                  style={{fontSize: amountFontSize, fontFamily: fontFamily, fill: amountColor}}
                   textAnchor="middle"
                   dominantBaseline="central">
                   {amountLabel}
                 </text>
                 <text
-                  x={cx - 8}
+                  x={width / 3}
                   y={height / 2}
                   style={{
                     fontSize: varianceFontSize,
-                    color: type === -1 ? varianceNegativeColor : variancePositiveColor,
+                    color: varianceColor,
                     fontFamily: fontFamily,
                   }}
-                  fill={type !== -1 ? varianceNegativeColor : variancePositiveColor}>
+                  fill={varianceColor}>
                   {variance}
                 </text>
                 <text
@@ -225,14 +222,6 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
               </>
             }></Label>
         </Pie>
-        <defs>
-          <polygon
-            id="Triangle"
-            points={type !== -1 ? '10,0 5,10 15,10' : '5,0 10,10 15,0'}
-            style={{fill: type !== -1 ? varianceNegativeColor : variancePositiveColor}}
-          />
-        </defs>
-        {type && <use x={cx - 30} y={cy - 10} xlinkHref="#Triangle" />}
         {threshold && markThreshold(threshold, outerPie, cx, cy, iR, oR, thresholdColor)}
         {segments && showSegments(outerPie, cx, cy, oR)}
       </PieChart>
