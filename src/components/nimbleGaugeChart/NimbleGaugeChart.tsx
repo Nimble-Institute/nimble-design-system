@@ -6,7 +6,7 @@ import './NimbleGaugeChart.css';
 
 interface NimbleGaugeChartProps {
   gaugeColor?: string;
-  chartHeight?: number;
+  chartWidth?: number;
   fontFamily?: string;
   amountColor?: string;
   title?: string;
@@ -27,7 +27,7 @@ interface NimbleGaugeChartProps {
 
 export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
   gaugeColor = '#1194a8',
-  chartHeight = 300,
+  chartWidth = 300,
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   amountColor = '#263238',
   title,
@@ -67,10 +67,11 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
 
   const outerPie = [{value: maxValue, color: 'transparent'}];
 
-  const height = chartHeight;
-  const width = height;
-  const cx = height / 2;
-  const cy = width / 2;
+  const width = chartWidth;
+  const height = width;
+
+  const cx = width / 2.4;
+  const cy = height / 2;
   const oR = height / 3;
   const iR = oR - 15;
 
@@ -150,7 +151,7 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
 
   return (
     <div>
-      <PieChart width={width} height={height / 1.5}>
+      <PieChart width={width - width / 10} height={height / 1.6}>
         <Pie
           dataKey="value"
           startAngle={180}
@@ -191,14 +192,14 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                 </text>
                 <text
                   x={cx + 5}
-                  y={cy - height / 10}
+                  y={cy - height / 8}
                   style={{fontSize: amountFontSize, fontFamily: fontFamily, fill: amountColor}}
                   textAnchor="middle"
                   dominantBaseline="central">
                   {amountLabel}
                 </text>
                 <text
-                  x={width / 3}
+                  x={width / 5}
                   y={height / 2}
                   style={{
                     fontSize: varianceFontSize,
@@ -210,7 +211,7 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                 </text>
                 <text
                   x={cx + 5}
-                  y={cy + 30}
+                  y={cy + 25}
                   textAnchor="middle"
                   dominantBaseline="central"
                   style={{

@@ -15,7 +15,6 @@ export default NimbleGaugeChartStory;
 export const GaugeChartThresholdGreaterthanChartValue = {
   args: {
     gaugeColor: '#1194a8',
-    chartHeight: 300,
     title: 'Fase 1',
     titleFontSize: '14px',
     amount: 320000,
@@ -43,7 +42,6 @@ export const GaugeChartThresholdGreaterthanChartValue = {
 export const GaugeChartThresholdLessthanChartValue = {
   args: {
     gaugeColor: '#df10f1',
-    chartHeight: 300,
     title: 'Fase 2',
     titleFontSize: '14px',
     amount: 320000,
@@ -68,7 +66,6 @@ export const GaugeChartThresholdLessthanChartValue = {
 export const GaugeChartNoThresholdValue = {
   args: {
     gaugeColor: '#58ae2f',
-    chartHeight: 300,
     title: 'Fase 3',
     titleFontSize: '14px',
     amount: 320000,
