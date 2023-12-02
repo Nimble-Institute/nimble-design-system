@@ -21,6 +21,7 @@ export const NimbleBasicDialog = {
     title: 'This Is Simple Dialog Title',
     primaryColor: '#0057A2',
     parimaryActionLabel: 'Save',
+    primaryActionDisabled: true,
     primaryActionIcon: <SaveIcon />,
     secondaryActionlabel: 'Back',
     metaData: {

@@ -35,6 +35,7 @@ interface NimbleDialogProps {
   bottomActionPosition?: 'flex-start' | 'center' | 'flex-end';
   children: any;
   height?: string;
+  primaryActionDisabled?: boolean;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -73,6 +74,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   bottomActionPosition = 'flex-end',
   children,
   height,
+  primaryActionDisabled = false,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -168,6 +170,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
               startIcon={primaryActionIconPostion === 'start' && primaryActionIcon}
               endIcon={primaryActionIconPostion === 'end' && primaryActionIcon}
               fontFamily={fontFamily}
+              disabled={primaryActionDisabled}
             />
           )}
         </DialogActions>
