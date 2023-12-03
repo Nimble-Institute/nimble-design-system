@@ -71,6 +71,7 @@ interface NimbleMobileListViewProps extends NimbleMobileSearchProps {
 
   mainValueWidth?: string;
   mainValueExpandedWidth?: string;
+  defaultSort?: string;
 }
 
 const Accordian = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
@@ -127,9 +128,10 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
 
   mainValueWidth,
   mainValueExpandedWidth,
+  defaultSort,
 }) => {
   const [expandCard, setExpandCard] = useState<number | null>(null);
-  const [sort, setSort] = useState<string | null>(null);
+  const [sort, setSort] = useState<string | null>(defaultSort || null);
 
   useEffect(() => {
     if (isAPISort) {

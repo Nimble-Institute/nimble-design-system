@@ -36,6 +36,7 @@ export const MobileListViewStory = {
       alert(searchval);
     },
     sortLabel: 'Name',
+    defaultSort: 'desc',
     isEnableSearch: true,
     isEnableSort: true,
     onChangeSort: sort => {
