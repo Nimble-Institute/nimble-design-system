@@ -20,6 +20,7 @@ export default NimbleDataTableStory;
 
 export const Datatable = {
   args: {
+    defaultSorting: {sortKey: 'roles' , sortOrder: 'desc'},
     columnData: [
       {
         label: 'Name',
