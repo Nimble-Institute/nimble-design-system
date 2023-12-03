@@ -1,4 +1,4 @@
-import React, {useMemo, useState, ReactElement, useRef} from 'react';
+import React, {useMemo, useState, ReactElement, useRef, useEffect} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
 import {Pagination, IconButton, InputAdornment, Collapse, Box, CircularProgress} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
@@ -90,6 +90,7 @@ interface NimbleDataTableProps {
   onClickRow?: (item: any) => void;
   loading?: boolean;
   isEnableRowHoverPointer?: boolean;
+  defaultSorting?: {sortKey: string, sortOrder: string};
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -123,11 +124,19 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onClickRow,
   loading = false,
   isEnableRowHoverPointer = false,
+  defaultSorting
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
   const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    defaultSorting && setSortData({
+      ...(isEnableMultipleSort ? sortData : {}),
+      [defaultSorting.sortKey]: defaultSorting.sortOrder,
+    });
+  }, [])
 
   const customPaginationInputref = useRef<any>(null);
 
@@ -163,6 +172,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
+    console.log('key, order: ', sortKey, sortOrder)
     if (sortKey) {
       onClickSort && onClickSort(sortKey, sortOrder);
       setSortData({
