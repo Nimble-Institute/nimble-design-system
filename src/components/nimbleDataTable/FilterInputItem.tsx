@@ -34,6 +34,24 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
 
   const renderInput = () => {
     switch (item.filterType) {
+      case 'multi-select':
+        return (
+          item.dataPoint && (
+            <FilterWrapper>
+              <NimbleSelect
+                data={generateFilterSelection(item.customFilterSelections, item.dataPoint)}
+                height="30px"
+                fontSize={14}
+                placeholder={`Filter ${capitalize(item.label)}`}
+                width="100%"
+                onChange={(value: string) => filterChangeDebounceHandler(value, item.dataPoint)}
+                fontFamily={fontFamily}
+                multiple={true}
+
+              />
+            </FilterWrapper>
+          )
+        );
       case 'select':
         return (
           item.dataPoint && (

@@ -48,7 +48,7 @@ export interface ColumnDataType {
   dataPoint?: string;
   sort?: boolean;
   filter?: boolean;
-  filterType?: 'text' | 'select' | 'date-range';
+  filterType?: 'text' | 'select' | 'date-range' | 'multi-select';
   customFilterSelections?: CustomFilterSelection[];
   component?: any;
   width?: string;

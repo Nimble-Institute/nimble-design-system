@@ -59,7 +59,7 @@ export const Datatable = {
         sort: true,
         filter: true,
         width: '20%',
-        filterType: 'select',
+        filterType: 'multi-select',
         component: (item: any) => (
           <div
             style={{
