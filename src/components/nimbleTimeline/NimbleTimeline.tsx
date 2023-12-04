@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
-import moment from 'moment';
+import React, {useEffect, useState} from 'react';
+import moment, {Moment} from 'moment';
 import {Typography} from '@mui/material';
 
 import Timeline, {
+  CustomMarker,
   DateHeader,
+  IntervalRenderer,
   ItemContext,
   SidebarHeader,
   TimelineHeaders,
@@ -16,6 +18,7 @@ import {GroupContainer, GroupHeaderContainer, ItemContent, Chip, TimelineWrapper
 
 import 'react-calendar-timeline/lib/Timeline.css';
 import './timelineStyles.css';
+import _ from 'lodash';
 
 interface NimbleTimeline {
   showWeeks?: boolean;
@@ -30,6 +33,7 @@ interface NimbleTimeline {
   itemDoubleClickHandler?: Function;
   itemHoverHandler?: Function;
   fontFamily?: string;
+  weekMarkerWidth?: string;
 }
 interface Group {
   id: number;
@@ -37,6 +41,8 @@ interface Group {
   badge?: string;
   color?: string;
   labels?: {text: string; color: string}[];
+  parent?: any;
+  value?: any;
 }
 
 interface GroupRendererProps {
@@ -51,25 +57,43 @@ interface ItemRendererProps {
 }
 
 export const NimbleTimeline: React.FC<NimbleTimeline> = ({
-  showWeeks = false,
   sidebarWidth = 300,
   sidebarGroups = [],
   timelineItems = [],
   showTimelineItemText = false,
-  todayMarker = false,
   sideBarHeaderText,
   itemResizeHandler,
   itemMoveHandler,
   itemDoubleClickHandler,
   itemHoverHandler,
   fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
+  weekMarkerWidth = '37px',
 }) => {
   const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
   const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
+  const [currentDate, setCurrentDate] = useState(moment());
 
-  const defaultTimeStart = moment().startOf('day').toDate();
-  const defaultTimeEnd = moment().startOf('day').add(1, 'day').toDate();
+  useEffect(() => {
+    // Update the current date in the state every minute
+    const interval = setInterval(() => {
+      setCurrentDate(moment());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+  let parents: any = [];
+  const getCurrentWeekRange = (date: moment.Moment) => {
+    const startOfWeek = moment(date).startOf('week');
+    const endOfWeek = moment(date).endOf('week');
+    return {startOfWeek, endOfWeek};
+  };
+
+  // Function to check if a date falls within the current week
+  const isDateInCurrentWeek = (date: moment.Moment) => {
+    const {startOfWeek, endOfWeek} = getCurrentWeekRange(currentDate);
+    return date.isBetween(startOfWeek, endOfWeek, null, '[]');
+  };
 
   const keys = {
     groupIdKey: 'id',
@@ -138,7 +162,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           {...getItemProps({
             ...item.itemProps,
             style: {
-              borderRadius: '25px',
+              borderRadius: '5px',
               background: item.color,
               border: itemContext.selected ? 'dashed 1px rgba(0,0,0,0.6)' : 'none',
               opacity: itemContext.selected ? 0.8 : 1,
@@ -146,7 +170,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           })}>
           {itemContext.useResizeHandle ? <div {...leftResizeProps} style={{borderRadius: '8px'}} /> : ''}
 
-          <ItemContent>{showTimelineItemText && itemContext.title}</ItemContent>
+          <ItemContent>{itemContext.title}</ItemContent>
 
           {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''}
         </div>
@@ -155,10 +179,53 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   };
 
   const groupRenderer = ({group}: GroupRendererProps) => {
+    const existingObject = _.find(parents, {key: group?.parent?.key});
+    // If no existing object found, add the new object to the array
+    if (!existingObject) {
+      parents.push(group?.parent);
+    }
+
     return (
       <GroupContainer>
-        {group?.badge && <Chip bgColor={group?.color}>{group?.badge}</Chip>}
-        <Typography variant="body1">{group?.title}</Typography>
+        {!existingObject ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              minWidth: '33.33%',
+              justifyContent: 'space-between',
+              paddingRight: '24px',
+            }}>
+            {group?.parent?.badge && <Chip bgColor={group?.color}>{group?.parent?.badge}</Chip>}
+            <Typography variant="body1">{group?.parent?.title}</Typography>
+          </div>
+        ) : (
+          <div style={{minWidth: '33.33%'}}></div>
+        )}
+
+        <div
+          style={{
+            fontSize: '14px',
+            fontWeight: '400',
+            border: '1px solid #bbb',
+            minWidth: '33.33%',
+            paddingLeft: '8px',
+          }}>
+          {group?.title}
+        </div>
+        {group?.value && (
+          <div
+            style={{
+              fontSize: '14px',
+              fontWeight: '200',
+              border: '1px solid #bbb',
+              minWidth: '33.33%',
+              borderLeft: '0px',
+              paddingLeft: '8px',
+            }}>
+            {group?.value}
+          </div>
+        )}
       </GroupContainer>
     );
   };
@@ -175,29 +242,45 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         sidebarWidth={sidebarWidth}
         canMove={true}
         canResize={'both'}
-        defaultTimeStart={defaultTimeStart}
-        defaultTimeEnd={defaultTimeEnd}
         onItemMove={handleItemMove}
         onItemResize={handleItemResize}
         onItemDrag={handleItemDrag}
         itemRenderer={itemRenderer}
         groupRenderer={groupRenderer}
-        lineHeight={60}>
+        lineHeight={60}
+        maxZoom={1.5 * 365.24 * 86400 * 1000}
+        minZoom={1.24 * 86400 * 1000 * 7 * 3}
+        defaultTimeStart={moment(new Date()).add(-1, 'month')}
+        defaultTimeEnd={moment(new Date()).add(1.5, 'month')}>
         <TimelineHeaders>
           <SidebarHeader>
             {({getRootProps}) => {
               return (
-                <GroupHeaderContainer headerWidth={getRootProps()?.style?.width}>
+                <GroupHeaderContainer
+                  headerWidth={getRootProps()?.style?.width}
+                  style={{display: 'flex', justifyContent: 'flex-start', paddingLeft: '8px'}}>
                   <Typography variant="body1">{sideBarHeaderText}</Typography>
                 </GroupHeaderContainer>
               );
             }}
           </SidebarHeader>
-          <DateHeader unit="primaryHeader" />
-          <DateHeader />
-          {showWeeks && <DateHeader unit="week" />}
+          <DateHeader unit="year" />
+          <DateHeader unit="week" />
         </TimelineHeaders>
-        <TimelineMarkers>{todayMarker && <TodayMarker date={new Date()} />}</TimelineMarkers>
+        <TimelineMarkers>
+          {isDateInCurrentWeek(currentDate) && (
+            <CustomMarker date={getCurrentWeekRange(currentDate).startOfWeek.toDate()}>
+              {({styles}) => (
+                <div
+                  style={{
+                    ...styles,
+                    background: 'rgb(245 220 137 / 84%)',
+                    width: weekMarkerWidth,
+                  }}></div>
+              )}
+            </CustomMarker>
+          )}
+        </TimelineMarkers>
       </Timeline>
       {draggedItem && <InfoLabel item={draggedItem.item} group={draggedItem.group} time={draggedItem.time} />}
     </TimelineWrapper>

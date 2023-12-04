@@ -8,7 +8,7 @@ const NimbleTimelineStory: Meta<typeof NimbleTimeline> = {
   title: 'Nimble Charts/Nimble Timeline',
   component: NimbleTimeline,
   parameters: {
-    // layout: 'fullscreen',
+    layout: 'fullscreen',
     docs: {iframeHeight: 600, previewSource: 'open'},
   },
 };
@@ -37,7 +37,8 @@ const itemDoubleClickCallback = item => {
 
 export const NimbleTimelineDefault = {
   args: {
-    sidebarWidth: 300,
+    sidebarWidth: 500,
+    weekMarkerWidth: '37.9px',
     sideBarHeaderText: 'Actiehouder',
     itemMoveHandler: moveCallback,
     itemResizeHandler: resizeCallback,
@@ -46,22 +47,40 @@ export const NimbleTimelineDefault = {
     sidebarGroups: [
       {
         id: 1,
-        title: 'Bouwleges',
-        badge: '650150',
-        color: '#388e3c',
+        title: 'Planschade',
+        value: '32,5% (€ 65K/€ 200K)',
+        color: '#AE4949',
+        parent: {key: 1, title: 'Grond', badge: '650150'},
       },
       {
         id: 2,
+        title: 'Aankoopgrond',
+        color: '#AE4949',
+        parent: {key: 1, title: 'Grond', badge: '650150'},
+      },
+      {
+        id: 3,
+        title: 'Leges',
+        color: '#354968',
+        value: (
+          <div>
+            <span style={{color: 'red'}}>110%</span> (€ 220K/€ 200K)
+          </div>
+        ),
+        parent: {key: 2, title: 'Overheid', badge: '650112'},
+      },
+      {
+        id: 4,
         title: 'Exploitatiebijdrage',
-        badge: '650150',
-        color: '#42a5f5',
+        color: '#354968',
+        parent: {key: 2, title: 'Overheid', badge: '650112'},
       },
     ],
     timelineItems: [
       {
         id: 1,
         group: 1,
-        title: 'item 1',
+        title: '32,5% ($65K/$200K)',
         color: '#AE4949',
         start: moment(),
         end: moment().add(600, 'hour'),
@@ -69,96 +88,20 @@ export const NimbleTimelineDefault = {
         canResize: false,
       },
       {
-        id: 2,
-        group: 1,
-        title: 'item 1-1',
-        color: '#354968',
-        start: moment().add(600, 'hour'),
-        end: moment().add(1000, 'hour'),
-        canMove: false,
-        canResize: false,
-      },
-      {
         id: 3,
-        group: 2,
-        title: 'item 2',
+        group: 3,
+        title: '50% (€ 100K/€ 200K)',
         color: '#354968',
-        start: moment().add(-0.5, 'hour'),
-        end: moment().add(1024, 'hour'),
+        start: moment().add(-300, 'hour'),
+        end: moment().add(400, 'hour'),
       },
       {
         id: 4,
         group: 3,
-        title: 'item 3',
-        color: '#AE4949',
-        start: moment().add(2, 'hour'),
-        end: moment().add(800, 'hour'),
-      },
-    ],
-  },
-};
-
-export const NimbleTimelineWithWeeks = {
-  args: {
-    showWeeks: true,
-    sidebarWidth: 400,
-    showTimelineItemText: true,
-    todayMarker: true,
-    sideBarHeaderText: 'Actiehouder',
-    itemMoveHandler: moveCallback,
-    itemResizeHandler: resizeCallback,
-    itemDoubleClickHandler: itemDoubleClickCallback,
-    sidebarGroups: [
-      {
-        id: 1,
-        title: 'Bouwleges',
-        badge: '650150',
-        color: '#388e3c',
-        labels: [
-          {text: 'Zwanenburg Projecten', color: '#388e3c'},
-          {text: 'Gemeente', color: '#0C1B2A'},
-        ],
-      },
-      {
-        id: 2,
-        title: 'Exploitatiebijdrage',
-        badge: '650150',
-        color: '#42a5f5',
-        labels: [
-          {text: 'Planschade', color: '#e57373'},
-          {text: 'Exploitatiebijdrage', color: '#e57373'},
-          {text: 'Sloopkosten', color: '#e57373'},
-        ],
-      },
-      {id: 3, title: 'Planschade', badge: '650250', color: '#e57373', labels: []},
-      {id: 4, title: 'Sloopkosten'},
-    ],
-    timelineItems: [
-      {
-        id: 1,
-        group: 1,
-        title: 'item 1',
-        color: '#AE4949',
-        start: moment(),
-        end: moment().add(600, 'hour'),
-        canMove: false,
-        canResize: false,
-      },
-      {
-        id: 2,
-        group: 2,
-        title: 'item 2',
+        title: '60% (€ 120K/€ 200K)',
         color: '#354968',
-        start: moment().add(-0.5, 'hour'),
-        end: moment().add(1024, 'hour'),
-      },
-      {
-        id: 3,
-        group: 3,
-        title: 'item 3',
-        color: '#AE4949',
-        start: moment().add(2, 'hour'),
-        end: moment().add(800, 'hour'),
+        start: moment().add(600, 'hour'),
+        end: moment().add(1500, 'hour'),
       },
     ],
   },

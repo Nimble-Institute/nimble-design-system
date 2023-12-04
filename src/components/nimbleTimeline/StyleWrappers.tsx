@@ -31,7 +31,6 @@ const GroupContainer = styled('div')({
   borderLeft: '1px solid #bbb',
   alignItems: 'center',
   justifyContent: 'flex-start',
-  paddingLeft: '10%',
   overflow: 'scroll',
 });
 
@@ -58,6 +57,7 @@ const Chip = styled('div')<ChipProps>(props => ({
   color: 'white',
   height: '24px',
   fontSize: '14px',
+  width: 'fit-content', 
 }));
 
 export {
