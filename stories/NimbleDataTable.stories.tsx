@@ -1,7 +1,7 @@
 import React from 'react';
 import type {Meta} from '@storybook/react';
 
-import {NimbleDataTable} from '../src';
+import {NimbleDataTable, NimbleSelect} from '../src';
 
 const handleClickSort = (sortId: any, sortOrder: any) => {
   console.log('sort id and sort order: ', sortId, sortOrder);
@@ -20,7 +20,7 @@ export default NimbleDataTableStory;
 
 export const Datatable = {
   args: {
-    defaultSorting: {sortKey: 'roles' , sortOrder: 'desc'},
+    defaultSorting: {sortKey: 'roles', sortOrder: 'desc'},
     columnData: [
       {
         label: 'Name',
@@ -217,7 +217,7 @@ export const Datatable = {
         swapAction: value => {
           return value === 'super-admin';
         },
-        swapActionColumn: 'roles' // swapActionColumn is mandatory when swapAction is given
+        swapActionColumn: 'roles', // swapActionColumn is mandatory when swapAction is given
       },
       {
         icon: (
@@ -235,7 +235,7 @@ export const Datatable = {
         swapAction: value => {
           return value === 'admin';
         },
-        swapActionColumn: 'roles'
+        swapActionColumn: 'roles',
       },
     ],
     clickCustomPagination: (page: number) => alert('page number - ' + page),
@@ -390,5 +390,140 @@ export const DatatableWithDateRangeFilter = {
       },
     ],
     clickCustomPagination: (page: number) => alert('page number - ' + page),
+  },
+};
+
+export const DatatableWithTopActionAndSelections = {
+  args: {
+    defaultSorting: {sortKey: 'roles', sortOrder: 'desc'},
+    columnData: [
+      {
+        label: 'Name',
+        dataPoint: 'name',
+        sort: true,
+        filter: true,
+        width: '30%',
+      },
+      {
+        label: 'Email',
+        dataPoint: 'email',
+        sort: true,
+        filter: true,
+        width: '30%',
+      },
+      {
+        label: 'User Roles',
+        dataPoint: 'roles',
+        sort: true,
+        filter: true,
+        width: '30%',
+        filterType: 'select',
+        customFilterSelections: [
+          {
+            label: 'super-admin',
+            value: '1',
+          },
+          {
+            label: 'admin',
+            value: '2',
+          },
+        ],
+      },
+      {
+        label: 'Autherization',
+        dataPoint: 'autherization',
+        sort: true,
+        filter: true,
+        width: '30%',
+        filterType: 'multi-select',
+        component: (item: any) => (
+          <div
+            style={{
+              display: 'flex',
+              width: '50%',
+              flexDirection: 'row',
+              height: '20px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#0057A2',
+              borderRadius: '5px',
+              color: '#fff',
+            }}>
+            {item.autherization}
+          </div>
+        ),
+      },
+    ],
+    data: [
+      {
+        name: 'Manoj Gamachchige',
+        email: 'manoj@nimble.com',
+        roles: 'admin',
+        autherization: 'user',
+      },
+      {
+        name: 'Rylie Gamachchige',
+        email: 'rylie.amelia@gmail.com',
+        roles: 'admin',
+        autherization: 'user',
+      },
+      {
+        name: 'Anuja Ulpathakubura',
+        email: 'anuja@nimble.com',
+        roles: 'admin',
+        autherization: 'user',
+      },
+      {
+        name: 'Max.L',
+        email: 'max@nimble.com',
+        roles: 'super-admin',
+        autherization: 'super',
+      },
+    ],
+    paginationData: {
+      totalPage: 10,
+      page: 3,
+      onPageChnage: (event: any, value: number) => {
+        alert(value);
+      },
+    },
+    onChangeSearchText: searchvalue => {
+      alert(searchvalue);
+    },
+    searchPlaceHolder: 'Search user data',
+    mainActionLabel: 'Add Some Data',
+    onChangeColumnFilters: (data: {[key: string]: string}) => {
+      console.log(data);
+    },
+    clickCustomPagination: (page: number) => alert('page number - ' + page),
+    isEnableTopActions: true,
+    mainFilterComponent: (
+      <NimbleSelect
+        label="Year"
+        data={[
+          {label: '2020', value: '2020'},
+          {label: '2021', value: '2021'},
+          {label: '2022', value: '2022'},
+          {label: '2023', value: '2023'},
+          {label: '2024', value: '2024'},
+        ]}
+        width="200px"
+        defaultValue="2023"
+        onChange={value => {
+          alert('Top Action Panal Selection - ' + value);
+        }}
+      />
+    ),
+    isEnableSelections: true,
+    selectionDataKey: 'name',
+    selectionCallBack: (value: any) => console.log(value),
+    isEnableRefresh: true,
+    refreshCallBack: () => {
+      console.log('click refresh button');
+    },
+    isEnableExport: true,
+    exportCallback: () => {
+      console.log('click export button');
+    },
   },
 };

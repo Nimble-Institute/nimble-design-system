@@ -40,6 +40,7 @@ const SearchBarContainer = styled('div')({
   display: 'flex',
   flex: 1,
   padding: '10px 20px',
+  alignItems: 'center',
 });
 
 const SearchBarWrapper = styled('div')({
@@ -56,7 +57,7 @@ const SearchBar = styled(OutlinedInput)(({fontFamily, fontSize}: {fontFamily: st
   fontSize,
 }));
 
-const FilterIcon = styled(IconButton)({
+const ActionIcon = styled(IconButton)({
   marginRight: '15px',
   cursor: 'pointer',
 });
@@ -238,7 +239,7 @@ export {
   SearchBarContainer,
   SearchBarWrapper,
   SearchBar,
-  FilterIcon,
+  ActionIcon,
   MainActionButton,
   MainTable,
   MainTableHead,
@@ -258,5 +259,5 @@ export {
   PaginationGoButton,
   PaginationGoButtonText,
   LoaderWrapper,
-  IconWrapper
+  IconWrapper,
 };

@@ -11,6 +11,7 @@ interface ButtonProps {
   fontFamily: string;
   fontWeight: string;
   labelColor?: string;
+  height?: string;
 }
 
 interface IconButtonProps {
@@ -32,28 +33,32 @@ export interface NimbleButtonProps {
   fontFamily?: string;
   fontWeight?: fontWeight;
   labelColor?: string;
+  height?: string;
 }
 
-const ContainedActionButton = styled(Button)(({buttoncolor, labelColor, fontFamily, fontWeight}: ButtonProps) => ({
-  paddingLeft: '12px !important',
-  paddingRight: '12px !important',
-  backgroundColor: buttoncolor,
-  color: labelColor,
-  borderRadius: '5px',
-  ':hover': {
-    backgroundColor: darken(0.1, buttoncolor),
-  },
-  ':disabled': {
-    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-    color: 'rgba(0, 0, 0, 0.26)',
-  },
+const ContainedActionButton = styled(Button)(
+  ({buttoncolor, labelColor, fontFamily, fontWeight, height}: ButtonProps) => ({
+    paddingLeft: '12px !important',
+    paddingRight: '12px !important',
+    backgroundColor: buttoncolor,
+    color: labelColor,
+    borderRadius: '5px',
+    ':hover': {
+      backgroundColor: darken(0.1, buttoncolor),
+    },
+    ':disabled': {
+      backgroundColor: 'rgba(0, 0, 0, 0.12)',
+      color: 'rgba(0, 0, 0, 0.26)',
+    },
 
-  textTransform: 'none',
-  fontFamily,
-  fontWeight,
-}));
+    textTransform: 'none',
+    fontFamily,
+    fontWeight,
+    height: height,
+  }),
+);
 
-const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight}: ButtonProps) => ({
+const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height}: ButtonProps) => ({
   paddingLeft: '12px !important',
   paddingRight: '12px !important',
   borderRadius: '5px',
@@ -70,9 +75,10 @@ const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeigh
     border: `1px solid rgba(0, 0, 0, 0.12)`,
     color: 'rgba(0, 0, 0, 0.26)',
   },
+  height: height,
 }));
 
-const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight}: ButtonProps) => ({
+const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height}: ButtonProps) => ({
   textTransform: 'none',
   paddingLeft: '12px !important',
   paddingRight: '12px !important',
@@ -83,6 +89,7 @@ const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight}: 
   ':disabled': {
     color: 'rgba(0, 0, 0, 0.26)',
   },
+  height: height,
 }));
 
 const IconButton = styled(Button)(({buttoncolor, labelColor}: IconButtonProps) => ({
@@ -112,6 +119,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   fontWeight = '500',
   labelColor,
+  height,
 }) => {
   const handleClick = () => {
     !loading && onClick();
@@ -130,7 +138,8 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           endIcon={!startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
           onClick={handleClick}
           fontFamily={fontFamily}
-          fontWeight={fontWeight}>
+          fontWeight={fontWeight}
+          height={height}>
           {label}
         </ContainedActionButton>
       );
@@ -146,7 +155,8 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           endIcon={!startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
           onClick={handleClick}
           fontFamily={fontFamily}
-          fontWeight={fontWeight}>
+          fontWeight={fontWeight}
+          height={height}>
           {label}
         </OutlinedActionButton>
       );
@@ -162,7 +172,8 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           endIcon={!startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
           onClick={handleClick}
           fontFamily={fontFamily}
-          fontWeight={fontWeight}>
+          fontWeight={fontWeight}
+          height={height}>
           {label}
         </TextActionButton>
       );
