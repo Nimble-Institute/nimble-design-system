@@ -1,6 +1,6 @@
 import React, {useMemo, useState, ReactElement, useRef, useEffect} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse, Box, CircularProgress} from '@mui/material';
+import {Pagination, IconButton, InputAdornment, Collapse, Box, CircularProgress, Radio} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
@@ -9,7 +9,7 @@ import {
   SearchBarContainer,
   SearchBarWrapper,
   SearchBar,
-  FilterIcon,
+  ActionIcon,
   MainActionButton,
   MainTable,
   MainTableHead,
@@ -32,11 +32,15 @@ import {
 import FilterInputItem from './FilterInputItem';
 
 import FilterImage from '../shared/icons/FiltorIcon';
+import DownloadImage from '../shared/icons/DownloadIcon';
+import RefreshImage from '../shared/icons/RefreshIcon';
 import searchSVG from '../../assets/images/search.svg';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import theme from './CustomTheme';
 import {fontWeight, PaginationDataType} from '../shared';
+import {NimbleRadioButton} from '../nimbleRadioButton/NimbleRadioButton';
+import {NimbleButton} from '../nimbleButton/NimbleButton';
 
 interface CustomFilterSelection {
   label: string;
@@ -90,7 +94,16 @@ interface NimbleDataTableProps {
   onClickRow?: (item: any) => void;
   loading?: boolean;
   isEnableRowHoverPointer?: boolean;
-  defaultSorting?: {sortKey: string, sortOrder: string};
+  defaultSorting?: {sortKey: string; sortOrder: string};
+  isEnableTopActions?: boolean;
+  mainFilterComponent?: React.ReactNode;
+  isEnableSelections?: boolean;
+  selectionDataKey?: string;
+  selectionCallBack?: (value: Record<string, boolean>) => void;
+  isEnableRefresh?: boolean;
+  refreshCallBack: () => void;
+  isEnableExport?: boolean;
+  exportCallback: () => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -124,19 +137,43 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onClickRow,
   loading = false,
   isEnableRowHoverPointer = false,
-  defaultSorting
+  defaultSorting,
+  isEnableTopActions = false,
+  mainFilterComponent,
+  isEnableSelections = false,
+  selectionDataKey,
+  selectionCallBack,
+  isEnableRefresh = false,
+  isEnableExport = false,
+  refreshCallBack,
+  exportCallback,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
   const [filterData, setFilterData] = useState<any>(null);
   const [hoverRowIndex, setHoverRowIndex] = useState<number | null>(null);
 
+  const [selectedRadioValues, setSelectedRadioValues] = React.useState<Record<string, boolean>>({});
+
   useEffect(() => {
-    defaultSorting && setSortData({
-      ...(isEnableMultipleSort ? sortData : {}),
-      [defaultSorting.sortKey]: defaultSorting.sortOrder,
-    });
-  }, [])
+    if (selectionDataKey) {
+      const selections: Record<string, boolean> = {};
+      data?.forEach(item => {
+        selections[item[selectionDataKey]] = false;
+      });
+      setSelectedRadioValues({
+        ...selections,
+      });
+    }
+  }, [data, selectionDataKey]);
+
+  useEffect(() => {
+    defaultSorting &&
+      setSortData({
+        ...(isEnableMultipleSort ? sortData : {}),
+        [defaultSorting.sortKey]: defaultSorting.sortOrder,
+      });
+  }, []);
 
   const customPaginationInputref = useRef<any>(null);
 
@@ -172,7 +209,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
-    console.log('key, order: ', sortKey, sortOrder)
+    console.log('key, order: ', sortKey, sortOrder);
     if (sortKey) {
       onClickSort && onClickSort(sortKey, sortOrder);
       setSortData({
@@ -209,6 +246,49 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   return (
     <Container>
       <ThemeProvider theme={customTheme}>
+        {(isEnableTopActions || isEnableSelections) && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              padding: '20px 20px 10px 20px',
+              alignItems: 'flex-end',
+              gap: '15px',
+            }}>
+            {mainFilterComponent}
+
+            <NimbleButton
+              variant="contained"
+              label="SELECT ALL"
+              fontFamily={fontFamily}
+              onClick={() => {
+                let temp = selectedRadioValues;
+                for (let key in temp) {
+                  temp[key] = true;
+                }
+                setSelectedRadioValues({
+                  ...temp,
+                });
+              }}
+              size="small"
+              height="34px"
+              color="#E2E2E2"
+              labelColor="#415168"
+            />
+            <NimbleButton
+              variant="contained"
+              fontFamily={fontFamily}
+              label="COPY STATEMENT"
+              onClick={() => {
+                selectionCallBack && selectionCallBack(selectedRadioValues);
+              }}
+              size="small"
+              height="34px"
+              color="#E2E2E2"
+              labelColor="#415168"
+            />
+          </Box>
+        )}
         <SearchBarContainer>
           <SearchBarWrapper>
             <SearchBar
@@ -224,13 +304,38 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
             />
           </SearchBarWrapper>
           {onChangeColumnFilters && (
-            <FilterIcon
+            <ActionIcon
               size="small"
               onClick={() => {
                 setEnableColumnFilter(!enableColumnFilter);
               }}>
               <FilterImage color={enableColumnFilter ? primaryColor : '#383838'} />
-            </FilterIcon>
+            </ActionIcon>
+          )}
+          {isEnableExport && (
+            <ActionIcon
+              size="small"
+              onClick={() => {
+                exportCallback && exportCallback();
+              }}>
+              <DownloadImage color={enableColumnFilter ? primaryColor : '#383838'} />
+            </ActionIcon>
+          )}
+          {isEnableRefresh && (
+            <ActionIcon
+              size="small"
+              onClick={() => {
+                let temp = selectedRadioValues;
+                for (let key in temp) {
+                  temp[key] = false;
+                }
+                setSelectedRadioValues({
+                  ...temp,
+                });
+                refreshCallBack && refreshCallBack();
+              }}>
+              <RefreshImage color={enableColumnFilter ? primaryColor : '#383838'} />
+            </ActionIcon>
           )}
           {onClickMainAction && (
             <MainActionButton
@@ -384,6 +489,29 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                       );
                     })}
                   </ActionCell>
+                )}
+                {isEnableSelections && selectionDataKey && (
+                  <td style={{width: '15px'}}>
+                    <Radio
+                      name={`row-selection-${item[selectionDataKey]}`}
+                      value={item[selectionDataKey]}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        const curruent = selectedRadioValues[item[selectionDataKey]];
+                        setSelectedRadioValues({
+                          ...selectedRadioValues,
+                          [item[selectionDataKey]]: !curruent,
+                        });
+                      }}
+                      onClick={() => {
+                        setSelectedRadioValues({
+                          ...selectedRadioValues,
+                          [item[selectionDataKey]]: false,
+                        });
+                      }}
+                      checked={selectedRadioValues[item[selectionDataKey]] === true}
+                      size="small"
+                    />
+                  </td>
                 )}
               </StyledTableRow>
             ))}
