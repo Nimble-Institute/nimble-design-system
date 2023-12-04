@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import moment, { Moment } from 'moment';
+import moment, {Moment} from 'moment';
 import {Typography} from '@mui/material';
 
 import Timeline, {
@@ -18,6 +18,7 @@ import {GroupContainer, GroupHeaderContainer, ItemContent, Chip, TimelineWrapper
 
 import 'react-calendar-timeline/lib/Timeline.css';
 import './timelineStyles.css';
+import _ from 'lodash';
 
 interface NimbleTimeline {
   showWeeks?: boolean;
@@ -32,6 +33,7 @@ interface NimbleTimeline {
   itemDoubleClickHandler?: Function;
   itemHoverHandler?: Function;
   fontFamily?: string;
+  weekMarkerWidth?: string;
 }
 interface Group {
   id: number;
@@ -39,6 +41,8 @@ interface Group {
   badge?: string;
   color?: string;
   labels?: {text: string; color: string}[];
+  parent?: any;
+  value?: any;
 }
 
 interface GroupRendererProps {
@@ -63,6 +67,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   itemDoubleClickHandler,
   itemHoverHandler,
   fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
+  weekMarkerWidth = '37px',
 }) => {
   const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
@@ -77,7 +82,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
 
     return () => clearInterval(interval);
   }, []);
-
+  let parents: any = [];
   const getCurrentWeekRange = (date: moment.Moment) => {
     const startOfWeek = moment(date).startOf('week');
     const endOfWeek = moment(date).endOf('week');
@@ -174,10 +179,53 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   };
 
   const groupRenderer = ({group}: GroupRendererProps) => {
+    const existingObject = _.find(parents, {key: group?.parent?.key});
+    // If no existing object found, add the new object to the array
+    if (!existingObject) {
+      parents.push(group?.parent);
+    }
+
     return (
       <GroupContainer>
-        {group?.badge && <Chip bgColor={group?.color}>{group?.badge}</Chip>}
-        <Typography variant="body1">{group?.title}</Typography>
+        {!existingObject ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              minWidth: '33.33%',
+              justifyContent: 'space-between',
+              paddingRight: '24px',
+            }}>
+            {group?.parent?.badge && <Chip bgColor={group?.color}>{group?.parent?.badge}</Chip>}
+            <Typography variant="body1">{group?.parent?.title}</Typography>
+          </div>
+        ) : (
+          <div style={{minWidth: '33.33%'}}></div>
+        )}
+
+        <div
+          style={{
+            fontSize: '14px',
+            fontWeight: '400',
+            border: '1px solid #bbb',
+            minWidth: '33.33%',
+            paddingLeft: '8px',
+          }}>
+          {group?.title}
+        </div>
+        {group?.value && (
+          <div
+            style={{
+              fontSize: '14px',
+              fontWeight: '200',
+              border: '1px solid #bbb',
+              minWidth: '33.33%',
+              borderLeft: '0px',
+              paddingLeft: '8px',
+            }}>
+            {group?.value}
+          </div>
+        )}
       </GroupContainer>
     );
   };
@@ -208,7 +256,9 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           <SidebarHeader>
             {({getRootProps}) => {
               return (
-                <GroupHeaderContainer headerWidth={getRootProps()?.style?.width}>
+                <GroupHeaderContainer
+                  headerWidth={getRootProps()?.style?.width}
+                  style={{display: 'flex', justifyContent: 'flex-start', paddingLeft: '8px'}}>
                   <Typography variant="body1">{sideBarHeaderText}</Typography>
                 </GroupHeaderContainer>
               );
@@ -224,10 +274,9 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
                 <div
                   style={{
                     ...styles,
-                    background: '#f5dc89',
-                    width: '50px',
-                  }}>
-                </div>
+                    background: 'rgb(245 220 137 / 84%)',
+                    width: weekMarkerWidth,
+                  }}></div>
               )}
             </CustomMarker>
           )}

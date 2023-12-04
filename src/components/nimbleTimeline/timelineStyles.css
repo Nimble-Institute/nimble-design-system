@@ -1,4 +1,3 @@
-
 body {
     font-size: 18px;
     background: #FAFAFA;
@@ -56,4 +55,12 @@ body {
 
 .react-calendar-timeline .rct-calendar-header {
     border-left: none;
+}
+
+.react-calendar-timeline .rct-sidebar .rct-sidebar-row.rct-sidebar-row-odd {
+    background: transparent;
+}
+
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
+    background: transparent
 }
