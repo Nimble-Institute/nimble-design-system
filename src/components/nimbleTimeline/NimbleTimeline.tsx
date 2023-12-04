@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
-import moment from 'moment';
+import React, {useEffect, useState} from 'react';
+import moment, { Moment } from 'moment';
 import {Typography} from '@mui/material';
 
 import Timeline, {
+  CustomMarker,
   DateHeader,
+  IntervalRenderer,
   ItemContext,
   SidebarHeader,
   TimelineHeaders,
@@ -51,12 +53,10 @@ interface ItemRendererProps {
 }
 
 export const NimbleTimeline: React.FC<NimbleTimeline> = ({
-  showWeeks = false,
   sidebarWidth = 300,
   sidebarGroups = [],
   timelineItems = [],
   showTimelineItemText = false,
-  todayMarker = false,
   sideBarHeaderText,
   itemResizeHandler,
   itemMoveHandler,
@@ -67,9 +67,28 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const [groups] = useState(sidebarGroups);
   const [items, setItems] = useState(timelineItems);
   const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
+  const [currentDate, setCurrentDate] = useState(moment());
 
-  const defaultTimeStart = moment().startOf('day').toDate();
-  const defaultTimeEnd = moment().startOf('day').add(1, 'day').toDate();
+  useEffect(() => {
+    // Update the current date in the state every minute
+    const interval = setInterval(() => {
+      setCurrentDate(moment());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getCurrentWeekRange = (date: moment.Moment) => {
+    const startOfWeek = moment(date).startOf('week');
+    const endOfWeek = moment(date).endOf('week');
+    return {startOfWeek, endOfWeek};
+  };
+
+  // Function to check if a date falls within the current week
+  const isDateInCurrentWeek = (date: moment.Moment) => {
+    const {startOfWeek, endOfWeek} = getCurrentWeekRange(currentDate);
+    return date.isBetween(startOfWeek, endOfWeek, null, '[]');
+  };
 
   const keys = {
     groupIdKey: 'id',
@@ -138,7 +157,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           {...getItemProps({
             ...item.itemProps,
             style: {
-              borderRadius: '25px',
+              borderRadius: '5px',
               background: item.color,
               border: itemContext.selected ? 'dashed 1px rgba(0,0,0,0.6)' : 'none',
               opacity: itemContext.selected ? 0.8 : 1,
@@ -146,7 +165,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           })}>
           {itemContext.useResizeHandle ? <div {...leftResizeProps} style={{borderRadius: '8px'}} /> : ''}
 
-          <ItemContent>{showTimelineItemText && itemContext.title}</ItemContent>
+          <ItemContent>{itemContext.title}</ItemContent>
 
           {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''}
         </div>
@@ -175,14 +194,16 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         sidebarWidth={sidebarWidth}
         canMove={true}
         canResize={'both'}
-        defaultTimeStart={defaultTimeStart}
-        defaultTimeEnd={defaultTimeEnd}
         onItemMove={handleItemMove}
         onItemResize={handleItemResize}
         onItemDrag={handleItemDrag}
         itemRenderer={itemRenderer}
         groupRenderer={groupRenderer}
-        lineHeight={60}>
+        lineHeight={60}
+        maxZoom={1.5 * 365.24 * 86400 * 1000}
+        minZoom={1.24 * 86400 * 1000 * 7 * 3}
+        defaultTimeStart={moment(new Date()).add(-1, 'month')}
+        defaultTimeEnd={moment(new Date()).add(1.5, 'month')}>
         <TimelineHeaders>
           <SidebarHeader>
             {({getRootProps}) => {
@@ -193,11 +214,24 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               );
             }}
           </SidebarHeader>
-          <DateHeader unit="primaryHeader" />
-          <DateHeader />
-          {showWeeks && <DateHeader unit="week" />}
+          <DateHeader unit="year" />
+          <DateHeader unit="week" />
         </TimelineHeaders>
-        <TimelineMarkers>{todayMarker && <TodayMarker date={new Date()} />}</TimelineMarkers>
+        <TimelineMarkers>
+          {isDateInCurrentWeek(currentDate) && (
+            <CustomMarker date={getCurrentWeekRange(currentDate).startOfWeek.toDate()}>
+              {({styles}) => (
+                <div
+                  style={{
+                    ...styles,
+                    background: '#f5dc89',
+                    width: '50px',
+                  }}>
+                </div>
+              )}
+            </CustomMarker>
+          )}
+        </TimelineMarkers>
       </Timeline>
       {draggedItem && <InfoLabel item={draggedItem.item} group={draggedItem.group} time={draggedItem.time} />}
     </TimelineWrapper>

@@ -61,7 +61,7 @@ export const NimbleTimelineDefault = {
       {
         id: 1,
         group: 1,
-        title: 'item 1',
+        title: '32,5%($65K/$200K)',
         color: '#AE4949',
         start: moment(),
         end: moment().add(600, 'hour'),
@@ -71,7 +71,6 @@ export const NimbleTimelineDefault = {
       {
         id: 2,
         group: 1,
-        title: 'item 1-1',
         color: '#354968',
         start: moment().add(600, 'hour'),
         end: moment().add(1000, 'hour'),
@@ -81,7 +80,7 @@ export const NimbleTimelineDefault = {
       {
         id: 3,
         group: 2,
-        title: 'item 2',
+        title: '32,5%($65K/$200K)',
         color: '#354968',
         start: moment().add(-0.5, 'hour'),
         end: moment().add(1024, 'hour'),
