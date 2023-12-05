@@ -1,6 +1,7 @@
 import React from 'react';
 import type {Meta} from '@storybook/react';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 import {NimbleButton} from '../src';
 
@@ -67,6 +68,16 @@ export const NimbleOutlinedIconButton = {
     variant: 'outlined',
     size: 'small',
     startIcon: <VerifiedUserIcon />,
+  },
+};
+
+export const NimbleOutlinedStartAndEndIconButton = {
+  args: {
+    label: 'Outlined Button',
+    variant: 'outlined',
+    size: 'small',
+    startIcon: <VerifiedUserIcon />,
+    endIcon: <CheckCircleOutlineIcon />,
   },
 };
 
