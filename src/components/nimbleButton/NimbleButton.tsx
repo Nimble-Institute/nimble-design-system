@@ -135,7 +135,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           size={size}
           disabled={disabled}
           startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
-          endIcon={!startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
+          endIcon={endIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
@@ -152,7 +152,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           size={size}
           disabled={disabled}
           startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
-          endIcon={!startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
+          endIcon={endIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
@@ -169,7 +169,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           size={size}
           disabled={disabled}
           startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
-          endIcon={!startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
+          endIcon={endIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
