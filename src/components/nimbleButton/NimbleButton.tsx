@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 
-import {Button, CircularProgress} from '@mui/material';
+import {Box, Button, CircularProgress} from '@mui/material';
 import {styled} from '@mui/system';
 import {darken, lighten} from 'polished';
 
@@ -38,6 +38,9 @@ export interface NimbleButtonProps {
 
 const ContainedActionButton = styled(Button)(
   ({buttoncolor, labelColor, fontFamily, fontWeight, height}: ButtonProps) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingLeft: '12px !important',
     paddingRight: '12px !important',
     backgroundColor: buttoncolor,
@@ -59,6 +62,9 @@ const ContainedActionButton = styled(Button)(
 );
 
 const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height}: ButtonProps) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   paddingLeft: '12px !important',
   paddingRight: '12px !important',
   borderRadius: '5px',
@@ -79,6 +85,9 @@ const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeigh
 }));
 
 const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height}: ButtonProps) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
   textTransform: 'none',
   paddingLeft: '12px !important',
   paddingRight: '12px !important',
@@ -134,8 +143,28 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           labelColor={labelColor}
           size={size}
           disabled={disabled}
-          startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
-          endIcon={endIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
+          startIcon={
+            startIcon ? (
+              loading ? (
+                <CircularProgress size={14} sx={{color: '#fff'}} />
+              ) : (
+                startIcon
+              )
+            ) : (
+              <Box sx={{display: 'flex'}} />
+            )
+          }
+          endIcon={
+            endIcon ? (
+              loading ? (
+                <CircularProgress size={14} sx={{color: '#fff'}} />
+              ) : (
+                endIcon
+              )
+            ) : (
+              <Box sx={{display: 'flex'}} />
+            )
+          }
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
@@ -151,8 +180,28 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           labelColor={color}
           size={size}
           disabled={disabled}
-          startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
-          endIcon={endIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
+          startIcon={
+            startIcon ? (
+              loading ? (
+                <CircularProgress size={14} sx={{color: '#fff'}} />
+              ) : (
+                startIcon
+              )
+            ) : (
+              <Box sx={{display: 'flex'}} />
+            )
+          }
+          endIcon={
+            endIcon ? (
+              loading ? (
+                <CircularProgress size={14} sx={{color: '#fff'}} />
+              ) : (
+                endIcon
+              )
+            ) : (
+              <Box sx={{display: 'flex'}} />
+            )
+          }
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
@@ -168,8 +217,28 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           labelColor={color}
           size={size}
           disabled={disabled}
-          startIcon={startIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : startIcon : undefined}
-          endIcon={endIcon ? loading ? <CircularProgress size={14} sx={{color: '#fff'}} /> : endIcon : undefined}
+          startIcon={
+            startIcon ? (
+              loading ? (
+                <CircularProgress size={14} sx={{color: '#fff'}} />
+              ) : (
+                startIcon
+              )
+            ) : (
+              <Box sx={{display: 'flex'}} />
+            )
+          }
+          endIcon={
+            endIcon ? (
+              loading ? (
+                <CircularProgress size={14} sx={{color: '#fff'}} />
+              ) : (
+                endIcon
+              )
+            ) : (
+              <Box sx={{display: 'flex'}} />
+            )
+          }
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
