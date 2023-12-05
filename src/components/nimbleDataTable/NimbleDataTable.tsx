@@ -101,9 +101,9 @@ interface NimbleDataTableProps {
   selectionDataKey?: string;
   selectionCallBack?: (value: Record<string, boolean>) => void;
   isEnableRefresh?: boolean;
-  refreshCallBack: () => void;
+  refreshCallBack?: () => void;
   isEnableExport?: boolean;
-  exportCallback: () => void;
+  exportCallback?: () => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
