@@ -525,5 +525,8 @@ export const DatatableWithTopActionAndSelections = {
     exportCallback: () => {
       console.log('click export button');
     },
+    selectAllCallback: () => {
+      console.log('click SELECT ALL button');
+    },
   },
 };
