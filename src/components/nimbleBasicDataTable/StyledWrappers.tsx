@@ -2,6 +2,16 @@ import {styled} from '@mui/system';
 import {OutlinedInput, Typography, Box, TableCell} from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+interface StyledTableRowProps {
+  hoverColor: string;
+  enablecursor: number;
+  colorBackground: string;
+}
+
+interface FilterInputProps {
+  fontFamily: string;
+}
+
 const StyledTableHeaderCell = styled(TableCell)(({fontFamily, width}: {fontFamily: string; width: string}) => ({
   borderBottomColor: '#9B9B9B',
   fontWeight: 600,
@@ -19,6 +29,17 @@ const StyledTableBodyCell = styled(TableCell)(({fontFamily}: {fontFamily: string
   color: '#11151B',
   height: '20px',
   fontFamily,
+}));
+
+const StyledTableRow = styled('tr')(({hoverColor, enablecursor, colorBackground}: StyledTableRowProps) => ({
+  borderBottom: '1px solid #F6F7F9',
+  background: colorBackground,
+  '&:hover': {
+    backgroundColor: hoverColor,
+    cursor: enablecursor === 1 ? 'pointer' : 'default',
+  },
+  WebkitTransition: 'background 500ms', // For Safari 3.0 to 6.0
+  transition: 'background 500ms', // For modern browsers
 }));
 
 const PaginationWrapper = styled('div')({
@@ -82,9 +103,19 @@ const ArrowForwardIosIconWrapper = styled(ArrowForwardIosIcon)({
   color: '#383838',
 });
 
+const FilterInput = styled(OutlinedInput)(({fontFamily}: FilterInputProps) => ({
+  height: '30px',
+  width: '75%',
+  marginTop: '10px',
+  marginBottom: '10px',
+  fontSize: '14px',
+  fontFamily,
+}));
+
 export {
   StyledTableHeaderCell,
   StyledTableBodyCell,
+  StyledTableRow,
   PaginationWrapper,
   FilterWrapper,
   CustomPaginationWrapper,
@@ -93,4 +124,5 @@ export {
   PaginationGoButton,
   PaginationGoButtonText,
   ArrowForwardIosIconWrapper,
+  FilterInput,
 };

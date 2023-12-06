@@ -16,6 +16,9 @@ export default NimbleBasicDataTableStory;
 
 export const NimbleBasicDataTableStoryDefault = {
   args: {
+    onChangeColumnFilters: (filterData: any) => {
+      console.log(filterData);
+    },
     columns: [
       {label: 'Date', key: 'date', width: '15%', sort: true},
       {label: 'User', key: 'user', width: '20%', sort: true},
