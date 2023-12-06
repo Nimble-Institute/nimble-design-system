@@ -104,6 +104,7 @@ interface NimbleDataTableProps {
   refreshCallBack?: () => void;
   isEnableExport?: boolean;
   exportCallback?: () => void;
+  selectAllCallback?: () => void;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -147,6 +148,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   isEnableExport = false,
   refreshCallBack,
   exportCallback,
+  selectAllCallback,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -269,6 +271,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 setSelectedRadioValues({
                   ...temp,
                 });
+                selectAllCallback && selectAllCallback();
               }}
               size="small"
               height="34px"
