@@ -30,6 +30,7 @@ interface NimbleTimeline {
   itemMoveHandler?: Function;
   itemDoubleClickHandler?: Function;
   itemHoverHandler?: Function;
+  hoverPopup?: any;
   fontFamily?: string;
   weekMarkerWidth?: string;
   addItemHandler?: (groupId: number | string, time: number, e: React.SyntheticEvent) => void;
@@ -65,6 +66,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   itemDoubleClickHandler,
   itemHoverHandler,
   addItemHandler,
+  hoverPopup,
   fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
   weekMarkerWidth = '37px',
 }) => {
@@ -72,6 +74,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const [items, setItems] = useState(timelineItems);
   const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
   const [currentDate, setCurrentDate] = useState(moment());
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [hoveredItemId, setHoveredItemId] = useState(null);
 
   useEffect(() => {
     // Update the current date in the state every minute
@@ -154,9 +158,17 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   };
 
   const itemRenderer = ({item, itemContext, getItemProps, getResizeProps}: ItemRendererProps) => {
-    const {left: leftResizeProps, right: rightResizeProps} = getResizeProps();
+    const {left: leftResizeProps, right: rightResizeProps, index} = getResizeProps();
+    const isFirstChild = itemContext.dimensions.order.index === 0;
     return (
-      <div onClick={e => handleItemDoubleClick(e, item)} onMouseOver={e => handleItemHover(e, item)}>
+      <div
+        key={item.id}
+        onClick={e => handleItemDoubleClick(e, item)}
+        onMouseOver={e => {
+          setHoveredItemId(item.id);
+          handleItemHover(e, item);
+        }}
+        onMouseLeave={() => setHoveredItemId(null)}>
         <div
           {...getItemProps({
             ...item.itemProps,
@@ -165,8 +177,19 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               background: item.color,
               border: itemContext.selected ? 'dashed 1px rgba(0,0,0,0.6)' : 'none',
               opacity: itemContext.selected ? 0.8 : 1,
+              zIndex: hoveredItemId === item.id ? 99 : 80,
             },
           })}>
+          {hoveredItemId === item.id && (
+            <div
+              className="animated-div"
+              style={{
+                position: 'absolute',
+                top: isFirstChild ? '25px' : '-100px',
+              }}>
+              {hoverPopup}
+            </div>
+          )}
           {itemContext.useResizeHandle ? <div {...leftResizeProps} style={{borderRadius: '8px'}} /> : ''}
 
           <ItemContent>{itemContext.title}</ItemContent>
@@ -244,7 +267,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         items={items}
         keys={keys}
         itemTouchSendsClick={false}
-        stackItems
+        stackItems={false}
         itemHeightRatio={0.4}
         sidebarWidth={sidebarWidth}
         canMove={true}
@@ -259,7 +282,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         minZoom={1.24 * 86400 * 1000 * 7 * 3}
         defaultTimeStart={moment(new Date()).add(-1, 'month')}
         defaultTimeEnd={moment(new Date()).add(1.5, 'month')}
-        onCanvasClick={addItemHandler}>
+        onCanvasClick={addItemHandler}
+        >
         <TimelineHeaders>
           <SidebarHeader>
             {({getRootProps}) => {
