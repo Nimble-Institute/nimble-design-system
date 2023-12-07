@@ -44,7 +44,7 @@ export const NimbleBasicDataTable = ({
   onClickSort,
   onClickRow,
   rowHoverColor = '#f0f0f0',
-  backgroundColor = '#f0f0f0',
+  backgroundColor = '#ffffff',
   isEnableRowHoverPointer = false,
 }: {
   columns: any;
