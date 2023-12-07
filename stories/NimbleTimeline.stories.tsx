@@ -35,6 +35,11 @@ const itemDoubleClickCallback = item => {
   console.info('item doubleClick: ', item);
 };
 
+const addItemCallback = (groupId, timestamp, e) => {
+  console.log('groupID: ', groupId),
+  console.log('timestamp: ', timestamp);
+}
+
 export const NimbleTimelineDefault = {
   args: {
     sidebarWidth: 500,
@@ -44,6 +49,7 @@ export const NimbleTimelineDefault = {
     itemResizeHandler: resizeCallback,
     itemDoubleClickHandler: itemDoubleClickCallback,
     itemHoverHandler: hoverCallback,
+    addItemHandler: addItemCallback,
     sidebarGroups: [
       {
         id: 1,

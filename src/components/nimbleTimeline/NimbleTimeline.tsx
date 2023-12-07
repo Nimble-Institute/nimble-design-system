@@ -5,12 +5,10 @@ import {Typography} from '@mui/material';
 import Timeline, {
   CustomMarker,
   DateHeader,
-  IntervalRenderer,
   ItemContext,
   SidebarHeader,
   TimelineHeaders,
   TimelineMarkers,
-  TodayMarker,
 } from 'react-calendar-timeline';
 
 import InfoLabel from './InfoLabel';
@@ -34,6 +32,7 @@ interface NimbleTimeline {
   itemHoverHandler?: Function;
   fontFamily?: string;
   weekMarkerWidth?: string;
+  addItemHandler?: (groupId: number | string, time: number, e: React.SyntheticEvent) => void;
 }
 interface Group {
   id: number;
@@ -60,12 +59,12 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   sidebarWidth = 300,
   sidebarGroups = [],
   timelineItems = [],
-  showTimelineItemText = false,
   sideBarHeaderText,
   itemResizeHandler,
   itemMoveHandler,
   itemDoubleClickHandler,
   itemHoverHandler,
+  addItemHandler,
   fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
   weekMarkerWidth = '37px',
 }) => {
@@ -192,12 +191,16 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
             style={{
               display: 'flex',
               flexDirection: 'row',
-              minWidth: '33.33%',
+              width: '33.33%',
               justifyContent: 'space-between',
-              paddingRight: '24px',
+              paddingRight: '8px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}>
             {group?.parent?.badge && <Chip bgColor={group?.color}>{group?.parent?.badge}</Chip>}
-            <Typography variant="body1">{group?.parent?.title}</Typography>
+            <Typography sx={{overflow: 'hidden', textOverflow: 'ellipsis'}} variant="body1">
+              {group?.parent?.title}
+            </Typography>
           </div>
         ) : (
           <div style={{minWidth: '33.33%'}}></div>
@@ -208,8 +211,10 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
             fontSize: '14px',
             fontWeight: '400',
             border: '1px solid #bbb',
-            minWidth: '33.33%',
+            width: '33.33%',
             paddingLeft: '8px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
           }}>
           {group?.title}
         </div>
@@ -219,9 +224,11 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               fontSize: '14px',
               fontWeight: '200',
               border: '1px solid #bbb',
-              minWidth: '33.33%',
+              width: '33.33%',
               borderLeft: '0px',
               paddingLeft: '8px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}>
             {group?.value}
           </div>
@@ -251,7 +258,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         maxZoom={1.5 * 365.24 * 86400 * 1000}
         minZoom={1.24 * 86400 * 1000 * 7 * 3}
         defaultTimeStart={moment(new Date()).add(-1, 'month')}
-        defaultTimeEnd={moment(new Date()).add(1.5, 'month')}>
+        defaultTimeEnd={moment(new Date()).add(1.5, 'month')}
+        onCanvasClick={addItemHandler}>
         <TimelineHeaders>
           <SidebarHeader>
             {({getRootProps}) => {
