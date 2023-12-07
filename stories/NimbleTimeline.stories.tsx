@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import type {Meta} from '@storybook/react';
 import moment from 'moment';
 
@@ -14,6 +14,7 @@ const NimbleTimelineStory: Meta<typeof NimbleTimeline> = {
 };
 
 export default NimbleTimelineStory;
+
 const hoverCallback = (e, item) => {
   console.log('item hover: ', item);
 };
@@ -36,9 +37,8 @@ const itemDoubleClickCallback = item => {
 };
 
 const addItemCallback = (groupId, timestamp, e) => {
-  console.log('groupID: ', groupId),
-  console.log('timestamp: ', timestamp);
-}
+  console.log('groupID: ', groupId), console.log('timestamp: ', timestamp);
+};
 
 export const NimbleTimelineDefault = {
   args: {
@@ -50,6 +50,9 @@ export const NimbleTimelineDefault = {
     itemDoubleClickHandler: itemDoubleClickCallback,
     itemHoverHandler: hoverCallback,
     addItemHandler: addItemCallback,
+    hoverPopup: (
+      <div style={{width: '250px', height: '100px', background: '#ffff', color: 'blue', border: '1px solid #bbb'}}>tooltip</div>
+    ),
     sidebarGroups: [
       {
         id: 1,
