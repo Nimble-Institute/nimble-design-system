@@ -56,7 +56,7 @@ export const NimbleBasicDataTable = ({
   onClickSort?: (sortKey: string | undefined, sortOrder: string) => void;
   onClickRow?: (item: any) => void;
   rowHoverColor?: string;
-  isEnableRowHoverPointer: boolean;
+  isEnableRowHoverPointer?: boolean;
   backgroundColor?: string;
 }) => {
   const [orderByState, setOrderByState] = useState<string>('');
