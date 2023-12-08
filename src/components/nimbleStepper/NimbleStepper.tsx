@@ -32,17 +32,17 @@ export const NimbleStepper: React.FC<NimbleStepperProps> = ({
           '& .Mui-active': {
             '&.MuiStepIcon-root': {
               color: primaryColor,
-              fontSize: '2rem',
+              fontSize: '1.4rem',
             },
           },
           '& .Mui-completed': {
             '&.MuiStepIcon-root': {
               color: completedColor,
-              fontSize: '2rem',
+              fontSize: '1.4rem',
             },
           },
           '& .MuiStepIcon-root': {
-            fontSize: '2rem',
+            fontSize: '1.4rem',
             color: inactiveColor,
           },
         }}>
