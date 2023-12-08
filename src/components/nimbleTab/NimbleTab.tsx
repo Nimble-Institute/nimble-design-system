@@ -10,6 +10,7 @@ interface TabData {
   activeImage?: any;
   inactiveImage?: any;
   content?: any;
+  disable?: boolean;
 }
 
 interface NimbleTabProps {
@@ -19,7 +20,7 @@ interface NimbleTabProps {
   color?: string;
   activeColor?: string;
   tabs: TabData[];
-  activeTabValue?: number
+  activeTabValue?: number;
   onChangeTab?: (tabValue: number) => void;
   showInlineContent?: boolean;
   type?: 'default' | 'card';
@@ -68,6 +69,7 @@ export const Nimbletab: React.FC<NimbleTabProps> = ({
                 item.inactiveImage && <Box>{item.value === value ? item.activeImage : item.inactiveImage}</Box>
               }
               iconPosition="start"
+              disabled={item.disable}
             />
           ))}
         </Tabs>

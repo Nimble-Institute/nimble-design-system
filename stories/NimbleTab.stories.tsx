@@ -140,6 +140,23 @@ export const NimbleBasicTab = {
   },
 };
 
+export const NimbleBasicTabWithDisable = {
+  args: {
+    width: '500px',
+    tabs: [
+      {
+        value: 1,
+        label: 'Clients',
+      },
+      {
+        value: 2,
+        label: 'Users',
+        disable: true,
+      },
+    ],
+  },
+};
+
 export const NimbleBasicTabDifferentColor = {
   args: {
     width: '500px',
