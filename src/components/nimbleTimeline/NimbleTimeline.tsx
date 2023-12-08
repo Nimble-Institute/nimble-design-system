@@ -74,7 +74,6 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const [items, setItems] = useState(timelineItems);
   const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
   const [currentDate, setCurrentDate] = useState(moment());
-  const [showTooltip, setShowTooltip] = useState(false);
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
   useEffect(() => {
@@ -159,7 +158,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
 
   const itemRenderer = ({item, itemContext, getItemProps, getResizeProps}: ItemRendererProps) => {
     const {left: leftResizeProps, right: rightResizeProps, index} = getResizeProps();
-    const isFirstChild = itemContext.dimensions.order.index === 0;
+    const isFirstOrSecondChild = itemContext.dimensions.order.index === 0 || itemContext.dimensions.order.index === 1;
     return (
       <div
         key={item.id}
@@ -185,7 +184,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               className="animated-div"
               style={{
                 position: 'absolute',
-                top: isFirstChild ? '25px' : '-100px',
+                top: isFirstOrSecondChild ? '25px' : '-100px',
               }}>
               {hoverPopup}
             </div>

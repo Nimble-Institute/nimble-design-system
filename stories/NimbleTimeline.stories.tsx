@@ -98,7 +98,7 @@ export const NimbleTimelineDefault = {
       },
       {
         id: 3,
-        group: 3,
+        group: 2,
         title: '50% (€ 100K/€ 200K)',
         color: '#354968',
         start: moment().add(-300, 'hour'),
