@@ -199,13 +199,15 @@ export const NimbleGaugeChart: React.FC<NimbleGaugeChartProps> = ({
                   {amountLabel}
                 </text>
                 <text
-                  x={width / 5}
+                  x={cx + 5}
                   y={height / 2}
                   style={{
                     fontSize: varianceFontSize,
                     color: varianceColor,
                     fontFamily: fontFamily,
                   }}
+                  textAnchor="middle"
+                  dominantBaseline="central"
                   fill={varianceColor}>
                   {variance}
                 </text>
