@@ -7,10 +7,10 @@ import {NimbleSelect, NimbleDateRange} from '../index';
 
 import searchSVG from '../../assets/images/search.svg';
 
-import {ColumnDataType} from './NimbleBasicDataTable';
+import {ColumnDataBasicTableType} from './NimbleBasicDataTable';
 
 interface FilterInputItemProps {
-  item: ColumnDataType;
+  item: ColumnDataBasicTableType;
   filterChangeDebounceHandler: any;
   sanatizedData: any;
   fontFamily: string;

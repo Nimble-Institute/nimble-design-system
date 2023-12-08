@@ -23,7 +23,7 @@ interface CustomFilterSelection {
   label: string;
   value: string;
 }
-export interface ColumnDataType {
+export interface ColumnDataBasicTableType {
   label: string;
   key?: string;
   sort?: boolean;
@@ -141,7 +141,7 @@ export const NimbleBasicDataTable = ({
           <TableRow>
             {onChangeColumnFilters && (
               <>
-                {columns.map((item: ColumnDataType, index: number) => (
+                {columns.map((item: ColumnDataBasicTableType, index: number) => (
                   <th key={`filter-${index}`}>
                     <FilterInputItem
                       item={item}
