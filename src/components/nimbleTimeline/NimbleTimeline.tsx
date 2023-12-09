@@ -122,6 +122,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
 
   const handleItemMove = (itemId: number, dragTime: number, newGroupOrder: number) => {
     const group = groups[newGroupOrder];
+    const item: any = items.filter((item) =>item.id === itemId);
     setItems(
       items.map(item =>
         item.id === itemId
@@ -130,10 +131,13 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
       ),
     );
     setDraggedItem(undefined);
-    itemMoveHandler && itemMoveHandler(itemId, dragTime, newGroupOrder);
+    itemMoveHandler && itemMoveHandler(itemId, dragTime, dragTime + (item[0]?.end?.valueOf() - item[0]?.start?.valueOf()), newGroupOrder);
   };
 
   const handleItemResize = (itemId: number, time: number, edge: string) => {
+    const item: any = items.filter((item) =>item.id === itemId);
+    const startDate = edge === 'left' ? time : item[0].start;
+    const endDate  = edge === 'left' ? item[0].end : time;
     setItems(
       items.map(item =>
         item.id === itemId
@@ -145,7 +149,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           : item,
       ),
     );
-    itemResizeHandler && itemResizeHandler(itemId, time, edge);
+    itemResizeHandler && itemResizeHandler(itemId, startDate, endDate, edge);
   };
 
   const handleItemDrag = ({itemId, time, newGroupOrder}: {itemId: number; time: number; newGroupOrder: number}) => {

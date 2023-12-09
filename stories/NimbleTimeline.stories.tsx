@@ -18,17 +18,19 @@ export default NimbleTimelineStory;
 const hoverCallback = (e, item) => {
   console.log('item hover: ', item);
 };
-const moveCallback = (itemId, dragTime, newGroupOrder) => {
+const moveCallback = (itemId, startTime, endTime, newGroupOrder) => {
   console.info('move callback');
   console.info('itemId: ', itemId);
-  console.info('dragTime: ', dragTime);
+  console.info('dragTime: ', startTime);
+  console.info('endTime: ', endTime);
   console.info('newGroupOrder: ', newGroupOrder);
 };
 
-const resizeCallback = (itemId, time, edge) => {
+const resizeCallback = (itemId, start, end, edge) => {
   console.info('resize callback');
   console.info('itemId: ', itemId);
-  console.info('time: ', time);
+  console.info('start: ', start);
+  console.info('end: ', end);
   console.info('edge (left or right): ', edge);
 };
 
