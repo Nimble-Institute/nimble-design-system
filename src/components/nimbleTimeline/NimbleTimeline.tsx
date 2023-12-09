@@ -77,6 +77,10 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
   useEffect(() => {
+    setItems(timelineItems);
+  }, [timelineItems])
+
+  useEffect(() => {
     // Update the current date in the state every minute
     const interval = setInterval(() => {
       setCurrentDate(moment());
