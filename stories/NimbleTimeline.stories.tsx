@@ -39,7 +39,9 @@ const itemDoubleClickCallback = item => {
 };
 
 const addItemCallback = (groupId, timestamp, e) => {
-  console.log('groupID: ', groupId), console.log('timestamp: ', timestamp);
+  console.log('groupID: ', groupId);
+  console.log('timestamp: ', timestamp);
+  console.log('starting day of week: ', moment(timestamp).startOf('isoWeek').format('YYYY-MM-DD'));
 };
 
 export const NimbleTimelineDefault = {
@@ -53,7 +55,9 @@ export const NimbleTimelineDefault = {
     itemHoverHandler: hoverCallback,
     addItemHandler: addItemCallback,
     hoverPopup: (
-      <div style={{width: '250px', height: '100px', background: '#ffff', color: 'blue', border: '1px solid #bbb'}}>tooltip</div>
+      <div style={{width: '250px', height: '100px', background: '#ffff', color: 'blue', border: '1px solid #bbb'}}>
+        tooltip
+      </div>
     ),
     sidebarGroups: [
       {
