@@ -528,5 +528,9 @@ export const DatatableWithTopActionAndSelections = {
     selectAllCallback: () => {
       console.log('click SELECT ALL button');
     },
+    onClickRowSelection: (value: any) => {
+      console.log('row selection for itme: ', value);
+    },
+    selectedRows: ['Rylie Gamachchige'],
   },
 };
