@@ -110,6 +110,7 @@ interface NimbleDataTableProps {
   selectedRows?: string[];
   selectAllDisabled?: boolean;
   copySlecetionDisabled?: boolean;
+  minHeight?: string;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -160,6 +161,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   selectedRows,
   selectAllDisabled = false,
   copySlecetionDisabled = false,
+  minHeight = '40vh',
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -224,7 +226,6 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
   const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
-    console.log('key, order: ', sortKey, sortOrder);
     if (sortKey) {
       onClickSort && onClickSort(sortKey, sortOrder);
       setSortData({
@@ -240,7 +241,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
   const handleClickCustomPagination = () => {
     const val = customPaginationInputref?.current.value;
-    clickCustomPagination && clickCustomPagination(val || 1);
+    const {totalPage} = paginationData;
+    if (totalPage >= parseInt(val)) {
+      clickCustomPagination && clickCustomPagination(val || 1);
+    } else {
+      alert('The value you entered greater than total page count');
+    }
   };
 
   const sanatizedData =
@@ -259,7 +265,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
     }, [sortData, data]) || [];
 
   return (
-    <Container>
+    <Container minHeight={minHeight}>
       <ThemeProvider theme={customTheme}>
         {(isEnableTopActions || isEnableSelections) && (
           <Box
