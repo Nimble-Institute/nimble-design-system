@@ -39,7 +39,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import theme from './CustomTheme';
 import {fontWeight, PaginationDataType} from '../shared';
-import {NimbleRadioButton} from '../nimbleRadioButton/NimbleRadioButton';
 import {NimbleButton} from '../nimbleButton/NimbleButton';
 
 interface CustomFilterSelection {
@@ -105,6 +104,12 @@ interface NimbleDataTableProps {
   isEnableExport?: boolean;
   exportCallback?: () => void;
   selectAllCallback?: () => void;
+  copySelectionButtonLabel?: string;
+  selectAllButtonLabel?: string;
+  onClickRowSelection?: (item: any) => void;
+  selectedRows?: string[];
+  selectAllDisabled?: boolean;
+  copySlecetionDisabled?: boolean;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -149,6 +154,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   refreshCallBack,
   exportCallback,
   selectAllCallback,
+  copySelectionButtonLabel = 'Copy Selection',
+  selectAllButtonLabel = 'Select All',
+  onClickRowSelection,
+  selectedRows,
+  selectAllDisabled = false,
+  copySlecetionDisabled = false,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -160,8 +171,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   useEffect(() => {
     if (selectionDataKey) {
       const selections: Record<string, boolean> = {};
+
       data?.forEach(item => {
-        selections[item[selectionDataKey]] = false;
+        const key = item[selectionDataKey];
+        selections[key] = selectedRows?.includes(key) ? true : false;
       });
       setSelectedRadioValues({
         ...selections,
@@ -261,7 +274,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
             <NimbleButton
               variant="contained"
-              label="SELECT ALL"
+              label={selectAllButtonLabel}
               fontFamily={fontFamily}
               onClick={() => {
                 let temp = selectedRadioValues;
@@ -277,11 +290,12 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               height="34px"
               color="#E2E2E2"
               labelColor="#415168"
+              disabled={selectAllDisabled}
             />
             <NimbleButton
               variant="contained"
               fontFamily={fontFamily}
-              label="COPY STATEMENT"
+              label={copySelectionButtonLabel}
               onClick={() => {
                 selectionCallBack && selectionCallBack(selectedRadioValues);
               }}
@@ -289,6 +303,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               height="34px"
               color="#E2E2E2"
               labelColor="#415168"
+              disabled={copySlecetionDisabled}
             />
           </Box>
         )}
@@ -505,11 +520,13 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                           [item[selectionDataKey]]: !curruent,
                         });
                       }}
-                      onClick={() => {
+                      onClick={event => {
+                        event.stopPropagation();
                         setSelectedRadioValues({
                           ...selectedRadioValues,
                           [item[selectionDataKey]]: false,
                         });
+                        onClickRowSelection && onClickRowSelection(item);
                       }}
                       checked={selectedRadioValues[item[selectionDataKey]] === true}
                       size="small"
