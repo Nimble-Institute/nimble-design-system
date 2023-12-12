@@ -7,6 +7,8 @@ const theme = (
   activeBoxShadow: string,
   disabled: boolean,
   fontFamily: string,
+  textColor: string,
+  backgroundColor?: string,
 ) =>
   createTheme({
     components: {
@@ -14,10 +16,10 @@ const theme = (
         styleOverrides: {
           root: {
             borderRadius: '5px',
+            background: disabled ? '#ededed' : backgroundColor || undefined,
             '.MuiOutlinedInput-notchedOutline': {
               borderColor: isError ? '#EC4C29' : borderColor,
               boxShadow: isError ? '0px 0px 0px 2px #FAD4CC' : ' 0px 1px 4px 0px rgba(39, 47, 53, 0.08);',
-              background: disabled && 'rgba(12, 27, 42, 0.06)',
             },
             '&:hover .MuiOutlinedInput-notchedOutline': {
               border: !disabled ? 'none' : undefined,
@@ -38,6 +40,8 @@ const theme = (
               fontSize: '14px',
               fontFamily,
               fontWeight: '400',
+
+              color: `${textColor} !important`,
             },
             '& textarea': {
               fontSize: '14px',
