@@ -107,7 +107,7 @@ interface NimbleDataTableProps {
   copySelectionButtonLabel?: string;
   selectAllButtonLabel?: string;
   onClickRowSelection?: (item: any) => void;
-  selectedRows?: string[];
+  selectedRows?: any[];
   selectAllDisabled?: boolean;
   copySlecetionDisabled?: boolean;
   minHeight?: string;
@@ -176,13 +176,15 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
       data?.forEach(item => {
         const key = item[selectionDataKey];
-        selections[key] = selectedRows?.includes(key) ? true : false;
+        if (typeof key === 'string' || typeof key === 'number') {
+          selections[String(key)] = selectedRows?.includes(key) ? true : false;
+        }
       });
       setSelectedRadioValues({
         ...selections,
       });
     }
-  }, [data, selectionDataKey]);
+  }, [data, selectionDataKey, selectedRows]);
 
   useEffect(() => {
     defaultSorting &&
