@@ -37,6 +37,8 @@ interface NimbleInputProps
   showCharCount?: boolean;
   isFormik?: boolean;
   value?: any;
+  textColor?: string;
+  backgroundColor?: string;
 }
 
 export const NimbleInput = forwardRef<any, NimbleInputProps>(
@@ -68,6 +70,8 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       showCharCount,
       isFormik = false,
       value,
+      backgroundColor,
+      textColor = '#121212',
     },
     ref,
   ) => {
@@ -86,8 +90,27 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
     }, [defaultValue]);
 
     const customTheme = useMemo(() => {
-      return theme(isError || emailInputError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily);
-    }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, emailInputError, fontFamily]);
+      return theme(
+        isError || emailInputError,
+        borderColor,
+        hoverBoxShadow,
+        activeBoxShadow,
+        disabled,
+        fontFamily,
+        textColor,
+        backgroundColor,
+      );
+    }, [
+      isError,
+      borderColor,
+      hoverBoxShadow,
+      activeBoxShadow,
+      disabled,
+      emailInputError,
+      fontFamily,
+      backgroundColor,
+      textColor,
+    ]);
 
     const handleSearch = (value: any) => {
       onChange && onChange(value);
