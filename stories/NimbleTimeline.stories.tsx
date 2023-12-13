@@ -99,8 +99,6 @@ export const NimbleTimelineDefault = {
         color: '#AE4949',
         start: moment(),
         end: moment().add(600, 'hour'),
-        canMove: false,
-        canResize: false,
       },
       {
         id: 3,
@@ -119,5 +117,6 @@ export const NimbleTimelineDefault = {
         end: moment().add(1500, 'hour'),
       },
     ],
+    isEditable: false,
   },
 };

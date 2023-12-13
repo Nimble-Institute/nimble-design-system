@@ -33,6 +33,7 @@ interface NimbleTimeline {
   hoverPopup?: any;
   fontFamily?: string;
   weekMarkerWidth?: string;
+  isEditable: boolean;
   addItemHandler?: (groupId: number | string, time: number, e: React.SyntheticEvent) => void;
 }
 interface Group {
@@ -69,16 +70,30 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   hoverPopup,
   fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
   weekMarkerWidth = '37px',
+  isEditable = false,
 }) => {
-  const [groups] = useState(sidebarGroups);
-  const [items, setItems] = useState(timelineItems);
+  const [groups, setGroups] = useState(sidebarGroups);
+  const [items, setItems] = useState(
+    timelineItems.map(item => ({
+      ...item,
+      canMove: isEditable,
+      canResize: isEditable ? 'both' : false,
+    })),
+  );
   const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
   const [currentDate, setCurrentDate] = useState(moment());
   const [hoveredItemId, setHoveredItemId] = useState(null);
 
   useEffect(() => {
-    setItems(timelineItems);
-  }, [timelineItems])
+    setItems(
+      timelineItems.map(item => ({
+        ...item,
+        canMove: isEditable,
+        canResize: isEditable ? 'both' : false,
+      })),
+    );
+    setGroups(sidebarGroups);
+  }, [timelineItems, sidebarGroups]);
 
   useEffect(() => {
     // Update the current date in the state every minute
@@ -125,33 +140,21 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   };
 
   const handleItemMove = (itemId: number, dragTime: number, newGroupOrder: number) => {
-    const item: any = items.filter((item) =>item.id === itemId);
-    setItems(
-      items.map(item =>
-        item.id === itemId
-          ? {...item, start: dragTime, end: dragTime + (item.end - item.start)}
-          : item,
-      ),
-    );
+    const item: any = items.filter(item => item.id === itemId);
     setDraggedItem(undefined);
-    itemMoveHandler && itemMoveHandler(itemId, dragTime, dragTime + (item[0]?.end?.valueOf() - item[0]?.start?.valueOf()), newGroupOrder);
+    itemMoveHandler &&
+      itemMoveHandler(
+        itemId,
+        dragTime,
+        dragTime + (item[0]?.end?.valueOf() - item[0]?.start?.valueOf()),
+        newGroupOrder,
+      );
   };
 
   const handleItemResize = (itemId: number, time: number, edge: string) => {
-    const item: any = items.filter((item) =>item.id === itemId);
+    const item: any = items.filter(item => item.id === itemId);
     const startDate = edge === 'left' ? time : item[0].start;
-    const endDate  = edge === 'left' ? item[0].end : time;
-    setItems(
-      items.map(item =>
-        item.id === itemId
-          ? {
-              ...item,
-              start: edge === 'left' ? time : item.start,
-              end: edge === 'left' ? item.end : time,
-            }
-          : item,
-      ),
-    );
+    const endDate = edge === 'left' ? item[0].end : time;
     itemResizeHandler && itemResizeHandler(itemId, startDate, endDate, edge);
   };
 
@@ -276,8 +279,6 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         stackItems={false}
         itemHeightRatio={0.4}
         sidebarWidth={sidebarWidth}
-        canMove={true}
-        canResize={'both'}
         onItemMove={handleItemMove}
         onItemResize={handleItemResize}
         onItemDrag={handleItemDrag}
@@ -288,8 +289,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         minZoom={1.24 * 86400 * 1000 * 7 * 3}
         defaultTimeStart={moment(new Date()).add(-1, 'month')}
         defaultTimeEnd={moment(new Date()).add(1.5, 'month')}
-        onCanvasClick={addItemHandler}
-        >
+        onCanvasClick={addItemHandler}>
         <TimelineHeaders>
           <SidebarHeader>
             {({getRootProps}) => {
