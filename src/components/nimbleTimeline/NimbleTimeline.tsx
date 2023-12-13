@@ -181,8 +181,6 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         <div
           {...getItemProps({
             ...item.itemProps,
-            canMove: false,
-            canResize: false,
             style: {
               borderRadius: '5px',
               background: item.color,
