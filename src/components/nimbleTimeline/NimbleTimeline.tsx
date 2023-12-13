@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import moment, {Moment} from 'moment';
+import React, {useEffect, useRef, useState} from 'react';
+import moment from 'moment';
 import {Typography} from '@mui/material';
 
 import Timeline, {
@@ -69,9 +69,11 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   addItemHandler,
   hoverPopup,
   fontFamily = `"Roboto", "Helvetica", "Arial", sans-serif`,
-  weekMarkerWidth = '37px',
   isEditable = false,
 }) => {
+  const dateHeaderRef = useRef(null);
+  let parents: any = [];
+
   const [groups, setGroups] = useState(sidebarGroups);
   const [items, setItems] = useState(
     timelineItems.map(item => ({
@@ -83,6 +85,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const [draggedItem, setDraggedItem] = useState<{item: any; group: Group; time: number} | undefined>(undefined);
   const [currentDate, setCurrentDate] = useState(moment());
   const [hoveredItemId, setHoveredItemId] = useState(null);
+  const [markerWidth, setMarkerWidth] = useState<number>(0);
 
   useEffect(() => {
     setItems(
@@ -103,7 +106,22 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
 
     return () => clearInterval(interval);
   }, []);
-  let parents: any = [];
+
+  useEffect(() => {
+    setDynamicMarkerWidth();
+  }, [dateHeaderRef?.current]);
+
+  const setDynamicMarkerWidth = () => {
+    if (dateHeaderRef?.current) {
+      const width = parseFloat(
+        dateHeaderRef?.current?.scrollHeaderRef?.querySelector(
+          '.rct-calendar-header > div:nth-child(2) > .rct-dateHeader:nth-child(1)',
+        )?.style?.width,
+      );
+      setMarkerWidth(width);
+    }
+  };
+
   const getCurrentWeekRange = (date: moment.Moment) => {
     const startOfWeek = moment(date).startOf('week');
     const endOfWeek = moment(date).endOf('week');
@@ -164,6 +182,10 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
       item = items.find(i => i.id === itemId);
     }
     setDraggedItem({item: item, group: groups[newGroupOrder], time});
+  };
+
+  const handleZoom = () => {
+    setDynamicMarkerWidth();
   };
 
   const itemRenderer = ({item, itemContext, getItemProps, getResizeProps}: ItemRendererProps) => {
@@ -269,9 +291,25 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     );
   };
 
+  const CustomWeekMarker = ({dynamicWidth}: {dynamicWidth: number}) => {
+    return (
+      <CustomMarker date={getCurrentWeekRange(currentDate).startOfWeek.toDate()}>
+        {({styles}) => (
+          <div
+            style={{
+              ...styles,
+              background: 'rgb(245 220 137 / 84%)',
+              width: dynamicWidth,
+            }}></div>
+        )}
+      </CustomMarker>
+    );
+  };
+
   return (
     <TimelineWrapper commonFontFamily={fontFamily}>
       <Timeline
+        ref={dateHeaderRef}
         groups={groups}
         items={items}
         keys={keys}
@@ -289,7 +327,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         minZoom={1.24 * 86400 * 1000 * 7 * 3}
         defaultTimeStart={moment(new Date()).add(-1, 'month')}
         defaultTimeEnd={moment(new Date()).add(1.5, 'month')}
-        onCanvasClick={addItemHandler}>
+        onCanvasClick={addItemHandler}
+        onZoom={handleZoom}>
         <TimelineHeaders>
           <SidebarHeader>
             {({getRootProps}) => {
@@ -306,18 +345,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           <DateHeader unit="week" />
         </TimelineHeaders>
         <TimelineMarkers>
-          {isDateInCurrentWeek(currentDate) && (
-            <CustomMarker date={getCurrentWeekRange(currentDate).startOfWeek.toDate()}>
-              {({styles}) => (
-                <div
-                  style={{
-                    ...styles,
-                    background: 'rgb(245 220 137 / 84%)',
-                    width: weekMarkerWidth,
-                  }}></div>
-              )}
-            </CustomMarker>
-          )}
+          {isDateInCurrentWeek(currentDate) && <CustomWeekMarker dynamicWidth={markerWidth} />}
         </TimelineMarkers>
       </Timeline>
       {draggedItem && <InfoLabel item={draggedItem.item} group={draggedItem.group} time={draggedItem.time} />}
