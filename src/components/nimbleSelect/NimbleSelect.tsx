@@ -32,6 +32,7 @@ interface NimbleSelectProps
   name?: string;
   isFormik?: boolean;
   value?: any;
+  backgroundColor?: string;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -61,6 +62,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   isEnableClear = true,
   isFormik = false,
   value,
+  backgroundColor,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('-');
   const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
@@ -84,8 +86,8 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   }, [value, isFormik, multiple]);
 
   const customTheme = useMemo(() => {
-    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled);
-  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled]);
+    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, backgroundColor);
+  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, backgroundColor]);
 
   const handleChnage = (event: any) => {
     const val = event.target.value;
