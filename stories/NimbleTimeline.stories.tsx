@@ -95,7 +95,7 @@ export const NimbleTimelineDefault = {
       {
         id: 1,
         group: 1,
-        title: '32,5% ($65K/$200K)',
+        title: '32,5% ($65K/$200K) long text for node',
         color: '#AE4949',
         start: moment(),
         end: moment().add(600, 'hour'),
