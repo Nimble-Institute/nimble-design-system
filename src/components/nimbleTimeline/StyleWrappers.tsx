@@ -16,6 +16,15 @@ const TimelineWrapper = styled('div')<TimelineWrapperProps>(props => ({
   fontFamily: props.commonFontFamily,
 }));
 
+const ItemContent = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  width: 'inherit',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+});
+
 const GroupContainer = styled('div')({
   display: 'flex',
   height: 'inherit',
@@ -53,6 +62,7 @@ const Chip = styled('div')<ChipProps>(props => ({
 
 export {
   TimelineWrapper,
+  ItemContent,
   GroupContainer,
   GroupHeaderContainer,
   Chip,
