@@ -89,10 +89,3 @@ body {
         transform: translate(-50%, 0);
     }
 }
-
-.rct-item {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0px 4px 0px 4px;
-}

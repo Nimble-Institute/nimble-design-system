@@ -12,7 +12,7 @@ import Timeline, {
 } from 'react-calendar-timeline';
 
 import InfoLabel from './InfoLabel';
-import {GroupContainer, GroupHeaderContainer, Chip, TimelineWrapper} from './StyleWrappers';
+import {GroupContainer, GroupHeaderContainer, Chip, ItemContent, TimelineWrapper} from './StyleWrappers';
 
 import 'react-calendar-timeline/lib/Timeline.css';
 import './timelineStyles.css';
@@ -223,7 +223,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           )}
           {itemContext.useResizeHandle ? <div {...leftResizeProps} style={{borderRadius: '8px'}} /> : ''}
 
-          {itemContext.title}
+          <ItemContent>{itemContext.title}</ItemContent>
           {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''}
         </div>
       </div>
