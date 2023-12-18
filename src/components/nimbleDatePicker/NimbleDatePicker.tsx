@@ -34,7 +34,7 @@ interface NimbleDatePickerProps
   onBlur?: () => void;
   defaultValue?: string;
   disablePast?: boolean;
-  minDate?: Date,
+  minDate?: Date;
   maxDifferentDays?: number;
   placeholder?: string;
   disabled?: boolean;
@@ -42,6 +42,7 @@ interface NimbleDatePickerProps
   isFormik?: boolean;
   value?: any;
   format?: string;
+  fontSize?: number;
 }
 
 const StyledDatePicker = styled(DatePicker)<{
@@ -52,6 +53,7 @@ const StyledDatePicker = styled(DatePicker)<{
   width: string;
   fontFamily?: string;
   disabled?: boolean;
+  fontSize: number;
 }>`
   width: ${(props: {width: string}) => props.width};
   max-height: 34px;
@@ -76,7 +78,7 @@ const StyledDatePicker = styled(DatePicker)<{
       !props.disabled ? props.activeBoxShadow : 'none '}!important;
   }
   input {
-    font-size: 14px !important;
+    font-size: ${(props: {fontSize: number}) => props.fontSize}px!important;
     font-family: ${(props: {fontFamily: string}) => props.fontFamily}!important;
   }
 `;
@@ -105,6 +107,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
   isFormik = false,
   value,
   format = 'YYYY-MM-DD',
+  fontSize = 14,
   ...props
 }) => {
   const handleCalandarChange = (date: any, dateString: string) => {
@@ -115,10 +118,10 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
     if (disablePast) {
       const tooLate = current && current.valueOf() < Date.now();
       return !!tooLate;
-    } else if(minDate){
+    } else if (minDate) {
       const minSelectableDate = current && current.valueOf() < minDate.valueOf();
       return !!minSelectableDate;
-    } 
+    }
   };
 
   return (
@@ -149,6 +152,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
         onBlur={onBlur}
         value={isFormik ? value && dayjs(value) : undefined}
         format={format}
+        fontSize={fontSize}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
