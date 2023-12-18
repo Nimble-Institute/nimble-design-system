@@ -173,6 +173,19 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
             style: {
               maxHeight: '172px',
             },
+            sx: {
+              '&::-webkit-scrollbar': {
+                width: '2px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: '#bdbdbd',
+                borderRadius: '10px',
+                boxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.3)',
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor: '#e3e3e3',
+              },
+            },
           }}
           clearIcon={<img src={clearSVG} />}
           popupIcon={<img src={searchSVG} />}
