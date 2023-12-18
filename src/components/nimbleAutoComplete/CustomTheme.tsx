@@ -7,6 +7,7 @@ const theme = (
   activeBoxShadow: string,
   disabled: boolean,
   fontFamily: string,
+  fontSize: number,
   backgroundColor?: string,
 ) =>
   createTheme({
@@ -33,12 +34,12 @@ const theme = (
             },
             '.MuiInputBase-input': {
               height: '17px',
-              fontSize: '14px',
+              fontSize: `${fontSize}px`,
               fontWeight: '400',
               fontFamily,
             },
             '& input::placeholder': {
-              fontSize: '14px',
+              fontSize: `${fontSize}px`,
               fontWeight: '400',
               fontFamily,
             },
