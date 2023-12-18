@@ -33,6 +33,7 @@ interface NimbleAutoCompleteProps
   name?: string;
   isFormik?: boolean;
   value?: any;
+  backgroundColor?: string;
 }
 
 export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
@@ -58,14 +59,15 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   name = undefined,
   isFormik = false,
   value,
+  backgroundColor,
   ...props
 }) => {
   const inputRef = useRef<any>(null);
   const [internalValue, setInternalValue] = useState<any>(defaultValue || multiple ? [] : null);
 
   const customTheme = useMemo(() => {
-    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily);
-  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily]);
+    return theme(isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily, backgroundColor);
+  }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily, backgroundColor]);
 
   const handleOnChnage = (
     event: React.SyntheticEvent,
