@@ -86,6 +86,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
   const [currentDate, setCurrentDate] = useState(moment());
   const [hoveredItemId, setHoveredItemId] = useState(null);
   const [markerWidth, setMarkerWidth] = useState<number>(0);
+  const [mouseDown, setMouseDown] = useState<boolean>(false);
 
   useEffect(() => {
     setItems(
@@ -199,7 +200,10 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           setHoveredItemId(item.id);
           handleItemHover(e, item);
         }}
-        onMouseLeave={() => setHoveredItemId(null)}>
+        onMouseDown={() => setMouseDown(true)}
+        onMouseUp={() => setMouseDown(false)}
+        onMouseLeave={() => setHoveredItemId(null)}
+        onDrag={() => setMouseDown(true)}>
         <div
           {...getItemProps({
             ...item.itemProps,
@@ -209,11 +213,12 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               border: itemContext.selected ? 'dashed 1px rgba(0,0,0,0.6)' : 'none',
               opacity: itemContext.selected ? 0.8 : 1,
               zIndex: hoveredItemId === item.id ? 99 : 80,
+              cursor: mouseDown ? 'ew-resize' : 'default',
             },
           })}>
           {hoveredItemId === item.id && (
             <div
-              className={isFirstOrSecondChild ? "animated-div" : "animated-div animated-div-down"}
+              className={isFirstOrSecondChild ? 'animated-div' : 'animated-div animated-div-down'}
               style={{
                 position: 'absolute',
                 top: isFirstOrSecondChild ? '25px' : '-100px',
@@ -221,7 +226,11 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
               {hoverPopup}
             </div>
           )}
-          {itemContext.useResizeHandle ? <div {...leftResizeProps} style={{borderRadius: '8px'}} /> : ''}
+          {itemContext.useResizeHandle ? (
+            <div {...leftResizeProps} style={{borderRadius: '8px', cursor: 'col-resize'}} />
+          ) : (
+            ''
+          )}
 
           <ItemContent>{itemContext.title}</ItemContent>
           {itemContext.useResizeHandle ? <div {...rightResizeProps} /> : ''}
@@ -328,7 +337,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         defaultTimeEnd={moment(new Date()).add(1.5, 'month')}
         onCanvasClick={addItemHandler}
         onZoom={handleZoom}>
-        <TimelineHeaders className='sticky'>
+        <TimelineHeaders className="sticky">
           <SidebarHeader>
             {({getRootProps}) => {
               return (

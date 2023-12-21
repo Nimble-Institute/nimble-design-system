@@ -171,6 +171,6 @@ export const NimbleTimelineDefault = {
         end: moment().add(1500, 'hour'),
       },
     ],
-    isEditable: false,
+    isEditable: true,
   },
 };
