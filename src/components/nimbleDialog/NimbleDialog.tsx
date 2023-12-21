@@ -29,7 +29,7 @@ interface NimbleDialogProps {
   mainActionInProgress?: boolean;
   onClickPrimaryAction?: () => void;
   onClickClose: () => void;
-  maxWidth: Breakpoint;
+  maxWidth: Breakpoint | false;
   topActionPanel?: boolean;
   topActionPanalData?: NimbleButtonProps[];
   bottomActionPosition?: 'flex-start' | 'center' | 'flex-end';
