@@ -96,7 +96,7 @@ body {
 
 @keyframes slideDown {
     0% {
-        transform: translate(-50%,-100%);
+        transform: translate(-50%, -100%);
     }
 
     100% {
@@ -108,5 +108,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 2000;
-  }
-  
+}
+
+.rct-scroll {
+    cursor: default !important;
+}
