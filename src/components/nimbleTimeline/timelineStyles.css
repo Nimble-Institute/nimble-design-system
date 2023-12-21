@@ -80,6 +80,10 @@ body {
     animation: slideUp 0.5s ease-out;
 }
 
+.animated-div-down {
+    animation: slideDown 0.5s ease-out;
+}
+
 @keyframes slideUp {
     0% {
         transform: translate(-50%, 100%);
@@ -89,3 +93,20 @@ body {
         transform: translate(-50%, 0);
     }
 }
+
+@keyframes slideDown {
+    0% {
+        transform: translate(-50%,-100%);
+    }
+
+    100% {
+        transform: translate(-50%, 0%);
+    }
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+  }
+  

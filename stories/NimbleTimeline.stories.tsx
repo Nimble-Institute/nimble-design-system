@@ -90,6 +90,36 @@ export const NimbleTimelineDefault = {
         color: '#354968',
         parent: {key: 2, title: 'Overheid', badge: '650112'},
       },
+      {
+        id: 5,
+        title: 'Planschade',
+        value: '32,5% (€ 65K/€ 200K)',
+        color: '#AE4949',
+        parent: {key: 1, title: 'Grond', badge: '650150'},
+      },
+      {
+        id: 6,
+        title: 'Aankoopgrond',
+        color: '#AE4949',
+        parent: {key: 1, title: 'Grond', badge: '650150'},
+      },
+      {
+        id: 7,
+        title: 'Leges',
+        color: '#354968',
+        value: (
+          <div>
+            <span style={{color: 'red'}}>110%</span> (€ 220K/€ 200K)
+          </div>
+        ),
+        parent: {key: 2, title: 'Overheid', badge: '650112'},
+      },
+      {
+        id: 8,
+        title: 'Exploitatiebijdrage',
+        color: '#354968',
+        parent: {key: 2, title: 'Overheid', badge: '650112'},
+      },
     ],
     timelineItems: [
       {
@@ -110,6 +140,30 @@ export const NimbleTimelineDefault = {
       },
       {
         id: 4,
+        group: 3,
+        title: '60% (€ 120K/€ 200K)',
+        color: '#354968',
+        start: moment().add(600, 'hour'),
+        end: moment().add(1500, 'hour'),
+      },
+      {
+        id: 5,
+        group: 5,
+        title: '32,5% ($65K/$200K) long text for node',
+        color: '#AE4949',
+        start: moment(),
+        end: moment().add(600, 'hour'),
+      },
+      {
+        id: 6,
+        group: 6,
+        title: '50% (€ 100K/€ 200K)',
+        color: '#354968',
+        start: moment().add(-300, 'hour'),
+        end: moment().add(400, 'hour'),
+      },
+      {
+        id: 7,
         group: 3,
         title: '60% (€ 120K/€ 200K)',
         color: '#354968',
