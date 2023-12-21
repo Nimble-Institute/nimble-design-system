@@ -213,7 +213,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
           })}>
           {hoveredItemId === item.id && (
             <div
-              className="animated-div"
+              className={isFirstOrSecondChild ? "animated-div" : "animated-div animated-div-down"}
               style={{
                 position: 'absolute',
                 top: isFirstOrSecondChild ? '25px' : '-100px',
@@ -328,7 +328,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         defaultTimeEnd={moment(new Date()).add(1.5, 'month')}
         onCanvasClick={addItemHandler}
         onZoom={handleZoom}>
-        <TimelineHeaders>
+        <TimelineHeaders className='sticky'>
           <SidebarHeader>
             {({getRootProps}) => {
               return (
