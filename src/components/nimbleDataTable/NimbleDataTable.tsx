@@ -335,7 +335,10 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               onClick={() => {
                 setEnableColumnFilter(!enableColumnFilter);
               }}>
-              <FilterImage color={enableColumnFilter ? primaryColor : '#383838'} />
+              <FilterImage
+                color={enableColumnFilter ? primaryColor : '#383838'}
+                backgroundcolor={enableColumnFilter ? '#0057A2' : '#FFF'}
+              />
             </ActionIcon>
           )}
           {isEnableExport && (
@@ -344,7 +347,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               onClick={() => {
                 exportCallback && exportCallback();
               }}>
-              <DownloadImage color={enableColumnFilter ? primaryColor : '#383838'} />
+              <DownloadImage color={primaryColor} backgroundcolor={'#FFF'} />
             </ActionIcon>
           )}
           {isEnableRefresh && (
@@ -360,7 +363,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 });
                 refreshCallBack && refreshCallBack();
               }}>
-              <RefreshImage color={enableColumnFilter ? primaryColor : '#383838'} />
+              <RefreshImage color={primaryColor} backgroundcolor={'#FFF'} />
             </ActionIcon>
           )}
           {onClickMainAction && (

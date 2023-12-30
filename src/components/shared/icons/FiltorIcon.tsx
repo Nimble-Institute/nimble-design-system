@@ -1,9 +1,9 @@
 import React from 'react';
 
-const FilterIcon: React.FC<{color: string}> = ({color}) => {
+const FilterIcon: React.FC<{color: string; backgroundcolor: string}> = ({color, backgroundcolor}) => {
   return (
     <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="16" fill="#0057A2" fill-opacity="0.1" />
+      <circle cx="16" cy="16" r="16" fill={backgroundcolor} fill-opacity="0.1" />
       <path
         d="M18.3186 23.0698C18.3186 23.6798 17.9186 24.4798 17.4086 24.7898L15.9986 25.6998C14.6886 26.5098 12.8686 25.5998 12.8686 23.9798V18.6298C12.8686 17.9198 12.4686 17.0098 12.0586 16.5098L8.21859 12.4698C7.70859 11.9598 7.30859 11.0598 7.30859 10.4498V8.12977C7.30859 6.91977 8.21859 6.00977 9.32859 6.00977H22.6686C23.7786 6.00977 24.6886 6.91977 24.6886 8.02977V10.2498C24.6886 11.0598 24.1786 12.0698 23.6786 12.5698"
         stroke={color}
