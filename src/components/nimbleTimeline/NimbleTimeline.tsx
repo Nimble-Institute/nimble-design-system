@@ -189,6 +189,45 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
     setDynamicMarkerWidth();
   };
 
+  /** Since libray doesn't support weekly segments out of the box, a custom solution was requred
+   *  here we set custom markers as weekly segments for -10 and +10 years from today
+   */
+  const today: Date = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Custom marker renderer
+  const renderCustomMarker = ({styles}: {styles: Object}) => <div style={{...styles, backgroundColor: '#bbb'}} />;
+
+  function getEndOfWeek(date: Date) {
+    const endDate = new Date(date);
+    const dayOfWeek = date.getDay();
+    const diff = dayOfWeek === 0 ? 6 : 6 - dayOfWeek; // Calculate the difference to the end of the week
+    endDate.setDate(date.getDate() + diff); // Set the date to the end of the week
+    endDate.setHours(23, 59, 59, 999); // Set the time to the end of the day
+    return endDate;
+  }
+
+  const getTenYearsBack = (): Date => {
+    const currentDate: Date = new Date();
+    const tenYearsAgo: Date = new Date(currentDate);
+    tenYearsAgo.setFullYear(currentDate.getFullYear() - 10);
+    return tenYearsAgo;
+  };
+
+  // Generate marker dates for the start of each week
+  const generateMarkerDates = (startDate: Date, numberOfWeeks: number) => {
+    const startOfWeek = getEndOfWeek(startDate);
+    const markerDates = [];
+    for (let i = 0; i < numberOfWeeks; i++) {
+      const markerDate = new Date(startOfWeek);
+      markerDate.setDate(markerDate.getDate() + i * 7);
+      markerDates.push({date: markerDate.getTime(), id: i + 1});
+    }
+    return markerDates;
+  };
+
+  const markerDates = generateMarkerDates(getTenYearsBack(), 1040); // Adjust the number of weeks as needed
+
   const itemRenderer = ({item, itemContext, getItemProps, getResizeProps}: ItemRendererProps) => {
     const {left: leftResizeProps, right: rightResizeProps, index} = getResizeProps();
     const isFirstOrSecondChild = itemContext.dimensions.order.index === 0 || itemContext.dimensions.order.index === 1;
@@ -336,7 +375,8 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         defaultTimeStart={moment(new Date()).add(-1, 'month')}
         defaultTimeEnd={moment(new Date()).add(1.5, 'month')}
         onCanvasClick={addItemHandler}
-        onZoom={handleZoom}>
+        onZoom={handleZoom}
+        canChangeGroup={false}>
         <TimelineHeaders className="sticky">
           <SidebarHeader>
             {({getRootProps}) => {
@@ -354,6 +394,11 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
         </TimelineHeaders>
         <TimelineMarkers>
           {isDateInCurrentWeek(currentDate) && <CustomWeekMarker dynamicWidth={markerWidth} />}
+          {markerDates.map(marker => (
+            <CustomMarker key={marker.date} date={marker.date}>
+              {renderCustomMarker}
+            </CustomMarker>
+          ))}
         </TimelineMarkers>
       </Timeline>
       {draggedItem && <InfoLabel item={draggedItem.item} group={draggedItem.group} time={draggedItem.time} />}
