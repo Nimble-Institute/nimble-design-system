@@ -113,3 +113,7 @@ body {
 .rct-scroll {
     cursor: default !important;
 }
+
+.rct-vl {
+    display: none;
+  }
