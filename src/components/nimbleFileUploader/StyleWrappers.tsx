@@ -87,9 +87,7 @@ const ToolBar = styled(Box)({
   display: 'flex',
   paddingLeft: '8px',
   paddingRight: '8px',
-  flex: 1,
-  justifyContent: 'space-between',
-  width: '144px',
+  gap: '25px',
 });
 
 const FileThumb = styled(Box)({

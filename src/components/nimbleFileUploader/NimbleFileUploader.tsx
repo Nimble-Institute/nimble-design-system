@@ -48,6 +48,7 @@ interface NimbleFileUploaderProps {
   isUploadButtonRequired?: boolean;
   headerText?: string;
   enableActionOnHover?: boolean;
+  hideEdit?: boolean;
 }
 
 const toBase64 = (file: File): Promise<string> =>
@@ -73,6 +74,7 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   isUploadButtonRequired = true,
   headerText = 'Uploaded Files',
   enableActionOnHover = false,
+  hideEdit = false,
 }) => {
   const hiddenFileInput = useRef<any>(null);
 
@@ -170,9 +172,11 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
                         }>
                         <img src={ImageTypes.indexOf(extension) > -1 ? previewSVG : downloadSVG} />
                       </IconButton>
-                      <IconButton size="small" onClick={() => handleClickEdit(item.id)}>
-                        <img src={eidtSVG} />
-                      </IconButton>
+                      {!hideEdit && (
+                        <IconButton size="small" onClick={() => handleClickEdit(item.id)}>
+                          <img src={eidtSVG} />
+                        </IconButton>
+                      )}
                       <IconButton size="small" onClick={() => onClickDelete && onClickDelete(item.fileName, item.id)}>
                         <img src={deleteSVG} />
                       </IconButton>
