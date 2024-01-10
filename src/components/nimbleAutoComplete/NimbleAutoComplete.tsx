@@ -127,7 +127,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
     const isFirstOption = props['data-option-index'] === 0;
 
     return (
-      <OptionList {...props} role="list-box" islastOption={islastOption} isFirstOption={isFirstOption}>
+      <OptionList {...props} key={option.value} role="list-box" islastOption={islastOption} isFirstOption={isFirstOption}>
         <OptionLabel fontFamily={fontFamily}>{option.label}</OptionLabel>
         {selected && <SlectedIcon chipcolor={chipColor} />}
       </OptionList>
