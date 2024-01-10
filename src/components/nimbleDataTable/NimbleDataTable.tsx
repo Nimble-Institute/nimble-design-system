@@ -557,7 +557,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
                 customPaginationInputref.current.value = '';
                 paginationData.onPageChnage(event, page);
               }}
-              sx={{button: {color: '#383838'}}}
+              sx={{button: {color: '#383838', fontFamily, fontSize: '12px'}}}
               color="primary"
             />
             <CustomPaginationWrapper>
