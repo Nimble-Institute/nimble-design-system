@@ -3,7 +3,7 @@ import {InputAdornment} from '@mui/material';
 import {uniqBy, capitalize} from 'lodash';
 
 import {FilterInput, FilterWrapper} from './StyledWrappers';
-import {NimbleSelect, NimbleDateRange} from '../index';
+import {NimbleSelect, NimbleDateRange, NimbleDatePicker} from '../index';
 
 import searchSVG from '../../assets/images/search.svg';
 
@@ -16,7 +16,12 @@ interface FilterInputItemProps {
   fontFamily: string;
 }
 
-const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebounceHandler, sanatizedData, fontFamily}) => {
+const FilterInputItem: React.FC<FilterInputItemProps> = ({
+  item,
+  filterChangeDebounceHandler,
+  sanatizedData,
+  fontFamily,
+}) => {
   const generateFilterSelection = (data: any, datapoint: string) => {
     if (data) {
       return data;
@@ -29,7 +34,7 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
       }));
     }, [sanatizedData, datapoint]);
 
-    return result;    
+    return result;
   };
 
   const renderInput = () => {
@@ -47,7 +52,6 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
                 onChange={(value: string) => filterChangeDebounceHandler(value, item.dataPoint)}
                 fontFamily={fontFamily}
                 multiple={true}
-
               />
             </FilterWrapper>
           )
@@ -67,6 +71,17 @@ const FilterInputItem: React.FC<FilterInputItemProps> = ({item, filterChangeDebo
               />
             </FilterWrapper>
           )
+        );
+      case 'date':
+        return (
+          <FilterWrapper>
+            <NimbleDatePicker
+              width="100%"
+              height="30px"
+              fontSize={14}
+              onDateChange={(value: string | string[]) => filterChangeDebounceHandler(value, item.dataPoint)}
+            />
+          </FilterWrapper>
         );
       case 'date-range':
         return (

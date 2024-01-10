@@ -43,6 +43,7 @@ interface NimbleDatePickerProps
   value?: any;
   format?: string;
   fontSize?: number;
+  height?: string;
 }
 
 const StyledDatePicker = styled(DatePicker)<{
@@ -54,9 +55,10 @@ const StyledDatePicker = styled(DatePicker)<{
   fontFamily?: string;
   disabled?: boolean;
   fontSize: number;
+  height: string;
 }>`
   width: ${(props: {width: string}) => props.width};
-  max-height: 34px;
+  max-height: ${(props: {height: string}) => props.height};
   border: 1px solid;
   border-color: ${(props: {borderColor: string; isError?: boolean; disabled: boolean}) =>
     props.isError ? '#EC4C29' : !props.disabled ? props.borderColor : '#cbcfd4'}!important;
@@ -108,6 +110,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
   value,
   format = 'YYYY-MM-DD',
   fontSize = 14,
+  height = '34px',
   ...props
 }) => {
   const handleCalandarChange = (date: any, dateString: string) => {
@@ -153,6 +156,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
         value={isFormik ? value && dayjs(value) : undefined}
         format={format}
         fontSize={fontSize}
+        height={height}
         {...props}
       />
       <InputError isError={isError} errorMessage={errorMessage} fontFamily={fontFamily} />
