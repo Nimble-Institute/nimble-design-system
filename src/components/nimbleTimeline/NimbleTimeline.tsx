@@ -165,7 +165,7 @@ export const NimbleTimeline: React.FC<NimbleTimeline> = ({
       itemMoveHandler(
         itemId,
         dragTime,
-        dragTime + (item[0]?.end?.valueOf() - item[0]?.start?.valueOf()),
+        moment(dragTime).startOf('isoWeek').format('YYYY-MM-DD') + (item[0]?.end?.valueOf() - item[0]?.start?.valueOf()),
         newGroupOrder,
       );
   };

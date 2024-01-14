@@ -21,8 +21,8 @@ const hoverCallback = (e, item) => {
 const moveCallback = (itemId, startTime, endTime, newGroupOrder) => {
   console.info('move callback');
   console.info('itemId: ', itemId);
-  console.info('dragTime: ', startTime);
-  console.info('endTime: ', endTime);
+  console.info('dragTime: ', new Date(startTime));
+  console.info('endTime: ', new Date(endTime));
   console.info('newGroupOrder: ', newGroupOrder);
 };
 
