@@ -92,7 +92,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   const handleChnage = (event: any) => {
     const val = event.target.value;
     multiple ? setSelectedValueForMultiple(val.filter((item: string) => item !== '-')) : setSelectedValue(val);
-    onChange && onChange(val);
+    onChange && onChange(multiple ? val.filter((item: string) => item !== '-') : val);
   };
 
   const handleClear = () => {
