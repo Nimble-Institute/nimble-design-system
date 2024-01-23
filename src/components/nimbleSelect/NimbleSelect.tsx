@@ -4,8 +4,8 @@ import {ThemeProvider} from '@mui/material/styles';
 import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
 
 import theme from './CustomTheme';
-import dropdownSVG from '../../assets/images/select/dropdown.svg';
-import clearSVG from '../../assets/images/clear.svg';
+import DropdownIcon from '../../assets/icons/DropdownIcon';
+import ClearIcon from '../../assets/icons/ClearIcon';
 
 interface NimbleSelectData {
   label: string;
@@ -33,6 +33,7 @@ interface NimbleSelectProps
   isFormik?: boolean;
   value?: any;
   backgroundColor?: string;
+  color?: string;
 }
 
 export const NimbleSelect: React.FC<NimbleSelectProps> = ({
@@ -63,6 +64,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   isFormik = false,
   value,
   backgroundColor,
+  color = '#000',
 }) => {
   const [selectedValue, setSelectedValue] = useState<string>('-');
   const [selectedValueForMultiple, setSelectedValueForMultiple] = useState<string[]>(['-']);
@@ -130,17 +132,21 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
             height,
             fontSize,
             fontFamily,
-            color: selectedValue === '-' ? '#AAAAAA' : undefined,
+            color: selectedValue === '-' ? '#AAAAAA' : color,
             '.MuiSelect-multiple': {
-              color: selectedValueForMultiple[0] === '-' ? '#AAAAAA' : 'black',
+              color: selectedValueForMultiple[0] === '-' ? '#AAAAAA' : color,
+              paddingRight: '14px',
             },
             textTransform: 'none',
+            paddingRight: '14px',
           }}
           disabled={disabled}
           IconComponent={props => (
-            <img
+            <DropdownIcon
               {...props}
-              src={dropdownSVG}
+              color={color}
+              fontSize={fontSize}
+              disabled={disabled}
               style={{
                 width: fontSize > 13 ? '16px' : '14px',
                 pointerEvents: 'none !important',
@@ -154,13 +160,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
                 size="small"
                 sx={{marginRight: '10px', position: 'absolute', right: 15}}
                 onClick={handleClear}>
-                <img
-                  src={clearSVG}
-                  style={{
-                    width: fontSize > 13 ? '16px' : '14px',
-                    marginTop: '1px',
-                  }}
-                />
+                <ClearIcon color={color} style={{width: fontSize > 13 ? '16px' : '14px', marginTop: '1px'}} />
               </IconButton>
             )
           }
