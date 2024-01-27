@@ -111,6 +111,7 @@ interface NimbleDataTableProps {
   selectAllDisabled?: boolean;
   copySlecetionDisabled?: boolean;
   minHeight?: string;
+  hideContainerStyle?: boolean;
 }
 
 export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
@@ -162,6 +163,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   selectAllDisabled = false,
   copySlecetionDisabled = false,
   minHeight = '40vh',
+  hideContainerStyle = false,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -267,7 +269,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
     }, [sortData, data]) || [];
 
   return (
-    <Container minHeight={minHeight}>
+    <Container minHeight={minHeight} hideContainerStyle={hideContainerStyle}>
       <ThemeProvider theme={customTheme}>
         {(isEnableTopActions || isEnableSelections) && (
           <Box

@@ -27,14 +27,20 @@ interface StyledTableRowProps {
 interface FilterInputProps {
   fontFamily: string;
 }
-const Container = styled('div')(({minHeight}: {minHeight: string}) => ({
-  boxShadow: '0px 10px 24px rgba(12, 27, 42, 0.06)',
-  borderRadius: '8px',
-  padding: '5px',
-  width: '100%',
-  minHeight: minHeight,
-  background: '#FFFFFE',
-}));
+const Container = styled('div')(
+  ({minHeight, hideContainerStyle}: {minHeight: string; hideContainerStyle: boolean}) => ({
+    width: '100%',
+    minHeight: minHeight,
+    ...{
+      ...(!hideContainerStyle && {
+        boxShadow: '0px 10px 24px rgba(12, 27, 42, 0.06)',
+        borderRadius: '8px',
+        padding: '5px',
+        background: '#FFFFFE',
+      }),
+    },
+  }),
+);
 
 const SearchBarContainer = styled('div')({
   display: 'flex',
