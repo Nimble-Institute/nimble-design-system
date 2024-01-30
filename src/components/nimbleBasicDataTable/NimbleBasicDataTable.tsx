@@ -69,7 +69,7 @@ export const NimbleBasicDataTable = ({
 
   useEffect(() => {
     setrowData(orderBy(rowData, [row => row[orderByState]?.toLowerCase()], order));
-  }, [orderByState, order, rowData]);
+  }, [orderByState, order]);
 
   const handleFilterChange = (value: string | string[], key: string | undefined): void => {
     if (onChangeColumnFilters && key) {
