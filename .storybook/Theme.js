@@ -7,7 +7,6 @@ export default create({
   brandImage: 'https://nimble.expert/previews/2022/9/21/media_1029_651903_w1200_crop.png',
   brandTarget: '_self',
 
-  //
   colorPrimary: '#0C1B2A',
   colorSecondary: '#585C6D',
 
@@ -16,7 +15,7 @@ export default create({
   appContentBg: '#ffffff',
   appPreviewBg: '#ffffff',
   appBorderColor: '#585C6D',
-  appBorderRadius: 4,
+  appBorderRadius: 2,
 
   // Text colors
   textColor: '#9AC03A',
