@@ -34,6 +34,7 @@ export interface NimbleButtonProps {
   fontWeight?: fontWeight;
   labelColor?: string;
   height?: string;
+  skipTab?: boolean;
 }
 
 const ContainedActionButton = styled(Button)(
@@ -129,6 +130,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   fontWeight = '500',
   labelColor,
   height,
+  skipTab = false
 }) => {
   const handleClick = () => {
     !loading && onClick();
@@ -162,7 +164,9 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
-          height={height}>
+          height={height}
+         tabIndex={skipTab ? -1 : undefined}
+          >
           {label}
         </ContainedActionButton>
       );
@@ -191,7 +195,9 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
-          height={height}>
+          height={height}
+          tabIndex={skipTab ? -1 : undefined}
+          >
           {label}
         </OutlinedActionButton>
       );
@@ -220,7 +226,9 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           onClick={handleClick}
           fontFamily={fontFamily}
           fontWeight={fontWeight}
-          height={height}>
+          height={height}
+          tabIndex={skipTab ? -1 : undefined}
+          >
           {label}
         </TextActionButton>
       );
@@ -233,6 +241,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           size={size}
           disabled={disabled}
           onClick={handleClick}>
+          tabIndex={skipTab ? -1 : undefined}
           {icon}
         </IconButton>
       );
