@@ -32,6 +32,7 @@ interface NimbleRadioButtonProps {
   fontFamily?: string;
   isFormik?: boolean;
   value?: string;
+  disabled?: boolean
 }
 
 export const NimbleRadioButton: React.FC<NimbleRadioButtonProps> = ({
@@ -55,6 +56,7 @@ export const NimbleRadioButton: React.FC<NimbleRadioButtonProps> = ({
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   isFormik = false,
   value,
+  disabled = false,
 }) => {
   const [internalvalue, setInternalValue] = React.useState('');
 
@@ -88,7 +90,7 @@ export const NimbleRadioButton: React.FC<NimbleRadioButtonProps> = ({
 
   return (
     <ThemeProvider theme={customTheme}>
-      <MainFormControl>
+      <MainFormControl disabled={disabled}>
         {groupLabel && (
           <MainLabel id={id} color={labelColor} fontWeight={labelFontWeight} fontFamily={fontFamily}>
             {groupLabel}
