@@ -7,8 +7,8 @@ module.exports = {
     options: {
       builder: {
         fsCache: true,
-        lazyCompilation: true
-      }
+        lazyCompilation: true,
+      },
     },
   },
 
@@ -18,5 +18,5 @@ module.exports = {
 
   features: {
     storyStoreV7: false,
-  }
+  },
 };
