@@ -49,6 +49,7 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
 }) => {
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const [open, setOpen] = React.useState(false);
+  const [intenalSelectedValue, setInternalSelectedValue] = useState(selectedValue);
 
   const handleToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(prevOpen => !prevOpen);
@@ -65,6 +66,7 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
   };
 
   const handleClickMenuItem = (event: Event | React.SyntheticEvent, selectedOption: OptionType) => {
+    setInternalSelectedValue(selectedOption.value);
     onChange(selectedOption);
     handleClose(event);
   };
@@ -79,7 +81,7 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
   }
 
   const getSelectedLabel = () => {
-    const selectedOption = data.find(option => option.value === selectedValue);
+    const selectedOption = data.find(option => option.value === intenalSelectedValue);
     return selectedOption?.label || placeholder;
   };
 
@@ -120,10 +122,10 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
               backgroundColor: '#E2E2E2',
             },
           }}>
-          {data.map((option, index) => (
+          {data.map(option => (
             <MenuItem
               key={option.value}
-              selected={option.value === selectedValue}
+              selected={option.value === intenalSelectedValue}
               onClick={event => handleClickMenuItem(event, option)}
               sx={{
                 fontFamily: fontFamily,
