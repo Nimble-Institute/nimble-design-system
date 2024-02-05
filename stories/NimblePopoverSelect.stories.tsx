@@ -27,7 +27,7 @@ export const NimbleBasicPopoverSelect = {
       {label: 'Rejected', value: '4'},
     ],
     selectedValue: '3',
-    onchange: value => {
+    onChange: value => {
       console.log(value);
     },
   },
@@ -45,7 +45,7 @@ export const NimbleBasicPopoverSelectWithIcon = {
       {label: 'Preliminary', value: '3'},
       {label: 'Rejected', value: '4'},
     ],
-    onchange: value => {
+    onChange: value => {
       console.log(value);
     },
   },
