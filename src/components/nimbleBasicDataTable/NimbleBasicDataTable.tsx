@@ -46,6 +46,8 @@ export const NimbleBasicDataTable = ({
   rowHoverColor = '#f0f0f0',
   backgroundColor = '#ffffff',
   isEnableRowHoverPointer = false,
+  defaultSorting,
+  isEnableMultipleSort = false,
 }: {
   columns: any;
   rows: any;
@@ -58,18 +60,24 @@ export const NimbleBasicDataTable = ({
   rowHoverColor?: string;
   isEnableRowHoverPointer?: boolean;
   backgroundColor?: string;
+  defaultSorting?: {sortKey: string; sortOrder: string};
+  isEnableMultipleSort?: boolean;
 }) => {
   const [orderByState, setOrderByState] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
-  const [rowData, setrowData] = useState(rows);
+
   const [filterData, setFilterData] = useState<any>(null);
   const [sortData, setSortData] = useState<any>(null);
 
   const customPaginationInputref = useRef<any>(null);
 
   useEffect(() => {
-    setrowData(orderBy(rowData, [row => row[orderByState]?.toLowerCase()], order));
-  }, [orderByState, order]);
+    defaultSorting &&
+      setSortData({
+        ...(isEnableMultipleSort ? sortData : {}),
+        [defaultSorting.sortKey]: defaultSorting.sortOrder,
+      });
+  }, []);
 
   const handleFilterChange = (value: string | string[], key: string | undefined): void => {
     if (onChangeColumnFilters && key) {
@@ -91,11 +99,13 @@ export const NimbleBasicDataTable = ({
 
   const filterChangeDebounceHandler = useMemo(() => debounce(handleFilterChange, 500), [filterData]);
 
-  const handleRequestSort = (property: string | undefined): void => {
-    if (property) {
-      const isAsc = orderByState === property && order === 'asc';
-      setOrder(isAsc ? 'desc' : 'asc');
-      setOrderByState(property);
+  const handleClicShort = (sortKey: string | undefined, sortOrder: string): void => {
+    if (sortKey) {
+      onClickSort && onClickSort(sortKey, sortOrder);
+      setSortData({
+        ...(isEnableMultipleSort ? sortData : {}),
+        [sortKey]: sortOrder,
+      });
     }
   };
 
@@ -113,11 +123,11 @@ export const NimbleBasicDataTable = ({
           sortKeys.push(key);
           values.push(value);
         });
-        return orderBy(rowData, sortKeys, values);
+        return orderBy(rows, sortKeys, values);
       } else {
-        return rowData;
+        return rows;
       }
-    }, [sortData, rowData]) || [];
+    }, [sortData, rows]) || [];
 
   return (
     <TableContainer>
@@ -130,7 +140,7 @@ export const NimbleBasicDataTable = ({
                   active={orderByState === column.key}
                   direction={orderByState === column.key ? order : 'asc'}
                   onClick={() => {
-                    handleRequestSort(column.key);
+                    handleClicShort(column.key, orderByState === column.key ? order : 'asc');
                   }}
                   IconComponent={column.sort ? SortIcon : undefined}>
                   {column.label}
@@ -156,7 +166,7 @@ export const NimbleBasicDataTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {rowData?.map((row: any) => (
+          {sanatizedData?.map((row: any) => (
             <StyledTableRow
               key={row.name}
               hoverColor={rowHoverColor}
