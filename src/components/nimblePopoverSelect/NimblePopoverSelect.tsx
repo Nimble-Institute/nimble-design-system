@@ -52,11 +52,11 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
 
   const handleToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpen(prevOpen => !prevOpen);
-    event.preventDefault();
+    event.stopPropagation();
   };
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
-    event.preventDefault();
+    event.stopPropagation();
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
