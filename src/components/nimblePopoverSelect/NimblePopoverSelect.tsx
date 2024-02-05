@@ -13,6 +13,7 @@ interface ButtonProps {
   labelColor?: string;
   height?: string;
   fontSize: string;
+  width?: string;
 }
 
 interface OptionType {
@@ -32,6 +33,7 @@ interface NimblePopoverSelectProps {
   fontWeight?: fontWeight;
   height?: string;
   onChange: (value: OptionType) => void;
+  width?: string;
 }
 
 export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
@@ -46,6 +48,7 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
   fontWeight = '500',
   height,
   onChange,
+  width,
 }) => {
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   const [open, setOpen] = React.useState(false);
@@ -101,7 +104,8 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
         fontFamily={fontFamily}
         fontWeight={fontWeight}
         height={height}
-        fontSize={fontSize}>
+        fontSize={fontSize}
+        width={width}>
         {getSelectedLabel()}
       </TextActionButton>
       <Popover
@@ -141,20 +145,23 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
   );
 };
 
-const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height, fontSize}: ButtonProps) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  textTransform: 'none',
-  paddingLeft: '12px !important',
-  paddingRight: '12px !important',
-  borderRadius: '5px',
-  color: buttoncolor,
-  fontFamily,
-  fontWeight,
-  ':disabled': {
-    color: 'rgba(0, 0, 0, 0.26)',
-  },
-  height: height,
-  fontSize: fontSize,
-}));
+const TextActionButton = styled(Button)(
+  ({buttoncolor, fontFamily, fontWeight, height, fontSize, width}: ButtonProps) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    textTransform: 'none',
+    paddingLeft: '12px !important',
+    paddingRight: '12px !important',
+    borderRadius: '5px',
+    color: buttoncolor,
+    fontFamily,
+    fontWeight,
+    ':disabled': {
+      color: 'rgba(0, 0, 0, 0.26)',
+    },
+    height: height,
+    fontSize: fontSize,
+    width: width,
+  }),
+);
