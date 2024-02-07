@@ -6,6 +6,7 @@ import {darken, lighten} from 'polished';
 
 import {fontWeight} from '../shared';
 
+
 interface ButtonProps {
   buttoncolor: string;
   fontFamily: string;
@@ -35,7 +36,7 @@ export interface NimbleButtonProps {
   labelColor?: string;
   height?: string;
   skipTab?: boolean;
-  tabindex?: number
+  tabindex?: number;
 }
 
 const ContainedActionButton = styled(Button)(
@@ -132,7 +133,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   labelColor,
   height,
   skipTab = false,
-  tabindex = 0
+  tabindex = 0,
 }) => {
   const handleClick = () => {
     !loading && onClick();
@@ -167,8 +168,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           fontFamily={fontFamily}
           fontWeight={fontWeight}
           height={height}
-          tabIndex={skipTab ? -1 : tabindex ?? undefined}
-          >
+          tabIndex={skipTab ? -1 : tabindex ?? undefined}>
           {label}
         </ContainedActionButton>
       );
@@ -198,8 +198,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           fontFamily={fontFamily}
           fontWeight={fontWeight}
           height={height}
-          tabIndex={skipTab ? -1 : tabindex ?? undefined}
-          >
+          tabIndex={skipTab ? -1 : tabindex ?? undefined}>
           {label}
         </OutlinedActionButton>
       );
@@ -229,8 +228,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           fontFamily={fontFamily}
           fontWeight={fontWeight}
           height={height}
-          tabIndex={skipTab ? -1 : tabindex ?? undefined}
-          >
+          tabIndex={skipTab ? -1 : tabindex ?? undefined}>
           {label}
         </TextActionButton>
       );
@@ -242,8 +240,8 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           labelColor={labelColor}
           size={size}
           disabled={disabled}
-          onClick={handleClick}>
-          tabIndex={skipTab ? -1 : tabindex ?? undefined}
+          onClick={handleClick}
+          tabIndex={skipTab ? -1 : tabindex ?? undefined}>
           {icon}
         </IconButton>
       );
