@@ -173,7 +173,7 @@ export const NimbleBasicDataTable = ({
             <StyledTableRow
               key={row.name}
               hoverColor={rowHoverColor}
-              colorBackground={selectedRows?.some((obj: any) => obj.id === row.id) ? selectedRowColor : backgroundColor}
+              colorBackground={selectedRows?.some((obj: any) => obj?.id === row?.id) ? selectedRowColor : backgroundColor}
               onClick={() => {
                 onClickRow?.(row);
               }}
