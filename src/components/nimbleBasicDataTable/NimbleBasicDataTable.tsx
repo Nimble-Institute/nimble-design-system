@@ -48,6 +48,8 @@ export const NimbleBasicDataTable = ({
   isEnableRowHoverPointer = false,
   defaultSorting,
   isEnableMultipleSort = false,
+  selectedRows,
+  selectedRowColor = '#ceceed',
 }: {
   columns: any;
   rows: any;
@@ -62,10 +64,11 @@ export const NimbleBasicDataTable = ({
   backgroundColor?: string;
   defaultSorting?: {sortKey: string; sortOrder: string};
   isEnableMultipleSort?: boolean;
+  selectedRows?: [];
+  selectedRowColor?: string;
 }) => {
   const [orderByState, setOrderByState] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
-
   const [filterData, setFilterData] = useState<any>(null);
   const [sortData, setSortData] = useState<any>(null);
 
@@ -170,7 +173,7 @@ export const NimbleBasicDataTable = ({
             <StyledTableRow
               key={row.name}
               hoverColor={rowHoverColor}
-              colorBackground={backgroundColor}
+              colorBackground={selectedRows?.some((obj: any) => obj.id === row.id) ? selectedRowColor : backgroundColor}
               onClick={() => {
                 onClickRow?.(row);
               }}

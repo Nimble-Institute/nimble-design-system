@@ -26,27 +26,32 @@ export const NimbleBasicDataTableStoryDefault = {
     ],
     rows: [
       {
+        id: '1',
         date: moment(new Date().setDate(20)).format('YYYY-MM-DD'),
         user: 'Sendra Thronhill',
         comment: 'This lead is passed to Sandra Thronhill',
       },
       {
+        id: '2',
         date: moment(new Date().setFullYear(2020)).format('YYYY-MM-DD'),
         user: 'sandra Thronhill',
         comment:
           'This lead is passed to Roel defGraaf This lead is passed to Sandra Thronhill This lead is passed to Sandra Thronhill This lead is passed to Sandra Thronhill This lead is passed to Sandra Thronhill',
       },
       {
+        id: '3',
         date: moment(new Date().setMonth(8)).format('YYYY-MM-DD'),
         user: 'Waieneke Goud',
         comment: 'zesta do rico',
       },
       {
+        id: '4',
         date: moment(new Date().setDate(9)).format('YYYY-MM-DD'),
         user: 'Wzeneke Goud',
         comment: 'zesta do rico',
       },
     ],
+    selectedRows: [{id: '1'}],
   },
 };
 
@@ -59,22 +64,26 @@ export const NimbleBasicDataTableStoryWithPagination = {
     ],
     rows: [
       {
+        id: '1',
         date: moment(new Date().setDate(20)).format('YYYY-MM-DD'),
         user: 'Sendra Thronhill',
         comment: 'This lead is passed to Sandra Thronhill',
       },
       {
+        id: '2',
         date: moment(new Date().setFullYear(2020)).format('YYYY-MM-DD'),
         user: 'sandra Thronhill',
         comment:
           'This lead is passed to Roel defGraaf This lead is passed to Sandra Thronhill This lead is passed to Sandra Thronhill This lead is passed to Sandra Thronhill This lead is passed to Sandra Thronhill',
       },
       {
+        id: '3',
         date: moment(new Date().setMonth(8)).format('YYYY-MM-DD'),
         user: 'Waieneke Goud',
         comment: 'zesta do rico',
       },
       {
+        id: '4',
         date: moment(new Date().setDate(9)).format('YYYY-MM-DD'),
         user: 'Wzeneke Goud',
         comment: 'zesta do rico',
