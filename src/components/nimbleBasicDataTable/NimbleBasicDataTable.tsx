@@ -62,7 +62,7 @@ export const NimbleBasicDataTable = ({
   rowHoverColor?: string;
   isEnableRowHoverPointer?: boolean;
   backgroundColor?: string;
-  defaultSorting?: {sortKey: string; sortOrder: string};
+  defaultSorting?: {sortKey: string; sortOrder: 'asc'| 'desc'};
   isEnableMultipleSort?: boolean;
   selectedRows?: [];
   selectedRowColor?: string;
@@ -75,11 +75,14 @@ export const NimbleBasicDataTable = ({
   const customPaginationInputref = useRef<any>(null);
 
   useEffect(() => {
-    defaultSorting &&
+    if (defaultSorting) {
       setSortData({
         ...(isEnableMultipleSort ? sortData : {}),
         [defaultSorting.sortKey]: defaultSorting.sortOrder,
       });
+      setOrder(defaultSorting?.sortOrder);
+      setOrderByState(defaultSorting?.sortKey);
+    }
   }, []);
 
   const handleFilterChange = (value: string | string[], key: string | undefined): void => {
@@ -109,6 +112,8 @@ export const NimbleBasicDataTable = ({
         ...(isEnableMultipleSort ? sortData : {}),
         [sortKey]: sortOrder,
       });
+      setOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      setOrderByState(sortKey);
     }
   };
 
@@ -173,13 +178,15 @@ export const NimbleBasicDataTable = ({
             <StyledTableRow
               key={row.name}
               hoverColor={rowHoverColor}
-              colorBackground={selectedRows?.some((obj: any) => obj?.id === row?.id) ? selectedRowColor : backgroundColor}
+              colorBackground={
+                selectedRows?.some((obj: any) => obj?.id === row?.id) ? selectedRowColor : backgroundColor
+              }
               onClick={() => {
                 onClickRow?.(row);
               }}
               enablecursor={+isEnableRowHoverPointer}>
               {columns?.map((column: any) => (
-                <StyledTableBodyCell fontFamily={fontFamily} align="left">
+                <StyledTableBodyCell key={column.key} fontFamily={fontFamily} align="left">
                   {row[column.key]}
                 </StyledTableBodyCell>
               ))}

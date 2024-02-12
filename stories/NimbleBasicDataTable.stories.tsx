@@ -52,6 +52,7 @@ export const NimbleBasicDataTableStoryDefault = {
       },
     ],
     selectedRows: [{id: '1'}],
+    defaultSorting: {sortKey: 'user', sortOrder: 'asc'}
   },
 };
 
