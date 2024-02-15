@@ -73,7 +73,6 @@
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.11",
     "@types/draft-js": "^0.11.12",
-    "@types/react-calendar-timeline": "^0.28.2",
     "antd": "^5.8.2",
     "c3": "^0.7.20",
     "dayjs": "^1.11.9",
@@ -83,9 +82,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "polished": "^4.2.2",
-    "react-calendar-timeline": "^0.28.0",
     "react-infinite-scroll-component": "^6.1.0",
-    "recharts": "^2.7.2",
     "styled-components": "^6.0.7"
   },
   "repository": {
