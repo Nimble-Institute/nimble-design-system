@@ -1,9 +1,10 @@
-import React, {useEffect, useRef, useState, useMemo} from 'react';
+import React, {useEffect, useRef, useState, useMemo, FC} from 'react';
 import {Pagination, Table, TableBody, TableContainer, TableHead, TableRow, TableSortLabel} from '@mui/material';
 
 import {orderBy, forOwn, debounce} from 'lodash';
 
 import SortIcon from '../shared/icons/SortIcon';
+import SortIconDefault from '../shared/icons/SortIconDefault';
 import {PaginationDataType} from '../shared';
 import {
   StyledTableHeaderCell,
@@ -62,7 +63,7 @@ export const NimbleBasicDataTable = ({
   rowHoverColor?: string;
   isEnableRowHoverPointer?: boolean;
   backgroundColor?: string;
-  defaultSorting?: {sortKey: string; sortOrder: 'asc'| 'desc'};
+  defaultSorting?: {sortKey: string; sortOrder: 'asc' | 'desc'};
   isEnableMultipleSort?: boolean;
   selectedRows?: [];
   selectedRowColor?: string;
@@ -137,6 +138,13 @@ export const NimbleBasicDataTable = ({
       }
     }, [sortData, rows]) || [];
 
+  const getSortIcon = (column: any): (FC | undefined) => {
+    if (column.sort) {
+      return orderByState !== column.key ? SortIconDefault : SortIcon;
+    }
+    return undefined;
+  };
+
   return (
     <TableContainer>
       <Table aria-label="Basic table">
@@ -144,15 +152,19 @@ export const NimbleBasicDataTable = ({
           <TableRow>
             {columns?.map((column: any) => (
               <StyledTableHeaderCell fontFamily={fontFamily} width={column.width}>
-                <TableSortLabel
-                  active={orderByState === column.key}
-                  direction={orderByState === column.key ? order : 'asc'}
-                  onClick={() => {
-                    handleClicShort(column.key, orderByState === column.key ? order : 'asc');
-                  }}
-                  IconComponent={column.sort ? SortIcon : undefined}>
-                  {column.label}
-                </TableSortLabel>
+                {column.sort ? (
+                  <TableSortLabel
+                    active={true}
+                    direction={orderByState === column.key ? order : 'asc'}
+                    onClick={() => {
+                      handleClicShort(column.key, orderByState === column.key ? order : 'asc');
+                    }}
+                    IconComponent={getSortIcon(column)}>
+                    {column.label}
+                  </TableSortLabel>
+                ) : (
+                  column.label
+                )}
               </StyledTableHeaderCell>
             ))}
           </TableRow>

@@ -22,7 +22,7 @@ export const NimbleBasicDataTableStoryDefault = {
     columns: [
       {label: 'Date', key: 'date', width: '15%', sort: true},
       {label: 'User', key: 'user', width: '20%', sort: true},
-      {label: 'Comment', key: 'comment', sort: true},
+      {label: 'Comment', key: 'comment'},
     ],
     rows: [
       {
