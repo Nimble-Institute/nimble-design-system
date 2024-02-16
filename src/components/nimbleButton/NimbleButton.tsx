@@ -6,13 +6,13 @@ import {darken, lighten} from 'polished';
 
 import {fontWeight} from '../shared';
 
-
 interface ButtonProps {
   buttoncolor: string;
   fontFamily: string;
   fontWeight: string;
   labelColor?: string;
   height?: string;
+  hoverColor?: string;
 }
 
 interface IconButtonProps {
@@ -37,6 +37,7 @@ export interface NimbleButtonProps {
   height?: string;
   skipTab?: boolean;
   tabindex?: number;
+  hoverColor?: string;
 }
 
 const ContainedActionButton = styled(Button)(
@@ -87,7 +88,7 @@ const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeigh
   height: height,
 }));
 
-const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height}: ButtonProps) => ({
+const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height, hoverColor}: ButtonProps) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -95,7 +96,11 @@ const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, h
   paddingLeft: '12px !important',
   paddingRight: '12px !important',
   borderRadius: '5px',
-  color: buttoncolor,
+  colo: buttoncolor,
+  '&:hover': {
+    backgroundColor: hoverColor ?? '#fafcfb',
+    boxShadow: 'none',
+  },
   fontFamily,
   fontWeight,
   ':disabled': {
@@ -134,6 +139,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   height,
   skipTab = false,
   tabindex = 0,
+  hoverColor,
 }) => {
   const handleClick = () => {
     !loading && onClick();
@@ -207,7 +213,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
         <TextActionButton
           variant={variant}
           buttoncolor={color}
-          labelColor={color}
+          hoverColor={hoverColor}
           size={size}
           disabled={disabled}
           startIcon={
