@@ -96,7 +96,7 @@ const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, h
   paddingLeft: '12px !important',
   paddingRight: '12px !important',
   borderRadius: '5px',
-  colo: buttoncolor,
+  color: buttoncolor,
   '&:hover': {
     backgroundColor: hoverColor ?? '#fafcfb',
     boxShadow: 'none',
