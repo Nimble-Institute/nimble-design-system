@@ -8,6 +8,7 @@ import SortIconDefault from '../shared/icons/SortIconDefault';
 import {PaginationDataType} from '../shared';
 import {
   StyledTableHeaderCell,
+  StyledTableHeaderText,
   StyledTableBodyCell,
   PaginationWrapper,
   CustomPaginationWrapper,
@@ -51,6 +52,8 @@ export const NimbleBasicDataTable = ({
   isEnableMultipleSort = false,
   selectedRows,
   selectedRowColor = '#ceceed',
+  headerFontSize = '14px',
+  headerFontColor = '#9B9B9B',
 }: {
   columns: any;
   rows: any;
@@ -67,6 +70,8 @@ export const NimbleBasicDataTable = ({
   isEnableMultipleSort?: boolean;
   selectedRows?: [];
   selectedRowColor?: string;
+  headerFontSize?: string;
+  headerFontColor?: string;
 }) => {
   const [orderByState, setOrderByState] = useState<string>('');
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
@@ -138,7 +143,7 @@ export const NimbleBasicDataTable = ({
       }
     }, [sortData, rows]) || [];
 
-  const getSortIcon = (column: any): (FC | undefined) => {
+  const getSortIcon = (column: any): FC | undefined => {
     if (column.sort) {
       return orderByState !== column.key ? SortIconDefault : SortIcon;
     }
@@ -151,7 +156,7 @@ export const NimbleBasicDataTable = ({
         <TableHead>
           <TableRow>
             {columns?.map((column: any) => (
-              <StyledTableHeaderCell fontFamily={fontFamily} width={column.width}>
+              <StyledTableHeaderCell width={column.width}>
                 {column.sort ? (
                   <TableSortLabel
                     active={true}
@@ -160,10 +165,17 @@ export const NimbleBasicDataTable = ({
                       handleClicShort(column.key, orderByState === column.key ? order : 'asc');
                     }}
                     IconComponent={getSortIcon(column)}>
-                    {column.label}
+                    <StyledTableHeaderText
+                      fontFamily={fontFamily}
+                      fontColor={headerFontColor}
+                      fontSize={headerFontSize}>
+                      {column.label}
+                    </StyledTableHeaderText>
                   </TableSortLabel>
                 ) : (
-                  column.label
+                  <StyledTableHeaderText fontFamily={fontFamily} fontColor={headerFontColor} fontSize={headerFontSize}>
+                    {column.label}
+                  </StyledTableHeaderText>
                 )}
               </StyledTableHeaderCell>
             ))}
