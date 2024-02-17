@@ -3,26 +3,29 @@ import {OutlinedInput, Typography, Box, TableCell} from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 interface StyledTableRowProps {
-  hoverColor: string;
-  enablecursor: number;
-  colorBackground: string;
+  hoverColor?: string;
+  enablecursor?: number;
+  colorBackground?: string;
 }
 
 interface FilterInputProps {
-  fontFamily: string;
+  fontFamily?: string;
 }
 
-const StyledTableHeaderCell = styled(TableCell)(({fontFamily, width}: {fontFamily: string; width: string}) => ({
+const StyledTableHeaderCell = styled(TableCell)(({width}: {width?: string}) => ({
   borderBottomColor: '#9B9B9B',
-  fontWeight: 600,
-  fontSize: '14px',
   padding: '8px 16px 8px 16px',
-  color: '#9B9B9B',
-  fontFamily,
   width,
 }));
 
-const StyledTableBodyCell = styled(TableCell)(({fontFamily}: {fontFamily: string}) => ({
+const StyledTableHeaderText = styled('span')(({fontFamily, fontColor, fontSize}: {fontFamily?: string, fontColor?: string, fontSize?: string}) => ({
+  fontWeight: 600,
+  fontSize,
+  fontFamily,
+  color: fontColor,
+}));
+
+const StyledTableBodyCell = styled(TableCell)(({fontFamily}: {fontFamily?: string}) => ({
   fontWeight: 400,
   fontSize: '14px',
   padding: '8px 16px 8px 16px',
@@ -114,6 +117,7 @@ const FilterInput = styled(OutlinedInput)(({fontFamily}: FilterInputProps) => ({
 
 export {
   StyledTableHeaderCell,
+  StyledTableHeaderText,
   StyledTableBodyCell,
   StyledTableRow,
   PaginationWrapper,

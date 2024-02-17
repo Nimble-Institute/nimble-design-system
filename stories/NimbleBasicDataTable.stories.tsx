@@ -52,7 +52,9 @@ export const NimbleBasicDataTableStoryDefault = {
       },
     ],
     selectedRows: [{id: '1'}],
-    defaultSorting: {sortKey: 'user', sortOrder: 'asc'}
+    defaultSorting: {sortKey: 'user', sortOrder: 'asc'},
+    headerFontColor: '#644664db',
+    headerFontSize: '12px'
   },
 };
 
