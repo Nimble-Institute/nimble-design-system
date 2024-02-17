@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FilterIcon: React.FC<{color: string; backgroundcolor: string}> = ({color, backgroundcolor}) => {
+const FilterIcon: React.FC<{color: string; backgroundcolor?: string}> = ({color, backgroundcolor}) => {
   return (
     <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="16" cy="16" r="16" fill={backgroundcolor} fill-opacity="0.1" />
