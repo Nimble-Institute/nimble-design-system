@@ -64,10 +64,16 @@ export const MobileListViewStory = {
     isEnableDelete: true,
     isEnableEdit: true,
     isEnableDetail: true,
+    swapAction: value => {
+      return value === 'test';
+    },
+    swapActionColumn: 'secondaryValue',
+    swapActionList: [{icon: 'i', onClickAction: ()=>{alert('Swap action called')}}],
     data: [
       {
         id: 1,
         mainValue: 'Manoj Gamachchige',
+        secondaryValue: 'test',
         details: [
           {
             label: 'Email',

@@ -35,6 +35,7 @@ interface MobileDataCardDetail {
 interface MobileListData {
   id: number;
   mainValue?: string;
+  secondaryValue?: string;
   mainComponent?: any;
   details: MobileDataCardDetail[];
 }
@@ -72,6 +73,9 @@ interface NimbleMobileListViewProps extends NimbleMobileSearchProps {
   mainValueWidth?: string;
   mainValueExpandedWidth?: string;
   defaultSort?: string;
+  swapAction?: (value: any) => boolean;
+  swapActionColumn?: number;
+  swapActionList?: [{icon: any; onClickAction: Function}];
 }
 
 const Accordian = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
@@ -129,6 +133,9 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
   mainValueWidth,
   mainValueExpandedWidth,
   defaultSort,
+  swapAction,
+  swapActionColumn,
+  swapActionList,
 }) => {
   const [expandCard, setExpandCard] = useState<number | null>(null);
   const [sort, setSort] = useState<string | null>(defaultSort || null);
@@ -204,6 +211,8 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
     return (
       sanitizedData &&
       sanitizedData.map((item, index) => {
+        let showCustomIcons: boolean | undefined = false;
+        showCustomIcons = swapAction && typeof swapActionColumn === 'string' && swapAction(item[swapActionColumn]);
         const expanded = expandCard === item.id;
         return (
           <Accordian
@@ -215,38 +224,66 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
             <AccordionSummary
               expandIcon={
                 expanded ? (
-                  (isEnableDelete || isEnableEdit || isEnableDetail) && (
-                    <Slide in={expandCard === item.id} direction="left" container={containerRef.current} timeout={500}>
-                      <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                        {isEnableDelete && (
-                          <IconButton
-                            onClick={event => {
-                              event.stopPropagation();
-                              onDeleteItem && onDeleteItem(item);
-                            }}>
-                            <DeleteIcon color={deleteIconColor} />
-                          </IconButton>
-                        )}
-                        {isEnableEdit && (
-                          <IconButton
-                            onClick={event => {
-                              event.stopPropagation();
-                              onEditItem && onEditItem(item);
-                            }}>
-                            <EditIcon color={editIconColor} />
-                          </IconButton>
-                        )}
-                        {isEnableDetail && (
-                          <IconButton
-                            onClick={event => {
-                              event.stopPropagation();
-                              onDetailItem && onDetailItem(item);
-                            }}>
-                            <ViewIcon color={detailIconColor} />
-                          </IconButton>
-                        )}
-                      </Box>
-                    </Slide>
+                  showCustomIcons ? (
+                    swapActionList?.map(action => {
+                      return (
+                        <Slide
+                          in={expandCard === item.id}
+                          direction="left"
+                          container={containerRef.current}
+                          timeout={500}>
+                          <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                            {isEnableDelete && (
+                              <IconButton
+                                onClick={event => {
+                                  event.stopPropagation();
+                                  action.onClickAction();
+                                }}>
+                                {action.icon}
+                              </IconButton>
+                            )}
+                          </Box>
+                        </Slide>
+                      );
+                    })
+                  ) : (
+                    (isEnableDelete || isEnableEdit || isEnableDetail) && (
+                      <Slide
+                        in={expandCard === item.id}
+                        direction="left"
+                        container={containerRef.current}
+                        timeout={500}>
+                        <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                          {isEnableDelete && (
+                            <IconButton
+                              onClick={event => {
+                                event.stopPropagation();
+                                onDeleteItem && onDeleteItem(item);
+                              }}>
+                              <DeleteIcon color={deleteIconColor} />
+                            </IconButton>
+                          )}
+                          {isEnableEdit && (
+                            <IconButton
+                              onClick={event => {
+                                event.stopPropagation();
+                                onEditItem && onEditItem(item);
+                              }}>
+                              <EditIcon color={editIconColor} />
+                            </IconButton>
+                          )}
+                          {isEnableDetail && (
+                            <IconButton
+                              onClick={event => {
+                                event.stopPropagation();
+                                onDetailItem && onDetailItem(item);
+                              }}>
+                              <ViewIcon color={detailIconColor} />
+                            </IconButton>
+                          )}
+                        </Box>
+                      </Slide>
+                    )
                   )
                 ) : (
                   <ExpandIcon color={primaryColor} />
