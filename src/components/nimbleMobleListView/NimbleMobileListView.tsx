@@ -206,13 +206,45 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
   const getFinalValueWidth = (expanded: boolean) => {
     return expanded ? mainValueExpandedWidth ?? calculatedMainValueWidth : mainValueWidth ?? '60vw';
   };
+  const getDefaultActionsList = (item: MobileListData) =>
+    (isEnableDelete || isEnableEdit || isEnableDetail) && (
+      <>
+        {isEnableDelete && (
+          <IconButton
+            onClick={event => {
+              event.stopPropagation();
+              onDeleteItem && onDeleteItem(item);
+            }}>
+            <DeleteIcon color={deleteIconColor} />
+          </IconButton>
+        )}
+        {isEnableEdit && (
+          <IconButton
+            onClick={event => {
+              event.stopPropagation();
+              onEditItem && onEditItem(item);
+            }}>
+            <EditIcon color={editIconColor} />
+          </IconButton>
+        )}
+        {isEnableDetail && (
+          <IconButton
+            onClick={event => {
+              event.stopPropagation();
+              onDetailItem && onDetailItem(item);
+            }}>
+            <ViewIcon color={detailIconColor} />
+          </IconButton>
+        )}
+      </>
+    );
 
   const renderDataList = () => {
     return (
       sanitizedData &&
       sanitizedData.map((item, index) => {
-        let showCustomIcons: boolean | undefined = false;
-        showCustomIcons = swapAction && typeof swapActionColumn === 'string' && swapAction(item[swapActionColumn]);
+        let showDefaultActions: boolean | undefined = false;
+        showDefaultActions = swapAction && typeof swapActionColumn === 'string' && swapAction(item[swapActionColumn]);
         const expanded = expandCard === item.id;
         return (
           <Accordian
@@ -224,16 +256,13 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
             <AccordionSummary
               expandIcon={
                 expanded ? (
-                  showCustomIcons ? (
-                    swapActionList?.map(action => {
-                      return (
-                        <Slide
-                          in={expandCard === item.id}
-                          direction="left"
-                          container={containerRef.current}
-                          timeout={500}>
-                          <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                            {isEnableDelete && (
+                  <Slide in={expandCard === item.id} direction="left" container={containerRef.current} timeout={500}>
+                    <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                      {swapActionColumn ? (
+                        showDefaultActions ? (
+                          <>
+                            {getDefaultActionsList(item)}
+                            {swapActionList?.map(action => (
                               <IconButton
                                 onClick={event => {
                                   event.stopPropagation();
@@ -241,50 +270,24 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                                 }}>
                                 {action.icon}
                               </IconButton>
-                            )}
-                          </Box>
-                        </Slide>
-                      );
-                    })
-                  ) : (
-                    (isEnableDelete || isEnableEdit || isEnableDetail) && (
-                      <Slide
-                        in={expandCard === item.id}
-                        direction="left"
-                        container={containerRef.current}
-                        timeout={500}>
-                        <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                          {isEnableDelete && (
+                            ))}
+                          </>
+                        ) : (
+                          swapActionList?.map(action => (
                             <IconButton
                               onClick={event => {
                                 event.stopPropagation();
-                                onDeleteItem && onDeleteItem(item);
+                                action.onClickAction();
                               }}>
-                              <DeleteIcon color={deleteIconColor} />
+                              {action.icon}
                             </IconButton>
-                          )}
-                          {isEnableEdit && (
-                            <IconButton
-                              onClick={event => {
-                                event.stopPropagation();
-                                onEditItem && onEditItem(item);
-                              }}>
-                              <EditIcon color={editIconColor} />
-                            </IconButton>
-                          )}
-                          {isEnableDetail && (
-                            <IconButton
-                              onClick={event => {
-                                event.stopPropagation();
-                                onDetailItem && onDetailItem(item);
-                              }}>
-                              <ViewIcon color={detailIconColor} />
-                            </IconButton>
-                          )}
-                        </Box>
-                      </Slide>
-                    )
-                  )
+                          ))
+                        )
+                      ) : (
+                        getDefaultActionsList(item)
+                      )}
+                    </Box>
+                  </Slide>
                 ) : (
                   <ExpandIcon color={primaryColor} />
                 )
