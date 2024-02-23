@@ -69,6 +69,7 @@ interface NimbleDataTableProps {
   searchPlaceHolder?: string;
   mainActionIcon?: any;
   mainActionLabel?: string;
+  secondarySection?: any;
   primaryColor?: string;
   InputFieldBorderColor?: string;
   InputFieldActiveBoxShadow?: string;
@@ -164,6 +165,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   copySlecetionDisabled = false,
   minHeight = '40vh',
   hideContainerStyle = false,
+  secondarySection,
 }) => {
   const [enableColumnFilter, setEnableColumnFilter] = useState<boolean>(false);
   const [sortData, setSortData] = useState<any>(null);
@@ -378,6 +380,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               fontFamily={fontFamily}>
               {mainActionLabel}
             </MainActionButton>
+          )}
+          {secondarySection && (
+            secondarySection
           )}
         </SearchBarContainer>
         <MainTable>
