@@ -1,7 +1,7 @@
 import React from 'react';
 import type {Meta} from '@storybook/react';
 
-import {NimbleDataTable, NimbleSelect} from '../src';
+import {NimbleDataTable, NimbleSelect, NimbleButton} from '../src';
 
 const handleClickSort = (sortId: any, sortOrder: any) => {
   console.log('sort id and sort order: ', sortId, sortOrder);
@@ -304,6 +304,11 @@ export const DatatableWithDateRangeFilter = {
     },
     searchPlaceHolder: 'Search user data',
     mainActionLabel: 'Add Some Data',
+    secondarySection: (
+      <div style={{marginLeft: '12px'}}>
+        <NimbleButton label={'Invite'} onClick={() => alert('secondary Action')} />
+      </div>
+    ),
     onChangeColumnFilters: (data: {[key: string]: string}) => {
       console.log(data);
     },
