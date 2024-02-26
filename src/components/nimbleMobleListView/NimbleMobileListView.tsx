@@ -266,7 +266,7 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                               <IconButton
                                 onClick={event => {
                                   event.stopPropagation();
-                                  action.onClickAction();
+                                  action.onClickAction(item);
                                 }}>
                                 {action.icon}
                               </IconButton>
@@ -277,7 +277,7 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
                             <IconButton
                               onClick={event => {
                                 event.stopPropagation();
-                                action.onClickAction();
+                                action.onClickAction(item);
                               }}>
                               {action.icon}
                             </IconButton>
