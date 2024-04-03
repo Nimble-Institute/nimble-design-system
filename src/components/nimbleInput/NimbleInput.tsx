@@ -27,6 +27,7 @@ interface NimbleInputProps
   onChange?: (value: string | React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: any | undefined) => void;
   startIcon?: any;
+  endIcon?: any;
   type: 'text' | 'password' | 'number' | 'search' | 'email';
   helperText?: string;
   disabled?: boolean;
@@ -60,6 +61,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       onChange,
       onBlur,
       startIcon,
+      endIcon,
       type = 'text',
       helperText,
       disabled = false,
@@ -171,7 +173,8 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
             value={isFormik ? value : internalValue}
             InputProps={{
               startAdornment: startIcon && <InputAdornment position="start">{startIcon}</InputAdornment>,
-              endAdornment: (type === 'password' || type === 'search') && (
+              endAdornment: endIcon ? <InputAdornment position="end">{endIcon}</InputAdornment> :
+              (type === 'password' || type === 'search') && (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
