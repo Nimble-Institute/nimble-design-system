@@ -1,4 +1,4 @@
-import {createTheme} from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 const theme = (
   isError: boolean | undefined | never[],
@@ -6,8 +6,8 @@ const theme = (
   hoverBoxShadow: string,
   activeBoxShadow: string,
   disabled: boolean,
-  fontFamily: string,
   fontSize: number,
+  fontFamily?: string,
   backgroundColor?: string,
 ) =>
   createTheme({

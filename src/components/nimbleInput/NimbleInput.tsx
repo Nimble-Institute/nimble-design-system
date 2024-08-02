@@ -1,22 +1,22 @@
-import React, {useEffect, useMemo, useState, forwardRef, useImperativeHandle} from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  TextField,
   Box,
+  IconButton,
   InputAdornment,
   InternalStandardProps as StandardProps,
-  IconButton,
+  TextField,
   Typography,
 } from '@mui/material';
-import {ThemeProvider} from '@mui/material/styles';
-import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {debounce} from 'lodash';
+import { ThemeProvider } from '@mui/material/styles';
+import { debounce } from 'lodash';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 
-import {InputLabel, InputError, InputLabelProps, InputBoxProps, InputHelperText} from '../shared';
+import { InputBoxProps, InputError, InputHelperText, InputLabel, InputLabelProps } from '../shared';
 
-import theme from './CustomTheme';
 import searchSVG from '../../assets/images/search.svg';
+import theme from './CustomTheme';
 
-interface NimbleInputProps
+export interface NimbleInputProps
   extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'>,
     InputLabelProps,
     InputBoxProps {
@@ -49,7 +49,7 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
       labelSize = 14,
       labelWeight = '600',
       placeholder,
-      fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+      fontFamily,
       isRequired,
       isError,
       errorMessage,
@@ -98,8 +98,8 @@ export const NimbleInput = forwardRef<any, NimbleInputProps>(
         hoverBoxShadow,
         activeBoxShadow,
         disabled,
-        fontFamily,
         textColor,
+        fontFamily,
         backgroundColor,
       );
     }, [

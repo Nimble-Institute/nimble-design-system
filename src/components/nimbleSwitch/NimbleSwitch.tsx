@@ -1,10 +1,10 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-import {Box, Switch, Typography, InternalStandardProps as StandardProps} from '@mui/material';
-import {SwitchProps} from '@mui/material/Switch';
-import {ThemeProvider, styled} from '@mui/material/styles';
+import { Box, InternalStandardProps as StandardProps, Switch, Typography } from '@mui/material';
+import { SwitchProps } from '@mui/material/Switch';
+import { ThemeProvider, styled } from '@mui/material/styles';
 
-import {InputLabel, InputLabelProps} from '../shared';
+import { InputLabel, InputLabelProps } from '../shared';
 
 import theme from './CustomTheme';
 
@@ -80,7 +80,7 @@ export const NimbleSwitch: React.FC<NimbleSwitchProps> = ({
   label,
   labelSize = 14,
   labelWeight = '600',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   isRequired,
   disabled,
   color = '#0057A2',

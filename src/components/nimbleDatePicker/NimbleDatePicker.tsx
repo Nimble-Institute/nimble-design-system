@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
-import {DatePicker} from 'antd';
-import styled from 'styled-components/dist/styled-components.js';
+import { InternalStandardProps as StandardProps } from '@mui/material';
+import { DatePicker } from 'antd';
+import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import type {Dayjs} from 'dayjs';
-import {InternalStandardProps as StandardProps} from '@mui/material';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localeData from 'dayjs/plugin/localeData';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import weekYear from 'dayjs/plugin/weekYear';
+import React from 'react';
+import styled from 'styled-components/dist/styled-components.js';
 
-import {InputLabel, InputLabelProps, InputBoxProps, InputError} from '../shared';
+import { InputBoxProps, InputError, InputLabel, InputLabelProps } from '../shared';
 
 import './nimbleDatePickerStyles.css';
 
@@ -89,7 +89,7 @@ export const NimbleDatePicker: React.FC<NimbleDatePickerProps> = ({
   label,
   labelSize = 14,
   labelWeight = '600',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   isRequired,
   borderColor = '#9A9FA5',
   activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',

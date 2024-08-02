@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {IconButton, DialogActions, DialogContent, DialogTitle, Slide, Dialog, Breakpoint, Box} from '@mui/material';
-import {TransitionProps} from '@mui/material/transitions';
+import { Box, Breakpoint, Dialog, DialogActions, DialogTitle, IconButton, Slide } from '@mui/material';
+import { TransitionProps } from '@mui/material/transitions';
+import React, { useEffect, useState } from 'react';
 
-import {TitleWrapper, Title, Content} from './StyledWrappers';
-import {NimbleButtonProps, NimbleButton} from '../nimbleButton/NimbleButton';
 import CloseSVG from '../../assets/images/dialog/close.svg';
+import { NimbleButton, NimbleButtonProps } from '../nimbleButton/NimbleButton';
+import { Content, Title, TitleWrapper } from './StyledWrappers';
 
-import {fontWeight} from '../../components/shared';
+import { fontWeight } from '../../components/shared';
 
 interface NimbleDialogProps {
   open: boolean;
@@ -52,7 +52,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   title,
   titleSize = '25px',
   titleWeight = '600',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   headerFontFamily,
   primaryColor = '#0057A2',
   cancelButtonColor,

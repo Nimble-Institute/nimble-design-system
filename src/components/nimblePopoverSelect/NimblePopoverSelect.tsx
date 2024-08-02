@@ -1,14 +1,13 @@
-import React, {ReactElement, useState} from 'react';
-import {Box, Typography, Popover, Button, MenuList, MenuItem} from '@mui/material';
-import {styled} from '@mui/system';
+import { Button, MenuItem, MenuList, Popover } from '@mui/material';
+import { styled } from '@mui/system';
+import React, { ReactElement, useState } from 'react';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {NimbleButton} from '../nimbleButton/NimbleButton';
-import {fontWeight} from '../shared';
+import { fontWeight } from '../shared';
 
 interface ButtonProps {
   buttoncolor: string;
-  fontFamily: string;
+  fontFamily?: string;
   fontWeight: string;
   labelColor?: string;
   height?: string;
@@ -44,7 +43,7 @@ export const NimblePopoverSelect: React.FC<NimblePopoverSelectProps> = ({
   data,
   color,
   fontSize = '14px',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   fontWeight = '500',
   height,
   onChange,

@@ -1,23 +1,23 @@
-import React, {ReactElement, useEffect, useMemo, useState} from 'react';
-import {Box, IconButton, Collapse} from '@mui/material';
-import {ThemeProvider} from '@mui/material/styles';
-import {uniqBy} from 'lodash';
+import { Collapse, IconButton } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { uniqBy } from 'lodash';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 
+import { NimbleButton, NimbleButtonProps, NimbleInput, NimbleSelect } from '../index';
+import { fontWeight, PaginationBar, PaginationDataType } from '../shared';
+import FilterImage from '../shared/icons/FiltorIcon';
 import {
   Container,
-  HeaderContainer,
-  HeaderText,
-  SearchContainer,
+  DataWrapper,
   FilterContainer,
   FilterWrapper,
-  Item,
-  TopWrapper,
-  DataWrapper,
   FooterWrapper,
+  HeaderContainer,
+  HeaderText,
+  Item,
+  SearchContainer,
+  TopWrapper,
 } from './StyleWrapper';
-import {NimbleButton, NimbleButtonProps, NimbleInput, NimbleSelect} from '../index';
-import {PaginationBar, fontWeight, PaginationDataType} from '../shared';
-import FilterImage from '../shared/icons/FiltorIcon';
 
 import theme from './CustomTheme';
 
@@ -64,7 +64,7 @@ export const NimbleDataGrid: React.FC<NimbleDataGridProps> = ({
   height = '100%',
   header,
   headerFontWeight = '600',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   headerColor = '#0057A2',
   isEnablePrimaryAction = true,
   primaryActionProps,

@@ -1,6 +1,6 @@
-import {styled} from '@mui/system';
-import {Box, Paper, Typography} from '@mui/material';
-import {fontWeight} from '../shared';
+import { Box, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/system';
+import { fontWeight } from '../shared';
 
 const Container = styled(Paper)(({width, height, color}: {width: string; height: string; color: string}) => ({
   width,
@@ -19,7 +19,7 @@ const HeaderContainer = styled(Box)({
 });
 
 const HeaderText = styled(Typography)(
-  ({fontFamily, fontWeight, color}: {fontFamily: string; fontWeight: fontWeight; color: string}) => ({
+  ({fontFamily, fontWeight, color}: {fontFamily?: string; fontWeight: fontWeight; color: string}) => ({
     fontFamily,
     fontSize: '22px',
     fontWeight,
@@ -91,14 +91,7 @@ const FooterWrapper = styled(Box)({
 });
 
 export {
-  Container,
-  HeaderContainer,
-  HeaderText,
-  SearchContainer,
-  FilterContainer,
-  FilterWrapper,
-  Item,
-  TopWrapper,
-  DataWrapper,
-  FooterWrapper,
+  Container, DataWrapper, FilterContainer,
+  FilterWrapper, FooterWrapper, HeaderContainer,
+  HeaderText, Item, SearchContainer, TopWrapper
 };

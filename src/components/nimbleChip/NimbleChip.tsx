@@ -1,7 +1,7 @@
-import React from 'react';
+import { styled } from '@mui/material';
 import Chip from '@mui/material/Chip';
-import {styled} from '@mui/material';
-import {fontWeight} from '../shared';
+import React from 'react';
+import { fontWeight } from '../shared';
 
 interface NimbleChipProps {
   label: string;
@@ -44,7 +44,7 @@ export const NimbleChip: React.FC<NimbleChipProps> = ({
   labelcolor = '#FFFFFE',
   fontWeight = '400',
   fontSize = '14px',
-  fontFamily = 'Arial',
+  fontFamily,
   width = 'auto',
 }) => {
   return (

@@ -1,21 +1,21 @@
-import {styled} from '@mui/system';
-import {OutlinedInput, Button, IconButton, Typography, Box} from '@mui/material';
-import {darken} from 'polished';
+import { Box, Button, IconButton, OutlinedInput, Typography } from '@mui/material';
+import { styled } from '@mui/system';
+import { darken } from 'polished';
 
 interface MainActionButtonProps {
   buttoncolor: string;
-  fontFamily: string;
+  fontFamily?: string;
 }
 
 interface HeaderLabelProps {
-  fontFamily: string;
+  fontFamily?: string;
   fontWeight: string;
   fontSize: number;
   color: string;
 }
 
 interface TableValueProps {
-  fontFamily: string;
+  fontFamily?: string;
   fontSize: number;
 }
 
@@ -25,7 +25,7 @@ interface StyledTableRowProps {
 }
 
 interface FilterInputProps {
-  fontFamily: string;
+  fontFamily?: string;
 }
 const Container = styled('div')(
   ({minHeight, hideContainerStyle}: {minHeight: string; hideContainerStyle: boolean}) => ({
@@ -55,7 +55,7 @@ const SearchBarWrapper = styled('div')({
   marginRight: '15px',
 });
 
-const SearchBar = styled(OutlinedInput)(({fontFamily, fontSize}: {fontFamily: string; fontSize: number}) => ({
+const SearchBar = styled(OutlinedInput)(({fontFamily, fontSize}: {fontFamily?: string; fontSize: number}) => ({
   height: '30px',
   width: '100%',
   borderColor: '#9A9FA5',
@@ -188,7 +188,7 @@ const CustomPaginationWrapper = styled(Box)({
   alignItems: 'center',
 });
 
-const CustomPaginationText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+const CustomPaginationText = styled(Typography)(({fontFamily}: {fontFamily?: string}) => ({
   fontFamily,
   fontSize: '12px',
   fontWeight: '400',
@@ -197,7 +197,7 @@ const CustomPaginationText = styled(Typography)(({fontFamily}: {fontFamily: stri
   marginRight: '5px',
 }));
 
-const PageNumberInput = styled(OutlinedInput)(({fontFamily}: {fontFamily: string}) => ({
+const PageNumberInput = styled(OutlinedInput)(({fontFamily}: {fontFamily?: string}) => ({
   height: '30px',
   width: '48px',
   borderColor: '#9A9FA5',
@@ -213,7 +213,7 @@ const PaginationGoButton = styled(Box)({
   cursor: 'pointer',
 });
 
-const PaginationGoButtonText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+const PaginationGoButtonText = styled(Typography)(({fontFamily}: {fontFamily?: string}) => ({
   fontFamily,
   fontSize: '12px',
   fontWeight: '400',
@@ -241,29 +241,10 @@ const IconWrapper = styled(Box)({
 });
 
 export {
-  Container,
-  SearchBarContainer,
-  SearchBarWrapper,
-  SearchBar,
-  ActionIcon,
-  MainActionButton,
-  MainTable,
-  MainTableHead,
-  MainTableBody,
-  ColumnHeader,
-  HeaderLabel,
-  SortIconsWrapper,
-  FilterInput,
-  StyledTableRow,
-  TableValue,
-  ActionCell,
-  PaginationWrapper,
-  FilterWrapper,
-  CustomPaginationWrapper,
-  CustomPaginationText,
-  PageNumberInput,
+  ActionCell, ActionIcon, ColumnHeader, Container, CustomPaginationText, CustomPaginationWrapper, FilterInput, FilterWrapper, HeaderLabel, IconWrapper, LoaderWrapper, MainActionButton,
+  MainTable, MainTableBody, MainTableHead, PageNumberInput,
   PaginationGoButton,
-  PaginationGoButtonText,
-  LoaderWrapper,
-  IconWrapper,
+  PaginationGoButtonText, PaginationWrapper, SearchBar, SearchBarContainer,
+  SearchBarWrapper, SortIconsWrapper, StyledTableRow,
+  TableValue
 };

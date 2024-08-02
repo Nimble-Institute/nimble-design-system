@@ -1,9 +1,9 @@
-import React, {useEffect, useMemo} from 'react';
-import {Radio, RadioGroup, FormControlLabel, FormControl, Typography} from '@mui/material';
-import {styled, ThemeProvider} from '@mui/material/styles';
+import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { styled, ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useMemo } from 'react';
 
+import { fontWeight } from '../shared';
 import theme from './CustomTheme';
-import {fontWeight} from '../shared';
 
 interface RadioGroupProps {
   label?: string;
@@ -53,7 +53,7 @@ export const NimbleRadioButton: React.FC<NimbleRadioButtonProps> = ({
   radioLabelFontWeight = '400',
   color = '#000000',
   checkedColor = '#0057A2',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   isFormik = false,
   value,
   disabled = false,
@@ -139,7 +139,7 @@ const MainFormControl = styled(FormControl)({
 });
 
 const MainLabel = styled(Typography)(
-  ({color, fontWeight, fontFamily}: {color?: string; fontWeight: string; fontFamily: string}) => ({
+  ({color, fontWeight, fontFamily}: {color?: string; fontWeight: string; fontFamily?: string}) => ({
     fontSize: '16px',
     color,
     fontWeight,
@@ -153,7 +153,7 @@ const StyledRadioGroup = styled(RadioGroup)(({width}: {width?: string}) => ({
 }));
 
 const OptionLabel = styled(Typography)(
-  ({color, fontWeight, fontFamily}: {color?: string; fontWeight: string; fontFamily: string}) => ({
+  ({color, fontWeight, fontFamily}: {color?: string; fontWeight: string; fontFamily?: string}) => ({
     fontSize: '14px',
     fontWeight,
     color,

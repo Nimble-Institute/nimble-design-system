@@ -1,14 +1,14 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Autocomplete, InternalStandardProps as StandardProps} from '@mui/material';
-import {autocompleteClasses} from '@mui/material/Autocomplete';
-import {ThemeProvider} from '@mui/material/styles';
+import { Autocomplete, InternalStandardProps as StandardProps } from '@mui/material';
+import { autocompleteClasses } from '@mui/material/Autocomplete';
+import { ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import {TagChip, OptionList, OptionLabel, SlectedIcon, TextInput} from './StyledWrappers';
-import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
+import { InputBoxProps, InputError, InputLabel, InputLabelProps } from '../shared';
+import { OptionLabel, OptionList, SlectedIcon, TagChip, TextInput } from './StyledWrappers';
 
+import clearSVG from '../../assets/images/clear.svg';
 import closeSVG from '../../assets/images/close.svg';
 import searchSVG from '../../assets/images/search.svg';
-import clearSVG from '../../assets/images/clear.svg';
 import theme from './CustomTheme';
 
 interface NimbleAutocompleteDataType {
@@ -42,7 +42,7 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
   labelSize = 14,
   labelWeight = '600',
   placeholder,
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   borderColor = '#9A9FA5',
   activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
   hoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
@@ -74,8 +74,8 @@ export const NimbleAutoComplete: React.FC<NimbleAutoCompleteProps> = ({
       hoverBoxShadow,
       activeBoxShadow,
       disabled,
-      fontFamily,
       fontSize,
+      fontFamily,
       backgroundColor,
     );
   }, [isError, borderColor, hoverBoxShadow, activeBoxShadow, disabled, fontFamily, fontSize, backgroundColor]);

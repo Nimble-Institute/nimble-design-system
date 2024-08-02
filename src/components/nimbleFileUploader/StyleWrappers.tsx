@@ -1,5 +1,5 @@
-import {styled} from '@mui/system';
-import {Box, Paper, Typography} from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/system';
 
 const Container = styled(Box)(({width, height}: {width: string; height: string}) => ({
   width,
@@ -14,7 +14,7 @@ const TopWrapper = styled(Box)({
   justifyContent: 'space-between',
 });
 
-const HeaderText = styled(Typography)(({color, fontFamily}: {color: string; fontFamily: string}) => ({
+const HeaderText = styled(Typography)(({color, fontFamily}: {color: string; fontFamily?: string}) => ({
   fontSize: '16px',
   fontWeight: '400',
   lineHeight: '140%',
@@ -54,7 +54,7 @@ const FileCardWrapper = styled(Box)({
   justifyContent: 'space-between',
 });
 
-const FileNameText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+const FileNameText = styled(Typography)(({fontFamily}: {fontFamily?: string}) => ({
   color: '#0C1B2A',
   fontSize: '12px',
   fontWeight: '600',
@@ -68,7 +68,7 @@ const FileNameText = styled(Typography)(({fontFamily}: {fontFamily: string}) => 
   WebkitBoxOrient: 'vertical',
 }));
 
-const FileSizeText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+const FileSizeText = styled(Typography)(({fontFamily}: {fontFamily?: string}) => ({
   color: '#0C1B2A',
   fontSize: '12px',
   fontWeight: '300',
@@ -99,7 +99,7 @@ const FileThumb = styled(Box)({
   justifyContent: 'center',
 });
 
-const FileThumbText = styled(Typography)(({fontFamily}: {fontFamily: string}) => ({
+const FileThumbText = styled(Typography)(({fontFamily}: {fontFamily?: string}) => ({
   color: '#9A9FA5',
   fontWeight: '600',
   fontSize: '14px',
@@ -107,16 +107,10 @@ const FileThumbText = styled(Typography)(({fontFamily}: {fontFamily: string}) =>
 }));
 
 export {
-  Container,
-  TopWrapper,
-  HeaderText,
-  ContentContainer,
+  Container, ContentContainer,
   FileCard,
   FileCardWrapper,
   FileNameText,
-  FileSizeText,
-  ToolbarWrapper,
-  ToolBar,
-  FileThumb,
-  FileThumbText,
+  FileSizeText, FileThumb,
+  FileThumbText, HeaderText, ToolBar, ToolbarWrapper, TopWrapper
 };

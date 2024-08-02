@@ -1,25 +1,25 @@
-import React, {useEffect, useRef, useState, useMemo, FC} from 'react';
-import {Pagination, Table, TableBody, TableContainer, TableHead, TableRow, TableSortLabel} from '@mui/material';
+import { Pagination, Table, TableBody, TableContainer, TableHead, TableRow, TableSortLabel } from '@mui/material';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 
-import {orderBy, forOwn, debounce} from 'lodash';
+import { debounce, forOwn, orderBy } from 'lodash';
 
+import { PaginationDataType } from '../shared';
 import SortIcon from '../shared/icons/SortIcon';
 import SortIconDefault from '../shared/icons/SortIconDefault';
-import {PaginationDataType} from '../shared';
+import FilterInputItem from './FilterInputItem';
 import {
-  StyledTableHeaderCell,
-  StyledTableHeaderText,
-  StyledTableBodyCell,
-  PaginationWrapper,
-  CustomPaginationWrapper,
+  ArrowForwardIosIconWrapper,
   CustomPaginationText,
+  CustomPaginationWrapper,
   PageNumberInput,
   PaginationGoButton,
   PaginationGoButtonText,
-  ArrowForwardIosIconWrapper,
+  PaginationWrapper,
+  StyledTableBodyCell,
+  StyledTableHeaderCell,
+  StyledTableHeaderText,
   StyledTableRow,
 } from './StyledWrappers';
-import FilterInputItem from './FilterInputItem';
 
 interface CustomFilterSelection {
   label: string;
@@ -39,7 +39,7 @@ export interface ColumnDataBasicTableType {
 export const NimbleBasicDataTable = ({
   columns,
   rows,
-  fontFamily = 'Arial',
+  fontFamily,
   paginationData,
   clickCustomPagination,
   onChangeColumnFilters,

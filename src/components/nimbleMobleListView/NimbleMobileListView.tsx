@@ -1,26 +1,26 @@
-import React, {useState, useMemo, useRef, useEffect, ReactElement} from 'react';
-import {Box, Typography, AccordionSummary, AccordionDetails, IconButton, Slide, CircularProgress} from '@mui/material';
-import {styled, ThemeProvider} from '@mui/material/styles';
-import MuiAccordion, {AccordionProps} from '@mui/material/Accordion';
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
+import { AccordionDetails, AccordionSummary, Box, CircularProgress, IconButton, Slide, Typography } from '@mui/material';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import { styled, ThemeProvider } from '@mui/material/styles';
+import { orderBy } from 'lodash';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import {ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
-import {orderBy} from 'lodash';
 
-import {NimbleMobileSearch, NimbleMobileSearchProps} from '../nimbleMobileSearch/NimbleMobileSearch';
+import { NimbleMobileSearch, NimbleMobileSearchProps } from '../nimbleMobileSearch/NimbleMobileSearch';
 import {
   Container,
   DataContainer,
-  HeaderSection,
   HeaderLabel,
-  SortIconWrapper,
-  SortIconButton,
-  MainValueLabel,
+  HeaderSection,
   MainValueComponent,
+  MainValueLabel,
+  SortIconButton,
+  SortIconWrapper,
 } from './StyleWrappers';
 
-import ExpandIcon from '../../assets/icons/ExpandIcon';
 import DeleteIcon from '../../assets/icons/DeleteIcon';
 import EditIcon from '../../assets/icons/EditIcon';
+import ExpandIcon from '../../assets/icons/ExpandIcon';
 import ViewIcon from '../../assets/icons/ViewIcon';
 
 import theme from './CustomTheme';
@@ -98,7 +98,7 @@ export const NimbleMobileListView: React.FC<NimbleMobileListViewProps> = ({
 
   isEnableSearch,
   placeholder,
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   borderColor = '#9A9FA5',
   activeBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
   hoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',

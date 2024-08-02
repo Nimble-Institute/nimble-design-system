@@ -1,45 +1,45 @@
-import React, {useMemo, useState, ReactElement, useRef, useEffect} from 'react';
-import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse, Box, CircularProgress, Radio} from '@mui/material';
-import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
-import {ThemeProvider} from '@mui/material/styles';
+import { ArrowDropDown, ArrowDropUp, ControlPoint } from '@mui/icons-material';
+import { Box, CircularProgress, Collapse, IconButton, InputAdornment, Pagination, Radio } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { debounce, forOwn, orderBy } from 'lodash';
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 
+import FilterInputItem from './FilterInputItem';
 import {
-  Container,
-  SearchBarContainer,
-  SearchBarWrapper,
-  SearchBar,
+  ActionCell,
   ActionIcon,
+  ColumnHeader,
+  Container,
+  CustomPaginationText,
+  CustomPaginationWrapper,
+  HeaderLabel,
+  IconWrapper,
+  LoaderWrapper,
   MainActionButton,
   MainTable,
-  MainTableHead,
   MainTableBody,
-  ColumnHeader,
-  HeaderLabel,
-  SortIconsWrapper,
-  StyledTableRow,
-  TableValue,
-  PaginationWrapper,
-  ActionCell,
-  CustomPaginationWrapper,
-  CustomPaginationText,
+  MainTableHead,
   PageNumberInput,
   PaginationGoButton,
   PaginationGoButtonText,
-  LoaderWrapper,
-  IconWrapper,
+  PaginationWrapper,
+  SearchBar,
+  SearchBarContainer,
+  SearchBarWrapper,
+  SortIconsWrapper,
+  StyledTableRow,
+  TableValue,
 } from './StyledWrappers';
-import FilterInputItem from './FilterInputItem';
 
-import FilterImage from '../shared/icons/FiltorIcon';
-import DownloadImage from '../shared/icons/DownloadIcon';
-import RefreshImage from '../shared/icons/RefreshIcon';
-import searchSVG from '../../assets/images/search.svg';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import searchSVG from '../../assets/images/search.svg';
+import DownloadImage from '../shared/icons/DownloadIcon';
+import FilterImage from '../shared/icons/FiltorIcon';
+import RefreshImage from '../shared/icons/RefreshIcon';
 
+import { NimbleButton } from '../nimbleButton/NimbleButton';
+import { fontWeight, PaginationDataType } from '../shared';
 import theme from './CustomTheme';
-import {fontWeight, PaginationDataType} from '../shared';
-import {NimbleButton} from '../nimbleButton/NimbleButton';
 
 interface CustomFilterSelection {
   label: string;
@@ -124,7 +124,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   InputFieldBorderColor = '#9A9FA5',
   InputFieldActiveBoxShadow = '0px 0px 0px 2px #DBF2FB, 0px 0px 0px 1px #77CBED inset',
   InputFieldHoverBoxShadow = '0px 0px 0px 2px #dae3f0, 0px 0px 0px 1px #50606B inset',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
 
   headerFontWeight = '700',
   headerFontSize = 13,

@@ -1,11 +1,11 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {Box, InternalStandardProps as StandardProps, Select, MenuItem, IconButton} from '@mui/material';
-import {ThemeProvider} from '@mui/material/styles';
-import {InputLabel, InputError, InputLabelProps, InputBoxProps} from '../shared';
+import { Box, IconButton, MenuItem, Select, InternalStandardProps as StandardProps } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import React, { useEffect, useMemo, useState } from 'react';
+import { InputBoxProps, InputError, InputLabel, InputLabelProps } from '../shared';
 
-import theme from './CustomTheme';
-import DropdownIcon from '../../assets/icons/DropdownIcon';
 import ClearIcon from '../../assets/icons/ClearIcon';
+import DropdownIcon from '../../assets/icons/DropdownIcon';
+import theme from './CustomTheme';
 
 interface NimbleSelectData {
   label: string;
@@ -40,7 +40,7 @@ export const NimbleSelect: React.FC<NimbleSelectProps> = ({
   label,
   labelSize = 14,
   labelWeight = '600',
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   isRequired,
   isError,
   errorMessage,

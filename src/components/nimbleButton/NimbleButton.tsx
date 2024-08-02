@@ -1,14 +1,14 @@
-import React, {ReactElement} from 'react';
+import React, { ReactElement } from 'react';
 
-import {Box, Button, CircularProgress} from '@mui/material';
-import {styled} from '@mui/system';
-import {darken, lighten} from 'polished';
+import { Box, Button, CircularProgress } from '@mui/material';
+import { styled } from '@mui/system';
+import { darken } from 'polished';
 
-import {fontWeight} from '../shared';
+import { fontWeight } from '../shared';
 
 interface ButtonProps {
   buttoncolor: string;
-  fontFamily: string;
+  fontFamily?: string;
   fontWeight: string;
   labelColor?: string;
   height?: string;
@@ -131,7 +131,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   loading,
   onClick,
   icon,
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   fontWeight = '500',
   labelColor,
   height,

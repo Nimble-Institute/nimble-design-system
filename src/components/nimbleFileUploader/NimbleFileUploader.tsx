@@ -1,29 +1,29 @@
-import React, {useRef, useState} from 'react';
-import {Box, Collapse, IconButton} from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import { Box, Collapse, IconButton } from '@mui/material';
+import React, { useRef, useState } from 'react';
 
-import {NimbleButton} from '../index';
+import { NimbleButton } from '../index';
 import {
   Container,
-  TopWrapper,
-  HeaderText,
   ContentContainer,
   FileCard,
   FileCardWrapper,
   FileNameText,
   FileSizeText,
-  ToolbarWrapper,
-  ToolBar,
   FileThumb,
   FileThumbText,
+  HeaderText,
+  ToolBar,
+  ToolbarWrapper,
+  TopWrapper,
 } from './StyleWrappers';
 
-import imageTypeSVG from '../../assets/images/fileUploader/imageType.svg';
+import deleteSVG from '../../assets/images/fileUploader/delete.svg';
 import docxTypeSVG from '../../assets/images/fileUploader/docx.svg';
-import previewSVG from '../../assets/images/fileUploader/preview.svg';
 import downloadSVG from '../../assets/images/fileUploader/download.svg';
 import eidtSVG from '../../assets/images/fileUploader/edit.svg';
-import deleteSVG from '../../assets/images/fileUploader/delete.svg';
+import imageTypeSVG from '../../assets/images/fileUploader/imageType.svg';
+import previewSVG from '../../assets/images/fileUploader/preview.svg';
 
 const ImageTypes = ['jpeg', 'png', 'jpg', 'webp'];
 
@@ -66,8 +66,8 @@ export const NimbleFileUploader: React.FC<NimbleFileUploaderProps> = ({
   onFileSelect,
   headerFontColor = '#A4C2DB',
   uploadedFiles,
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
-  uploadButtonFontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
+  uploadButtonFontFamily,
   onClickPreview,
   onClickDownload,
   onClickDelete,

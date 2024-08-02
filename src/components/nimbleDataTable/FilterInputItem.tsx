@@ -1,19 +1,19 @@
-import React, {useMemo} from 'react';
-import {InputAdornment} from '@mui/material';
-import {uniqBy, capitalize} from 'lodash';
+import { InputAdornment } from '@mui/material';
+import { capitalize, uniqBy } from 'lodash';
+import React, { useMemo } from 'react';
 
-import {FilterInput, FilterWrapper} from './StyledWrappers';
-import {NimbleSelect, NimbleDateRange, NimbleDatePicker} from '../index';
+import { NimbleDatePicker, NimbleDateRange, NimbleSelect } from '../index';
+import { FilterInput, FilterWrapper } from './StyledWrappers';
 
 import searchSVG from '../../assets/images/search.svg';
 
-import {ColumnDataType} from './NimbleDataTable';
+import { ColumnDataType } from './NimbleDataTable';
 
 interface FilterInputItemProps {
   item: ColumnDataType;
   filterChangeDebounceHandler: any;
   sanatizedData: any;
-  fontFamily: string;
+  fontFamily?: string;
 }
 
 const FilterInputItem: React.FC<FilterInputItemProps> = ({

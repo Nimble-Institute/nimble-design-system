@@ -1,5 +1,5 @@
-import {Paper, Box, Typography, IconButton} from '@mui/material';
-import {styled} from '@mui/system';
+import { Box, IconButton, Paper, Typography } from '@mui/material';
+import { styled } from '@mui/system';
 
 const Container = styled(Paper)({
   display: 'flex',
@@ -25,7 +25,7 @@ const HeaderSection = styled(Box)({
   alignItems: 'center',
 });
 
-const HeaderLabel = styled(Typography)(({sortenable, fontFamily}: {sortenable: number; fontFamily: string}) => ({
+const HeaderLabel = styled(Typography)(({sortenable, fontFamily}: {sortenable: number; fontFamily?: string}) => ({
   color: '#000',
   fontSize: '14px',
   fontWeight: '600',
@@ -45,7 +45,7 @@ const SortIconButton = styled(IconButton)({
   height: '5px',
 });
 
-const MainValueLabel = styled(Typography)(({fontFamily, width}: {fontFamily: string; width: string}) => ({
+const MainValueLabel = styled(Typography)(({fontFamily, width}: {fontFamily?: string; width: string}) => ({
   color: '#000',
   maxWidth: width,
   width: undefined,
@@ -58,7 +58,7 @@ const MainValueLabel = styled(Typography)(({fontFamily, width}: {fontFamily: str
   fontFamily,
 }));
 
-const MainValueComponent = styled(Box)(({fontFamily, width}: {fontFamily: string; width: string}) => ({
+const MainValueComponent = styled(Box)(({fontFamily, width}: {fontFamily?: string; width: string}) => ({
   maxWidth: width,
   width: undefined,
   fontFamily,
@@ -66,11 +66,5 @@ const MainValueComponent = styled(Box)(({fontFamily, width}: {fontFamily: string
 
 export {
   Container,
-  DataContainer,
-  HeaderSection,
-  HeaderLabel,
-  SortIconWrapper,
-  SortIconButton,
-  MainValueLabel,
-  MainValueComponent,
+  DataContainer, HeaderLabel, HeaderSection, MainValueComponent, MainValueLabel, SortIconButton, SortIconWrapper
 };

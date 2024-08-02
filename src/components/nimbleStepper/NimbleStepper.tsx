@@ -1,5 +1,5 @@
+import { Box, Step, StepLabel, Stepper, Typography } from '@mui/material';
 import React from 'react';
-import {Box, Stepper, Step, StepLabel, Typography} from '@mui/material';
 
 interface NimbleStepperProps {
   steps: string[];
@@ -15,7 +15,7 @@ interface NimbleStepperProps {
 export const NimbleStepper: React.FC<NimbleStepperProps> = ({
   steps,
   activeStep,
-  fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
+  fontFamily,
   labelSize = '14px',
   primaryColor = '#0057A2',
   completedColor = '#B4D74B',
