@@ -1,12 +1,12 @@
 const resolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
 const typescript = require('@rollup/plugin-typescript');
-const {dts} = require('rollup-plugin-dts');
+const { dts } = require('rollup-plugin-dts');
 const postcss = require('rollup-plugin-postcss');
-const {terser} = require('rollup-plugin-terser');
+const terser = require('@rollup/plugin-terser');
 const peerDepsExternal = require('rollup-plugin-peer-deps-external');
 const image = require('@rollup/plugin-image');
-const {default: preserveDirectives} = require('rollup-plugin-preserve-directives');
+const { default: preserveDirectives } = require('rollup-plugin-preserve-directives');
 
 const packageJson = require('./package.json');
 
@@ -31,7 +31,7 @@ module.exports = [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({tsconfig: './tsconfig.json'}),
+      typescript({ tsconfig: './tsconfig.json' }),
       postcss(),
 
       production && terser(), // Only minify in production
@@ -46,7 +46,7 @@ module.exports = [
   },
   {
     input: 'dist/esm/types/index.d.ts',
-    output: [{file: 'dist/index.d.ts', format: 'esm'}],
+    output: [{ file: 'dist/index.d.ts', format: 'esm' }],
     plugins: [dts()],
 
     external: [/\.css$/], // Inform Rollup that .css files aren't part of type exports
