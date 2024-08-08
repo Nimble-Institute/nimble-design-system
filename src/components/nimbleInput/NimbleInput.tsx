@@ -26,7 +26,7 @@ export interface NimbleInputProps
    */
   placeholder?: string;
   /**
-   * Toggle if the input has a error
+   * Toggle if the input has an error
    */
   isError?: boolean;
   /**
