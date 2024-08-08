@@ -1,44 +1,111 @@
-import React, {useEffect, useMemo, useState, forwardRef, useImperativeHandle} from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  TextField,
   Box,
+  IconButton,
   InputAdornment,
   InternalStandardProps as StandardProps,
-  IconButton,
+  TextField,
   Typography,
 } from '@mui/material';
-import {ThemeProvider} from '@mui/material/styles';
-import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {debounce} from 'lodash';
+import { ThemeProvider } from '@mui/material/styles';
+import { debounce } from 'lodash';
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 
-import {InputLabel, InputError, InputLabelProps, InputBoxProps, InputHelperText} from '../shared';
+import { InputBoxProps, InputError, InputHelperText, InputLabel, InputLabelProps } from '../shared';
 
-import theme from './CustomTheme';
 import searchSVG from '../../assets/images/search.svg';
+import theme from './CustomTheme';
 
-interface NimbleInputProps
+export interface NimbleInputProps
   extends StandardProps<React.HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'>,
     InputLabelProps,
     InputBoxProps {
+  /**
+   * Placeholder that is shown when the input is empty
+   * MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/placeholder)
+   */
   placeholder?: string;
+  /**
+   * Toggle if the input has an error
+   */
   isError?: boolean;
+  /**
+   * Error message that is shown when isError is true
+   */
   errorMessage?: string;
+  /**
+   * The default value that is put into the input
+   */
   defaultValue?: string;
+  /**
+   * Event that is triggered the value of the input changes
+   * @param value The value of the input
+   * @returns {void}
+   */
   onChange?: (value: string | React.ChangeEvent<HTMLInputElement>) => void;
+  /**
+   * Event that is triggered when the input is blurred
+   * @param event The event of the input
+   * @returns {void}
+   */
   onBlur?: (event: any | undefined) => void;
+  /**
+   * Icon that is shown at the start of the input
+   */
   startIcon?: any;
+   /**
+   * Icon that is shown at the end of the input
+   */
   endIcon?: any;
-  type: 'text' | 'password' | 'number' | 'search' | 'email';
+  /**
+   * Type of the input element that is shown
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/type)
+   */
+  type: string;
+  /**
+   * Shows a helper text below the input field
+   */
   helperText?: string;
+  /**
+   * Toggles the disabled state of the input
+   * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLInputElement/disabled)
+   */
   disabled?: boolean;
+  /**
+   * Name of the input field that is sent with the form data
+   */
   name?: string;
+  /**
+   * Toggles if the input is a multiline input
+   */
   multiline?: boolean;
+  /**
+   * Number of rows that are shown in the multiline input
+   */
   rowCount?: number;
+  /**
+   * Maximum length of the input
+   */
   maxLength?: number;
+  /**
+   * Toggles if the character count is shown
+   */
   showCharCount?: boolean;
+  /**
+   * Toggles if the input is used in a formik form
+   */
   isFormik?: boolean;
+  /**
+   * Value of the input field
+   */
   value?: any;
+  /**
+   * Color that the text of the input has
+   */
   textColor?: string;
+  /**
+   * Background color of the input
+   */
   backgroundColor?: string;
 }
 
