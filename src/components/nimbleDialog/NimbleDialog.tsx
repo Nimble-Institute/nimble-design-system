@@ -128,7 +128,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
           <Box sx={{display: 'flex', flexDirection: 'row'}}>
             {!topActionPanel ? (
               <IconButton onClick={handleClose}>
-                <img src={CloseSVG} />
+                <img width={16} height={16} src={CloseSVG} />
               </IconButton>
             ) : (
               renderTopActionPanal()
