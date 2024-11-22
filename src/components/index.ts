@@ -20,3 +20,4 @@ export * from './nimbleRadioButton/NimbleRadioButton';
 export * from './nimbleChip/NimbleChip';
 export * from './nimbleStepper/NimbleStepper';
 export * from './nimblePopoverSelect/NimblePopoverSelect';
+export * from './shared/types';
