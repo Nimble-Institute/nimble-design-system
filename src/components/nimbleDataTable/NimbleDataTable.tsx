@@ -1,6 +1,6 @@
 import React, {useMemo, useState, ReactElement, useRef, useEffect} from 'react';
 import {orderBy, forOwn, debounce} from 'lodash';
-import {Pagination, IconButton, InputAdornment, Collapse, Box, CircularProgress, Radio} from '@mui/material';
+import {Pagination, IconButton, InputAdornment, Collapse, Box, CircularProgress, Radio, Skeleton} from '@mui/material';
 import {ControlPoint, ArrowDropUp, ArrowDropDown} from '@mui/icons-material';
 import {ThemeProvider} from '@mui/material/styles';
 
@@ -381,9 +381,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               {mainActionLabel}
             </MainActionButton>
           )}
-          {secondarySection && (
-            secondarySection
-          )}
+          {secondarySection && secondarySection}
         </SearchBarContainer>
         <MainTable>
           <MainTableHead>
@@ -462,11 +460,11 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               </tr>
             )}
           </MainTableHead>
-          {sanatizedData.length === 0 && loading && (
+          {loading && (
             <tr>
               <td colSpan={columnData.length + 1}>
                 <LoaderWrapper>
-                  <CircularProgress sx={{fontSize: '20px', color: primaryColor}} />
+                  <Skeleton variant="rectangular" width="100%" height="50px" />
                 </LoaderWrapper>
               </td>
             </tr>

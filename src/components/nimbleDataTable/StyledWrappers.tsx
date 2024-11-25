@@ -226,8 +226,7 @@ const LoaderWrapper = styled(Box)({
   flex: 1,
   width: '100%',
   justifyContent: 'center',
-  marginTop: '50px',
-  marginBottom: '10px',
+  marginTop: '8px',
 });
 
 const IconWrapper = styled(Box)({
