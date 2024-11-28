@@ -207,6 +207,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (onChangeSearchText) {
       onChangeSearchText(event.target.value);
+      customPaginationInputref.current.value = '';
     }
   };
 
@@ -225,6 +226,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
 
       setFilterData(newFilterData);
       onChangeColumnFilters(newFilterData);
+      customPaginationInputref.current.value = '';
     }
   };
 
