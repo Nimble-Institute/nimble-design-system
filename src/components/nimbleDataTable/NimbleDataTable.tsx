@@ -248,8 +248,9 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   const handleClickCustomPagination = () => {
     const val = customPaginationInputref?.current.value;
     const {totalPage} = paginationData;
-    if (totalPage >= parseInt(val)) {
-      clickCustomPagination && clickCustomPagination(val || 1);
+    const intValue = val ? parseInt(val) : 1;
+    if (totalPage >= intValue) {
+      clickCustomPagination && clickCustomPagination(intValue);
     } else {
       alert('The value you entered greater than total page count');
     }
