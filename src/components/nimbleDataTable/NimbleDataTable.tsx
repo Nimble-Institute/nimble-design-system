@@ -68,6 +68,7 @@ interface NimbleDataTableProps {
   onChangeSearchText?: (text: string) => void;
   searchPlaceHolder?: string;
   mainActionIcon?: any;
+  mainActionIconElement?: ReactElement<any>;
   mainActionLabel?: string;
   secondarySection?: any;
   primaryColor?: string;
@@ -119,6 +120,7 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
   onChangeSearchText,
   searchPlaceHolder = 'Search Data',
   mainActionIcon,
+  mainActionIconElement,
   mainActionLabel = 'Add Data',
   primaryColor = '#0057A2',
   InputFieldBorderColor = '#9A9FA5',
@@ -378,7 +380,15 @@ export const NimbleDataTable: React.FC<NimbleDataTableProps> = ({
               onClick={handleClickMainAction}
               variant="contained"
               size="small"
-              startIcon={mainActionIcon ? <img src={mainActionIcon} /> : <ControlPoint />}
+              startIcon={
+                mainActionIcon ? (
+                  <img src={mainActionIcon} />
+                ) : mainActionIconElement ? (
+                  mainActionIconElement
+                ) : (
+                  <ControlPoint />
+                )
+              }
               buttoncolor={primaryColor}
               fontFamily={fontFamily}>
               {mainActionLabel}
