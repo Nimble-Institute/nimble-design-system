@@ -15,6 +15,7 @@ interface NimbleDialogProps {
   titleWeight?: fontWeight;
   fontFamily?: string;
   headerFontFamily?: string;
+  headerFontStyle?: string;
   primaryColor?: string;
   cancelButtonColor?: string;
   cancelButtonLabel?: string;
@@ -54,6 +55,7 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
   titleWeight = '600',
   fontFamily = 'Roboto,Helvetica,Arial,sans-serif',
   headerFontFamily,
+  headerFontStyle,
   primaryColor = '#0057A2',
   cancelButtonColor,
   cancelButtonLabel = 'Cancel',
@@ -122,7 +124,11 @@ export const NimbleDialog: React.FC<NimbleDialogProps> = ({
       }}>
       <DialogTitle>
         <TitleWrapper>
-          <Title fontFamily={headerFontFamily || fontFamily} fontSize={titleSize} fontWeight={titleWeight}>
+          <Title
+            fontFamily={headerFontFamily || fontFamily}
+            fontSize={titleSize}
+            fontWeight={titleWeight}
+            fontStyle={headerFontStyle}>
             {title}
           </Title>
           <Box sx={{display: 'flex', flexDirection: 'row'}}>

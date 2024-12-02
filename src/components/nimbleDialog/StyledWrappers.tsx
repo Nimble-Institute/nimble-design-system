@@ -9,6 +9,7 @@ interface TitleProps {
   fontFamily?: string;
   fontSize?: string;
   fontWeight?: string;
+  fontStyle?: string;
 }
 
 const TitleWrapper = styled(Box)({
@@ -17,13 +18,14 @@ const TitleWrapper = styled(Box)({
   justifyContent: 'space-between',
 });
 
-const Title = styled(Typography)(({fontFamily, fontSize, fontWeight}: TitleProps) => ({
+const Title = styled(Typography)(({fontFamily, fontSize, fontWeight, fontStyle = 'normal'}: TitleProps) => ({
   fontSize,
   fontWeight,
   color: '#2B3645',
   lineHeight: 'normal',
   letterSpacing: '0.52px',
   fontFamily: fontFamily,
+  fontStyle,
 }));
 
 const Content = styled(DialogContent)(({height}: {height: string | undefined}) => ({
