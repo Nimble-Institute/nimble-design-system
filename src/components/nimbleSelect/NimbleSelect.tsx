@@ -7,7 +7,7 @@ import theme from './CustomTheme';
 import DropdownIcon from '../../assets/icons/DropdownIcon';
 import ClearIcon from '../../assets/icons/ClearIcon';
 
-interface NimbleSelectData {
+export interface NimbleSelectData {
   label: string;
   value: string;
 }
