@@ -12,6 +12,7 @@ interface ButtonProps {
   fontWeight: string;
   labelColor?: string;
   height?: string;
+  width?: string;
 }
 
 interface IconButtonProps {
@@ -34,12 +35,13 @@ export interface NimbleButtonProps {
   fontWeight?: fontWeight;
   labelColor?: string;
   height?: string;
+  width?: string;
   skipTab?: boolean;
   tabindex?: number;
 }
 
 const ContainedActionButton = styled(Button)(
-  ({buttoncolor, labelColor, fontFamily, fontWeight, height}: ButtonProps) => ({
+  ({buttoncolor, labelColor, fontFamily, fontWeight, height, width}: ButtonProps) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -60,10 +62,11 @@ const ContainedActionButton = styled(Button)(
     fontFamily,
     fontWeight,
     height: height,
+    width: width,
   }),
 );
 
-const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height}: ButtonProps) => ({
+const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height, width}: ButtonProps) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -84,9 +87,10 @@ const OutlinedActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeigh
     color: 'rgba(0, 0, 0, 0.26)',
   },
   height: height,
+  width: width,
 }));
 
-const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height}: ButtonProps) => ({
+const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, height, width}: ButtonProps) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -105,6 +109,7 @@ const TextActionButton = styled(Button)(({buttoncolor, fontFamily, fontWeight, h
     color: 'rgba(0, 0, 0, 0.26)',
   },
   height: height,
+  width: width,
 }));
 
 const IconButton = styled(Button)(({buttoncolor, labelColor}: IconButtonProps) => ({
@@ -137,7 +142,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
   height,
   skipTab = false,
   tabindex = 0,
-  hoverColor,
+  width,
 }) => {
   const handleClick = () => {
     !loading && onClick();
@@ -172,6 +177,7 @@ export const NimbleButton: React.FC<NimbleButtonProps> = ({
           fontFamily={fontFamily}
           fontWeight={fontWeight}
           height={height}
+          width={width}
           tabIndex={skipTab ? -1 : tabindex ?? undefined}>
           {label}
         </ContainedActionButton>

@@ -31,7 +31,6 @@ export const NimbleContainedStartIconButton = {
     size: 'small',
     startIcon: <VerifiedUserIcon />,
     onClick: () => alert(),
-    width: '300px',
   },
 };
 
